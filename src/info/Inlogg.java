@@ -57,11 +57,11 @@ public class Inlogg extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(160, 10, 780, 90);
+        jPanel4.setBounds(160, 0, 780, 60);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,13 +77,13 @@ public class Inlogg extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(160, 130, 780, 500);
+        jPanel2.setBounds(160, 80, 780, 500);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/background.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setAlignmentY(0.0F);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1000, 800);
+        jLabel1.setBounds(-20, -90, 1090, 800);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
