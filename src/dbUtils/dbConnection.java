@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author 
+ * @author
  */
 public class dbConnection {
 
@@ -19,10 +19,8 @@ public class dbConnection {
     private String url = "jdbc:sqlite:";
 
     public dbConnection() throws SQLException {
-
         loadDriver();
         initConnection();
-
     }
 
     private void loadDriver() throws SQLException {
@@ -244,5 +242,4 @@ public class dbConnection {
             throw new SQLException("Not valid UPDATE query - check your query");
         }
     }
-
 }
