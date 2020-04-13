@@ -64,7 +64,7 @@ public@author fabia
 
         pnlHeader.setPreferredSize(new java.awt.Dimension(1024, 150));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\fabia\\Desktop\\Backgroundheader.jpg")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -73,8 +73,8 @@ public@author fabia
         pnlHeaderLayout.setHorizontalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +179,7 @@ public@author fabia
         pnlFooter.setToolTipText("");
         pnlFooter.setPreferredSize(new java.awt.Dimension(1024, 200));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\fabia\\Desktop\\Backgroundfooter.jpg")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
