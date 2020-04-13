@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package info;
+package ScrumXP;
 
 /**
- *
- *
  * public@author fabia
  */
 class LogInGUI extends javax.swing.JFrame {
@@ -60,7 +58,7 @@ class LogInGUI extends javax.swing.JFrame {
 
         pnlHeader.setPreferredSize(new java.awt.Dimension(1024, 150));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ScrumXP/images/Backgroundheader.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -131,7 +129,7 @@ class LogInGUI extends javax.swing.JFrame {
                                 .addComponent(jLabel2))
                             .addGap(35, 35, 35)
                             .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                .addComponent(jPasswordField1)
                                 .addComponent(jTextField1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -175,7 +173,7 @@ class LogInGUI extends javax.swing.JFrame {
         pnlFooter.setToolTipText("");
         pnlFooter.setPreferredSize(new java.awt.Dimension(1024, 200));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ScrumXP/images/Backgroundfooter.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 

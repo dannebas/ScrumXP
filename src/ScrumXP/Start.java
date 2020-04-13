@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package info;
+package ScrumXP;
 
 import dbUtils.dbConnection;
 import java.sql.SQLException;
