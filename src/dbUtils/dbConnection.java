@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Daniel
+ * @author 
  */
 public class dbConnection {
 
@@ -19,15 +19,11 @@ public class dbConnection {
     private String url = "jdbc:sqlite:";
 
     public dbConnection() throws SQLException {
-        
-            loadDriver();
-            initConnection();
-            
-        }
-    
-    
 
-    
+        loadDriver();
+        initConnection();
+
+    }
 
     private void loadDriver() throws SQLException {
         try {
@@ -55,10 +51,12 @@ public class dbConnection {
         }
 
     }
-    
+
     private void closeConnection() throws SQLException {
         try {
-            if(conn!=null) conn.close();
+            if (conn != null) {
+                conn.close();
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Could not close the connection to the database.");
         }
@@ -66,17 +64,15 @@ public class dbConnection {
 
     private void checkConnection() throws SQLException {
         try {
-            if(conn == null || conn.isClosed()) {
-                    initConnection();
+            if (conn == null || conn.isClosed()) {
+                initConnection();
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Could not check the connection to the database.");
         }
     }
-    
-    
-    
-     public String fetchSingle(String query) throws SQLException {
+
+    public String fetchSingle(String query) throws SQLException {
         String result = null;
         try {
             checkConnection();
@@ -95,16 +91,17 @@ public class dbConnection {
         }
         return result;
     }
-     
-     
-      public ArrayList<String> fetchColumn(String query) throws SQLException {
+
+    public ArrayList<String> fetchColumn(String query) throws SQLException {
         ArrayList<String> result = null;
         try {
             checkConnection();
             Statement sm = conn.createStatement();
             ResultSet rs = sm.executeQuery(query);
             while (rs.next()) {
-                if(result==null)result = new ArrayList<String>();
+                if (result == null) {
+                    result = new ArrayList<String>();
+                }
                 result.add(rs.getString(1));
             }
         } catch (SQLException e) {
@@ -114,8 +111,7 @@ public class dbConnection {
         }
         return result;
     }
-    
-      
+
     public HashMap<String, String> fetchRow(String query) throws SQLException {
         HashMap<String, String> result = null;
         try {
@@ -126,7 +122,9 @@ public class dbConnection {
             int countColumns = rsmd.getColumnCount();
             int i = 1;
             if (rs.next()) {
-                if(result==null)result = new HashMap<String, String>();
+                if (result == null) {
+                    result = new HashMap<String, String>();
+                }
                 while (i <= countColumns) {
                     result.put(rsmd.getColumnName(i), rs.getString(i));
                     i++;
@@ -139,8 +137,8 @@ public class dbConnection {
         }
         return result;
     }
-    
-     public ArrayList<HashMap<String, String>> fetchRows(String query) throws SQLException {
+
+    public ArrayList<HashMap<String, String>> fetchRows(String query) throws SQLException {
         ArrayList<HashMap<String, String>> result = null;
         try {
             checkConnection();
@@ -167,48 +165,84 @@ public class dbConnection {
         }
         return result;
     }
-    
-      
-    /*public void fetchUsers() {
-        String sql = "SELECT * FROM USER";
+
+    public String getAutoIncrement(String table, String attribute) throws SQLException {
+        String result = null;
+        String query = "SELECT " + attribute + " FROM " + table + " ORDER BY " + attribute + " DESC";
         try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                System.out.println(rs.getString("USER_ID") + "\t"
-                        + rs.getString("PASSWORD") + "\t");
-
+            checkConnection();
+            Statement sm = conn.createStatement();
+            ResultSet rs = sm.executeQuery(query);
+            if (rs.next()) {
+                String inc = rs.getString(1);
+                if (inc.matches("\\D+\\d+") || inc.matches("\\d+\\D+")) {
+                    String[] ar = inc.split("");
+                    String letters = "";
+                    String numbers = "";
+                    for (String anAr : ar) {
+                        if (anAr.matches("\\D")) {
+                            letters += anAr;
+                        } else if (anAr.matches("\\d")) {
+                            numbers += anAr;
+                        }
+                    }
+                    if (numbers.matches("\\d+")) {
+                        int lastInt = Integer.parseInt(numbers);
+                        lastInt++;
+                        if (inc.matches("\\D+\\d+")) {
+                            result = letters + lastInt;
+                        } else {
+                            result = lastInt + letters;
+                        }
+                    }
+                } else if (inc.matches("\\d+")) {
+                    int lastInt = Integer.parseInt(inc);
+                    lastInt++;
+                    result = "" + lastInt;
+                }
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(dbConnection.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
         }
-    }*/
-     
-     
-      private void mod(String query) throws SQLException {
+        return result;
+    }
+
+    private void mod(String query) throws SQLException {
         try {
             checkConnection();
             Statement sm = conn.createStatement();
             sm.executeUpdate(query);
         } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
         } finally {
             closeConnection();
         }
     }
-   
-     
-     
-     
-      public void insert(String query) throws SQLException {
+
+    public void insert(String query) throws SQLException {
         if (query.toLowerCase().startsWith("insert into")) {
             mod(query);
-        } else throw new SQLException("Not valid INSERT query - check your query");
+        } else {
+            throw new SQLException("Not valid INSERT query - check your query");
+        }
     }
-     
-     
-     
+
+    public void delete(String query) throws SQLException {
+        if (query.toLowerCase().startsWith("delete from")) {
+            mod(query);
+        } else {
+            throw new SQLException("Not valid DELETE query - check your query");
+        }
+    }
+
+    public void update(String query) throws SQLException {
+        if (query.toLowerCase().startsWith("update") && query.toLowerCase().contains("set")) {
+            mod(query);
+        } else {
+            throw new SQLException("Not valid UPDATE query - check your query");
+        }
+    }
+
 }
