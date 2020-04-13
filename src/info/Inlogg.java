@@ -83,7 +83,7 @@ public class Inlogg extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
         jLabel1.setAlignmentY(0.0F);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(-20, -90, 1090, 800);
+        jLabel1.setBounds(0, -10, 1070, 570);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -100,7 +100,7 @@ public class Inlogg extends javax.swing.JFrame {
         jPanel3.setBounds(840, 0, 100, 100);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1085, 633);
+        jPanel1.setBounds(0, 10, 1085, 633);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

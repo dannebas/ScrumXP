@@ -5,17 +5,28 @@
  */
 package info;
 
+import java.sql.Connection;
+import dbUtils.dbConnection;
+import java.sql.SQLException;
+
 /**
  *
  * @author Daniel
  */
 public class Start {
     
+    private static Connection conn;
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+            
+        try {
+            conn = dbConnection.getConnection();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         
     }
     
