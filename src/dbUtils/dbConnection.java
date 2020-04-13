@@ -5,13 +5,8 @@
  */
 package dbUtils;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.*;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,7 +95,80 @@ public class dbConnection {
         }
         return result;
     }
+     
+     
+      public ArrayList<String> fetchColumn(String query) throws SQLException {
+        ArrayList<String> result = null;
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            ResultSet rs = sm.executeQuery(query);
+            while (rs.next()) {
+                if(result==null)result = new ArrayList<String>();
+                result.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
     
+      
+    public HashMap<String, String> fetchRow(String query) throws SQLException {
+        HashMap<String, String> result = null;
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            ResultSet rs = sm.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int countColumns = rsmd.getColumnCount();
+            int i = 1;
+            if (rs.next()) {
+                if(result==null)result = new HashMap<String, String>();
+                while (i <= countColumns) {
+                    result.put(rsmd.getColumnName(i), rs.getString(i));
+                    i++;
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    
+     public ArrayList<HashMap<String, String>> fetchRows(String query) throws SQLException {
+        ArrayList<HashMap<String, String>> result = null;
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            ResultSet rs = sm.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int countColumns = rsmd.getColumnCount();
+            while (rs.next()) {
+                if (result == null) {
+                    result = new ArrayList<HashMap<String, String>>();
+                }
+                int i = 1;
+                HashMap<String, String> tempHM = new HashMap<String, String>();
+                while (i <= countColumns) {
+                    tempHM.put(rsmd.getColumnName(i), rs.getString(i));
+                    i++;
+                }
+                result.add(tempHM);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    
+      
     /*public void fetchUsers() {
         String sql = "SELECT * FROM USER";
         try {
