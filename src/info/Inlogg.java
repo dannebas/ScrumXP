@@ -34,6 +34,7 @@ public class Inlogg extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         setMaximizedBounds(new java.awt.Rectangle(1000, 800, 800, 800));
         setMaximumSize(new java.awt.Dimension(1000, 800));
         setPreferredSize(new java.awt.Dimension(1000, 800));
@@ -45,7 +46,6 @@ public class Inlogg extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 800));
         jPanel1.setName(""); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 800));
-        jPanel1.setLayout(null);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -61,7 +61,6 @@ public class Inlogg extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(160, 0, 780, 60);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,13 +76,11 @@ public class Inlogg extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(160, 80, 780, 500);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/background.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setAlignmentY(0.0F);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, -10, 1070, 570);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -97,7 +94,6 @@ public class Inlogg extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(840, 0, 100, 100);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 10, 1085, 633);

@@ -15,18 +15,18 @@ import java.sql.SQLException;
  */
 public class Start {
     
-    private static Connection conn;
+    private static dbConnection conn;
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException{
             
-        try {
-            conn = dbConnection.getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+       
+        conn = new dbConnection();
+       // conn.fetchUsers();
+        
+        System.out.println(conn.fetchSingle("SELECT USER_ID, PASSWORD from USER"));
         
     }
     
