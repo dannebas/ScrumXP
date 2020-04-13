@@ -1,4 +1,4 @@
-package bildhantering;
+package default;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -8,15 +8,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Viggo
+ * @author ScrumXP
  */
 
-public class BildHanterare 
+public class PictureHandler 
 {
     private int width;
     private int height;
     
-    public BildHanterare(int width, int height)
+    public PictureHandler(int width, int height)
     {
         this.width = width;
         this.height = height;
