@@ -8,6 +8,8 @@ package dbUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,19 +19,43 @@ import java.util.logging.Logger;
  */
 public class dbConnection {
 
-    private static final String url = "jdbc:sqlite:/db/db.sqlite";
+    private Connection conn;
+    private static String url = "jdbc:sqlite:";
 
-    public static Connection getConnection() throws SQLException {
-
-        Connection conn = null;
+    public dbConnection() {
         try {
+
+            String currentFolder = System.getProperty("user.dir");
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("mac")) {
+                url = url + currentFolder + ("/db/db.sqlite"); //path for macos users
+            } else {
+                url = url + currentFolder + ("\\db\\db.sqlite"); //path for other users
+                System.out.println(url);
+            }
             conn = DriverManager.getConnection(url);
             System.out.println("Connection established!");
-            return conn;
 
         } catch (SQLException ex) {
-          System.out.println(ex.getMessage());
+            Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+    }
+
+    public void fetchUsers() {
+        String sql = "SELECT * FROM USER";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(rs.getString("USER_ID") + "\t"
+                        + rs.getString("PASSWORD") + "\t");
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(dbConnection.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
