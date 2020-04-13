@@ -28,6 +28,9 @@ public class Start {
         
         System.out.println(conn.fetchSingle("SELECT USER_ID, PASSWORD from USER"));
         
+        new LogInGUI().setVisible(true);
+        
+        
     }
     
 }
