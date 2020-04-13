@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,11 +21,29 @@ import java.util.logging.Logger;
 public class dbConnection {
 
     private Connection conn;
-    private static String url = "jdbc:sqlite:";
+    private String url = "jdbc:sqlite:";
 
-    public dbConnection() {
+    public dbConnection() throws SQLException {
+        
+            loadDriver();
+            initConnection();
+            
+        }
+    
+    
+
+    
+
+    private void loadDriver() throws SQLException {
         try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Database driver not found.");
+        }
+    }
 
+    private void initConnection() {
+        try {
             String currentFolder = System.getProperty("user.dir");
             String os = System.getProperty("os.name").toLowerCase();
             if (os.contains("mac")) {
@@ -37,11 +56,52 @@ public class dbConnection {
             System.out.println("Connection established!");
 
         } catch (SQLException ex) {
-            Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Could not connect to database.");
+        }
+
+    }
+    
+    private void closeConnection() throws SQLException {
+        try {
+            if(conn!=null) conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Could not close the connection to the database.");
         }
     }
 
-    public void fetchUsers() {
+    private void checkConnection() throws SQLException {
+        try {
+            if(conn == null || conn.isClosed()) {
+                    initConnection();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Could not check the connection to the database.");
+        }
+    }
+    
+    
+    
+     public String fetchSingle(String query) throws SQLException {
+        String result = null;
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            boolean hasRS = sm.execute(query);
+            if (hasRS) {
+                ResultSet rs = sm.getResultSet();
+                if (rs.next()) {
+                    result = rs.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    
+    /*public void fetchUsers() {
         String sql = "SELECT * FROM USER";
         try {
             Statement stmt = conn.createStatement();
@@ -57,5 +117,30 @@ public class dbConnection {
             Logger.getLogger(dbConnection.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+    }*/
+     
+     
+      private void mod(String query) throws SQLException {
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            sm.executeUpdate(query);
+        } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+        } finally {
+            closeConnection();
+        }
     }
+   
+     
+     
+     
+      public void insert(String query) throws SQLException {
+        if (query.toLowerCase().startsWith("insert into")) {
+            mod(query);
+        } else throw new SQLException("Not valid INSERT query - check your query");
+    }
+     
+     
+     
 }
