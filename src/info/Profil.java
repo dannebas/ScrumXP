@@ -5,6 +5,7 @@
  */
 package info;
 
+import dbUtils.dbConnection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -16,10 +17,12 @@ import javax.swing.JOptionPane;
 public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
+    private dbConnection conn;
     
-    public Profil() 
+    public Profil(dbConnection conn) 
     {
         initComponents();
+        this.conn = conn;
     }
 
 
@@ -619,7 +622,7 @@ public class Profil extends javax.swing.JFrame {
         switch(chosenIndexText)
         {
             case "New post": JOptionPane.showMessageDialog(null, "New post");
-            new NewPost().setVisible(true);
+            //new NewPost().setVisible(true);
             break;
             case "See post": JOptionPane.showMessageDialog(null, "See post");
             new SeeYourPost().setVisible(true);
@@ -654,9 +657,7 @@ public class Profil extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed
-    public static void main(String[] args) {
-        new Profil().setVisible(true);
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
