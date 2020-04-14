@@ -213,10 +213,11 @@
             <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
+                  <StringArray count="4">
                     <StringItem index="0" value="New post"/>
                     <StringItem index="1" value="See post"/>
                     <StringItem index="2" value="Edit post"/>
+                    <StringItem index="3" value="See your posts"/>
                   </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>

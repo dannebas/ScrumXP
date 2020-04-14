@@ -88,7 +88,7 @@ public class Profil extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jList1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
         jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -622,14 +622,17 @@ public class Profil extends javax.swing.JFrame {
         switch(chosenIndexText)
         {
             case "New post": JOptionPane.showMessageDialog(null, "New post");
-            //new NewPost().setVisible(true);
+                new NewPost(conn).setVisible(true);
             break;
             case "See post": JOptionPane.showMessageDialog(null, "See post");
-            new SeeYourPost().setVisible(true);
+                new SeePost().setVisible(true);
             //Metod
             break;
             case "Edit post": JOptionPane.showMessageDialog(null, "Edit post");
             //Metod
+            break;
+            case "See your posts": JOptionPane.showMessageDialog(null, "See your posts");
+                new SeeYourPost().setVisible(true);
             break;
             default:
 
@@ -645,10 +648,10 @@ public class Profil extends javax.swing.JFrame {
         switch(chosenIndexText)
         {
             case "New meeting": JOptionPane.showMessageDialog(null, "New meeting");
-            //Metod
+                new Booking().setVisible(true);
             break;
             case "See meeting": JOptionPane.showMessageDialog(null, "See meeting");
-            //Metod
+                new SeeBooking().setVisible(true);
             break;
             case "Edit meeting": JOptionPane.showMessageDialog(null, "Edit meeting");
             //Metod
