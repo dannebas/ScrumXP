@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author
+ * @author Niklas Magnusson, adapted by Daniel Lindau
  */
 public class dbConnection {
 
