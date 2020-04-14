@@ -335,7 +335,7 @@ class LogInGUI extends javax.swing.JFrame {
                     if (storedPassword.equals(convertedPassword)) {
                         JOptionPane.showMessageDialog(null, "Welcome " + name + ". You have successfully logged in.");
                                 User userInstance = new User(txtUserName.getText());
-                                new Profil().setVisible(true);   
+                                new Profil(conn).setVisible(true);   
                                 this.dispose();
                     
                         
