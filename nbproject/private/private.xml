@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/Main.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/SeeYourPost.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/SeePost.java</file>
             <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/Start.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/SeeBooking.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/dbUtils/dbConnection.java</file>
             <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/images/background.jpg</file>
-            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/images/headlogoicon.png</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/LogInGUI.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/Profil.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/Forum.java</file>
+            <file>file:/C:/Users/Lukas/Documents/NetBeansProjects/ScrumXP/src/info/NewPost.java</file>
         </group>
     </open-files>
 </project-private>
