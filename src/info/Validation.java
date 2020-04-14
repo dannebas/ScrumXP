@@ -61,37 +61,37 @@ public class Validation {
     }*/
 
     public static boolean checkLogOut() {
-        boolean svar = false;
-        String[] val = {"Yes", "No"};       //används för att kunna skriva egna alternativ på svenska.
+        boolean answer = false;
+        String[] opt = {"Yes", "No"};       //används för att kunna skriva egna alternativ på svenska.
         int n = JOptionPane.showOptionDialog(null,
-                "Är du säker på att du vill logga ut?",
-                "Logga ut",
+                "Are you sure you want to log out?",
+                "Log out",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null, val, val[0]);
+                null, opt, opt[0]);
         if (n == JOptionPane.YES_OPTION) {
-            svar = true;
+            answer = true;
         } else if (n == JOptionPane.NO_OPTION) {
-            svar = false;
+            answer = false;
         }
-        return svar;
+        return answer;
     }
 
-    public static boolean kollaRadering() {
-        boolean svar = false;
-        String[] val = {"Ja", "Nej"};
+    public static boolean checkDelete() {
+        boolean answer = false;
+        String[] opt = {"Ja", "Nej"};
         int n = JOptionPane.showOptionDialog(null,
-                "Är du säker på att du vill radera?",
-                "Radera",
+                "Are you sure you want to delete?",
+                "Delete",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null, val, val[0]);
+                null, opt, opt[0]);
         if (n == JOptionPane.YES_OPTION) {
-            svar = true;
+            answer = true;
         } else if (n == JOptionPane.NO_OPTION) {
-            svar = false;
+            answer = false;
         }
-        return svar;
+        return answer;
     }
 
 }
