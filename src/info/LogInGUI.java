@@ -332,14 +332,11 @@ class LogInGUI extends javax.swing.JFrame {
                     String storedPassword = conn.fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
                     String name = conn.fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
 
-                    if (storedPassword.equals(convertedPassword)) {
-                        JOptionPane.showMessageDialog(null, "Welcome " + name + ". You have successfully logged in.");
-                                User userInstance = new User(txtUserName.getText());
-                                new Profil(conn).setVisible(true);   
-                                this.dispose();
-                    
-                        
-
+                    if (storedPassword.equals(convertedPassword)) {                   
+                        new User(txtUserName.getText());
+                        JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
+                            new Profil(conn).setVisible(true);   
+                            this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
                         pwdUserPassword.requestFocusInWindow();
