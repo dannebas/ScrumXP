@@ -5,8 +5,15 @@
  */
 package info;
 
+import dbUtils.dbConnection;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,10 +21,15 @@ import java.awt.Toolkit;
  */
 public class Forum extends javax.swing.JFrame {
 
+    private final dbConnection conn;
+
     /**
      * Creates new form Forum
      */
-    public Forum() {
+    public Forum(dbConnection conn) {
+
+        this.conn = conn;
+
         initComponents();
         //setExtendedState(MAXIMIZED_BOTH);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -25,6 +37,19 @@ public class Forum extends javax.swing.JFrame {
         //int width = screenSize.width;
         //setSize(width, height);
         setLocationRelativeTo(null);
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            jTable1.setModel(model);
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * from POSTS");
+
+            for (HashMap<String, String> aPost : posts) {
+
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("DESCRIPTION"), aPost.get("DATE"), aPost.get("AUTHOR")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -42,6 +67,8 @@ public class Forum extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -79,15 +106,47 @@ public class Forum extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title", "Author", "Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 190, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 664, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 259, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel4);
@@ -197,7 +256,7 @@ public class Forum extends javax.swing.JFrame {
                 .addComponent(btnSeePostResearch)
                 .addGap(51, 51, 51)
                 .addComponent(btnSeePostGeneral)
-                .addContainerGap(667, Short.MAX_VALUE))
+                .addContainerGap(673, Short.MAX_VALUE))
         );
         pnlNavBarSeePostLayout.setVerticalGroup(
             pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,40 +307,6 @@ public class Forum extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Forum().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;
@@ -297,7 +322,9 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlNavBarSeePost;
     // End of variables declaration//GEN-END:variables
