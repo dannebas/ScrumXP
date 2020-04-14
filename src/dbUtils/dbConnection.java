@@ -16,9 +16,10 @@ import javax.swing.JOptionPane;
 public class dbConnection {
 
     private Connection conn;
-    private String url = "jdbc:sqlite:";
+    private String url;
 
-    public dbConnection() throws SQLException {
+    public dbConnection(String path) throws SQLException {
+        url = path;
         loadDriver();
         initConnection();
     }
@@ -33,15 +34,7 @@ public class dbConnection {
 
     private void initConnection() {
         try {
-            String currentFolder = System.getProperty("user.dir");
-            String os = System.getProperty("os.name").toLowerCase();
-            if (os.contains("mac")) {
-                url = url + currentFolder + ("/db/db.sqlite"); //path for macos users
-            } else {
-                url = url + currentFolder + ("\\db\\db.sqlite"); //path for other users
-                System.out.println(url);
-            }
-            conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection("jdbc:sqlite:"+url);
             System.out.println("Connection established!");
 
         } catch (SQLException ex) {

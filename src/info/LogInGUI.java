@@ -5,11 +5,14 @@
  */
 package info;
 
+import dbUtils.dbConnection;
 import info.Profil;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  * public@author fabia
@@ -18,22 +21,21 @@ class LogInGUI extends javax.swing.JFrame {
 
     private String userPwd;
     private String userName;
+    private final dbConnection conn;
 
     /**
      * Creates new form LogInGUI
      */
-    public LogInGUI() {
+    public LogInGUI(dbConnection conn) {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        this.conn = conn;
         userName = "";
         userPwd = "";
 
     }
 
-    /*if(username.equals("wrongUsername") && pwd.equals("wrongPassword"))
-    {
-        ""
-    }*/
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -317,19 +319,50 @@ class LogInGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
+    
+    private void logIn(){
+     String userID = txtUserName.getText();
+        char[] password = pwdUserPassword.getPassword();
+        StringBuilder sb = new StringBuilder("");
+        String convertedPassword = sb.append(password).toString(); 
+        if (Validation.checkTextFieldEmpty(txtUserName) && Validation.checkPassword(pwdUserPassword)) {
+            try {
+                ArrayList<String> allusers = conn.fetchColumn("select USER_ID from USER");
+                if (allusers.contains(userID)) {
+                    String storedPassword = conn.fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
+                    String name = conn.fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
 
-        userName = txtUserName.getText();
+                    if (storedPassword.equals(convertedPassword)) {
+                        JOptionPane.showMessageDialog(null, "Welcome " + name + ". You have successfully logged in.");
+                        
+                                new Profil().setVisible(true);   
+                                this.dispose();
+                    
+                        
 
-        userPwd = pwdUserPassword.getText();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
+                        pwdUserPassword.requestFocusInWindow();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Wrong username, please try again.");
+                    txtUserName.requestFocusInWindow();
+                }
 
-        if (userName.equals("wrongusername") || userPwd.equals("wrongpwd")) {
-            lblWelcomeTxt.setText("Wrong username or password, please try again");
-            lblWelcomeTxt.setForeground(Color.red);
-        } else if (userName.equals("rightusername") && userPwd.equals("rightpwd")) {
-            JOptionPane.showMessageDialog(null, "You have successfully logged in");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "An error occurred");
+            }
 
         }
+
+    }
+    
+    
+    
+    
+    private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
+
+        logIn();
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void btnBackToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToLogInActionPerformed
