@@ -10,15 +10,21 @@ package info;
  * @author Lukas
  */
 public class User {
-    private String userID;
+    private static String userID;
+    private static String nameInloggad;
     
-    public User(String userID)
+    public User(String userID, String nameInloggad)
     {
         this.userID = userID;
+        this.nameInloggad = nameInloggad;
     }
     
     public String getUser()
     {
         return userID;
+    }
+    public String getName()
+    {
+        return nameInloggad;
     }
 }
