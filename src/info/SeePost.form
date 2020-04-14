@@ -95,9 +95,9 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="spnSeePost" min="-2" pref="382" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblUploadedPostSeePost" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblUploadDateSeePost" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblUploadDateSeePost" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
