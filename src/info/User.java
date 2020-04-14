@@ -19,11 +19,11 @@ public class User {
         this.nameInloggad = nameInloggad;
     }
     
-    public String getUser()
+    public static String getUser()
     {
         return userID;
     }
-    public String getName()
+    public static String getName()
     {
         return nameInloggad;
     }

@@ -6,6 +6,10 @@
 package info;
 
 import dbUtils.dbConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author fabia
@@ -202,15 +206,28 @@ public class NewPost extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            dbConnection conn2 = new dbConnection("C:\\Users\\simpa\\Documents\\NetBeansProjects\\ScrumXP\\db\\db.sqlite");
+            
+            dbConnection conn2 = new dbConnection("C:/Users/Lukas/Documents/NetBeansProjects/Scrumxp/db/db.sqlite");
             String getAutoID = conn2.getAutoIncrement("POSTS", "POST_ID");
+            if(getAutoID == null)
+            {
+                getAutoID = "1";
+            }
             System.out.println(getAutoID);
+            
+            //DateFormat df = new SimpleDateFormat("yyyy-mm-dd"); 
+            Calendar cal = Calendar.getInstance();
+            Date date = cal.getTime();
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = format1.format(date);            
+            
+            System.out.println(date1);
 
             String getTitle = jTextField1.getText();
             String txtArea = jEditorPane1.getText();
 
-//            System.out.println("INSERT INTO POSTS VALUES (" + getAutoID + "," + getTitle + "," + txtArea + "," + localDate + ")");
-//            conn2.insert("INSERT INTO POSTS VALUES (" + getAutoID + ",'" + getTitle + "','" + txtArea + "'," + localDate + ")");
+            System.out.println("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
+            conn2.insert("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
         } catch (Exception e) {
             System.err.println(e);
         }
