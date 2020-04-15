@@ -6,7 +6,6 @@
 package info;
 
 import dbUtils.dbConnection;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -18,13 +17,11 @@ public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
     private dbConnection conn;
-    
-    public Profil(dbConnection conn) 
-    {
+
+    public Profil(dbConnection conn) {
         initComponents();
         this.conn = conn;
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -602,38 +599,38 @@ public class Profil extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
-    public void updateProfile(ImageIcon myIcon)
-    {
+    public void updateProfile(ImageIcon myIcon) {
         lblProfilBild.setIcon(myIcon);
     }
-    
-    public void updateProfileTexts(String phone, String mail)
-    {
+
+    public void updateProfileTexts(String phone, String mail) {
         lblTele.setText(phone);
         lblMail.setText(mail);
     }
-    
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         int index = jComboBox1.getSelectedIndex();
         String chosenIndexText = jComboBox1.getItemAt(index);
-        
+
         //New post, See post, Edit post
-        
-        switch(chosenIndexText)
-        {
-            case "New post": JOptionPane.showMessageDialog(null, "New post");
-                new NewPost(conn).setVisible(true);
-            break;
-            case "See post": JOptionPane.showMessageDialog(null, "See post");
+        switch (chosenIndexText) {
+            case "New post":
+                JOptionPane.showMessageDialog(null, "New post");
+                new NewPost().setVisible(true);
+                break;
+            case "See post":
+                JOptionPane.showMessageDialog(null, "See post");
                 new SeePost().setVisible(true);
-            //Metod
-            break;
-            case "Edit post": JOptionPane.showMessageDialog(null, "Edit post");
-            //Metod
-            break;
-            case "See your posts": JOptionPane.showMessageDialog(null, "See your posts");
+                //Metod
+                break;
+            case "Edit post":
+                JOptionPane.showMessageDialog(null, "Edit post");
+                //Metod
+                break;
+            case "See your posts":
+                JOptionPane.showMessageDialog(null, "See your posts");
                 new SeeYourPost().setVisible(true);
-            break;
+                break;
             default:
 
         }
@@ -642,20 +639,21 @@ public class Profil extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         int index = jComboBox2.getSelectedIndex();
         String chosenIndexText = jComboBox2.getItemAt(index);
-        
+
         //New meeting, See meeting, Edit meeting
-        
-        switch(chosenIndexText)
-        {
-            case "New meeting": JOptionPane.showMessageDialog(null, "New meeting");
+        switch (chosenIndexText) {
+            case "New meeting":
+                JOptionPane.showMessageDialog(null, "New meeting");
                 new Booking().setVisible(true);
-            break;
-            case "See meeting": JOptionPane.showMessageDialog(null, "See meeting");
+                break;
+            case "See meeting":
+                JOptionPane.showMessageDialog(null, "See meeting");
                 new SeeBooking().setVisible(true);
-            break;
-            case "Edit meeting": JOptionPane.showMessageDialog(null, "Edit meeting");
-            //Metod
-            break;
+                break;
+            case "Edit meeting":
+                JOptionPane.showMessageDialog(null, "Edit meeting");
+                //Metod
+                break;
             default:
 
         }

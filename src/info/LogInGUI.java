@@ -6,14 +6,10 @@
 package info;
 
 import dbUtils.db;
-import dbUtils.dbConnection;
-import info.Profil;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * public@author fabia
@@ -34,7 +30,6 @@ class LogInGUI extends javax.swing.JFrame {
 
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -318,24 +313,23 @@ class LogInGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void logIn(){
-     String userID = txtUserName.getText();
+    private void logIn() {
+        String userID = txtUserName.getText();
         char[] password = pwdUserPassword.getPassword();
         StringBuilder sb = new StringBuilder("");
-        String convertedPassword = sb.append(password).toString(); 
+        String convertedPassword = sb.append(password).toString();
         if (Validation.checkTextFieldEmpty(txtUserName) && Validation.checkPassword(pwdUserPassword)) {
             try {
                 ArrayList<String> allusers = db.getDB().fetchColumn("select USER_ID from USER");
                 if (allusers.contains(userID)) {
-                    String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
-                    String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
-                    ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID +"'");
-                    
-                    if (storedPassword.equals(convertedPassword)) { 
+                    String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
+                    String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
+                    ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
+
+                    if (storedPassword.equals(convertedPassword)) {
                         new User(userID, name, userGroup);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
-                        new Profil(db.getDB()).setVisible(true);   
+                        new Profil(db.getDB()).setVisible(true);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
@@ -353,10 +347,7 @@ class LogInGUI extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    
-    
+
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
 
         logIn();

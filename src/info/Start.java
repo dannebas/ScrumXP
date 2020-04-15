@@ -6,9 +6,7 @@
 package info;
 
 import dbUtils.db;
-import dbUtils.dbConnection;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *

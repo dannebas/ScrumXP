@@ -5,8 +5,7 @@
  */
 package info;
 
-import dbUtils.dbConnection;
-import java.text.DateFormat;
+import dbUtils.db;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,14 +15,12 @@ import java.util.Date;
  */
 public class NewPost extends javax.swing.JFrame {
 
-    private static dbConnection conn;
-
+//    private static dbConnection conn;
     /**
      * Creates new form NewPost
      */
-    public NewPost(dbConnection conn) {
+    public NewPost() {
         initComponents();
-        this.conn = conn;
     }
 
     public static void main(String args[]) {
@@ -53,7 +50,7 @@ public class NewPost extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewPost(conn).setVisible(true);
+                new NewPost().setVisible(true);
             }
         });
     }
@@ -234,28 +231,24 @@ public class NewPost extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            
-            dbConnection conn2 = new dbConnection("C:/Users/Lukas/Documents/NetBeansProjects/Scrumxp/db/db.sqlite");
-            String getAutoID = conn2.getAutoIncrement("POSTS", "POST_ID");
-            if(getAutoID == null)
-            {
+            String getAutoID = db.getDB().getAutoIncrement("POSTS", "POST_ID");
+            if (getAutoID == null) {
                 getAutoID = "1";
             }
             System.out.println(getAutoID);
-            
-            //DateFormat df = new SimpleDateFormat("yyyy-mm-dd"); 
+
             Calendar cal = Calendar.getInstance();
             Date date = cal.getTime();
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String date1 = format1.format(date);            
-            
+            String date1 = format1.format(date);
+
             System.out.println(date1);
 
             String getTitle = jTextField1.getText();
             String txtArea = jEditorPane1.getText();
 
             System.out.println("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
-            conn2.insert("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
+            db.getDB().insert("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
         } catch (Exception e) {
             System.err.println(e);
         }
