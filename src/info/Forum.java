@@ -5,6 +5,7 @@
  */
 package info;
 
+
 import dbUtils.dbConnection;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -21,37 +22,136 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Forum extends javax.swing.JFrame {
 
-    private final dbConnection conn;
+    private static dbConnection conn;
+    private int inValue;
+    
+    private int researchCategoryID;
+    
+    private int educationCategoryID;
+    
 
     /**
      * Creates new form Forum
      */
     public Forum(dbConnection conn) {
-
-        this.conn = conn;
-
         initComponents();
+        
+        Forum.conn = conn;
+        
+        addAllForumPost();
+
+        
         //setExtendedState(MAXIMIZED_BOTH);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //int height = screenSize.height;
         //int width = screenSize.width;
         //setSize(width, height);
         setLocationRelativeTo(null);
-        try {
-            DefaultTableModel model = new DefaultTableModel();
-            jTable1.setModel(model);
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * from POSTS");
+        
+        
+
+    }
+    
+    public int getResearchCategoryID() // Get the PK for the research Category in the database
+    {
+        try{
+        researchCategoryID = Integer.parseInt(conn.fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = " + "'" + "Research" + "'"));
+        }
+        
+        catch(SQLException ex)
+        {
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        
+        System.out.println(researchCategoryID);
+        return researchCategoryID;
+        
+        }
+    
+     public int getEducationCategoryID() // Get the PK for the education Category in the database
+    {
+        try{
+        educationCategoryID = Integer.parseInt(conn.fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = " + "'" + "Education" + "'"));
+        }
+        
+        catch(SQLException ex)
+        {
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        return educationCategoryID;
+        }
+    
+    
+    public void addAllGeneralPost() // add all the Post which are Informal to the table
+    {
+     try {
+            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+            model.setRowCount(0);
+           ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
 
             for (HashMap<String, String> aPost : posts) {
 
-                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("DESCRIPTION"), aPost.get("DATE"), aPost.get("AUTHOR")});
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
+                
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) 
+        
+        {
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public void addAllForumPost() // add all the Post to the table
+    {
+        try {
+            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+            
+            model.setRowCount(0);
+           ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * FROM POSTS");
 
+            for (HashMap<String, String> aPost : posts) {
+
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
+                //model.addRow(new Object[]{"Hej"});
+            }
+        } catch (SQLException ex) 
+        
+        {
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
+        public void addCategoryForumPost(int inValue) // add all the Post in a certain category  to the table
+        {
+       
+           
+            
+            try {
+            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+            model.setRowCount(0);
+             this.inValue = inValue;
+            
+            
+           ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE CATEGORY = " + inValue + ")");
+
+            for (HashMap<String, String> aPost : posts) {
+
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
+                
+            }
+        } catch (SQLException ex) 
+        
+        {
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,19 +161,19 @@ public class Forum extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        pnlHeader = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pnlBackgroundForum = new javax.swing.JPanel();
+        pnlHeaderForum = new javax.swing.JPanel();
+        lblImageHeaderForum = new javax.swing.JLabel();
+        pnlBreadForum = new javax.swing.JPanel();
+        pnlTableForum = new javax.swing.JPanel();
+        spnTableForum = new javax.swing.JScrollPane();
+        tblForumPost = new javax.swing.JTable();
+        pnlSortButtonsForum = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlFooterForum = new javax.swing.JPanel();
+        lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
         btnSeePostHome = new javax.swing.JButton();
         btnSeePostEducation = new javax.swing.JButton();
@@ -84,44 +184,45 @@ public class Forum extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1024, 2000));
         getContentPane().setLayout(new java.awt.FlowLayout());
 
-        pnlHeader.setPreferredSize(new java.awt.Dimension(1024, 150));
+        pnlHeaderForum.setPreferredSize(new java.awt.Dimension(1024, 150));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
+        lblImageHeaderForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
+        lblImageHeaderForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
-        pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+        javax.swing.GroupLayout pnlHeaderForumLayout = new javax.swing.GroupLayout(pnlHeaderForum);
+        pnlHeaderForum.setLayout(pnlHeaderForumLayout);
+        pnlHeaderForumLayout.setHorizontalGroup(
+            pnlHeaderForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImageHeaderForum)
         );
-        pnlHeaderLayout.setVerticalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlHeaderForumLayout.setVerticalGroup(
+            pnlHeaderForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeaderForumLayout.createSequentialGroup()
+                .addComponent(lblImageHeaderForum, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBreadForum.setBackground(new java.awt.Color(126, 197, 239));
+        pnlBreadForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        pnlTableForum.setBackground(new java.awt.Color(44, 95, 125));
+        pnlTableForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlTableForum.setPreferredSize(new java.awt.Dimension(910, 400));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblForumPost.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tblForumPost.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title", "Author", "Date"
+                "Title", "Author", "Date", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -132,27 +233,39 @@ public class Forum extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblForumPost.setGridColor(new java.awt.Color(255, 255, 255));
+        tblForumPost.setPreferredSize(new java.awt.Dimension(300, 450));
+        tblForumPost.setRowHeight(26);
+        spnTableForum.setViewportView(tblForumPost);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 190, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlTableForumLayout = new javax.swing.GroupLayout(pnlTableForum);
+        pnlTableForum.setLayout(pnlTableForumLayout);
+        pnlTableForumLayout.setHorizontalGroup(
+            pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableForumLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(spnTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 259, Short.MAX_VALUE))
+        pnlTableForumLayout.setVerticalGroup(
+            pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableForumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spnTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jScrollPane2.setViewportView(jPanel4);
+        pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
+        pnlSortButtonsForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        jRadioButton1.setBackground(new java.awt.Color(44, 95, 125));
+        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("jRadioButton1");
 
+        jRadioButton2.setBackground(new java.awt.Color(44, 95, 125));
+        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("jRadioButton2");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,50 +273,69 @@ public class Forum extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton3.setBackground(new java.awt.Color(44, 95, 125));
+        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton3.setText("jRadioButton3");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlSortButtonsForumLayout = new javax.swing.GroupLayout(pnlSortButtonsForum);
+        pnlSortButtonsForum.setLayout(pnlSortButtonsForumLayout);
+        pnlSortButtonsForumLayout.setHorizontalGroup(
+            pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSortButtonsForumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton3)))
-                .addGap(232, 232, 232))
+        pnlSortButtonsForumLayout.setVerticalGroup(
+            pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSortButtonsForumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton3)
+                .addContainerGap())
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlBreadForumLayout = new javax.swing.GroupLayout(pnlBreadForum);
+        pnlBreadForum.setLayout(pnlBreadForumLayout);
+        pnlBreadForumLayout.setHorizontalGroup(
+            pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBreadForumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlSortButtonsForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlBreadForumLayout.setVerticalGroup(
+            pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBreadForumLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlSortButtonsForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        lblFooterImageForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
+        lblFooterImageForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        javax.swing.GroupLayout pnlFooterForumLayout = new javax.swing.GroupLayout(pnlFooterForum);
+        pnlFooterForum.setLayout(pnlFooterForumLayout);
+        pnlFooterForumLayout.setHorizontalGroup(
+            pnlFooterForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFooterImageForum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlFooterForumLayout.setVerticalGroup(
+            pnlFooterForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFooterForumLayout.createSequentialGroup()
+                .addComponent(lblFooterImageForum, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -218,6 +350,11 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostHome.setBorder(null);
         btnSeePostHome.setBorderPainted(false);
         btnSeePostHome.setContentAreaFilled(false);
+        btnSeePostHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostHomeActionPerformed(evt);
+            }
+        });
 
         btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -226,6 +363,11 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostEducation.setBorder(null);
         btnSeePostEducation.setBorderPainted(false);
         btnSeePostEducation.setContentAreaFilled(false);
+        btnSeePostEducation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostEducationActionPerformed(evt);
+            }
+        });
 
         btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -234,6 +376,11 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostResearch.setBorder(null);
         btnSeePostResearch.setBorderPainted(false);
         btnSeePostResearch.setContentAreaFilled(false);
+        btnSeePostResearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostResearchActionPerformed(evt);
+            }
+        });
 
         btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -242,6 +389,11 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostGeneral.setBorder(null);
         btnSeePostGeneral.setBorderPainted(false);
         btnSeePostGeneral.setContentAreaFilled(false);
+        btnSeePostGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostGeneralActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlNavBarSeePostLayout = new javax.swing.GroupLayout(pnlNavBarSeePost);
         pnlNavBarSeePost.setLayout(pnlNavBarSeePostLayout);
@@ -256,7 +408,7 @@ public class Forum extends javax.swing.JFrame {
                 .addComponent(btnSeePostResearch)
                 .addGap(51, 51, 51)
                 .addComponent(btnSeePostGeneral)
-                .addContainerGap(673, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlNavBarSeePostLayout.setVerticalGroup(
             pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,34 +422,34 @@ public class Forum extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBackgroundForumLayout = new javax.swing.GroupLayout(pnlBackgroundForum);
+        pnlBackgroundForum.setLayout(pnlBackgroundForumLayout);
+        pnlBackgroundForumLayout.setHorizontalGroup(
+            pnlBackgroundForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBackgroundForumLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlNavBarSeePost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1033, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlBackgroundForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlFooterForum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlNavBarSeePost, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                    .addComponent(pnlHeaderForum, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                    .addComponent(pnlBreadForum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlBackgroundForumLayout.setVerticalGroup(
+            pnlBackgroundForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBackgroundForumLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlHeaderForum, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(pnlNavBarSeePost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBreadForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlFooterForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(921, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(pnlBackgroundForum);
 
         pack();
         setLocationRelativeTo(null);
@@ -307,25 +459,45 @@ public class Forum extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
+        
+        addCategoryForumPost(getEducationCategoryID());
+        
+    }//GEN-LAST:event_btnSeePostEducationActionPerformed
+
+    private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
+        addCategoryForumPost(getResearchCategoryID());
+    }//GEN-LAST:event_btnSeePostResearchActionPerformed
+
+    private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
+         addAllGeneralPost();
+    }//GEN-LAST:event_btnSeePostGeneralActionPerformed
+
+    private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
+       addAllForumPost();
+    
+
+    }//GEN-LAST:event_btnSeePostHomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;
     private javax.swing.JButton btnSeePostGeneral;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JPanel pnlHeader;
+    private javax.swing.JLabel lblFooterImageForum;
+    private javax.swing.JLabel lblImageHeaderForum;
+    private javax.swing.JPanel pnlBackgroundForum;
+    private javax.swing.JPanel pnlBreadForum;
+    private javax.swing.JPanel pnlFooterForum;
+    private javax.swing.JPanel pnlHeaderForum;
     private javax.swing.JPanel pnlNavBarSeePost;
+    private javax.swing.JPanel pnlSortButtonsForum;
+    private javax.swing.JPanel pnlTableForum;
+    private javax.swing.JScrollPane spnTableForum;
+    private javax.swing.JTable tblForumPost;
     // End of variables declaration//GEN-END:variables
 }
