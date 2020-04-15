@@ -5,6 +5,7 @@
  */
 package info;
 
+import dbUtils.db;
 import dbUtils.dbConnection;
 import info.Profil;
 import java.awt.Color;
@@ -332,11 +333,11 @@ class LogInGUI extends javax.swing.JFrame {
                     String storedPassword = conn.fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
                     String name = conn.fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
 
-                    if (storedPassword.equals(convertedPassword)) {                   
-                        new User(txtUserName.getText());
+                    if (storedPassword.equals(convertedPassword)) { 
+                        new User(userID, name);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
-                            new Profil(conn).setVisible(true);   
-                            this.dispose();
+                        new Profil(conn).setVisible(true);   
+                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
                         pwdUserPassword.requestFocusInWindow();
