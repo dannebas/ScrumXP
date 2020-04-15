@@ -5,6 +5,7 @@
  */
 package info;
 
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,15 @@ public class Profil extends javax.swing.JFrame {
 
     public Profil() {
         initComponents();
+        
+        ArrayList<String> groups = User.getUserGroups();
+        groups.add("abc");
+        groups.add("EFG");
+        groups.add("HIG");
+        for(String s : groups)
+        {
+            txaGroups.append(s + "\n");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -27,8 +37,6 @@ public class Profil extends javax.swing.JFrame {
         pnlProfil = new javax.swing.JPanel();
         pnlBread1 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -43,6 +51,8 @@ public class Profil extends javax.swing.JFrame {
         lblTele = new javax.swing.JLabel();
         lblMail = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txaGroups = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -80,8 +90,6 @@ public class Profil extends javax.swing.JFrame {
 
         jLayeredPane2.setLayout(new java.awt.CardLayout());
 
-        jScrollPane1.setViewportView(jList1);
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
         jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,15 +106,12 @@ public class Profil extends javax.swing.JFrame {
         });
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Namn");
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Telefon");
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Mail");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
@@ -132,7 +137,6 @@ public class Profil extends javax.swing.JFrame {
         );
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Redigera profil");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,28 +145,26 @@ public class Profil extends javax.swing.JFrame {
         });
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Posts");
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Meetings");
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("jLabel3");
 
         lblTele.setBackground(new java.awt.Color(0, 0, 0));
-        lblTele.setForeground(new java.awt.Color(0, 0, 0));
         lblTele.setText("jLabel4");
 
         lblMail.setBackground(new java.awt.Color(0, 0, 0));
-        lblMail.setForeground(new java.awt.Color(0, 0, 0));
         lblMail.setText("jLabel11");
 
         jLabel16.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Groups");
+
+        txaGroups.setColumns(20);
+        txaGroups.setRows(5);
+        jScrollPane3.setViewportView(txaGroups);
 
         javax.swing.GroupLayout pnlBread1Layout = new javax.swing.GroupLayout(pnlBread1);
         pnlBread1.setLayout(pnlBread1Layout);
@@ -192,10 +194,13 @@ public class Profil extends javax.swing.JFrame {
                             .addComponent(lblTele)
                             .addComponent(lblMail))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addGap(18, 18, 18)
+                        .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlBread1Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(187, 187, 187))
+                            .addGroup(pnlBread1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jComboBox2, 0, 190, Short.MAX_VALUE)
@@ -228,14 +233,14 @@ public class Profil extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel16))
                                 .addGap(8, 8, 8)
-                                .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlBread1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pnlBread1Layout.createSequentialGroup()
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel2)
                                         .addGap(4, 4, 4)
                                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1)))))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(pnlBread1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -677,7 +682,6 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -694,12 +698,13 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblMail;
     private javax.swing.JLabel lblProfilBild;
     private javax.swing.JLabel lblTele;
     private javax.swing.JPanel pnlBread1;
     private javax.swing.JPanel pnlProfil;
+    private javax.swing.JTextArea txaGroups;
     // End of variables declaration//GEN-END:variables
 }
