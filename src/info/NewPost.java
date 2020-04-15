@@ -8,6 +8,7 @@ package info;
 import dbUtils.db;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,14 +17,37 @@ import java.util.Date;
  */
 public class NewPost extends javax.swing.JFrame {
 
-//    private static dbConnection conn;
     /**
      * Creates new form NewPost
      */
     public NewPost() {
         initComponents();
-        cbEduSci.setVisible(false);
         cbScienceGroups.setVisible(false);
+        cbEduSci.setVisible(false);
+        fillCb();
+    }
+
+    private void fillCb() {
+        cbSubject.addItem("Informal");
+        if (User.getEduAdmin() || User.getResAdmin()) {
+            cbSubject.addItem("Formal");
+            if (User.getEduAdmin()) {
+                cbEduSci.addItem("Education");
+            }
+            if (User.getResAdmin()) {
+                cbEduSci.addItem("Science");
+                try {
+                    String category = "SELECT GROUP_NAME FROM RESEARCH_GROUP";
+                    ArrayList<String> subjects = new ArrayList<String>();
+                    subjects = db.getDB().fetchColumn(category);
+                    for (String subject : subjects) {
+                        cbScienceGroups.addItem(subject);
+                    }
+                } catch (SQLException ex) {
+                    System.err.println(ex);
+                }
+            }
+        }
     }
 
     public static void main(String args[]) {
@@ -143,21 +167,18 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
 
-        cbSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Subject", "Formal", "Informal" }));
         cbSubject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSubjectActionPerformed(evt);
             }
         });
 
-        cbEduSci.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Education", "Science" }));
         cbEduSci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbEduSciActionPerformed(evt);
             }
         });
 
-        cbScienceGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "eHälsa", "Electronic Government", "ICT for development (ICT4D)", "Informationssäkerhet", "IT och lärande", "Systemutvecklingsmetoder" }));
         cbScienceGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbScienceGroupsActionPerformed(evt);
@@ -237,8 +258,6 @@ public class NewPost extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-   
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
