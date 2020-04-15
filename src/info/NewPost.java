@@ -24,7 +24,6 @@ public class NewPost extends javax.swing.JFrame {
         initComponents();
         cbEduSci.setVisible(false);
         cbScienceGroups.setVisible(false);
-        checkAccess();
     }
 
     public static void main(String args[]) {
@@ -239,31 +238,7 @@ public class NewPost extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checkAccess() {
-        //get current user
-        String user = User.getUser();
-        String education_admin = "";
-        String research_admin = "";
-        String admin = "";
-        System.out.println(user);
-
-        //get research admin
-        try {
-            education_admin = db.getDB().fetchSingle("SELECT * from EDUCATION_ADMIN WHERE EDUCATION_ADMIN = '" + user + "'");
-            research_admin = db.getDB().fetchSingle("SELECT * from RESEARCH_ADMIN WHERE RESEARCH_ADMIN = '" + user + "'");
-            admin = db.getDB().fetchSingle("SELECT * from ADMIN WHERE ADMIN = '" + user + "'");
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-
-        if (user.equals(education_admin)) {
-            System.out.println("User is edu admin");
-        } else if (user.equals(research_admin)) {
-            System.out.println("User is research admin");
-        } else if (user.equals(admin)) {
-            System.out.println("User is admin");
-        }
-    }
+   
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
