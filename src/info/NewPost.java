@@ -6,12 +6,13 @@
 package info;
 
 import dbUtils.db;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author fabia
+ * @author fabian
  */
 public class NewPost extends javax.swing.JFrame {
 
@@ -249,7 +250,7 @@ public class NewPost extends javax.swing.JFrame {
 
             System.out.println("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
             db.getDB().insert("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
