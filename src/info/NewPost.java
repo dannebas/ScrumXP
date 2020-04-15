@@ -209,6 +209,12 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
 
+        cbCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -235,7 +241,7 @@ public class NewPost extends javax.swing.JFrame {
                         .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbScienceGroups, 0, 160, Short.MAX_VALUE)))
-                .addGap(0, 125, Short.MAX_VALUE))
+                .addGap(0, 127, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +266,7 @@ public class NewPost extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonAttach, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -298,9 +304,13 @@ public class NewPost extends javax.swing.JFrame {
         if (choice.equals("Formal")) {
             cbEduSci.setVisible(true);
             cbCategory.setVisible(true);
+            if (User.getResAdmin()) {
+                cbScienceGroups.setVisible(true); // Makes ScienceGroups visible if Research-Admin
+            }
         } else {
             cbEduSci.setVisible(false);
             cbScienceGroups.setVisible(false);
+            cbCategory.setVisible(false); // Hides Category when its a Informal post
         }
     }//GEN-LAST:event_cbSubjectActionPerformed
 
@@ -327,6 +337,21 @@ public class NewPost extends javax.swing.JFrame {
                 String mainText = textMain.getText();
 
                 db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
+                // Added insert values depending on the selected options in the ColumnBox
+                if(cbSubject.getSelectedItem().toString().equals("Informal")){
+                    db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID +"')");
+                }
+                else if(cbSubject.getSelectedItem().toString().equals("Formal")) {
+                    String categoryNumber = db.getDB().fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = '" + cbCategory.getSelectedItem().toString() + "'");
+                    db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber +"')");
+                    if(cbEduSci.getSelectedItem().toString().equals("Science")){
+                        String groupNumber = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
+                        db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber +"')");
+                    }
+                    else if(cbEduSci.getSelectedItem().toString().equals("Education")){
+                        db.getDB().insert("INSERT INTO EDUCATION_POSTS VALUES ('" + autoID +"')");
+                    }
+                }
                 JOptionPane.showMessageDialog(null, "Post added!");
                 clear();
 
@@ -340,6 +365,10 @@ public class NewPost extends javax.swing.JFrame {
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
         clear();
     }//GEN-LAST:event_buttonClearActionPerformed
+
+    private void cbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoryActionPerformed
 
     private void showCbEduSci() {
         String choice = cbEduSci.getSelectedItem().toString();
