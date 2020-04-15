@@ -22,15 +22,13 @@ class LogInGUI extends javax.swing.JFrame {
 
     private String userPwd;
     private String userName;
-    //private final dbConnection conn;
 
     /**
      * Creates new form LogInGUI
      */
-    public LogInGUI(/*dbConnection conn*/) {
+    public LogInGUI() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        //this.conn = conn;
         userName = "";
         userPwd = "";
 
@@ -328,20 +326,15 @@ class LogInGUI extends javax.swing.JFrame {
         String convertedPassword = sb.append(password).toString(); 
         if (Validation.checkTextFieldEmpty(txtUserName) && Validation.checkPassword(pwdUserPassword)) {
             try {
-                //ArrayList<String> allusers = conn.fetchColumn("select USER_ID from USER");
                 ArrayList<String> allusers = db.getDB().fetchColumn("select USER_ID from USER");
                 if (allusers.contains(userID)) {
-                    //String storedPassword = conn.fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID+"'");
-                    //String name = conn.fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
                     String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID+"'");
-                    //ArrayList<String> userGroup = conn.fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID +"'");
                     ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID +"'");
                     
                     if (storedPassword.equals(convertedPassword)) { 
                         new User(userID, name, userGroup);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
-                        //new Profil(conn).setVisible(true);   
                         new Profil(db.getDB()).setVisible(true);   
                         this.dispose();
                     } else {
