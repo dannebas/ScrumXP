@@ -325,9 +325,10 @@ class LogInGUI extends javax.swing.JFrame {
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
                     String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
                     ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
+                    
 
                     if (storedPassword.equals(convertedPassword)) {
-                        new User(userID, name, userGroup);
+                        new User(userID);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
                         new FrontPage().setVisible(true);
                         this.dispose();

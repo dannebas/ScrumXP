@@ -447,22 +447,22 @@ public class Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-        addAllForumPost();
+        //addAllForumPost();
 
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
 
-        addCategoryForumPost(getEducationCategoryID());
+        //addCategoryForumPost(getEducationCategoryID());
 
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-        addCategoryForumPost(getResearchCategoryID());
+        //addCategoryForumPost(getResearchCategoryID());
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-        addAllGeneralPost();
+        //addAllGeneralPost();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
