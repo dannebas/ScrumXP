@@ -24,132 +24,218 @@ public class EditProfile extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        lblPreview = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlBackgroundEditProfile = new javax.swing.JPanel();
+        pnlEditPictureEditProfile = new javax.swing.JPanel();
+        lblEditUserImage = new javax.swing.JLabel();
         lblEditPicture = new javax.swing.JLabel();
         btnUpdateText = new javax.swing.JButton();
+        pnlUserInfoEditProfile = new javax.swing.JPanel();
         txfMail = new javax.swing.JTextField();
+        lblEditUserPhoneNrEditProfile = new javax.swing.JLabel();
         txfPhone = new javax.swing.JTextField();
+        lblEditUserEmailEditProfile = new javax.swing.JLabel();
+        pnlHeaderEditProfile = new javax.swing.JPanel();
+        lblHeaderImageEditProfile = new javax.swing.JLabel();
+        pnlfooterEditProfile = new javax.swing.JPanel();
+        lblFooterImageEditProfile = new javax.swing.JLabel();
+        lblBacktoProfile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        pnlBackgroundEditProfile.setBackground(new java.awt.Color(126, 197, 239));
 
-        jPanel2.setForeground(new java.awt.Color(102, 102, 102));
+        pnlEditPictureEditProfile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlEditPictureEditProfile.setForeground(new java.awt.Color(102, 102, 102));
 
-        lblPreview.setText("jLabel3");
+        lblEditUserImage.setText("Image");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlEditPictureEditProfileLayout = new javax.swing.GroupLayout(pnlEditPictureEditProfile);
+        pnlEditPictureEditProfile.setLayout(pnlEditPictureEditProfileLayout);
+        pnlEditPictureEditProfileLayout.setHorizontalGroup(
+            pnlEditPictureEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditPictureEditProfileLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(lblPreview)
+                .addComponent(lblEditUserImage)
                 .addContainerGap(184, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlEditPictureEditProfileLayout.setVerticalGroup(
+            pnlEditPictureEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditPictureEditProfileLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(lblPreview)
+                .addComponent(lblEditUserImage)
                 .addContainerGap(175, Short.MAX_VALUE))
         );
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("E-mail");
-
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("PhoneNR");
-
         lblEditPicture.setBackground(new java.awt.Color(0, 0, 0));
-        lblEditPicture.setForeground(new java.awt.Color(0, 0, 0));
-        lblEditPicture.setText("Redigera bild");
+        lblEditPicture.setForeground(new java.awt.Color(0, 51, 204));
+        lblEditPicture.setText("Edit Picture");
         lblEditPicture.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEditPictureMouseClicked(evt);
             }
         });
 
-        btnUpdateText.setText("Spar");
+        btnUpdateText.setText("Save");
         btnUpdateText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateTextActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txfPhone))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 12, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblEditPicture))
-                .addGap(387, 387, 387))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdateText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlUserInfoEditProfile.setBackground(new java.awt.Color(44, 95, 125));
+        pnlUserInfoEditProfile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        lblEditUserPhoneNrEditProfile.setBackground(new java.awt.Color(0, 0, 0));
+        lblEditUserPhoneNrEditProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblEditUserPhoneNrEditProfile.setText("PhoneNR");
+
+        lblEditUserEmailEditProfile.setBackground(new java.awt.Color(0, 0, 0));
+        lblEditUserEmailEditProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblEditUserEmailEditProfile.setText("E-mail");
+
+        javax.swing.GroupLayout pnlUserInfoEditProfileLayout = new javax.swing.GroupLayout(pnlUserInfoEditProfile);
+        pnlUserInfoEditProfile.setLayout(pnlUserInfoEditProfileLayout);
+        pnlUserInfoEditProfileLayout.setHorizontalGroup(
+            pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
+                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEditUserEmailEditProfile)
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUserInfoEditProfileLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEditUserPhoneNrEditProfile)
+                        .addGap(18, 18, 18)))
+                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlUserInfoEditProfileLayout.setVerticalGroup(
+            pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEditUserEmailEditProfile)
+                    .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditUserPhoneNrEditProfile))
+                .addGap(23, 23, 23))
+        );
+
+        lblHeaderImageEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
+        lblHeaderImageEditProfile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lblHeaderImageEditProfile.setPreferredSize(new java.awt.Dimension(1024, 204));
+
+        javax.swing.GroupLayout pnlHeaderEditProfileLayout = new javax.swing.GroupLayout(pnlHeaderEditProfile);
+        pnlHeaderEditProfile.setLayout(pnlHeaderEditProfileLayout);
+        pnlHeaderEditProfileLayout.setHorizontalGroup(
+            pnlHeaderEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblHeaderImageEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlHeaderEditProfileLayout.setVerticalGroup(
+            pnlHeaderEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeaderEditProfileLayout.createSequentialGroup()
+                .addComponent(lblHeaderImageEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+
+        lblFooterImageEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
+        lblFooterImageEditProfile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        javax.swing.GroupLayout pnlfooterEditProfileLayout = new javax.swing.GroupLayout(pnlfooterEditProfile);
+        pnlfooterEditProfile.setLayout(pnlfooterEditProfileLayout);
+        pnlfooterEditProfileLayout.setHorizontalGroup(
+            pnlfooterEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFooterImageEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlfooterEditProfileLayout.setVerticalGroup(
+            pnlfooterEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlfooterEditProfileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFooterImageEditProfile)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblBacktoProfile.setForeground(new java.awt.Color(0, 51, 204));
+        lblBacktoProfile.setText("Back");
+        lblBacktoProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBacktoProfileMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlBackgroundEditProfileLayout = new javax.swing.GroupLayout(pnlBackgroundEditProfile);
+        pnlBackgroundEditProfile.setLayout(pnlBackgroundEditProfileLayout);
+        pnlBackgroundEditProfileLayout.setHorizontalGroup(
+            pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlHeaderEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlfooterEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                        .addComponent(lblEditPicture)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                        .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                                .addComponent(btnUpdateText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblBacktoProfile)
+                                    .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
+        );
+        pnlBackgroundEditProfileLayout.setVerticalGroup(
+            pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                .addComponent(pnlHeaderEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEditPicture)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnUpdateText)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(lblBacktoProfile)
+                .addGap(18, 18, 18)
+                .addComponent(pnlfooterEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBackgroundEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlBackgroundEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblEditPictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPictureMouseClicked
         PictureHandler handler = new PictureHandler(190, 190);
         Image picture = handler.openFile();
         ImageIcon image = new ImageIcon(picture);
-        lblPreview.setIcon(image);
+        lblEditUserImage.setIcon(image);
         updateImage(image);
     }//GEN-LAST:event_lblEditPictureMouseClicked
 
@@ -158,6 +244,10 @@ public class EditProfile extends javax.swing.JFrame
         String phone = txfPhone.getText();
         updateText(mail, phone);
     }//GEN-LAST:event_btnUpdateTextActionPerformed
+
+    private void lblBacktoProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBacktoProfileMouseClicked
+        dispose();
+    }//GEN-LAST:event_lblBacktoProfileMouseClicked
 
     
     private void updateImage(ImageIcon image)
@@ -173,12 +263,18 @@ public class EditProfile extends javax.swing.JFrame
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUpdateText;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblBacktoProfile;
     private javax.swing.JLabel lblEditPicture;
-    private javax.swing.JLabel lblPreview;
+    private javax.swing.JLabel lblEditUserEmailEditProfile;
+    private javax.swing.JLabel lblEditUserImage;
+    private javax.swing.JLabel lblEditUserPhoneNrEditProfile;
+    private javax.swing.JLabel lblFooterImageEditProfile;
+    private javax.swing.JLabel lblHeaderImageEditProfile;
+    private javax.swing.JPanel pnlBackgroundEditProfile;
+    private javax.swing.JPanel pnlEditPictureEditProfile;
+    private javax.swing.JPanel pnlHeaderEditProfile;
+    private javax.swing.JPanel pnlUserInfoEditProfile;
+    private javax.swing.JPanel pnlfooterEditProfile;
     private javax.swing.JTextField txfMail;
     private javax.swing.JTextField txfPhone;
     // End of variables declaration//GEN-END:variables
