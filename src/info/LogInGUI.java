@@ -329,7 +329,7 @@ class LogInGUI extends javax.swing.JFrame {
                     if (storedPassword.equals(convertedPassword)) {
                         new User(userID, name, userGroup);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
-                        new Profil(db.getDB()).setVisible(true);
+                        new FrontPage().setVisible(true);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
