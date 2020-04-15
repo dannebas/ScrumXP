@@ -46,6 +46,21 @@ public class User {
         return userGroups;
     }
     
+    public static boolean getEduAdmin()
+    {
+        return edu_admin;
+    }
+    
+    public static boolean getResAdmin()
+    {
+        return res_admin;
+    }
+    
+    public static boolean getAdmin()
+    {
+        return admin;
+    }
+    
     private void getInfo() {  
 
         //get research admin
@@ -58,7 +73,6 @@ public class User {
             
             this.nameInloggad = name;
             this.userGroups = userGroup;
-            
             
             if (userID.equals(education_admin)) {
                 this.edu_admin = true;
