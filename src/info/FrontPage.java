@@ -221,7 +221,7 @@ public class FrontPage extends javax.swing.JFrame {
             pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTableForumLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+                .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlTableForumLayout.setVerticalGroup(
@@ -229,7 +229,7 @@ public class FrontPage extends javax.swing.JFrame {
             .addGroup(pnlTableForumLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(spnTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Latest Posts:");
@@ -432,7 +432,9 @@ public class FrontPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        LogInGUI login = new LogInGUI();
+        login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSeePostGeneral1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneral1ActionPerformed

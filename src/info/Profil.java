@@ -19,13 +19,12 @@ public class Profil extends javax.swing.JFrame {
 
     public Profil() {
         initComponents();
-        
+
         ArrayList<String> groups = User.getUserGroups();
         groups.add("abc");
         groups.add("EFG");
         groups.add("HIG");
-        for(String s : groups)
-        {
+        for (String s : groups) {
             txaGroups.append(s + "\n");
         }
     }
@@ -411,12 +410,11 @@ public class Profil extends javax.swing.JFrame {
         //New post, See post, Edit post
         switch (chosenIndexText) {
             case "New post":
-                JOptionPane.showMessageDialog(null, "New post");
                 new NewPost().setVisible(true);
                 break;
             case "See post":
                 JOptionPane.showMessageDialog(null, "See post");
-               // new SeePost().setVisible(true);
+                // new SeePost().setVisible(true);
                 //Metod
                 break;
             case "Edit post":
@@ -428,7 +426,6 @@ public class Profil extends javax.swing.JFrame {
                 new SeeYourPost().setVisible(true);
                 break;
             default:
-
         }
     }//GEN-LAST:event_cbNewPostProfileActionPerformed
 
@@ -451,7 +448,6 @@ public class Profil extends javax.swing.JFrame {
                 //Metod
                 break;
             default:
-
         }
     }//GEN-LAST:event_cbMeetingProfileActionPerformed
 
@@ -463,7 +459,6 @@ public class Profil extends javax.swing.JFrame {
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
 
         //addCategoryForumPost(getEducationCategoryID());
-
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
