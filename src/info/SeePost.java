@@ -25,7 +25,10 @@ public class SeePost extends javax.swing.JFrame {
        lblTiltleSeePost.setText(aPost.getTitle());
        lblAuthorSeePost.setText(aPost.getAuthor());
        lblUploadDateSeePost.setText(aPost.getDate());
-       txtAreaPostSeePost.setText(aPost.getDescription().indent(4));
+       
+       txtAreaPostSeePost.setLineWrap(true);
+        txtAreaPostSeePost.setWrapStyleWord(true);
+        txtAreaPostSeePost.setText(aPost.getDescription().indent(4));
        txtAreaPostSeePost.setEditable(false);
        
     }
