@@ -8,8 +8,6 @@ package info;
 
 import dbUtils.db;
 import dbUtils.dbConnection;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,13 +24,10 @@ import javax.swing.table.TableColumnModel;
 public class Forum extends javax.swing.JFrame {
 
     private static dbConnection conn;
-    private int inValue;
     
-    private int researchCategoryID;
+ 
     
-    private int educationCategoryID;
-    
-    private int groupID;
+  
     /**
      * Creates new form Forum
      */
@@ -40,64 +35,24 @@ public class Forum extends javax.swing.JFrame {
         initComponents();
         
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
+        
         columnmodel.removeColumn(columnmodel.getColumn(4));
             
-       
         conn = db.getDB();
         
         pnlSortButtonsForum.setVisible(false);
         
         addAllForumPost();
         
-         
+        setExtendedState(MAXIMIZED_BOTH);
         
-         int groupIDArray[] = new int[6];
-         
-        //setExtendedState(MAXIMIZED_BOTH);
-        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        //int height = screenSize.height;
-        //int width = screenSize.width;
-        //setSize(width, height);
         setLocationRelativeTo(null);
         
         
-
+        
     }
     
-   
-    
-    
-    
-    /*public int getResearchGroupPost(int grop) // Get the PK for the research Category in the database
-    {
-        try{
-        researchCategoryID = Integer.parseInt(conn.fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID = " + groupID);
-        }
-        
-        catch(SQLException ex)
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
-        System.out.println(researchCategoryID);
-        return researchCategoryID;
-        
-        }*/
-    
-     /*public int getEducationCategoryID() // Get the PK for the education Category in the database
-    {
-        try{
-        educationCategoryID = Integer.parseInt(conn.fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = " + "'" + "Education" + "'"));
-        }
-        
-        catch(SQLException ex)
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        
-        return educationCategoryID;
-        }*/
-    
+     
     
     public void addAllGeneralPost() // add all the Post which are Informal to the table
     {
@@ -162,7 +117,7 @@ public class Forum extends javax.swing.JFrame {
             try {
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
             model.setRowCount(0);
-             this.inValue = inValue;
+             
             
             
            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS)");
@@ -197,7 +152,7 @@ public class Forum extends javax.swing.JFrame {
             try {
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
             model.setRowCount(0);
-             this.inValue = inValue;
+             
             
             
            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
@@ -235,7 +190,7 @@ public class Forum extends javax.swing.JFrame {
             try {
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
             model.setRowCount(0);
-             this.inValue = inValue;
+             
             
            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")" );
                    
@@ -298,6 +253,8 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostEducation = new javax.swing.JButton();
         btnSeePostResearch = new javax.swing.JButton();
         btnSeePostGeneral = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 2000));
@@ -377,7 +334,7 @@ public class Forum extends javax.swing.JFrame {
             .addGroup(pnlTableForumLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(spnTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
@@ -538,7 +495,6 @@ public class Forum extends javax.swing.JFrame {
         pnlNavBarSeePost.setPreferredSize(new java.awt.Dimension(1024, 50));
 
         btnSeePostHome.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostHome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSeePostHome.setForeground(new java.awt.Color(255, 255, 255));
         btnSeePostHome.setText("Home");
         btnSeePostHome.setBorder(null);
@@ -551,7 +507,6 @@ public class Forum extends javax.swing.JFrame {
         });
 
         btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSeePostEducation.setForeground(new java.awt.Color(255, 255, 255));
         btnSeePostEducation.setText("Education");
         btnSeePostEducation.setBorder(null);
@@ -564,7 +519,6 @@ public class Forum extends javax.swing.JFrame {
         });
 
         btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSeePostResearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSeePostResearch.setText("Research");
         btnSeePostResearch.setBorder(null);
@@ -577,7 +531,6 @@ public class Forum extends javax.swing.JFrame {
         });
 
         btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSeePostGeneral.setForeground(new java.awt.Color(255, 255, 255));
         btnSeePostGeneral.setText("General");
         btnSeePostGeneral.setBorder(null);
@@ -589,6 +542,17 @@ public class Forum extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("My Profile");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Log Out");
+
         javax.swing.GroupLayout pnlNavBarSeePostLayout = new javax.swing.GroupLayout(pnlNavBarSeePost);
         pnlNavBarSeePost.setLayout(pnlNavBarSeePostLayout);
         pnlNavBarSeePostLayout.setHorizontalGroup(
@@ -598,21 +562,28 @@ public class Forum extends javax.swing.JFrame {
                 .addComponent(btnSeePostHome)
                 .addGap(40, 40, 40)
                 .addComponent(btnSeePostEducation)
-                .addGap(56, 56, 56)
+                .addGap(53, 53, 53)
                 .addComponent(btnSeePostResearch)
-                .addGap(51, 51, 51)
+                .addGap(57, 57, 57)
                 .addComponent(btnSeePostGeneral)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel3)
+                .addGap(17, 17, 17))
         );
         pnlNavBarSeePostLayout.setVerticalGroup(
             pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavBarSeePostLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSeePostEducation, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(btnSeePostHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeePostResearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeePostGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSeePostEducation, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addComponent(btnSeePostResearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeePostGeneral)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3))
+                    .addComponent(btnSeePostHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -711,6 +682,11 @@ public class Forum extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblForumPostMouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        new Profil().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;
@@ -718,6 +694,8 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
     private javax.swing.ButtonGroup buttonGroupForum;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeaderForum;
     private javax.swing.JPanel pnlBackgroundForum;

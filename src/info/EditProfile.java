@@ -1,7 +1,11 @@
 package info;
 
 import dbUtils.PictureHandler;
+import dbUtils.db;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,6 +22,9 @@ public class EditProfile extends javax.swing.JFrame
     {
         initComponents();
         this.profile = profile;
+        
+        txfMail.setText(User.getMail());
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -31,8 +38,6 @@ public class EditProfile extends javax.swing.JFrame
         btnUpdateText = new javax.swing.JButton();
         pnlUserInfoEditProfile = new javax.swing.JPanel();
         txfMail = new javax.swing.JTextField();
-        lblEditUserPhoneNrEditProfile = new javax.swing.JLabel();
-        txfPhone = new javax.swing.JTextField();
         lblEditUserEmailEditProfile = new javax.swing.JLabel();
         pnlHeaderEditProfile = new javax.swing.JPanel();
         lblHeaderImageEditProfile = new javax.swing.JLabel();
@@ -85,10 +90,6 @@ public class EditProfile extends javax.swing.JFrame
         pnlUserInfoEditProfile.setBackground(new java.awt.Color(44, 95, 125));
         pnlUserInfoEditProfile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        lblEditUserPhoneNrEditProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblEditUserPhoneNrEditProfile.setForeground(new java.awt.Color(255, 255, 255));
-        lblEditUserPhoneNrEditProfile.setText("PhoneNR");
-
         lblEditUserEmailEditProfile.setBackground(new java.awt.Color(0, 0, 0));
         lblEditUserEmailEditProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblEditUserEmailEditProfile.setText("E-mail");
@@ -98,18 +99,10 @@ public class EditProfile extends javax.swing.JFrame
         pnlUserInfoEditProfileLayout.setHorizontalGroup(
             pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
-                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEditUserEmailEditProfile)
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUserInfoEditProfileLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEditUserPhoneNrEditProfile)
-                        .addGap(18, 18, 18)))
-                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(lblEditUserEmailEditProfile)
+                .addGap(18, 26, Short.MAX_VALUE)
+                .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlUserInfoEditProfileLayout.setVerticalGroup(
@@ -119,11 +112,7 @@ public class EditProfile extends javax.swing.JFrame
                 .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEditUserEmailEditProfile)
                     .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditUserPhoneNrEditProfile))
-                .addGap(23, 23, 23))
+                .addGap(32, 32, 32))
         );
 
         lblHeaderImageEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
@@ -241,8 +230,17 @@ public class EditProfile extends javax.swing.JFrame
 
     private void btnUpdateTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTextActionPerformed
         String mail = txfMail.getText();
-        String phone = txfPhone.getText();
-        updateText(mail, phone);
+        
+        updateText(mail);
+        try{
+        db.getDB().update("UPDATE USER_PROFILE SET EMAILADRESS = '" + mail + "'" + "WHERE PROFILE_ID = '" + User.getUser() + "'");
+        }
+        catch(SQLException ex)
+        {
+            
+           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
     }//GEN-LAST:event_btnUpdateTextActionPerformed
 
     private void lblBacktoProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBacktoProfileMouseClicked
@@ -255,9 +253,9 @@ public class EditProfile extends javax.swing.JFrame
         profile.updateProfile(image);
     }
     
-    private void updateText(String mail, String phone)
+    private void updateText(String mail)
     {
-        profile.updateProfileTexts(phone, mail);
+        profile.updateProfileTexts(mail);
     }
     
     
@@ -267,7 +265,6 @@ public class EditProfile extends javax.swing.JFrame
     private javax.swing.JLabel lblEditPicture;
     private javax.swing.JLabel lblEditUserEmailEditProfile;
     private javax.swing.JLabel lblEditUserImage;
-    private javax.swing.JLabel lblEditUserPhoneNrEditProfile;
     private javax.swing.JLabel lblFooterImageEditProfile;
     private javax.swing.JLabel lblHeaderImageEditProfile;
     private javax.swing.JPanel pnlBackgroundEditProfile;
@@ -276,6 +273,5 @@ public class EditProfile extends javax.swing.JFrame
     private javax.swing.JPanel pnlUserInfoEditProfile;
     private javax.swing.JPanel pnlfooterEditProfile;
     private javax.swing.JTextField txfMail;
-    private javax.swing.JTextField txfPhone;
     // End of variables declaration//GEN-END:variables
 }
