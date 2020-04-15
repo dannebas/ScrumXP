@@ -22,6 +22,9 @@ public class NewPost extends javax.swing.JFrame {
      */
     public NewPost() {
         initComponents();
+        cbEduSci.setVisible(false);
+        cbScienceGroups.setVisible(false);
+        checkAccess();
     }
 
     public static void main(String args[]) {
@@ -75,9 +78,9 @@ public class NewPost extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbSubject = new javax.swing.JComboBox<>();
+        cbEduSci = new javax.swing.JComboBox<>();
+        cbScienceGroups = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
@@ -141,19 +144,24 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Subject", "Formal", "Informal" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Education", "Science" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        cbSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Subject", "Formal", "Informal" }));
+        cbSubject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                cbSubjectActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "eHälsa", "Electronic Government", "ICT for development (ICT4D)", "Informationssäkerhet", "IT och lärande", "Systemutvecklingsmetoder" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        cbEduSci.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Education", "Science" }));
+        cbEduSci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                cbEduSciActionPerformed(evt);
+            }
+        });
+
+        cbScienceGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "eHälsa", "Electronic Government", "ICT for development (ICT4D)", "Informationssäkerhet", "IT och lärande", "Systemutvecklingsmetoder" }));
+        cbScienceGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbScienceGroupsActionPerformed(evt);
             }
         });
 
@@ -176,11 +184,11 @@ public class NewPost extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cbScienceGroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,10 +197,11 @@ public class NewPost extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbScienceGroups, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,7 +214,7 @@ public class NewPost extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -230,6 +239,28 @@ public class NewPost extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkAccess() {
+        //get current user
+        String user = User.getUser();
+        String education_admin = "";
+        String research_admin = "";
+        System.out.println(user);
+
+        //get research admin
+        try {
+            education_admin = db.getDB().fetchSingle("SELECT EDUCATION_ADMIN from EDUCATION_ADMIN WHERE EDUCATION_ADMIN = '" + user + "'");
+            research_admin = db.getDB().fetchSingle("SELECT RESEARCH_ADMIN from RESEARCH_ADMIN WHERE RESEARCH_ADMIN = '" + user + "'");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        if (user.equals(education_admin)) {
+            System.out.println("User is edu admin");
+        } else if (user.equals(research_admin)) {
+            System.out.println("User is research admin");
+        }
+    }
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             String autoID;
@@ -238,7 +269,6 @@ public class NewPost extends javax.swing.JFrame {
             if (autoID == null) {
                 autoID = "1";
             }
-            System.out.println(autoID);
 
             Calendar cal = Calendar.getInstance();
             Date date = cal.getTime();
@@ -248,7 +278,7 @@ public class NewPost extends javax.swing.JFrame {
             String title = jTextField1.getText();
             String mainText = jEditorPane1.getText();
 
-            System.out.println("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
+//            System.out.println("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
             db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
 
         } catch (SQLException e) {
@@ -260,22 +290,37 @@ public class NewPost extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    private void cbEduSciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEduSciActionPerformed
+        String choice = cbEduSci.getSelectedItem().toString();
+        if (choice.equals("Science")) {
+            cbScienceGroups.setVisible(true);
+        } else {
+            cbScienceGroups.setVisible(false);
+        }
+    }//GEN-LAST:event_cbEduSciActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void cbScienceGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbScienceGroupsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_cbScienceGroupsActionPerformed
+
+    private void cbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSubjectActionPerformed
+        String choice = cbSubject.getSelectedItem().toString();
+        if (choice.equals("Formal")) {
+            cbEduSci.setVisible(true);
+        } else {
+            cbEduSci.setVisible(false);
+            cbScienceGroups.setVisible(false);
+        }
+    }//GEN-LAST:event_cbSubjectActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbEduSci;
+    private javax.swing.JComboBox<String> cbScienceGroups;
+    private javax.swing.JComboBox<String> cbSubject;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
