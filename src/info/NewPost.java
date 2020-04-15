@@ -22,9 +22,9 @@ public class NewPost extends javax.swing.JFrame {
      */
     public NewPost() {
         initComponents();
+        fillCb();
         cbScienceGroups.setVisible(false);
         cbEduSci.setVisible(false);
-        fillCb();
     }
 
     private void fillCb() {
@@ -288,13 +288,18 @@ public class NewPost extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void cbEduSciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEduSciActionPerformed
+    private void showCbEduSci()
+    {
         String choice = cbEduSci.getSelectedItem().toString();
         if (choice.equals("Science")) {
             cbScienceGroups.setVisible(true);
         } else {
             cbScienceGroups.setVisible(false);
         }
+    }
+    
+    private void cbEduSciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEduSciActionPerformed
+        showCbEduSci();
     }//GEN-LAST:event_cbEduSciActionPerformed
 
     private void cbScienceGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbScienceGroupsActionPerformed
