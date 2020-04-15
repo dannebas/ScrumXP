@@ -5,8 +5,19 @@
  */
 package dbUtils;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -235,4 +246,48 @@ public class dbConnection {
             throw new SQLException("Not valid UPDATE query - check your query");
         }
     }
+    
+    public void convertToImage(int id , ImageIcon img )
+    {
+        byte[] bytes = null;
+        
+        Icon icon = null;
+        BufferedImage abc123 = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = abc123.createGraphics();
+        img.paintIcon(null, g2d, 0, 0);
+        g2d.dispose();
+        String s = null;
+        
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) 
+        {
+            ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+            try 
+            {
+                ImageIO.write((RenderedImage) abc123, "png", ios);
+                // Set a flag to indicate that the write was successful
+            } finally
+            {
+                ios.close();
+            }
+
+            bytes = baos.toByteArray();
+            
+            System.out.println(bytes);
+            s = new String(bytes);
+            JOptionPane.showMessageDialog(null, "BYTEES: " + s);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        try 
+        {
+            insert("INSERT INTO USER_PROFILE VALUES ('IMAGE') VALUES ('" + s +"')");
+        } catch (SQLException ex) {
+            Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
 }
