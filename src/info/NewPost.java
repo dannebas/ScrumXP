@@ -25,12 +25,25 @@ public class NewPost extends javax.swing.JFrame {
         fillCb();
         cbScienceGroups.setVisible(false);
         cbEduSci.setVisible(false);
+        cbCategory.setVisible(false);
     }
 
     private void fillCb() {
         cbSubject.addItem("Informal");
         if (User.getEduAdmin() || User.getResAdmin()) {
             cbSubject.addItem("Formal");
+            try{
+                String postCategory = "SELECT CATEGORY_NAME FROM CATEGORY";
+                ArrayList<String> categories = new ArrayList<String>();
+                categories = db.getDB().fetchColumn(postCategory);
+                for(String category : categories)
+                {
+                    cbCategory.addItem(category);
+                }
+            }
+            catch(SQLException ex){
+                System.err.println(ex);
+            }
             if (User.getEduAdmin()) {
                 cbEduSci.addItem("Education");
             }
@@ -104,6 +117,7 @@ public class NewPost extends javax.swing.JFrame {
         cbSubject = new javax.swing.JComboBox<>();
         cbEduSci = new javax.swing.JComboBox<>();
         cbScienceGroups = new javax.swing.JComboBox<>();
+        cbCategory = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
@@ -202,13 +216,16 @@ public class NewPost extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSubject, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbEduSci, 0, 200, Short.MAX_VALUE)
+                            .addComponent(cbCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbScienceGroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cbScienceGroups, 0, 198, Short.MAX_VALUE)))
                 .addGap(0, 108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -223,7 +240,9 @@ public class NewPost extends javax.swing.JFrame {
                         .addComponent(cbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -234,7 +253,7 @@ public class NewPost extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -310,6 +329,7 @@ public class NewPost extends javax.swing.JFrame {
         String choice = cbSubject.getSelectedItem().toString();
         if (choice.equals("Formal")) {
             cbEduSci.setVisible(true);
+            cbCategory.setVisible(true);
         } else {
             cbEduSci.setVisible(false);
             cbScienceGroups.setVisible(false);
@@ -317,6 +337,7 @@ public class NewPost extends javax.swing.JFrame {
     }//GEN-LAST:event_cbSubjectActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbCategory;
     private javax.swing.JComboBox<String> cbEduSci;
     private javax.swing.JComboBox<String> cbScienceGroups;
     private javax.swing.JComboBox<String> cbSubject;
