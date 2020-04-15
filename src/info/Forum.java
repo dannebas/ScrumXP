@@ -39,6 +39,9 @@ public class Forum extends javax.swing.JFrame {
     public Forum() {
         initComponents();
         
+        TableColumnModel columnmodel = tblForumPost.getColumnModel();
+        columnmodel.removeColumn(columnmodel.getColumn(4));
+            
        
         conn = db.getDB();
         
@@ -125,8 +128,6 @@ public class Forum extends javax.swing.JFrame {
     {
         try {
             
-            TableColumnModel columnmodel = tblForumPost.getColumnModel();
-            columnmodel.removeColumn(columnmodel.getColumn(4));
             
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
             
@@ -654,23 +655,23 @@ public class Forum extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnEHealthForumActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
-        pnlSortButtonsForum.setVisible(false);
+     pnlSortButtonsForum.setVisible(false);
        addEducationForumPost();
         
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-        pnlSortButtonsForum.setVisible(true);
+         pnlSortButtonsForum.setVisible(true);
         addResearchForumPost();
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-        pnlSortButtonsForum.setVisible(false); 
+      pnlSortButtonsForum.setVisible(false);
         addAllGeneralPost();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-       pnlSortButtonsForum.setVisible(false);
+      pnlSortButtonsForum.setVisible(false);
         addAllForumPost();
     
 
