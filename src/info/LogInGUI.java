@@ -7,6 +7,7 @@ package info;
 
 import dbUtils.db;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -118,6 +119,16 @@ class LogInGUI extends javax.swing.JFrame {
 
         pwdUserPassword.setColumns(10);
         pwdUserPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pwdUserPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdUserPasswordActionPerformed(evt);
+            }
+        });
+        pwdUserPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwdUserPasswordKeyPressed(evt);
+            }
+        });
 
         btnLogIn.setBackground(new java.awt.Color(126, 197, 239));
         btnLogIn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -255,7 +266,7 @@ class LogInGUI extends javax.swing.JFrame {
         pnlBreadLayout.setHorizontalGroup(
             pnlBreadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBreadLayout.createSequentialGroup()
-                .addContainerGap(319, Short.MAX_VALUE)
+                .addContainerGap(323, Short.MAX_VALUE)
                 .addComponent(layerdPaneLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(295, 295, 295))
         );
@@ -325,7 +336,6 @@ class LogInGUI extends javax.swing.JFrame {
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
                     String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
                     ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
-                    
 
                     if (storedPassword.equals(convertedPassword)) {
                         new User(userID);
@@ -388,6 +398,17 @@ class LogInGUI extends javax.swing.JFrame {
         layerdPaneLogIn.revalidate();
         txtUserEmail.requestFocus();
     }//GEN-LAST:event_btnforgottPasswordActionPerformed
+
+    private void pwdUserPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdUserPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwdUserPasswordActionPerformed
+
+    private void pwdUserPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("test");
+            logIn();
+        }
+    }//GEN-LAST:event_pwdUserPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackToLogIn;
