@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info;
 
-import bildhantering.PictureHandler;
+import dbUtils.PictureHandler;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -13,7 +8,9 @@ import javax.swing.ImageIcon;
  *
  * @author Viggo
  */
-public class EditProfile extends javax.swing.JFrame {
+
+public class EditProfile extends javax.swing.JFrame
+{
 
     private Profil profile;
     
@@ -23,7 +20,6 @@ public class EditProfile extends javax.swing.JFrame {
         this.profile = profile;
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
