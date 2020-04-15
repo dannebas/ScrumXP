@@ -63,13 +63,16 @@ public class User {
             if (userID.equals(education_admin)) {
                 this.edu_admin = true;
                 System.out.println("User is edu admin");
-            } else if (userID.equals(research_admin)) {
+            } 
+            if (userID.equals(research_admin)) {
                 this.res_admin = true;
                 System.out.println("User is research admin");
-            } else if (userID.equals(norm_admin)) {
+            }
+            if (userID.equals(norm_admin)) {
                 this.admin = true;
                 System.out.println("User is admin");
-        }
+            }
+
         } catch (SQLException ex) {
             System.out.println(ex);
         }
