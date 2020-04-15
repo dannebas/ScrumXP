@@ -28,7 +28,6 @@ class LogInGUI extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         userName = "";
         userPwd = "";
-
     }
 
     /**
@@ -354,13 +353,10 @@ class LogInGUI extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "An error occurred");
             }
-
         }
-
     }
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-
         logIn();
     }//GEN-LAST:event_btnLogInActionPerformed
 
