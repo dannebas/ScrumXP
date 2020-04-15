@@ -337,7 +337,7 @@ public class NewPost extends javax.swing.JFrame {
                 String mainText = textMain.getText();
 
                 db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
-                // Added insert values depending on the selected options in the ColumnBox
+                // Added insert values depending on the selected options in the ColumnBox 
                 if(cbSubject.getSelectedItem().toString().equals("Informal")){
                     db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID +"')");
                 }
