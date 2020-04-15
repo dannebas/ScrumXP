@@ -5,6 +5,7 @@
  */
 package info;
 
+import dbUtils.db;
 import dbUtils.dbConnection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -15,15 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class Start {
 
-    private static dbConnection conn;
+    //private static dbConnection conn;
 
     /**
      * @param args the command line arguments
      * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws SQLException {
-
-        try {
+        new db();
+        /*try {
             String currentFolder = System.getProperty("user.dir"); //Hämta sökvägen till projektets mapp.
             String os = System.getProperty("os.name").toLowerCase(); // Kollar vilket operativsystem användaren har.
             String dbPath;
@@ -38,8 +39,8 @@ public class Start {
             conn = new dbConnection(dbPath);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database error");
-        }
+        }*/
 
-        new LogInGUI(conn).setVisible(true);
+        new LogInGUI(/*db.getDB()*/).setVisible(true);
     }
 }
