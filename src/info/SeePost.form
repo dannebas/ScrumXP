@@ -46,25 +46,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnPrintPostSeePost" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="1749" max="-2" attributes="0"/>
-                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblEditedPostSeePost" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUploadedPostSeePost" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblEditDateSeePost" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUploadDateSeePost" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblUploadedPostSeePost" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="lblUploadDateSeePost" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                           <Component id="pnlPostHeaderSeePost" alignment="0" max="32767" attributes="0"/>
                           <Component id="spnSeePost" alignment="0" pref="1020" max="32767" attributes="0"/>
@@ -74,6 +63,13 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jPanel5" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnPrintPostSeePost" min="-2" pref="107" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1749" max="-2" attributes="0"/>
+                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -94,19 +90,14 @@
                           <Component id="pnlPostHeaderSeePost" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="spnSeePost" min="-2" pref="382" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblUploadedPostSeePost" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="lblUploadDateSeePost" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblUploadedPostSeePost" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblEditedPostSeePost" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblEditDateSeePost" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnPrintPostSeePost" min="-2" pref="37" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="514" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="532" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -313,23 +304,28 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="lblProfileImageSeePost" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="352" max="-2" attributes="0"/>
-                      <Component id="lblTiltleSeePost" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblAuthorSeePost" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblProfileImageSeePost" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
+                      <Component id="lblTiltleSeePost" min="-2" pref="206" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblProfileImageSeePost" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTiltleSeePost" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTiltleSeePost" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAuthorSeePost" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -343,6 +339,11 @@
             <Component class="javax.swing.JLabel" name="lblTiltleSeePost">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Title"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAuthorSeePost">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="User"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -371,19 +372,9 @@
             <Property name="text" type="java.lang.String" value="Uploaded"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEditedPostSeePost">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edited"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblUploadDateSeePost">
           <Properties>
             <Property name="text" type="java.lang.String" value="date"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblEditDateSeePost">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="also date"/>
           </Properties>
         </Component>
       </SubComponents>
