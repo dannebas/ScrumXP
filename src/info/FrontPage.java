@@ -5,17 +5,6 @@
  */
 package info;
 
-
-import dbUtils.dbConnection;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Lukas
@@ -23,62 +12,58 @@ import javax.swing.table.DefaultTableModel;
 public class FrontPage extends javax.swing.JFrame {
 
     private int inValue;
-    
+
     private int researchCategoryID;
-    
+
     private int educationCategoryID;
-    
 
     /**
      * Creates new form Forum
      */
     public FrontPage() {
-        initComponents(); 
+        initComponents();
         //addAllForumPost();
 
-        
         //setExtendedState(MAXIMIZED_BOTH);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //int height = screenSize.height;
         //int width = screenSize.width;
         //setSize(width, height);
         setLocationRelativeTo(null);
-        
-        
 
     }
-    
+
     /*public int getResearchCategoryID() // Get the PK for the research Category in the database
     {
         try{
         researchCategoryID = Integer.parseInt(conn.fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = " + "'" + "Research" + "'"));
         }
-        
+
         catch(SQLException ex)
         {
            Logger.getLogger(FrontPage.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
+        }
+
         System.out.println(researchCategoryID);
         return researchCategoryID;
-        
+
         }
-    
+
      public int getEducationCategoryID() // Get the PK for the education Category in the database
     {
         try{
         educationCategoryID = Integer.parseInt(conn.fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = " + "'" + "Education" + "'"));
         }
-        
+
         catch(SQLException ex)
         {
            Logger.getLogger(FrontPage.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        
+        }
+
         return educationCategoryID;
         }
-    
-    
+
+
     public void addAllGeneralPost() // add all the Post which are Informal to the table
     {
      try {
@@ -89,21 +74,21 @@ public class FrontPage extends javax.swing.JFrame {
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
-                
+
             }
-        } catch (SQLException ex) 
-        
+        } catch (SQLException ex)
+
         {
            Logger.getLogger(FrontPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
+
     public void addAllForumPost() // add all the Post to the table
     {
         try {
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
-            
+
             model.setRowCount(0);
            ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * FROM POSTS");
 
@@ -112,42 +97,39 @@ public class FrontPage extends javax.swing.JFrame {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
                 //model.addRow(new Object[]{"Hej"});
             }
-        } catch (SQLException ex) 
-        
+        } catch (SQLException ex)
+
         {
            Logger.getLogger(FrontPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
+
         public void addCategoryForumPost(int inValue) // add all the Post in a certain category  to the table
         {
-       
-           
-            
+
+
             try {
             DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
             model.setRowCount(0);
              this.inValue = inValue;
-            
-            
+
+
            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE CATEGORY = " + inValue + ")");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
-                
+
             }
-        } catch (SQLException ex) 
-        
+        } catch (SQLException ex)
+
         {
            Logger.getLogger(FrontPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    
+
+
     }
-*/
-    
-    
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -433,9 +415,7 @@ public class FrontPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
-        
         //addCategoryForumPost(getEducationCategoryID());
-        
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
@@ -443,12 +423,11 @@ public class FrontPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-         //addAllGeneralPost();
+        //addAllGeneralPost();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-       //addAllForumPost();
-    
+        //addAllForumPost();
 
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
@@ -457,9 +436,10 @@ public class FrontPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSeePostGeneral1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneral1ActionPerformed
-        // TODO add your handling code here:
+        Profil profil = new Profil();
+        profil.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnSeePostGeneral1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;

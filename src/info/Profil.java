@@ -5,7 +5,6 @@
  */
 package info;
 
-import dbUtils.dbConnection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -16,11 +15,9 @@ import javax.swing.JOptionPane;
 public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
-    private dbConnection conn;
 
-    public Profil(dbConnection conn) {
+    public Profil() {
         initComponents();
-        this.conn = conn;
     }
 
     @SuppressWarnings("unchecked")
