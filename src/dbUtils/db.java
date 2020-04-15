@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author simpa
  */
 public class db {

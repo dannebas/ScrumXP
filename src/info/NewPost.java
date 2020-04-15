@@ -232,24 +232,25 @@ public class NewPost extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            String getAutoID = db.getDB().getAutoIncrement("POSTS", "POST_ID");
-            if (getAutoID == null) {
-                getAutoID = "1";
+            String autoID;
+            autoID = db.getDB().getAutoIncrement("POSTS", "POST_ID");
+            System.out.println(autoID);
+            if (autoID == null) {
+                autoID = "1";
             }
-            System.out.println(getAutoID);
+            System.out.println(autoID);
 
             Calendar cal = Calendar.getInstance();
             Date date = cal.getTime();
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             String date1 = format1.format(date);
 
-            System.out.println(date1);
+            String title = jTextField1.getText();
+            String mainText = jEditorPane1.getText();
 
-            String getTitle = jTextField1.getText();
-            String txtArea = jEditorPane1.getText();
+            System.out.println("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
+            db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
 
-            System.out.println("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
-            db.getDB().insert("INSERT INTO POSTS VALUES ('" + getAutoID + "','" + getTitle + "','" + txtArea + "','" + date1 + "','" + User.getUser() + "')");
         } catch (SQLException e) {
             System.err.println(e);
         }
