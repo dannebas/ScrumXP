@@ -486,7 +486,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="btnSeePostEducation" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnSeePostEducation" alignment="3" max="32767" attributes="0"/>
                               <Component id="btnSeePostResearch" alignment="3" max="32767" attributes="0"/>
                               <Component id="btnSeePostGeneral" alignment="3" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
