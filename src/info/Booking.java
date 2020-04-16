@@ -5,8 +5,19 @@
  */
 package info;
 
+import JavaMail.JavaMailUtil;
+import static JavaMail.JavaMailUtil.prepareMessage;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultListModel;
 
 /**
@@ -14,6 +25,8 @@ import javax.swing.DefaultListModel;
  * @author Lukas
  */
 public class Booking extends javax.swing.JFrame {
+
+    
 
     /**
      * Creates new form Booking
@@ -176,6 +189,11 @@ public class Booking extends javax.swing.JFrame {
 
         btnBook.setText("Book");
         btnBook.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookActionPerformed(evt);
+            }
+        });
 
         lblMessage.setText("Message:");
 
@@ -315,12 +333,12 @@ public class Booking extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbMemberActionPerformed
 
-     private String collectTitle() {
+     public String collectTitle() {
        String title = txtTitle.getText();
        return title;
     }
     
-    private String collectMessage() {
+    public String collectMessage() {
         String message = txtMessage.getText();
         return message;
     }
@@ -330,7 +348,7 @@ public class Booking extends javax.swing.JFrame {
         return location;
     }
     
-    private String collectMail() {
+    public String collectMail() {
         for(int i = 0; i<lstInvitations.getModel().getSize(); i++){
             String mailAdress = lstInvitations.getModel().getElementAt(i);
             System.out.println(i);
@@ -355,6 +373,34 @@ public class Booking extends javax.swing.JFrame {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
+        
+     
+        
+        for(int i = 0; i<lstInvitations.getModel().getSize(); i++){
+            String mailAdress = lstInvitations.getModel().getElementAt(i);
+            System.out.println(i);
+            
+            try {  
+                
+                
+                
+                JavaMail.JavaMailUtil.sendMail(mailAdress);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        invitations.removeAllElements();
+        
+        
+        
+        
+    
+        
+    }//GEN-LAST:event_btnBookActionPerformed
 
     
 

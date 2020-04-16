@@ -14,6 +14,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
+import info.Booking;
 
 /**
  *
@@ -40,20 +41,31 @@ public class JavaMailUtil {
             }
         });
         
+        
+        
+            
+            
+        
         Message message = prepareMessage(session, myAccount, recepient);
         
         Transport.send(message);
         System.out.println("Message sent!");
     }
     
-    private static Message prepareMessage(Session session, String myAccount, String recepient) {
+    public static Message prepareMessage(Session session, String myAccount, String recepient) {
         
         try {
+            
+            
+            Booking book = new Booking();
+           
+            
+            
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccount));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("Hello world!");
-            message.setText("Det fucking funkar!?, \n MASTERCODER HÄR!, \n MVH");
+            message.setSubject(book.collectTitle());
+            message.setText(book.collectMessage());
             return message;
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(JavaMailUtil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
