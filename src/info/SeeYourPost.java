@@ -44,7 +44,8 @@ public class SeeYourPost extends javax.swing.JFrame {
         rbtnSortByMyEducationPost = new javax.swing.JRadioButton();
         rbtnSortByMyGeneralPost = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         pnlBackgroundSeeYourPost.setBackground(new java.awt.Color(126, 197, 239));
