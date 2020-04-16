@@ -87,7 +87,9 @@ public class dbConnection {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            if(result != null) {
+                JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            }
         } finally {
             closeConnection();
         }

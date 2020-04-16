@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,11 +30,53 @@ public class NewPost extends javax.swing.JFrame {
         cbScienceGroups.setVisible(false);
         cbEduSci.setVisible(false);
         cbCategory.setVisible(false);
+        buttonSave.setVisible(false);
+    }
+    
+    public NewPost(String e){
+        initComponents();
+        //fillCb();
+        findPostLocation(e);
+        buttonPost.setVisible(false);
     }
 
     private void clear() {
         textTitle.setText("");
         textMain.setText("");
+    }
+    
+    private void fillCbEdit(String e)
+    {
+        
+    }
+    
+    private void findPostLocation(String idString)
+    {
+        try {
+            String q1 = db.getDB().fetchSingle("SELECT POST_ID FROM INFORMAL_POSTS WHERE POST_ID = " + idString );
+            if(q1!=null){
+                cbSubject.addItem("Informal");
+            }
+            else {
+                cbSubject.addItem("Formal");
+                String q2 = db.getDB().fetchSingle("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID = (SELECT CATEGORY FROM FORMAL_POST WHERE POST_ID = " + idString + ")");
+                cbCategory.addItem(q2);
+                System.out.println(q2 + "q2");
+                String q3 = db.getDB().fetchSingle("SELECT POST_ID FROM EDUCATION_POSTS WHERE POST_ID = " + idString );
+                if(q3!=null) {
+                    cbEduSci.addItem("Education");
+                }
+                else {
+                    cbEduSci.addItem("Science");
+                    String q4 = db.getDB().fetchSingle("SELECT RESEARCH_GROUP FROM RESEARCH_POSTS WHERE POST_ID = " + idString );
+                    String q5 = db.getDB().fetchSingle("SELECT GROUP_NAME FROM RESEARCH_GROUP WHERE GROUP_ID = " + q4 );
+                    cbScienceGroups.addItem(q5);
+                }
+            }
+            //SELECT POST_ID FROM POSTS WHERE POST_ID = 1
+        } catch (SQLException ex) {
+            Logger.getLogger(NewPost.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void fillCb() {
