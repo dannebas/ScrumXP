@@ -25,17 +25,18 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
+
 /**
  *
  * @author Lukas
  */
 public class Booking extends javax.swing.JFrame {
 
+    private static String innehall;
+    private static String subject;
     
 
-    /**
-     * Creates new form Booking
-     */
+    
     public Booking() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH); 
@@ -59,7 +60,6 @@ public class Booking extends javax.swing.JFrame {
         scrlMessage = new javax.swing.JScrollPane();
         txtMessage = new javax.swing.JTextArea();
         cmbGroup = new javax.swing.JComboBox<>();
-        cmbMember = new javax.swing.JComboBox<>();
         txtEmail = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
         scrlSummary = new javax.swing.JScrollPane();
@@ -84,6 +84,7 @@ public class Booking extends javax.swing.JFrame {
         lstInvitations = new javax.swing.JList<>();
         dp = new com.github.lgooddatepicker.components.DatePicker();
         tp = new com.github.lgooddatepicker.components.TimePicker();
+        cmbMember = new javax.swing.JComboBox<>();
 
         jButton4.setText("jButton1");
 
@@ -130,14 +131,6 @@ public class Booking extends javax.swing.JFrame {
         cmbGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGroupActionPerformed(evt);
-            }
-        });
-
-        cmbMember.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Member", "Annika", "Lukas", "Tanja" }));
-        cmbMember.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        cmbMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMemberActionPerformed(evt);
             }
         });
 
@@ -248,28 +241,29 @@ public class Booking extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cmbGroup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMember, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbGroup, 0, 259, Short.MAX_VALUE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtLocation)
+                                    .addComponent(cmbMember, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnGroup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnMember, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnLocation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(scrlSummary)
+                            .addComponent(scrlSummary, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                             .addComponent(lblLocation)
                             .addComponent(lblEmail)
                             .addComponent(lblMember)
                             .addComponent(lblGroup))
                         .addGap(55, 55, 55)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(dp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(tp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)))
-                        .addGap(72, 72, 72))
+                                .addGap(113, 113, 113))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,10 +299,13 @@ public class Booking extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cmbMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(btnMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(12, 12, 12))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                                .addComponent(cmbMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)))
                                         .addComponent(lblEmail))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(21, 21, 21)
@@ -323,7 +320,7 @@ public class Booking extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(scrlSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(scrlMessage)))
                     .addComponent(pnlDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -349,34 +346,45 @@ public class Booking extends javax.swing.JFrame {
 
     private void populateMemberCMBX()
     {
+        
+     
         ArrayList<HashMap<String, String>> name;
             
-        String q1 = "SELECT FIRSTNAME, LASTNAME FROM USER_PROFILE;";
+        String q1 = "SELECT LASTNAME, FIRSTNAME FROM USER_PROFILE;";
         try {
             name = db.getDB().fetchRows(q1);
-            
             DefaultComboBoxModel model = new DefaultComboBoxModel();
-            
-            cmbMember.setModel(model);
-                  
-            for (HashMap<String, String> list : name)
+        cmbMember.setModel(model);
+        
+        for (HashMap<String, String> list : name)
+        {   
+            String givenName = "";
+            //model.addElement(list);
+            int i = 0;
+           
+            for(String key : list.keySet())
             {
-                model.addElement(list);
+                if(i<=1){
+                    givenName=givenName+" ";
+                }
                 
-                /*for(String key : list.keySet())
-                {
+                String ettNamn = list.get(key);
+                System.out.println(ettNamn);
+                givenName = givenName+ettNamn;               
+                i++;
                 
-                model.addElement(list);               
-                
-               }
-                */
+            //model.addElement(list);
+            
             }
             
+            model.addElement(givenName);
             
+        }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("DB-fel5");
         }
+        
+
         
     }
     
@@ -404,12 +412,28 @@ public class Booking extends javax.swing.JFrame {
     private void cmbGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGroupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGroupActionPerformed
-
-    private void cmbMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMemberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbMemberActionPerformed
-
-     public String collectTitle() {
+    public static String sendText()
+    {
+        return innehall;
+    }
+    public void getText()
+    {
+        this.innehall = txtMessage.getText();
+              
+    }
+    public static String sendSubject()
+    {
+        return subject;
+    }
+    
+    public void getSubject()
+    {
+        this.subject = txtTitle.getText();
+    }
+    
+    
+    
+    public String collectTitle() {
        String title = txtTitle.getText();
        return title;
     }
@@ -452,6 +476,9 @@ public class Booking extends javax.swing.JFrame {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         
+        getText();
+        getSubject();
+        
         String subject = txtTitle.getText();
         String message = txtMessage.getText();
         String location = txtLocation.getText();
@@ -461,6 +488,18 @@ public class Booking extends javax.swing.JFrame {
         
         
         
+        try {
+         String autoID;
+            autoID = db.getDB().getAutoIncrement("MEETINGS", "MEETING_ID");
+            if (autoID == null) {
+                    autoID = "1";
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+                
+                
         
         
         
@@ -490,6 +529,7 @@ public class Booking extends javax.swing.JFrame {
         }
         
         invitations.removeAllElements();
+
         
         
         

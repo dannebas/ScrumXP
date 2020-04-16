@@ -67,10 +67,10 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="cmbGroup" max="32767" attributes="0"/>
-                                      <Component id="cmbMember" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cmbGroup" pref="259" max="32767" attributes="0"/>
                                       <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtLocation" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
+                                      <Component id="txtLocation" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="cmbMember" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -80,7 +80,7 @@
                                       <Component id="btnEmail" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="scrlSummary" max="32767" attributes="0"/>
+                              <Component id="scrlSummary" pref="354" max="32767" attributes="0"/>
                               <Component id="lblLocation" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
                               <Component id="lblMember" min="-2" max="-2" attributes="0"/>
@@ -88,13 +88,15 @@
                           </Group>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dp" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="dp" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="tp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -140,11 +142,16 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="cmbMember" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="btnMember" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="btnMember" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="cmbMember" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -164,7 +171,7 @@
                                       <Component id="txtLocation" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="btnLocation" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="scrlSummary" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                               <Component id="scrlMessage" max="32767" attributes="0"/>
@@ -281,29 +288,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbGroupActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cmbMember">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Member"/>
-                <StringItem index="1" value="Annika"/>
-                <StringItem index="2" value="Lukas"/>
-                <StringItem index="3" value="Tanja"/>
-              </StringArray>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbMemberActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -505,6 +489,16 @@
         <Component class="com.github.lgooddatepicker.components.DatePicker" name="dp">
         </Component>
         <Component class="com.github.lgooddatepicker.components.TimePicker" name="tp">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbMember">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
