@@ -69,7 +69,11 @@ public class Forum extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * FROM POSTS");
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN INFORMAL_POST ON POSTS.POST_ID=INFORMAL_POST.POST_ID\n"
+                    + "UNION\n"
+                    + "SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'\n"
+                    + "UNION\n"
+                    + "SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -90,7 +94,10 @@ public class Forum extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS)");
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
+                    + " INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'");
+            System.out.println(User.getUser());
+            System.out.println(posts);
 
             for (HashMap<String, String> aPost : posts) {
 
