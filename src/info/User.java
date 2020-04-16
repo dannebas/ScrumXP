@@ -8,6 +8,7 @@ package info;
 import dbUtils.db;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -86,8 +87,9 @@ public class User {
             String education_admin = db.getDB().fetchSingle("SELECT * from EDUCATION_ADMIN WHERE EDUCATION_ADMIN = '" + userID + "'");
             String research_admin = db.getDB().fetchSingle("SELECT * from RESEARCH_ADMIN WHERE RESEARCH_ADMIN = '" + userID + "'");
             String norm_admin = db.getDB().fetchSingle("SELECT * from ADMIN WHERE ADMIN = '" + userID + "'");
-            String eMail = db.getDB().fetchSingle("SELECT EMAILADRESS FROM USER_PROFILE WHERE PROFILE_ID = '" + userID + "'");
+            String eMail = db.getDB().fetchSingle("SELECT EMAILADDRESS FROM USER_PROFILE WHERE PROFILE_ID = '" + userID + "'");
             String phone = db.getDB().fetchSingle("select PHONE from USER_PROFILE where PROFILE_ID = '" + userID + "'");
+
 
             this.nameInloggad = firstName + " " + lastName;
             this.firstName = firstName;
