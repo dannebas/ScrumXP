@@ -5,10 +5,14 @@
  */
 package dbUtils;
 
+import info.User;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -45,7 +49,7 @@ public class dbConnection {
 
     private void initConnection() {
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:"+url);
+            conn = DriverManager.getConnection("jdbc:sqlite:" + url);
             System.out.println("Connection established!");
 
         } catch (SQLException ex) {
@@ -87,7 +91,7 @@ public class dbConnection {
                 }
             }
         } catch (SQLException e) {
-            if(result != null) {
+            if (result != null) {
                 JOptionPane.showMessageDialog(null, "Query failed, check statement.");
             }
         } finally {
@@ -170,6 +174,29 @@ public class dbConnection {
         return result;
     }
 
+    public byte[] fetchImageBytes(String query) throws SQLException {
+        byte[] result = null;
+        try {
+            checkConnection();
+            Statement sm = conn.createStatement();
+            boolean hasRS = sm.execute(query);
+            if (hasRS) {
+                ResultSet rs = sm.getResultSet();
+                if (rs.next()) {
+                    result = rs.getBytes(1);
+                }
+            }
+        } catch (SQLException e) {
+            if (result != null) {
+                JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            }
+        } finally {
+            closeConnection();
+        }
+        return result;
+
+    }
+
     public String getAutoIncrement(String table, String attribute) throws SQLException {
         String result = null;
         String query = "SELECT " + attribute + " FROM " + table + " ORDER BY " + attribute + " DESC";
@@ -248,48 +275,35 @@ public class dbConnection {
             throw new SQLException("Not valid UPDATE query - check your query");
         }
     }
-    
-    public void convertToImage(int id , ImageIcon img )
-    {
-        byte[] bytes = null;
-        
-        Icon icon = null;
-        BufferedImage abc123 = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = abc123.createGraphics();
-        img.paintIcon(null, g2d, 0, 0);
-        g2d.dispose();
-        String s = null;
-        
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) 
-        {
-            ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
-            try 
-            {
-                ImageIO.write((RenderedImage) abc123, "png", ios);
-                // Set a flag to indicate that the write was successful
-            } finally
-            {
-                ios.close();
-            }
 
-            bytes = baos.toByteArray();
-            
-            System.out.println(bytes);
-            s = new String(bytes);
-            JOptionPane.showMessageDialog(null, "BYTEES: " + s);
+    public void saveFileToDB(File myFile) throws FileNotFoundException {
+
+        FileInputStream fis = new FileInputStream(myFile);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        try {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                //Writes to this byte array output stream
+                bos.write(buf, 0, readNum);
+                System.out.println("read " + readNum + " bytes,");
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-        try 
-        {
-            insert("INSERT INTO USER_PROFILE VALUES ('IMAGE') VALUES ('" + s +"')");
+
+        byte[] bytes = bos.toByteArray();
+
+        String user = User.getUser();
+        try {
+            checkConnection();
+            System.out.println(user);
+            PreparedStatement ps = conn.prepareStatement("UPDATE USER_PROFILE SET IMAGE =? WHERE PROFILE_ID = '" + User.getUser() + "'");
+            ps.setBytes(1, bytes);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
+
 }
