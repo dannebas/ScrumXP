@@ -333,8 +333,8 @@ class LogInGUI extends javax.swing.JFrame {
                 ArrayList<String> allusers = db.getDB().fetchColumn("select USER_ID from USER");
                 if (allusers.contains(userID)) {
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
-                    String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
-                    ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
+                   // String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
+                  //  ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
 
                     if (storedPassword.equals(convertedPassword)) {
                         new User(userID);
