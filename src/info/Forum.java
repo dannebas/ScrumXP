@@ -246,6 +246,7 @@ public class Forum extends javax.swing.JFrame {
         rbtnITSecForum = new javax.swing.JRadioButton();
         rbtnITEdForum = new javax.swing.JRadioButton();
         rbtnSysDevMethForum = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -453,6 +454,13 @@ public class Forum extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jButton1.setText("Edit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBreadForumLayout = new javax.swing.GroupLayout(pnlBreadForum);
         pnlBreadForum.setLayout(pnlBreadForumLayout);
         pnlBreadForumLayout.setHorizontalGroup(
@@ -462,15 +470,22 @@ public class Forum extends javax.swing.JFrame {
                 .addComponent(pnlSortButtonsForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
+                .addGap(29, 29, 29)
+                .addComponent(jButton1)
+                .addGap(23, 23, 23))
         );
         pnlBreadForumLayout.setVerticalGroup(
             pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBreadForumLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlSortButtonsForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBreadForumLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(pnlBreadForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlSortButtonsForum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlBreadForumLayout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jButton1)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -698,6 +713,13 @@ public class Forum extends javax.swing.JFrame {
         login.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int id = tblForumPost.getSelectedRow();
+        String idString = tblForumPost.getModel().getValueAt(id, 4).toString();
+        NewPost newPost = new NewPost(idString);    
+        newPost.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;
@@ -705,6 +727,7 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
     private javax.swing.ButtonGroup buttonGroupForum;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblFooterImageForum;
