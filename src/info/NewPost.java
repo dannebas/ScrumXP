@@ -11,15 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  * @author fabian
  */
 public class NewPost extends javax.swing.JFrame {
+
+    private String postId;
 
     /**
      * Creates new form NewPost
@@ -32,11 +31,12 @@ public class NewPost extends javax.swing.JFrame {
         cbCategory.setVisible(false);
         buttonSave.setVisible(false);
     }
-    
-    public NewPost(String e){
+
+    public NewPost(String postId) {
         initComponents();
-        //fillCb();
-        findPostLocation(e);
+        this.postId = postId;
+        fillTitleandMainText();
+        findPostLocation(postId);
         buttonPost.setVisible(false);
     }
 
@@ -44,38 +44,33 @@ public class NewPost extends javax.swing.JFrame {
         textTitle.setText("");
         textMain.setText("");
     }
-    
-    private void fillCbEdit(String e)
-    {
-        
+
+    private void fillCbEdit(String e) {
+
     }
-    
-    private void findPostLocation(String idString)
-    {
+
+    private void findPostLocation(String idString) {
         try {
-            String q1 = db.getDB().fetchSingle("SELECT POST_ID FROM INFORMAL_POSTS WHERE POST_ID = " + idString );
-            if(q1!=null){
+            String q1 = db.getDB().fetchSingle("SELECT POST_ID FROM INFORMAL_POSTS WHERE POST_ID = " + idString);
+            if (q1 != null) {
                 cbSubject.addItem("Informal");
-            }
-            else {
+            } else {
                 cbSubject.addItem("Formal");
                 String q2 = db.getDB().fetchSingle("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID = (SELECT CATEGORY FROM FORMAL_POST WHERE POST_ID = " + idString + ")");
                 cbCategory.addItem(q2);
                 System.out.println(q2 + "q2");
-                String q3 = db.getDB().fetchSingle("SELECT POST_ID FROM EDUCATION_POSTS WHERE POST_ID = " + idString );
-                if(q3!=null) {
+                String q3 = db.getDB().fetchSingle("SELECT POST_ID FROM EDUCATION_POSTS WHERE POST_ID = " + idString);
+                if (q3 != null) {
                     cbEduSci.addItem("Education");
-                }
-                else {
+                } else {
                     cbEduSci.addItem("Science");
-                    String q4 = db.getDB().fetchSingle("SELECT RESEARCH_GROUP FROM RESEARCH_POSTS WHERE POST_ID = " + idString );
-                    String q5 = db.getDB().fetchSingle("SELECT GROUP_NAME FROM RESEARCH_GROUP WHERE GROUP_ID = " + q4 );
+                    String q4 = db.getDB().fetchSingle("SELECT RESEARCH_GROUP FROM RESEARCH_POSTS WHERE POST_ID = " + idString);
+                    String q5 = db.getDB().fetchSingle("SELECT GROUP_NAME FROM RESEARCH_GROUP WHERE GROUP_ID = " + q4);
                     cbScienceGroups.addItem(q5);
                 }
             }
-            //SELECT POST_ID FROM POSTS WHERE POST_ID = 1
         } catch (SQLException ex) {
-            Logger.getLogger(NewPost.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
 
@@ -111,38 +106,6 @@ public class NewPost extends javax.swing.JFrame {
                 }
             }
         }
-    }
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Forum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewPost().setVisible(true);
-            }
-        });
     }
 
     /**
@@ -198,6 +161,11 @@ public class NewPost extends javax.swing.JFrame {
         buttonSave.setForeground(new java.awt.Color(255, 255, 255));
         buttonSave.setText("Save");
         buttonSave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveActionPerformed(evt);
+            }
+        });
 
         buttonClear.setBackground(new java.awt.Color(126, 197, 239));
         buttonClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -286,7 +254,7 @@ public class NewPost extends javax.swing.JFrame {
                         .addComponent(cbEduSci, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbScienceGroups, 0, 160, Short.MAX_VALUE)))
-                .addGap(0, 127, Short.MAX_VALUE))
+                .addGap(0, 125, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +279,7 @@ public class NewPost extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonAttach, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -382,24 +350,21 @@ public class NewPost extends javax.swing.JFrame {
                 String mainText = textMain.getText();
 
                 db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
-                // Added insert values depending on the selected options in the ColumnBox 
-                if(cbSubject.getSelectedItem().toString().equals("Informal")){
-                    db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID +"')");
-                }
-                else if(cbSubject.getSelectedItem().toString().equals("Formal")) {
+                // Added insert values depending on the selected options in the ColumnBox
+                if (cbSubject.getSelectedItem().toString().equals("Informal")) {
+                    db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID + "')");
+                } else if (cbSubject.getSelectedItem().toString().equals("Formal")) {
                     String categoryNumber = db.getDB().fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = '" + cbCategory.getSelectedItem().toString() + "'");
-                    db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber +"')");
-                    if(cbEduSci.getSelectedItem().toString().equals("Science")){
+                    db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber + "')");
+                    if (cbEduSci.getSelectedItem().toString().equals("Science")) {
                         String groupNumber = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
-                        db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber +"')");
-                    }
-                    else if(cbEduSci.getSelectedItem().toString().equals("Education")){
-                        db.getDB().insert("INSERT INTO EDUCATION_POSTS VALUES ('" + autoID +"')");
+                        db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber + "')");
+                    } else if (cbEduSci.getSelectedItem().toString().equals("Education")) {
+                        db.getDB().insert("INSERT INTO EDUCATION_POSTS VALUES ('" + autoID + "')");
                     }
                 }
                 JOptionPane.showMessageDialog(null, "Post added!");
                 clear();
-
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -414,6 +379,39 @@ public class NewPost extends javax.swing.JFrame {
     private void cbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoryActionPerformed
+
+    private void fillTitleandMainText() {
+        try {
+            String title = db.getDB().fetchSingle("SELECT TITLE FROM POSTS WHERE POST_ID = " + postId);
+            String mainText = db.getDB().fetchSingle("SELECT DESCRIPTION FROM POSTS WHERE POST_ID = " + postId);
+
+            textTitle.setText(title);
+            textMain.setText(mainText);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
+        try {
+            String title = textTitle.getText();
+            String mainText = textMain.getText();
+
+            Calendar cal = Calendar.getInstance();
+            Date date = cal.getTime();
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = format1.format(date);
+
+            db.getDB().update("UPDATE POSTS SET DATE = " + "'" + date1 + "'" + " WHERE POST_ID = " + postId);
+            db.getDB().update("UPDATE POSTS SET TITLE = " + "'" + title + "'" + " WHERE POST_ID = " + postId);
+            db.getDB().update("UPDATE POSTS SET DESCRIPTION = " + "'" + mainText + "'" + " WHERE POST_ID = " + postId);
+
+            JOptionPane.showMessageDialog(null, "Post edited!");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+    }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void showCbEduSci() {
         String choice = cbEduSci.getSelectedItem().toString();

@@ -433,9 +433,9 @@ public class FrontPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
         LogInGUI login = new LogInGUI();
         login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSeePostGeneral1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneral1ActionPerformed

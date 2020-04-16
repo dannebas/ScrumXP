@@ -5,7 +5,6 @@
  */
 package info;
 
-
 import dbUtils.db;
 import dbUtils.dbConnection;
 import java.sql.SQLException;
@@ -24,203 +23,129 @@ import javax.swing.table.TableColumnModel;
 public class Forum extends javax.swing.JFrame {
 
     private static dbConnection conn;
-    
- 
-    
-  
+
     /**
      * Creates new form Forum
      */
     public Forum() {
         initComponents();
-        
+
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
-        
+
         columnmodel.removeColumn(columnmodel.getColumn(4));
-            
+
         conn = db.getDB();
-        
+
         pnlSortButtonsForum.setVisible(false);
-        
+
         addAllForumPost();
-        
+
         setExtendedState(MAXIMIZED_BOTH);
-        
+
         setLocationRelativeTo(null);
-        
-        
-        
+
     }
-    
-     
-    
+
     public void addAllGeneralPost() // add all the Post which are Informal to the table
     {
-     try {
-            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-           ArrayList<HashMap<String, String>> posts =  conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION")});
-                
             }
-        } catch (SQLException ex) 
-        
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No posts");
         }
-     
-      catch(NullPointerException e)
-          {
-              JOptionPane.showMessageDialog(null, "No posts");
-          }
     }
-    
-    
+
     public void addAllForumPost() // add all the Post to the table
     {
         try {
-            
-            
-            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
-            
+            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-           ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * FROM POSTS");
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("select * FROM POSTS");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 //model.addRow(new Object[]{"Hej"});
             }
-        } catch (SQLException ex) 
-        
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No posts");
         }
-        
-          catch(NullPointerException e)
-          {
-              JOptionPane.showMessageDialog(null, "No posts");
-          }
     }
-        
-        
-        
-        
-        public void addResearchForumPost() // add all the Post in a certain category  to the table
-        {
-       
-           
-            
-            try {
-            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+
+    public void addResearchForumPost() // add all the Post in a certain category  to the table
+    {
+
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-             
-            
-            
-           ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS)");
-                   
+
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS)");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
-                
             }
-        } catch (SQLException ex) 
-        
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No posts");
         }
-            
-             catch(NullPointerException e)
-          {
-              JOptionPane.showMessageDialog(null, "No posts");
-          }
-            
-            
-    
     }
-        
-        
-        public void addEducationForumPost() // add all the Post in a certain category  to the table
-        {
-       
-           
-            
-            try {
-            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+
+    public void addEducationForumPost() // add all the Post in a certain category  to the table
+    {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-             
-            
-            
-           ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
-                   
+
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
-                
             }
-        } catch (SQLException ex) 
-        
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No posts");
         }
-            
-             catch(NullPointerException e)
-          {
-              JOptionPane.showMessageDialog(null, "No posts");
-          }
-            
-            
-    
+
     }
-        
-        
-        
-        
-        
-        
-        public void addGroupResearchForumPost(int groupID) // add all the Post in a certain category  to the table
-        {
-       
-           
-            try {
-            DefaultTableModel model = (DefaultTableModel)tblForumPost.getModel();
+
+    public void addGroupResearchForumPost(int groupID) // add all the Post in a certain category  to the table
+    {
+
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-             
-            
-           ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")" );
-                   
+
+            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")");
 
             for (HashMap<String, String> aPost : posts) {
 
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
-                
+
             }
-            
-            
-        } catch (SQLException ex) 
-        
-        {
-           Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No posts");
         }
-            
-             catch(NullPointerException e)
-          {
-              JOptionPane.showMessageDialog(null, "No posts");
-          }
-    
-            
-            
-    
+
     }
 
-        
-     
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -641,30 +566,29 @@ public class Forum extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rbtnEHealthForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEHealthForumActionPerformed
-      
+
         addGroupResearchForumPost(1);
     }//GEN-LAST:event_rbtnEHealthForumActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
-     pnlSortButtonsForum.setVisible(false);
-       addEducationForumPost();
-        
+        pnlSortButtonsForum.setVisible(false);
+        addEducationForumPost();
+
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-         pnlSortButtonsForum.setVisible(true);
+        pnlSortButtonsForum.setVisible(true);
         addResearchForumPost();
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-      pnlSortButtonsForum.setVisible(false);
+        pnlSortButtonsForum.setVisible(false);
         addAllGeneralPost();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-      pnlSortButtonsForum.setVisible(false);
+        pnlSortButtonsForum.setVisible(false);
         addAllForumPost();
-    
 
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
@@ -685,19 +609,19 @@ public class Forum extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnITSecForumActionPerformed
 
     private void rbtnITEdForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnITEdForumActionPerformed
-       addGroupResearchForumPost(5);
+        addGroupResearchForumPost(5);
     }//GEN-LAST:event_rbtnITEdForumActionPerformed
 
     private void rbtnSysDevMethForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSysDevMethForumActionPerformed
-       addGroupResearchForumPost(6);
+        addGroupResearchForumPost(6);
     }//GEN-LAST:event_rbtnSysDevMethForumActionPerformed
 
     private void tblForumPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblForumPostMouseClicked
         if (evt.getClickCount() == 2) {
             int id = tblForumPost.getSelectedRow();
-          
+
             String idString = tblForumPost.getModel().getValueAt(id, 4).toString();
-            
+
             new SeePost(idString).setVisible(true);
         }
     }//GEN-LAST:event_tblForumPostMouseClicked
@@ -716,10 +640,9 @@ public class Forum extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int id = tblForumPost.getSelectedRow();
         String idString = tblForumPost.getModel().getValueAt(id, 4).toString();
-        NewPost newPost = new NewPost(idString);    
+        NewPost newPost = new NewPost(idString);
         newPost.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeePostEducation;
