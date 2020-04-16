@@ -2,7 +2,10 @@ package info;
 
 import dbUtils.PictureHandler;
 import dbUtils.db;
+import dbUtils.dbConnection;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -224,10 +227,13 @@ public class EditProfile extends javax.swing.JFrame
 
     private void lblEditPictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPictureMouseClicked
         PictureHandler handler = new PictureHandler(190, 190);
-        Image picture = handler.openFile();
-        ImageIcon image = new ImageIcon(picture);
-        lblEditUserImage.setIcon(image);
-        updateImage(image);
+        File picture = handler.openFile2();
+        try {
+            db.getDB().saveFileToDB(picture);
+            profile.displayProfileImage();
+        } catch (IOException ex) {
+            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lblEditPictureMouseClicked
 
     private void btnUpdateTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTextActionPerformed
@@ -252,6 +258,7 @@ public class EditProfile extends javax.swing.JFrame
     
     private void updateImage(ImageIcon image)
     {
+        
         profile.updateProfile(image);
     }
     
