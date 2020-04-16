@@ -5,8 +5,6 @@
  */
 package info;
 
-import dbUtils.db;
-
 /**
  *
  * @author fabia
@@ -20,17 +18,16 @@ public class SeePost extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         Post aPost = new Post(id);
-        
-        
-       lblTiltleSeePost.setText(aPost.getTitle());
-       lblAuthorSeePost.setText(aPost.getAuthor());
-       lblUploadDateSeePost.setText(aPost.getDate());
-       
-       txtAreaPostSeePost.setLineWrap(true);
+
+        lblTiltleSeePost.setText(aPost.getTitle());
+        lblAuthorSeePost.setText(aPost.getAuthor());
+        lblUploadDateSeePost.setText(aPost.getDate());
+
+        txtAreaPostSeePost.setLineWrap(true);
         txtAreaPostSeePost.setWrapStyleWord(true);
         txtAreaPostSeePost.setText(aPost.getDescription().indent(4));
-       txtAreaPostSeePost.setEditable(false);
-       
+        txtAreaPostSeePost.setEditable(false);
+
     }
 
     /**
@@ -65,7 +62,7 @@ public class SeePost extends javax.swing.JFrame {
         lblAuthorNameSeePost = new javax.swing.JLabel();
         btnPrintPostSeePost = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         jPanel1.setBackground(new java.awt.Color(126, 197, 239));

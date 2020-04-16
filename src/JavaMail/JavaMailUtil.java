@@ -57,15 +57,18 @@ public class JavaMailUtil {
         try {
             
             
-            Booking book = new Booking();
+            
            
             
             
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccount));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject(book.collectTitle());
-            message.setText(book.collectMessage());
+            //message.setSubject(book.collectTitle());
+            //message.setText(book.collectMessage());
+            
+            message.setText(Booking.sendText());
+            message.setSubject(Booking.sendSubject());
             return message;
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(JavaMailUtil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
