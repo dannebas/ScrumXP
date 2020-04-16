@@ -99,11 +99,11 @@ public class EditProfile extends javax.swing.JFrame
         pnlUserInfoEditProfileLayout.setHorizontalGroup(
             pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUserInfoEditProfileLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(lblEditUserEmailEditProfile)
-                .addGap(18, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         pnlUserInfoEditProfileLayout.setVerticalGroup(
             pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +112,7 @@ public class EditProfile extends javax.swing.JFrame
                 .addGroup(pnlUserInfoEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEditUserEmailEditProfile)
                     .addComponent(txfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(29, 29, 29))
         );
 
         lblHeaderImageEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
@@ -139,7 +139,7 @@ public class EditProfile extends javax.swing.JFrame
         pnlfooterEditProfile.setLayout(pnlfooterEditProfileLayout);
         pnlfooterEditProfileLayout.setHorizontalGroup(
             pnlfooterEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFooterImageEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(lblFooterImageEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlfooterEditProfileLayout.setVerticalGroup(
             pnlfooterEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,33 +166,34 @@ public class EditProfile extends javax.swing.JFrame
             .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditPicture))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
-                        .addComponent(lblEditPicture)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnUpdateText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
-                        .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
-                                .addComponent(btnUpdateText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
-                                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblBacktoProfile)
-                                    .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                            .addComponent(lblBacktoProfile)
+                            .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlBackgroundEditProfileLayout.setVerticalGroup(
             pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
                 .addComponent(pnlHeaderEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEditPicture)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(pnlBackgroundEditProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                        .addComponent(pnlEditPictureEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEditPicture)
+                        .addGap(0, 13, Short.MAX_VALUE))
+                    .addGroup(pnlBackgroundEditProfileLayout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(pnlUserInfoEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(btnUpdateText)
                 .addGap(18, 18, 18)
                 .addComponent(lblBacktoProfile)
@@ -205,8 +206,9 @@ public class EditProfile extends javax.swing.JFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(pnlBackgroundEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 69, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +235,7 @@ public class EditProfile extends javax.swing.JFrame
         
         updateText(mail);
         try{
-        db.getDB().update("UPDATE USER_PROFILE SET EMAILADRESS = '" + mail + "'" + "WHERE PROFILE_ID = '" + User.getUser() + "'");
+        db.getDB().update("UPDATE USER_PROFILE SET EMAILADDRESS = '" + mail + "'" + "WHERE PROFILE_ID = '" + User.getUser() + "'");
         }
         catch(SQLException ex)
         {

@@ -23,6 +23,7 @@ import javax.swing.table.TableColumnModel;
 public class Forum extends javax.swing.JFrame {
 
     private static dbConnection conn;
+    private DefaultTableModel model;
 
     /**
      * Creates new form Forum
@@ -49,7 +50,7 @@ public class Forum extends javax.swing.JFrame {
     public void addAllGeneralPost() // add all the Post which are Informal to the table
     {
         try {
-            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
+            model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
             ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
 
@@ -60,14 +61,14 @@ public class Forum extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No posts");
+            model.addRow(new Object[]{"No Posts"});
         }
     }
 
     public void addAllForumPost() // add all the Post to the table
     {
         try {
-            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
+             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
             ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN INFORMAL_POST ON POSTS.POST_ID=INFORMAL_POST.POST_ID\n"
                     + "UNION\n"
@@ -83,7 +84,7 @@ public class Forum extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No posts");
+            model.addRow(new Object[]{"No Posts"});
         }
     }
 
@@ -91,7 +92,7 @@ public class Forum extends javax.swing.JFrame {
     {
 
         try {
-            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
+             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
             ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
@@ -106,14 +107,14 @@ public class Forum extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No posts");
+            model.addRow(new Object[]{"No Posts"});
         }
     }
 
     public void addEducationForumPost() // add all the Post in a certain category  to the table
     {
         try {
-            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
+             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
             ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
@@ -125,7 +126,7 @@ public class Forum extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No posts");
+           model.addRow(new Object[]{"No Posts"});
         }
 
     }
@@ -134,7 +135,7 @@ public class Forum extends javax.swing.JFrame {
     {
 
         try {
-            DefaultTableModel model = (DefaultTableModel) tblForumPost.getModel();
+             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
             ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")");
@@ -148,11 +149,30 @@ public class Forum extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No posts");
+            model.addRow(new Object[]{"No Posts"});
         }
 
     }
 
+    
+        public void swicthCategoryButtons(boolean state)
+        {
+           boolean switchState = state;
+          
+           
+           if(switchState)
+           {
+               pnlSortButtonsForum.setVisible(true);
+           }
+           
+           else
+           {
+                pnlSortButtonsForum.setVisible(false);
+           }
+           
+           
+        }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

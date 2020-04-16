@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
+    
+    private Forum forum;
+    
 
     public Profil() {
         initComponents();
@@ -27,7 +30,7 @@ public class Profil extends javax.swing.JFrame {
         
         ArrayList<String> groups = User.getUserGroups();
         
-        
+        forum = new Forum();
         
         for (String s : groups) {
             txaGroups.append(s + "\n");
@@ -162,12 +165,13 @@ public class Profil extends javax.swing.JFrame {
                     .addGroup(pnlUserInfoBackgroundLayout.createSequentialGroup()
                         .addComponent(lblNameProfile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblUserNameProfile))
+                        .addComponent(lblUserNameProfile)
+                        .addGap(0, 144, Short.MAX_VALUE))
                     .addGroup(pnlUserInfoBackgroundLayout.createSequentialGroup()
                         .addComponent(lblEmailProfile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(lblUserEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlUserInfoBackgroundLayout.setVerticalGroup(
             pnlUserInfoBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +242,7 @@ public class Profil extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(pnlUserInfoBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblEditProfile))
                 .addGap(63, 63, 63)
                 .addComponent(pnlUserMeetingAndPostBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,11 +342,11 @@ public class Profil extends javax.swing.JFrame {
             .addGroup(pnlNavBarSeePostLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(btnSeePostHome)
-                .addGap(40, 40, 40)
+                .addGap(39, 39, 39)
                 .addComponent(btnSeePostEducation)
-                .addGap(48, 48, 48)
+                .addGap(50, 50, 50)
                 .addComponent(btnSeePostResearch)
-                .addGap(46, 46, 46)
+                .addGap(47, 47, 47)
                 .addComponent(btnSeePostGeneral)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -353,12 +357,12 @@ public class Profil extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavBarSeePostLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
                     .addGroup(pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSeePostHome, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addComponent(btnSeePostEducation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSeePostResearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSeePostGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addComponent(btnSeePostHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnSeePostGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -456,22 +460,54 @@ public class Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_cbMeetingProfileActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-        new Forum().setVisible(true);
+        forum.setVisible(true);
+        
+        forum.swicthCategoryButtons(false);
+        
+        forum.addAllGeneralPost();
+       
         this.dispose();//addAllForumPost();
 
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
 
-        //addCategoryForumPost(getEducationCategoryID());
+        forum.swicthCategoryButtons(false);
+        
+        forum.addEducationForumPost();
+        
+        forum.setVisible(true);
+        
+        
+        
+        
+        this.dispose();
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-        //addCategoryForumPost(getResearchCategoryID());
+       
+        
+        forum.addResearchForumPost();
+        
+        forum.setVisible(true);
+        
+        forum.swicthCategoryButtons(true);
+        
+        
+        this.dispose();
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-        //addAllGeneralPost();
+       
+        
+        forum.addAllGeneralPost();
+        
+        forum.setVisible(true);
+        
+        forum.swicthCategoryButtons(false);
+        
+        
+        this.dispose();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
