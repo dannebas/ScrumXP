@@ -154,6 +154,11 @@ public class Booking extends javax.swing.JFrame {
 
         btnGroup.setText("Add");
         btnGroup.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroupActionPerformed(evt);
+            }
+        });
 
         btnMember.setText("Add");
         btnMember.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -492,6 +497,41 @@ public class Booking extends javax.swing.JFrame {
     
         
     }//GEN-LAST:event_btnBookActionPerformed
+
+    private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
+        
+      
+        String cmbx = cmbGroup.getSelectedItem().toString();
+        String q1 = "SELECT EMAILADDRESS FROM USER_PROFILE where PROFILE_ID = (SELECT MEMBER FROM group_members WHERE research_group = (SELECT group_id from research_group where group_name='"+cmbx+"'));";
+        System.out.println(q1);
+        try {
+            
+            lstInvitations.setModel(invitations);
+            
+            System.out.println(1);
+            
+            ArrayList<String> al = db.getDB().fetchColumn(q1);
+          
+            System.out.println(al);
+            for(int i = 0; i < al.size(); i++)
+            {
+                System.out.println(3);
+                String a = al.get(i).toString();
+                
+                invitations.addElement(a);
+                
+                
+               
+                       
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(7);
+        }
+        
+        
+   
+    }//GEN-LAST:event_btnGroupActionPerformed
 
     
 
