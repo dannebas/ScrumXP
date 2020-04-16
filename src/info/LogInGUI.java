@@ -333,10 +333,12 @@ class LogInGUI extends javax.swing.JFrame {
                 ArrayList<String> allusers = db.getDB().fetchColumn("select USER_ID from USER");
                 if (allusers.contains(userID)) {
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
+                    String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
+                    ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
 
                     if (storedPassword.equals(convertedPassword)) {
                         new User(userID);
-                        JOptionPane.showMessageDialog(null, "Welcome " + User.getFirstName() + ". You have successfully logged in.");
+                        JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
                         new Forum().setVisible(true);
                         this.dispose();
                     } else {
@@ -399,6 +401,7 @@ class LogInGUI extends javax.swing.JFrame {
 
     private void pwdUserPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("test");
             logIn();
         }
     }//GEN-LAST:event_pwdUserPasswordKeyPressed
