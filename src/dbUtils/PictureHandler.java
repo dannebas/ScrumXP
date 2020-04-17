@@ -79,7 +79,7 @@ public class PictureHandler {
         return newImage;
     }
 
-    private Image convertToImageFromFile(File myFile) {
+    public Image convertToImageFromFile(File myFile) {
         Image image = null;
         try {
             image = ImageIO.read(myFile);
