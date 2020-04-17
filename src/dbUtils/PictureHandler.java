@@ -92,7 +92,7 @@ public class PictureHandler {
 
      
     
-    public void convertToImage(String user, ImageIcon img) {
+   /* public void convertToImage(String user, ImageIcon img) {
         byte[] bytes = null;
 
         Icon icon = null;
@@ -122,5 +122,5 @@ public class PictureHandler {
         }
 
 
-    }
+    }*/
 }
