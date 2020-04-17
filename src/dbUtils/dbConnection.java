@@ -6,9 +6,6 @@
 package dbUtils;
 
 import info.User;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,10 +15,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,7 +24,7 @@ import javax.swing.JOptionPane;
 public class dbConnection {
 
     private Connection conn;
-    private String url;
+    private final String url;
 
     public dbConnection(String path) throws SQLException {
         url = path;
