@@ -44,7 +44,8 @@ public class Forum extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         setLocationRelativeTo(null);
-
+        
+        
     }
 
     public void addAllGeneralPost() // add all the Post which are Informal to the table
@@ -251,7 +252,7 @@ public class Forum extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -266,6 +267,7 @@ public class Forum extends javax.swing.JFrame {
         tblForumPost.setPreferredSize(new java.awt.Dimension(300, 450));
         tblForumPost.setRowHeight(26);
         tblForumPost.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        tblForumPost.getTableHeader().setReorderingAllowed(false);
         tblForumPost.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblForumPostMouseClicked(evt);
@@ -287,7 +289,7 @@ public class Forum extends javax.swing.JFrame {
             .addGroup(pnlTableForumLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(spnTableForum, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
