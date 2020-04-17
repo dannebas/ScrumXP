@@ -28,6 +28,7 @@ public class ACalendar extends javax.swing.JFrame {
     private String day;
     private int dayOfWeek;
     private int firstDayOfMonth;
+    private int daysInMonth;
 
     /**
      * Creates new form Calendar
@@ -38,6 +39,7 @@ public class ACalendar extends javax.swing.JFrame {
         //fillDates();
         fillDates2();
         System.out.println(dayOfWeek);
+
     }
 
     public int getWeek() {
@@ -61,31 +63,32 @@ public class ACalendar extends javax.swing.JFrame {
 
         int theNumber = 0;
         switch (aString) {
-            case "Mon":
+            case "Mon ":
                 //this.dayOfWeek = 1;
                 theNumber = 1;
                 break;
-            case "Tue":
+            case "Tue ":
                 //this.dayOfWeek = 2;
                 theNumber = 2;
                 break;
-            case "Wed":
+            case "Wed ":
                 //this.dayOfWeek = 3;
+                System.out.println("RÄTT");
                 theNumber = 3;
                 break;
-            case "Thu":
+            case "Thu ":
                 //this.dayOfWeek = 4;
                 theNumber = 4;
                 break;
-            case "Fri":
+            case "Fri ":
                 //this.dayOfWeek = 5;
                 theNumber = 5;
                 break;
-            case "Sat":
+            case "Sat ":
                 //this.dayOfWeek = 6;
                 theNumber = 6;
                 break;
-            case "Sun":
+            case "Sun ":
                 //this.dayOfWeek = 7;
                 theNumber = 7;
                 break;
@@ -144,7 +147,7 @@ public class ACalendar extends javax.swing.JFrame {
         SimpleDateFormat month = new SimpleDateFormat("M");
         labelMonth.setText(month.format(dNow));
         this.month = Integer.parseInt(month.format(dNow));
-        System.out.println(month.format(dNow));
+        System.out.println("Månad " + month.format(dNow));
 
         //Year
         SimpleDateFormat year = new SimpleDateFormat("y");
@@ -158,33 +161,35 @@ public class ACalendar extends javax.swing.JFrame {
         String date11 = date10.toString().substring(0, 4);
         System.out.println("DATE11 ÄR " + date11);
         this.firstDayOfMonth = getNumberDay(date11);
+        System.out.println("FIRSTDAYOFMONTH ÄR " + this.firstDayOfMonth);
+
+        //Days in month
+        YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
+        this.daysInMonth = yearMonthObject.lengthOfMonth();
 
     }
 
     private void fillDates2() {
-        YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
-        int daysInMonth = yearMonthObject.lengthOfMonth();
-        System.out.println(daysInMonth);
+        //YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
+        //int daysInMonth = yearMonthObject.lengthOfMonth();
+        //System.out.println(daysInMonth);
 
-        Calendar cal = Calendar.getInstance();
+        //Calendar cal = Calendar.getInstance();
         //cal.set(Calendar.WEEK_OF_YEAR, this.month);
         //System.out.println(cal.get(Calendar.WEEK_OF_MONTH));
-        System.out.println(cal.get(Calendar.DAY_OF_WEEK));
-        System.out.println(cal.get(Calendar.DAY_OF_YEAR));
-        System.out.println((cal.get(Calendar.DAY_OF_YEAR)) / (cal.get(Calendar.DAY_OF_WEEK)));
+        //System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+        //System.out.println(cal.get(Calendar.DAY_OF_YEAR));
+        //System.out.println((cal.get(Calendar.DAY_OF_YEAR)) / (cal.get(Calendar.DAY_OF_WEEK)));
         //System.out.println(cal.get(Calendar.WEEK_OF_YEAR));
         //System.out.println("Week in Year: " + c.get(Calendar.WEEK_OF_YEAR));
-
-        Integer[][] rowData = {};
-        String[] columnNames = {"Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-
-        Object[][] data = /*new Object[][]*/ {
-                    {1, 1, 2, 3, 4, 5, 6, 7},
-                    {2, 8, 9, 10, 11, 12, 13, 14},
-                    {3, 15, 16, 17, 18, 19, 20, 21},
-                    {4, 22, 23, 24, 25, 26, 27, 28},
-                    {5, 29, 30, 31},};
-
+        //Integer[][] rowData = {};
+        //String[] columnNames = {"Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        //Object[][] data = /*new Object[][]*/ {
+        //          {1, 1, 2, 3, 4, 5, 6, 7},
+        //        {2, 8, 9, 10, 11, 12, 13, 14},
+        //      {3, 15, 16, 17, 18, 19, 20, 21},
+        //    {4, 22, 23, 24, 25, 26, 27, 28},
+        //  {5, 29, 30, 31},};
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         int w = 0;
@@ -193,13 +198,24 @@ public class ACalendar extends javax.swing.JFrame {
             //Integer[] array = {};
             Integer weeknumber = getWeek() + i;
             String arrayen = weeknumber.toString();
+            int z = y;
+            int counter = -1;
             for (int x = y; x < (8 + y); x++) {
-                arrayen = arrayen + " " + x;
+                //int z = x;
+                if (x <= (this.firstDayOfMonth - 1)) {
+                    arrayen = arrayen + " ,";
+                    //z--;
+                    continue;
+                }
+                counter++;
+                arrayen = arrayen + "," + z;
                 //Arrays.fill(arrayen, x);
                 System.out.println(arrayen);
-                if (x == daysInMonth) {
+                System.out.println(x + " är mindre än " + this.firstDayOfMonth);
+                if (x == this.daysInMonth) {
                     break;
                 }
+                z++;
                 /*
                 TANKAR TILL MIG SJÄLV INFÖR MÅNDAG: Använd firstDayOfMonth för att försöka få
                 in arrayen till att hoppa över de dagar som finns innan t.ex. Wed(Mån, Tis) så
@@ -207,10 +223,10 @@ public class ACalendar extends javax.swing.JFrame {
                  */
 
             }
-            y = y + 7;
+            y = y + counter;
             System.out.println("Y är " + y);
             //Arrays.fill(array, arrayen
-            String[] array = arrayen.split(" ");
+            String[] array = arrayen.split(",");
             System.out.println(arrayen);
             model.addRow(array);
             //String[] array = {arrayen.split(" ")};
@@ -228,15 +244,15 @@ public class ACalendar extends javax.swing.JFrame {
             w++;*/
 
         }
-        Integer[] array = {this.week, 1, 2, 3, 4, 5, 6, 7};
+        //Integer[] array = {this.week, 1, 2, 3, 4, 5, 6, 7};     x
         //model.addRow(array);
         //model.addRow(new Object[]{"Hej"});
 
-        for (int i = 1;
-                i < daysInMonth;
+        /*for (int i = 1;
+                i < daysInMonth;                                s
                 i++) {
             model.addRow(rowData);
-        }
+        /* }
 
         /*
         Calendar cal = Calendar.getInstance();
@@ -328,6 +344,8 @@ public class ACalendar extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -338,6 +356,8 @@ public class ACalendar extends javax.swing.JFrame {
 
         labelDay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         labelDay.setText("Dag");
+
+        jScrollPane1.setHorizontalScrollBar(null);
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -369,6 +389,15 @@ public class ACalendar extends javax.swing.JFrame {
 
         jLabel1.setText("Year");
 
+        jButton2.setText("Up");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Down");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -387,18 +416,28 @@ public class ACalendar extends javax.swing.JFrame {
                             .addComponent(labelDay)
                             .addComponent(labelMonth)
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(labelDay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelMonth)
-                .addGap(2, 2, 2)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(labelDay)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelMonth)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -423,6 +462,11 @@ public class ACalendar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.month = this.month + 1;
+        fillDates2();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,6 +511,8 @@ public class ACalendar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
