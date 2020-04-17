@@ -25,7 +25,6 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-
 /**
  *
  * @author Lukas
@@ -34,21 +33,18 @@ public class Booking extends javax.swing.JFrame {
 
     private static String innehall;
     private static String subject;
-    
 
-    
     public Booking() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH); 
+        setExtendedState(MAXIMIZED_BOTH);
         populateMemberCMBX();
         populateGroupCMBX();
     }
 
     public static void main(String[] args) {
-        
+
     }
-   
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -343,112 +339,97 @@ public class Booking extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void populateMemberCMBX()
-    {
-        
-     
+    private void populateMemberCMBX() {
+
         ArrayList<HashMap<String, String>> name;
-            
+
         String q1 = "SELECT LASTNAME, FIRSTNAME FROM USER_PROFILE;";
         try {
             name = db.getDB().fetchRows(q1);
             DefaultComboBoxModel model = new DefaultComboBoxModel();
-        cmbMember.setModel(model);
-        
-        for (HashMap<String, String> list : name)
-        {   
-            String givenName = "";
-            //model.addElement(list);
-            int i = 0;
-           
-            for(String key : list.keySet())
-            {
-                if(i<=1){
-                    givenName=givenName+" ";
+            cmbMember.setModel(model);
+
+            for (HashMap<String, String> list : name) {
+                String givenName = "";
+                //model.addElement(list);
+                int i = 0;
+
+                for (String key : list.keySet()) {
+
+                    String ettNamn = list.get(key);
+                    System.out.println(ettNamn);
+                    givenName = ettNamn + " " + givenName;
+                    i++;
+
+                    //model.addElement(list);
                 }
-                
-                String ettNamn = list.get(key);
-                System.out.println(ettNamn);
-                givenName = givenName+ettNamn;               
-                i++;
-                
-            //model.addElement(list);
-            
+
+                model.addElement(givenName);
+
             }
-            
-            model.addElement(givenName);
-            
-        }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
-        
     }
-    
-    private void populateGroupCMBX()
-    {
+
+    private void populateGroupCMBX() {
         ArrayList<String> groups = new ArrayList<>();
-        
+
         String q1 = "SELECT GROUP_NAME from RESEARCH_GROUP;";
-        
+
         try {
             groups = db.getDB().fetchColumn(q1);
-            DefaultComboBoxModel model = new  DefaultComboBoxModel();
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
             cmbGroup.setModel(model);
-            for(String group : groups)
-            {
+            for (String group : groups) {
                 model.addElement(group);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     private void cmbGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGroupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGroupActionPerformed
-    public static String sendText()
-    {
+
+    public static String sendText() {
         return innehall;
     }
-    public void getText()
-    {
+
+    public void getText() {
         this.innehall = txtMessage.getText();
-              
+
     }
-    public static String sendSubject()
-    {
+
+    public static String sendSubject() {
         return subject;
     }
-    
-    public void getSubject()
-    {
+
+    public void getSubject() {
         this.subject = txtTitle.getText();
     }
-    
-    
-    
+
     public String collectTitle() {
-       String title = txtTitle.getText();
-       return title;
+        String title = txtTitle.getText();
+        return title;
     }
-    
+
     public String collectMessage() {
         String message = txtMessage.getText();
         return message;
     }
-    
+
     private String collectLocation() {
         String location = txtLocation.getText();
         return location;
     }
-    
+
     public String collectMail() {
-        for(int i = 0; i<lstInvitations.getModel().getSize(); i++){
+        for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
             String mailAdress = lstInvitations.getModel().getElementAt(i);
             System.out.println(i);
             return mailAdress;
@@ -457,17 +438,19 @@ public class Booking extends javax.swing.JFrame {
     }
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
+            String q2 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '";
             lstInvitations.setModel(invitations);
             String member = cmbMember.getSelectedItem().toString();
-            String [] names = member.split("\\s+");
-            String n1 = names[1];
-            String n2 = names[2];
-            String q1 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '" + n1 + "' and FIRSTNAME = '" + n2 + "';";
+            String[] names = member.split("\\s+");
+            String n1 = names[0];
+            String n2 = names[1];
+            String q1 = "select EMAILADDRESS from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
             invitations.addElement(a);
-            System.out.println(a);
             System.out.println(q1);
-            
+            System.out.println(n1);
+            System.out.println(n2);
+
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -486,102 +469,78 @@ public class Booking extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        
+
         getText();
         getSubject();
-        
+
         String subject = txtTitle.getText();
         String message = txtMessage.getText();
         String location = txtLocation.getText();
         String date = dp.getText().toString();
         String time = tp.getText().toString();
         // String user = "getUser()";
-        
-        
-        
+
         try {
-         String autoID;
+            String autoID;
             autoID = db.getDB().getAutoIncrement("MEETINGS", "MEETING_ID");
             if (autoID == null) {
-                    autoID = "1";
-                }
+                autoID = "1";
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
-                
-        
-        
-        
-        /*String q1 = "INSERT into meetings("+subject+", "+message+", "+location+", "+date+", "+time+")";  // user saknas. metod ej klar. 
+
+        /*String q1 = "INSERT into meetings("+subject+", "+message+", "+location+", "+date+", "+time+")";  // user saknas. metod ej klar.
         try {
             db.getDB().insert(q1);
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-*/
-        
-        
-        for(int i = 0; i<lstInvitations.getModel().getSize(); i++){
+         */
+        for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
             String mailAdress = lstInvitations.getModel().getElementAt(i);
             System.out.println(i);
-            
-            try {  
-                
-                
-                
+
+            try {
+
                 JavaMail.JavaMailUtil.sendMail(mailAdress);
-                
+
             } catch (Exception ex) {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         invitations.removeAllElements();
 
-        
-        
-        
-        
-    
-        
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
-        
-      
+
         String cmbx = cmbGroup.getSelectedItem().toString();
-        String q1 = "SELECT EMAILADDRESS FROM USER_PROFILE where PROFILE_ID = (SELECT MEMBER FROM group_members WHERE research_group = (SELECT group_id from research_group where group_name='"+cmbx+"'));";
+        String q1 = "SELECT EMAILADDRESS FROM USER_PROFILE where PROFILE_ID = (SELECT MEMBER FROM group_members WHERE research_group = (SELECT group_id from research_group where group_name='" + cmbx + "'));";
         System.out.println(q1);
         try {
-            
+
             lstInvitations.setModel(invitations);
-            
+
             System.out.println(1);
-            
+
             ArrayList<String> al = db.getDB().fetchColumn(q1);
-          
+
             System.out.println(al);
-            for(int i = 0; i < al.size(); i++)
-            {
+            for (int i = 0; i < al.size(); i++) {
                 System.out.println(3);
                 String a = al.get(i).toString();
-                
+
                 invitations.addElement(a);
-                
-                
-               
-                       
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(7);
         }
-        
-        
-   
+
     }//GEN-LAST:event_btnGroupActionPerformed
 
     private void btnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateActionPerformed
@@ -589,10 +548,8 @@ public class Booking extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDateActionPerformed
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
-        
-    }//GEN-LAST:event_btnTimeActionPerformed
 
-    
+    }//GEN-LAST:event_btnTimeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBook;
