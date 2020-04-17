@@ -26,6 +26,8 @@ public class ACalendar extends javax.swing.JFrame {
     private int week;
     private int date;
     private String day;
+    private int dayOfWeek;
+    private int firstDayOfMonth;
 
     /**
      * Creates new form Calendar
@@ -35,6 +37,7 @@ public class ACalendar extends javax.swing.JFrame {
         getDate();
         //fillDates();
         fillDates2();
+        System.out.println(dayOfWeek);
     }
 
     public int getWeek() {
@@ -54,6 +57,43 @@ public class ACalendar extends javax.swing.JFrame {
         }
     }
 
+    private int getNumberDay(String aString) {
+
+        int theNumber = 0;
+        switch (aString) {
+            case "Mon":
+                //this.dayOfWeek = 1;
+                theNumber = 1;
+                break;
+            case "Tue":
+                //this.dayOfWeek = 2;
+                theNumber = 2;
+                break;
+            case "Wed":
+                //this.dayOfWeek = 3;
+                theNumber = 3;
+                break;
+            case "Thu":
+                //this.dayOfWeek = 4;
+                theNumber = 4;
+                break;
+            case "Fri":
+                //this.dayOfWeek = 5;
+                theNumber = 5;
+                break;
+            case "Sat":
+                //this.dayOfWeek = 6;
+                theNumber = 6;
+                break;
+            case "Sun":
+                //this.dayOfWeek = 7;
+                theNumber = 7;
+                break;
+        }
+        System.out.println("NUMRET ÄR " + theNumber);
+        return theNumber;
+    }
+
     private void getDate() {
         Date dNow = new Date();
 
@@ -67,6 +107,34 @@ public class ACalendar extends javax.swing.JFrame {
         labelDay.setText(day.format(dNow));
         this.day = (day.format(dNow));
         System.out.println(day.format(dNow));
+
+        /*switch (this.day) {
+            case "Mon":
+                this.dayOfWeek = 1;
+                break;
+            case "Tue":
+                this.dayOfWeek = 2;
+                break;
+            case "Wed":
+                this.dayOfWeek = 3;
+                break;
+            case "Thu":
+                this.dayOfWeek = 4;
+                break;
+            case "Fri":
+                this.dayOfWeek = 5;
+                break;
+            case "Sat":
+                this.dayOfWeek = 6;
+                break;
+            case "Sun":
+                this.dayOfWeek = 7;
+                break;
+        }
+
+
+         */
+        this.dayOfWeek = getNumberDay(this.day);
 
         SimpleDateFormat week = new SimpleDateFormat("w");
         this.week = Integer.parseInt(week.format(dNow));
@@ -83,6 +151,14 @@ public class ACalendar extends javax.swing.JFrame {
         jLabel1.setText(year.format(dNow));
         this.year = Integer.parseInt(year.format(dNow));
         System.out.println(year.format(dNow));
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        Date date10 = cal.getTime();
+        String date11 = date10.toString().substring(0, 4);
+        System.out.println("DATE11 ÄR " + date11);
+        this.firstDayOfMonth = getNumberDay(date11);
+
     }
 
     private void fillDates2() {
@@ -124,6 +200,11 @@ public class ACalendar extends javax.swing.JFrame {
                 if (x == daysInMonth) {
                     break;
                 }
+                /*
+                TANKAR TILL MIG SJÄLV INFÖR MÅNDAG: Använd firstDayOfMonth för att försöka få
+                in arrayen till att hoppa över de dagar som finns innan t.ex. Wed(Mån, Tis) så
+                så att den börjar på iteration 3 i forloopen.
+                 */
 
             }
             y = y + 7;
@@ -220,9 +301,8 @@ public class ACalendar extends javax.swing.JFrame {
         int daysMonth = theDate.lengthOfMonth(); // Dagar per månad
         int daysYear = theDate.lengthOfYear();// Dagar per år
 
-        System.out.println(daysYear);
-        System.out.println(daysMonth);
-
+        //System.out.println(daysYear);
+        //System.out.println(daysMonth);
 //
 //        LocalDate date2 = LocalDate.of(date1);
 //        int days = date2.lengthOfMonth();
