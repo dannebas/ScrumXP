@@ -33,13 +33,15 @@ public class Booking extends javax.swing.JFrame {
 
     private static String innehall;
     private static String subject;
+    private static String sum;
+    private static String user;
 
     public Booking() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         populateMemberCMBX();
         populateGroupCMBX();
-        
+        getUser();
     }
 
     public static void main(String[] args) {
@@ -398,7 +400,23 @@ public class Booking extends javax.swing.JFrame {
     private void cmbGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGroupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGroupActionPerformed
-
+    
+    public static String sendUser() {
+        return user;
+    }
+    
+    public void getUser() {
+        this.user = User.getUser();
+    }
+    
+    public static String sendSum() {
+        return sum;
+    }
+    
+    public void getSum() {
+        this.sum = txtSummary.getText();
+    }
+    
     public static String sendText() {
         return innehall;
     }
@@ -472,16 +490,16 @@ public class Booking extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-
+        
         getText();
         getSubject();
+        getSum();
 
         String subject = txtTitle.getText();
         String message = txtMessage.getText();
         String location = txtLocation.getText();
-        String date = dp.getText().toString();
+        String date = dp.getDateStringOrEmptyString();
         String time = tp.getText().toString();
-        // String user = "getUser()";
 
         try {
             String autoID;
@@ -489,18 +507,15 @@ public class Booking extends javax.swing.JFrame {
             if (autoID == null) {
                 autoID = "1";
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        /*String q1 = "INSERT into meetings("+subject+", "+message+", "+location+", "+date+", "+time+")";  // user saknas. metod ej klar.
-        try {
+            
+            String q1 = "INSERT into meetings(" + autoID + ", '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
+            System.out.println(q1);
             db.getDB().insert(q1);
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
 
-         */
         for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
             String mailAdress = lstInvitations.getModel().getElementAt(i);
             System.out.println(i);
@@ -515,7 +530,7 @@ public class Booking extends javax.swing.JFrame {
         }
 
         invitations.removeAllElements();
-
+        
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
@@ -551,21 +566,21 @@ public class Booking extends javax.swing.JFrame {
         String date = dp.getDateStringOrEmptyString();
         txtSummary.setText("Date: " + date + "\r\n" + summary);
         System.out.println(date);
-        dp.setText("");
+        
     }//GEN-LAST:event_btnDateActionPerformed
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         String summary = txtSummary.getText();
         String time = tp.getText();
         txtSummary.setText("Time: " + time + "\r\n" + summary);
-        tp.setText("");
+        
     }//GEN-LAST:event_btnTimeActionPerformed
 
     private void btnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocationActionPerformed
         String summary = txtSummary.getText();
         String loc = txtLocation.getText();
         txtSummary.setText("Location: " + loc + "\r\n" + summary);
-        txtLocation.setText("");
+        
     }//GEN-LAST:event_btnLocationActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
