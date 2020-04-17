@@ -54,9 +54,15 @@ public class Profil extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlProfile = new javax.swing.JPanel();
-        pnlFooterProfile = new javax.swing.JPanel();
-        lblFooterImageProfil = new javax.swing.JLabel();
-        pnlBread1 = new javax.swing.JPanel();
+        pnlHeader = new javax.swing.JPanel();
+        lblImageHeader = new javax.swing.JLabel();
+        pnlNavBarSeePost = new javax.swing.JPanel();
+        btnSeePostHome = new javax.swing.JButton();
+        btnSeePostEducation = new javax.swing.JButton();
+        btnSeePostResearch = new javax.swing.JButton();
+        btnSeePostGeneral = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
+        pnlBread = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         txaGroups = new javax.swing.JTextArea();
@@ -70,50 +76,144 @@ public class Profil extends javax.swing.JFrame {
         cbNewPostProfile = new javax.swing.JComboBox<>();
         btnEditProfile = new javax.swing.JButton();
         lblProfileImage = new javax.swing.JLabel();
-        lblHeaderImageProfile = new javax.swing.JLabel();
-        pnlNavBarSeePost = new javax.swing.JPanel();
-        btnSeePostHome = new javax.swing.JButton();
-        btnSeePostEducation = new javax.swing.JButton();
-        btnSeePostResearch = new javax.swing.JButton();
-        btnSeePostGeneral = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        lblMyPosts = new javax.swing.JLabel();
+        pnlFooter = new javax.swing.JPanel();
+        lblFooterImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1066, 1758));
         setSize(new java.awt.Dimension(1024, 2000));
-        getContentPane().setLayout(new java.awt.FlowLayout());
+        getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
+        pnlProfile.setAlignmentX(0.0F);
+        pnlProfile.setAlignmentY(0.0F);
         pnlProfile.setPreferredSize(new java.awt.Dimension(1024, 768));
         pnlProfile.setRequestFocusEnabled(false);
+        pnlProfile.setLayout(null);
 
-        pnlFooterProfile.setPreferredSize(new java.awt.Dimension(1024, 186));
+        pnlHeader.setAlignmentX(0.0F);
+        pnlHeader.setAlignmentY(0.0F);
+        pnlHeader.setPreferredSize(new java.awt.Dimension(1024, 150));
 
-        lblFooterImageProfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
-        lblFooterImageProfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        lblFooterImageProfil.setPreferredSize(new java.awt.Dimension(1022, 148));
+        lblImageHeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
+        lblImageHeader.setAlignmentY(0.0F);
+        lblImageHeader.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lblImageHeader.setMaximumSize(new java.awt.Dimension(1022, 148));
+        lblImageHeader.setMinimumSize(new java.awt.Dimension(1022, 148));
+        lblImageHeader.setPreferredSize(new java.awt.Dimension(1022, 148));
 
-        javax.swing.GroupLayout pnlFooterProfileLayout = new javax.swing.GroupLayout(pnlFooterProfile);
-        pnlFooterProfile.setLayout(pnlFooterProfileLayout);
-        pnlFooterProfileLayout.setHorizontalGroup(
-            pnlFooterProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFooterProfileLayout.createSequentialGroup()
-                .addComponent(lblFooterImageProfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
+        pnlHeader.setLayout(pnlHeaderLayout);
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImageHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        pnlFooterProfileLayout.setVerticalGroup(
-            pnlFooterProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFooterProfileLayout.createSequentialGroup()
-                .addComponent(lblFooterImageProfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 38, Short.MAX_VALUE))
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImageHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pnlBread1.setBackground(new java.awt.Color(179, 218, 241));
-        pnlBread1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        pnlBread1.setPreferredSize(new java.awt.Dimension(1024, 350));
-        pnlBread1.setLayout(null);
+        pnlProfile.add(pnlHeader);
+        pnlHeader.setBounds(0, 0, 1028, 148);
+
+        pnlNavBarSeePost.setBackground(new java.awt.Color(44, 95, 125));
+        pnlNavBarSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlNavBarSeePost.setAlignmentX(0.0F);
+        pnlNavBarSeePost.setAlignmentY(0.0F);
+        pnlNavBarSeePost.setAutoscrolls(true);
+        pnlNavBarSeePost.setMinimumSize(new java.awt.Dimension(1022, 30));
+        pnlNavBarSeePost.setPreferredSize(new java.awt.Dimension(1022, 30));
+        pnlNavBarSeePost.setLayout(null);
+
+        btnSeePostHome.setBackground(new java.awt.Color(44, 95, 125));
+        btnSeePostHome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSeePostHome.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeePostHome.setText("Home");
+        btnSeePostHome.setBorder(null);
+        btnSeePostHome.setBorderPainted(false);
+        btnSeePostHome.setContentAreaFilled(false);
+        btnSeePostHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostHomeActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnSeePostHome);
+        btnSeePostHome.setBounds(20, 8, 33, 14);
+
+        btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
+        btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSeePostEducation.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeePostEducation.setText("Education");
+        btnSeePostEducation.setBorder(null);
+        btnSeePostEducation.setBorderPainted(false);
+        btnSeePostEducation.setContentAreaFilled(false);
+        btnSeePostEducation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostEducationActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnSeePostEducation);
+        btnSeePostEducation.setBounds(100, 8, 55, 14);
+
+        btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
+        btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSeePostResearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeePostResearch.setText("Research");
+        btnSeePostResearch.setBorder(null);
+        btnSeePostResearch.setBorderPainted(false);
+        btnSeePostResearch.setContentAreaFilled(false);
+        btnSeePostResearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostResearchActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnSeePostResearch);
+        btnSeePostResearch.setBounds(200, 8, 53, 14);
+
+        btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
+        btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSeePostGeneral.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeePostGeneral.setText("General");
+        btnSeePostGeneral.setBorder(null);
+        btnSeePostGeneral.setBorderPainted(false);
+        btnSeePostGeneral.setContentAreaFilled(false);
+        btnSeePostGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostGeneralActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnSeePostGeneral);
+        btnSeePostGeneral.setBounds(300, 8, 60, 14);
+
+        btnLogOut.setBackground(new java.awt.Color(44, 95, 125));
+        btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogOut.setText("Log out");
+        btnLogOut.setBorder(null);
+        btnLogOut.setBorderPainted(false);
+        btnLogOut.setContentAreaFilled(false);
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnLogOut);
+        btnLogOut.setBounds(950, 8, 44, 14);
+
+        pnlProfile.add(pnlNavBarSeePost);
+        pnlNavBarSeePost.setBounds(0, 154, 1022, 30);
+
+        pnlBread.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBread.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlBread.setAlignmentX(0.0F);
+        pnlBread.setAlignmentY(0.0F);
+        pnlBread.setPreferredSize(new java.awt.Dimension(1022, 405));
+        pnlBread.setLayout(null);
 
         jLayeredPane2.setLayout(new java.awt.CardLayout());
-        pnlBread1.add(jLayeredPane2);
+        pnlBread.add(jLayeredPane2);
         jLayeredPane2.setBounds(727, 214, 0, 0);
 
         txaGroups.setColumns(20);
@@ -122,8 +222,8 @@ public class Profil extends javax.swing.JFrame {
         jScrollPane3.setViewportView(txaGroups);
         txaGroups.getAccessibleContext().setAccessibleDescription("");
 
-        pnlBread1.add(jScrollPane3);
-        jScrollPane3.setBounds(510, 20, 210, 180);
+        pnlBread.add(jScrollPane3);
+        jScrollPane3.setBounds(200, 250, 270, 130);
 
         pnlUserInfoBackground.setBackground(new java.awt.Color(44, 95, 125));
         pnlUserInfoBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -153,8 +253,8 @@ public class Profil extends javax.swing.JFrame {
         pnlUserInfoBackground.add(lblNameProfile);
         lblNameProfile.setBounds(8, 8, 36, 16);
 
-        pnlBread1.add(pnlUserInfoBackground);
-        pnlUserInfoBackground.setBounds(130, 10, 300, 100);
+        pnlBread.add(pnlUserInfoBackground);
+        pnlUserInfoBackground.setBounds(130, 10, 340, 190);
 
         pnlUserMeetingAndPostBackground.setBackground(new java.awt.Color(44, 95, 125));
         pnlUserMeetingAndPostBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -181,8 +281,8 @@ public class Profil extends javax.swing.JFrame {
         pnlUserMeetingAndPostBackground.add(cbNewPostProfile);
         cbNewPostProfile.setBounds(8, 8, 154, 26);
 
-        pnlBread1.add(pnlUserMeetingAndPostBackground);
-        pnlUserMeetingAndPostBackground.setBounds(730, 20, 170, 127);
+        pnlBread.add(pnlUserMeetingAndPostBackground);
+        pnlUserMeetingAndPostBackground.setBounds(10, 250, 170, 127);
 
         btnEditProfile.setText("Edit Profile");
         btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
@@ -190,139 +290,44 @@ public class Profil extends javax.swing.JFrame {
                 btnEditProfileActionPerformed(evt);
             }
         });
-        pnlBread1.add(btnEditProfile);
+        pnlBread.add(btnEditProfile);
         btnEditProfile.setBounds(10, 170, 100, 32);
 
         lblProfileImage.setForeground(new java.awt.Color(255, 255, 255));
         lblProfileImage.setText("Profile picture");
         lblProfileImage.setPreferredSize(new java.awt.Dimension(75, 75));
-        pnlBread1.add(lblProfileImage);
+        pnlBread.add(lblProfileImage);
         lblProfileImage.setBounds(10, 10, 110, 145);
 
-        lblHeaderImageProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
-        lblHeaderImageProfile.setText("jLabel4");
-        lblHeaderImageProfile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        lblHeaderImageProfile.setPreferredSize(new java.awt.Dimension(1024, 204));
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jList1);
 
-        pnlNavBarSeePost.setBackground(new java.awt.Color(44, 95, 125));
-        pnlNavBarSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        pnlNavBarSeePost.setPreferredSize(new java.awt.Dimension(1024, 50));
+        pnlBread.add(jScrollPane1);
+        jScrollPane1.setBounds(500, 40, 500, 340);
 
-        btnSeePostHome.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostHome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeePostHome.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeePostHome.setText("Home");
-        btnSeePostHome.setBorder(null);
-        btnSeePostHome.setBorderPainted(false);
-        btnSeePostHome.setContentAreaFilled(false);
-        btnSeePostHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeePostHomeActionPerformed(evt);
-            }
-        });
+        lblMyPosts.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblMyPosts.setForeground(new java.awt.Color(51, 51, 51));
+        lblMyPosts.setText("My posts");
+        pnlBread.add(lblMyPosts);
+        lblMyPosts.setBounds(500, 10, 70, 16);
 
-        btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeePostEducation.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeePostEducation.setText("Education");
-        btnSeePostEducation.setBorder(null);
-        btnSeePostEducation.setBorderPainted(false);
-        btnSeePostEducation.setContentAreaFilled(false);
-        btnSeePostEducation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeePostEducationActionPerformed(evt);
-            }
-        });
+        pnlProfile.add(pnlBread);
+        pnlBread.setBounds(0, 190, 1022, 405);
 
-        btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeePostResearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeePostResearch.setText("Research");
-        btnSeePostResearch.setBorder(null);
-        btnSeePostResearch.setBorderPainted(false);
-        btnSeePostResearch.setContentAreaFilled(false);
-        btnSeePostResearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeePostResearchActionPerformed(evt);
-            }
-        });
+        pnlFooter.setAlignmentX(0.0F);
+        pnlFooter.setAlignmentY(0.0F);
+        pnlFooter.setMinimumSize(new java.awt.Dimension(1022, 148));
+        pnlFooter.setPreferredSize(new java.awt.Dimension(1022, 148));
+        pnlFooter.setLayout(null);
 
-        btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
-        btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeePostGeneral.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeePostGeneral.setText("General");
-        btnSeePostGeneral.setBorder(null);
-        btnSeePostGeneral.setBorderPainted(false);
-        btnSeePostGeneral.setContentAreaFilled(false);
-        btnSeePostGeneral.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeePostGeneralActionPerformed(evt);
-            }
-        });
+        lblFooterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
+        lblFooterImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lblFooterImage.setPreferredSize(new java.awt.Dimension(1022, 148));
+        pnlFooter.add(lblFooterImage);
+        lblFooterImage.setBounds(0, 0, 1022, 148);
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Log out");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlNavBarSeePostLayout = new javax.swing.GroupLayout(pnlNavBarSeePost);
-        pnlNavBarSeePost.setLayout(pnlNavBarSeePostLayout);
-        pnlNavBarSeePostLayout.setHorizontalGroup(
-            pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNavBarSeePostLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnSeePostHome)
-                .addGap(39, 39, 39)
-                .addComponent(btnSeePostEducation)
-                .addGap(50, 50, 50)
-                .addComponent(btnSeePostResearch)
-                .addGap(47, 47, 47)
-                .addComponent(btnSeePostGeneral)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(25, 25, 25))
-        );
-        pnlNavBarSeePostLayout.setVerticalGroup(
-            pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNavBarSeePostLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlNavBarSeePostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeePostHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeePostEducation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeePostResearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeePostGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlProfileLayout = new javax.swing.GroupLayout(pnlProfile);
-        pnlProfile.setLayout(pnlProfileLayout);
-        pnlProfileLayout.setHorizontalGroup(
-            pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFooterProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlProfileLayout.createSequentialGroup()
-                .addGroup(pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(pnlNavBarSeePost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHeaderImageProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlBread1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        pnlProfileLayout.setVerticalGroup(
-            pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHeaderImageProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlNavBarSeePost, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBread1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFooterProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnlProfile.add(pnlFooter);
+        pnlFooter.setBounds(0, 600, 1022, 148);
 
         getContentPane().add(pnlProfile);
 
@@ -460,39 +465,42 @@ public class Profil extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-
-        new LogInGUI().setVisible(true);
-
-        dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         a = new EditProfile(this);
         a.setVisible(true);
        
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+         new LogInGUI().setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditProfile;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnSeePostEducation;
     private javax.swing.JButton btnSeePostGeneral;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
     private javax.swing.JComboBox<String> cbMeetingProfile;
     private javax.swing.JComboBox<String> cbNewPostProfile;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblEmailProfile;
-    private javax.swing.JLabel lblFooterImageProfil;
-    private javax.swing.JLabel lblHeaderImageProfile;
+    private javax.swing.JLabel lblFooterImage;
+    private javax.swing.JLabel lblImageHeader;
+    private javax.swing.JLabel lblMyPosts;
     private javax.swing.JLabel lblNameProfile;
     private javax.swing.JLabel lblProfileImage;
     private javax.swing.JLabel lblUserEmail;
     private javax.swing.JLabel lblUserNameProfile;
-    private javax.swing.JPanel pnlBread1;
-    private javax.swing.JPanel pnlFooterProfile;
+    private javax.swing.JPanel pnlBread;
+    private javax.swing.JPanel pnlFooter;
+    private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlNavBarSeePost;
     private javax.swing.JPanel pnlProfile;
     private javax.swing.JPanel pnlUserInfoBackground;

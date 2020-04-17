@@ -32,6 +32,9 @@ public class EditProfile extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException ex){
+            lblEditUserImage.setIcon(null);
+        }
         lblEditUserImage.setIcon(profilePicture);
         
         txfMail.setText(User.getMail());
@@ -51,24 +54,27 @@ public class EditProfile extends javax.swing.JFrame {
         lblEditUserEmailEditProfile = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtPhone = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblPhone = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        pwdPassword = new javax.swing.JPasswordField();
         btnEditPicture = new javax.swing.JButton();
         btnSaveProfileChanges = new javax.swing.JButton();
         btnCancelEdit = new javax.swing.JButton();
         lblEditUserImage = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 300));
-        setMinimumSize(new java.awt.Dimension(500, 300));
+        setMaximumSize(new java.awt.Dimension(500, 400));
+        setMinimumSize(new java.awt.Dimension(500, 400));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(500, 400));
         setResizable(false);
         getContentPane().setLayout(null);
 
         pnlBackgroundEditProfile.setBackground(new java.awt.Color(44, 95, 125));
-        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(500, 300));
+        pnlBackgroundEditProfile.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(500, 400));
         pnlBackgroundEditProfile.setLayout(null);
 
         pnlUserInfoEditProfile.setBackground(new java.awt.Color(44, 95, 125));
@@ -88,14 +94,22 @@ public class EditProfile extends javax.swing.JFrame {
         pnlUserInfoEditProfile.add(txtPhone);
         txtPhone.setBounds(80, 80, 230, 24);
 
-        jLabel2.setText("Phone");
-        pnlUserInfoEditProfile.add(jLabel2);
-        jLabel2.setBounds(30, 80, 41, 16);
+        lblPhone.setText("Phone");
+        pnlUserInfoEditProfile.add(lblPhone);
+        lblPhone.setBounds(30, 80, 41, 16);
         pnlUserInfoEditProfile.add(lblUserName);
         lblUserName.setBounds(80, 20, 230, 20);
 
+        lblPassword.setText("New password");
+        pnlUserInfoEditProfile.add(lblPassword);
+        lblPassword.setBounds(30, 120, 100, 16);
+
+        pwdPassword.setText("jPasswordField1");
+        pnlUserInfoEditProfile.add(pwdPassword);
+        pwdPassword.setBounds(30, 140, 90, 22);
+
         pnlBackgroundEditProfile.add(pnlUserInfoEditProfile);
-        pnlUserInfoEditProfile.setBounds(140, 60, 340, 150);
+        pnlUserInfoEditProfile.setBounds(140, 60, 340, 230);
 
         btnEditPicture.setText("Edit Picture");
         btnEditPicture.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +127,7 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
         pnlBackgroundEditProfile.add(btnSaveProfileChanges);
-        btnSaveProfileChanges.setBounds(250, 230, 111, 32);
+        btnSaveProfileChanges.setBounds(260, 320, 111, 32);
 
         btnCancelEdit.setText("Cancel");
         btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +136,7 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
         pnlBackgroundEditProfile.add(btnCancelEdit);
-        btnCancelEdit.setBounds(380, 230, 100, 32);
+        btnCancelEdit.setBounds(380, 320, 100, 32);
 
         lblEditUserImage.setText("Image");
         lblEditUserImage.setMaximumSize(new java.awt.Dimension(110, 145));
@@ -131,14 +145,14 @@ public class EditProfile extends javax.swing.JFrame {
         pnlBackgroundEditProfile.add(lblEditUserImage);
         lblEditUserImage.setBounds(10, 60, 110, 145);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel3.setText("Edit Profile");
-        jLabel3.setToolTipText("");
-        pnlBackgroundEditProfile.add(jLabel3);
-        jLabel3.setBounds(20, 10, 220, 40);
+        lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblTitle.setText("Edit Profile");
+        lblTitle.setToolTipText("");
+        pnlBackgroundEditProfile.add(lblTitle);
+        lblTitle.setBounds(20, 10, 220, 40);
 
         getContentPane().add(pnlBackgroundEditProfile);
-        pnlBackgroundEditProfile.setBounds(0, 0, 500, 300);
+        pnlBackgroundEditProfile.setBounds(0, 0, 500, 400);
 
         pack();
         setLocationRelativeTo(null);
@@ -191,13 +205,15 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JButton btnEditPicture;
     private javax.swing.JButton btnSaveProfileChanges;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblEditUserEmailEditProfile;
     private javax.swing.JLabel lblEditUserImage;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlBackgroundEditProfile;
     private javax.swing.JPanel pnlUserInfoEditProfile;
+    private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTextField txfMail;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables

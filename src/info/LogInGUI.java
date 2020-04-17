@@ -103,8 +103,7 @@ class LogInGUI extends javax.swing.JFrame {
         pnlBread.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         pnlBread.setAlignmentX(0.0F);
         pnlBread.setAlignmentY(0.0F);
-        pnlBread.setMaximumSize(new java.awt.Dimension(1022, 350));
-        pnlBread.setPreferredSize(new java.awt.Dimension(1022, 350));
+        pnlBread.setPreferredSize(new java.awt.Dimension(1022, 440));
         pnlBread.setLayout(null);
 
         layerdPaneLogIn.setLayout(new java.awt.CardLayout());
@@ -282,10 +281,11 @@ class LogInGUI extends javax.swing.JFrame {
         layerdPaneLogIn.setBounds(325, 22, 400, 326);
 
         pnlHome.add(pnlBread);
-        pnlBread.setBounds(0, 156, 1022, 350);
+        pnlBread.setBounds(0, 156, 1022, 440);
 
         pnlFooter.setToolTipText("");
-        pnlFooter.setPreferredSize(new java.awt.Dimension(1024, 200));
+        pnlFooter.setMinimumSize(new java.awt.Dimension(1022, 148));
+        pnlFooter.setPreferredSize(new java.awt.Dimension(1022, 148));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -301,15 +301,15 @@ class LogInGUI extends javax.swing.JFrame {
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFooterLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 75, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlFooterLayout.setVerticalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnlHome.add(pnlFooter);
-        pnlFooter.setBounds(0, 518, 1097, 200);
+        pnlFooter.setBounds(0, 600, 1022, 148);
 
         getContentPane().add(pnlHome);
 
