@@ -507,8 +507,8 @@ public class Booking extends javax.swing.JFrame {
             if (autoID == null) {
                 autoID = "1";
             }
-            
-            String q1 = "INSERT into meetings(" + autoID + ", '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
+            int i = Integer.parseInt(autoID);
+            String q1 = "INSERT into meetings values (" + i + ", '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
             System.out.println(q1);
             db.getDB().insert(q1);
         } catch (SQLException ex) {
