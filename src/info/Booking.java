@@ -457,25 +457,12 @@ public class Booking extends javax.swing.JFrame {
     }
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
-            String q1 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '";
             lstInvitations.setModel(invitations);
             String member = cmbMember.getSelectedItem().toString();
             String [] names = member.split("\\s+");
-            for (int i = 0; i<names.length; i++)
-            {
-                if (i == 0)
-                {
-                    String n1 = names[i];
-                    q1 = q1 + n1 + "' and FIRSTNAME = '";
-                    System.out.println(names[i]);
-                }
-                else
-                {
-                    String n2 = names[i];
-                    q1 = q1 + n2 + "'";
-                    System.out.println(names[i]);
-                }
-            }
+            String n1 = names[1];
+            String n2 = names[2];
+            String q1 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '" + n1 + "' and FIRSTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
             invitations.addElement(a);
             System.out.println(a);
