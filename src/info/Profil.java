@@ -36,7 +36,9 @@ public class Profil extends javax.swing.JFrame {
 
         lblUserNameProfile.setText(User.getName());
         lblUserEmail.setText(User.getMail());
-
+        lblUserPhone.setText(User.getPhone());
+        
+        
         ArrayList<String> groups = User.getUserGroups();
 
         
@@ -71,6 +73,8 @@ public class Profil extends javax.swing.JFrame {
         lblEmailProfile = new javax.swing.JLabel();
         lblUserEmail = new javax.swing.JLabel();
         lblNameProfile = new javax.swing.JLabel();
+        lblPhoneTitle = new javax.swing.JLabel();
+        lblUserPhone = new javax.swing.JLabel();
         pnlUserMeetingAndPostBackground = new javax.swing.JPanel();
         cbMeetingProfile = new javax.swing.JComboBox<>();
         cbNewPostProfile = new javax.swing.JComboBox<>();
@@ -233,13 +237,13 @@ public class Profil extends javax.swing.JFrame {
         lblUserNameProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblUserNameProfile.setText("UserName");
         pnlUserInfoBackground.add(lblUserNameProfile);
-        lblUserNameProfile.setBounds(56, 8, 190, 16);
+        lblUserNameProfile.setBounds(60, 10, 190, 16);
 
         lblEmailProfile.setBackground(new java.awt.Color(0, 0, 0));
         lblEmailProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblEmailProfile.setText("E-mail:");
         pnlUserInfoBackground.add(lblEmailProfile);
-        lblEmailProfile.setBounds(10, 30, 38, 16);
+        lblEmailProfile.setBounds(8, 30, 38, 16);
 
         lblUserEmail.setBackground(new java.awt.Color(0, 0, 0));
         lblUserEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,7 +255,17 @@ public class Profil extends javax.swing.JFrame {
         lblNameProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblNameProfile.setText("Name:");
         pnlUserInfoBackground.add(lblNameProfile);
-        lblNameProfile.setBounds(8, 8, 36, 16);
+        lblNameProfile.setBounds(8, 10, 36, 16);
+
+        lblPhoneTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblPhoneTitle.setText("Phone:");
+        pnlUserInfoBackground.add(lblPhoneTitle);
+        lblPhoneTitle.setBounds(8, 50, 41, 16);
+
+        lblUserPhone.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserPhone.setText("UserPhone");
+        pnlUserInfoBackground.add(lblUserPhone);
+        lblUserPhone.setBounds(60, 50, 220, 16);
 
         pnlBread.add(pnlUserInfoBackground);
         pnlUserInfoBackground.setBounds(130, 10, 340, 190);
@@ -495,9 +509,11 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JLabel lblImageHeader;
     private javax.swing.JLabel lblMyPosts;
     private javax.swing.JLabel lblNameProfile;
+    private javax.swing.JLabel lblPhoneTitle;
     private javax.swing.JLabel lblProfileImage;
     private javax.swing.JLabel lblUserEmail;
     private javax.swing.JLabel lblUserNameProfile;
+    private javax.swing.JLabel lblUserPhone;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlHeader;
