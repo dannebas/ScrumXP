@@ -67,7 +67,7 @@ public class JavaMailUtil {
             //message.setSubject(book.collectTitle());
             //message.setText(book.collectMessage());
             
-            message.setText(Booking.sendText());
+            message.setText("Hello! \r\n You have been invited to a meeting!\r\n" + Booking.sendSum() + "\r\n Information about the meeting: \r\n" + Booking.sendText());
             message.setSubject(Booking.sendSubject());
             return message;
         } catch (Exception ex) {
