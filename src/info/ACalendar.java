@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -657,23 +658,52 @@ public class ACalendar extends javax.swing.JFrame {
 
     private void fillList() {
         try {
+            DefaultListModel<String> model = new DefaultListModel<>();
+            jList1.setModel(model);
             String aMonth = Integer.toString(this.month);
             if (this.month <= 9) {
                 aMonth = "0" + aMonth;
             }
             String aYear = Integer.toString(this.year);
             String aDate = aYear + '-' + aMonth + "-" + fillMeetings();
-            String q = "SELECT TITLE, DESCRIPTION, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "tms'";
+            String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "tms'";
             System.out.println(q);
-            //ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
-            //lista = db.getDB().fetchRows(q);
+            ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
+            lista = db.getDB().fetchRows(q);
 
-            String qna = db.getDB().fetchSingle("Select title from meetings where user = 'tms' and time = '13:00'");
-            System.out.println(qna);
+            for (HashMap<String, String> theList : lista) {
+                String givenString = "";
+                String title = "";
+                String time = "";
+                String description = "";
+                String location = "";
+                int i = 0;
+
+                System.out.println(theList);
+                for (String key : theList.keySet()) {
+                    if (key.contains("TITLE")) {
+                        title = title + key + ": " + theList.get(key);
+                    } else if (key.contains("TIME")) {
+                        time = time + key + ": " + theList.get(key);
+                    } else if (key.contains("DESCRIPTION")) {
+                        description = description + key + ": " + theList.get(key);
+                    } else if (key.contains("LOCATION")) {
+                        location = location + key + ": " + theList.get(key);
+                    }
+                    //givenString = key + ": " + theList.get(key);
+                    //System.out.println(key);
+                    //model.addElement(givenString);
+                }
+                model.addElement(title);
+                model.addElement(description);
+                model.addElement(time);
+                model.addElement(location);
+
+            }
+            model.addElement("");
             //for (String key : lista.keySet()) {
-            //    System.out.println(key);
+            // System.out.println(key);
 
-            //}
         } catch (SQLException ex) {
             System.err.println(ex);
         }
