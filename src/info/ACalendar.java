@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,29 +35,29 @@ public class ACalendar extends javax.swing.JFrame {
     public ACalendar() {
         initComponents();
         getDate();
-        //fillDates();
-        fillDates2();
+        setLabelTodaysDate();
+        fillDates();
         System.out.println(dayOfWeek);
-
+        setFirstDayOfMonth();
+        setWeekNumber();
     }
 
     public int getWeek() {
         return week;
     }
 
-    private void setCalendar() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, 1);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(df.format(cal.getTime()));
-        for (int i = 1; i < maxDay; i++) {
-            cal.set(Calendar.DAY_OF_MONTH, i + 1);
-            System.out.println(", " + df.format(cal.getTime()));
-        }
-    }
-
+//    private void setCalendar() {
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(Calendar.MONTH, 1);
+//        cal.set(Calendar.DAY_OF_MONTH, 1);
+//        int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        System.out.println(df.format(cal.getTime()));
+//        for (int i = 1; i < maxDay; i++) {
+//            cal.set(Calendar.DAY_OF_MONTH, i + 1);
+//            System.out.println(", " + df.format(cal.getTime()));
+//        }
+//    }
     private int getNumberDay(String aString) {
 
         int theNumber = 0;
@@ -73,7 +72,6 @@ public class ACalendar extends javax.swing.JFrame {
                 break;
             case "Wed ":
                 //this.dayOfWeek = 3;
-                System.out.println("RÄTT");
                 theNumber = 3;
                 break;
             case "Thu ":
@@ -97,121 +95,99 @@ public class ACalendar extends javax.swing.JFrame {
         return theNumber;
     }
 
+    private void setLabelTodaysDate() {
+        String currentDate = new Date().toString().substring(0, 10);
+        labelCurrentDate.setText(currentDate);
+
+    }
+
     private void getDate() {
         Date dNow = new Date();
 
         //Date
         SimpleDateFormat date = new SimpleDateFormat("d");
         this.date = Integer.parseInt(date.format(dNow));
-        System.out.println(date.format(dNow));
 
         //Day
         SimpleDateFormat day = new SimpleDateFormat("E");
-        labelDay.setText(day.format(dNow));
         this.day = (day.format(dNow));
-        System.out.println(day.format(dNow));
-
-        /*switch (this.day) {
-            case "Mon":
-                this.dayOfWeek = 1;
-                break;
-            case "Tue":
-                this.dayOfWeek = 2;
-                break;
-            case "Wed":
-                this.dayOfWeek = 3;
-                break;
-            case "Thu":
-                this.dayOfWeek = 4;
-                break;
-            case "Fri":
-                this.dayOfWeek = 5;
-                break;
-            case "Sat":
-                this.dayOfWeek = 6;
-                break;
-            case "Sun":
-                this.dayOfWeek = 7;
-                break;
-        }
-
-
-         */
         this.dayOfWeek = getNumberDay(this.day);
 
-        SimpleDateFormat week = new SimpleDateFormat("w");
-        this.week = Integer.parseInt(week.format(dNow));
-        System.out.println(week.format(dNow));
-
+//        //Week
+//        SimpleDateFormat week = new SimpleDateFormat("w");
+//        this.week = Integer.parseInt(week.format(dNow));
         //Month
         SimpleDateFormat month = new SimpleDateFormat("M");
-        labelMonth.setText(month.format(dNow));
         this.month = Integer.parseInt(month.format(dNow));
-        System.out.println("Månad " + month.format(dNow));
 
         //Year
         SimpleDateFormat year = new SimpleDateFormat("y");
-        jLabel1.setText(year.format(dNow));
         this.year = Integer.parseInt(year.format(dNow));
-        System.out.println(year.format(dNow));
 
+        //Get first day of month
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-        Date date10 = cal.getTime();
-        String date11 = date10.toString().substring(0, 4);
+        String date11 = cal.getTime().toString().substring(0, 4);
         System.out.println("DATE11 ÄR " + date11);
         this.firstDayOfMonth = getNumberDay(date11);
         System.out.println("FIRSTDAYOFMONTH ÄR " + this.firstDayOfMonth);
 
+        setDaysInMonth();
+        setWeekNumber();
+    }
+
+    private void setWeekNumber() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, this.month - 1);
+        cal.set(Calendar.YEAR, this.year);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        this.week = cal.get(Calendar.WEEK_OF_YEAR);
+        System.out.println(week + " : veckonummer");
+    }
+
+    private void setFirstDayOfMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, this.month - 1);
+        cal.set(Calendar.YEAR, this.year);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        String firstDay = cal.getTime().toString().substring(0, 4);
+        this.firstDayOfMonth = getNumberDay(firstDay);
+    }
+
+    private void setDaysInMonth() {
         //Days in month
         YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
         this.daysInMonth = yearMonthObject.lengthOfMonth();
-
     }
 
-    private void fillDates2() {
-        //YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
-        //int daysInMonth = yearMonthObject.lengthOfMonth();
-        //System.out.println(daysInMonth);
-
-        //Calendar cal = Calendar.getInstance();
-        //cal.set(Calendar.WEEK_OF_YEAR, this.month);
-        //System.out.println(cal.get(Calendar.WEEK_OF_MONTH));
-        //System.out.println(cal.get(Calendar.DAY_OF_WEEK));
-        //System.out.println(cal.get(Calendar.DAY_OF_YEAR));
-        //System.out.println((cal.get(Calendar.DAY_OF_YEAR)) / (cal.get(Calendar.DAY_OF_WEEK)));
-        //System.out.println(cal.get(Calendar.WEEK_OF_YEAR));
-        //System.out.println("Week in Year: " + c.get(Calendar.WEEK_OF_YEAR));
-        //Integer[][] rowData = {};
-        //String[] columnNames = {"Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        //Object[][] data = /*new Object[][]*/ {
-        //          {1, 1, 2, 3, 4, 5, 6, 7},
-        //        {2, 8, 9, 10, 11, 12, 13, 14},
-        //      {3, 15, 16, 17, 18, 19, 20, 21},
-        //    {4, 22, 23, 24, 25, 26, 27, 28},
-        //  {5, 29, 30, 31},};
+    private void fillDates() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        int w = 0;
+        int counter2 = 0;
         int y = 1;
-        for (int i = 0; i < 5/*daysInMonth + 1*/; i++) {
-            //Integer[] array = {};
-            Integer weeknumber = getWeek() + i;
+        int w = 0;
+        int rowCount = 5;
+        if (this.firstDayOfMonth == 7 || (this.firstDayOfMonth == 6 && this.daysInMonth == 31)) {
+            rowCount = 6;
+        }
+        for (int i = 0; i < rowCount; i++) {
+            this.week = this.week + w;
+            Integer weeknumber = getWeek();
             String arrayen = weeknumber.toString();
             int z = y;
             int counter = -1;
+            if (w < 1) {
+                w++;
+            }
             for (int x = y; x < (8 + y); x++) {
-                //int z = x;
-                if (x <= (this.firstDayOfMonth - 1)) {
+                if (x <= (this.firstDayOfMonth - 1) && counter2 < 1) {
                     arrayen = arrayen + " ,";
-                    //z--;
                     continue;
                 }
                 counter++;
                 arrayen = arrayen + "," + z;
-                //Arrays.fill(arrayen, x);
-                System.out.println(arrayen);
-                System.out.println(x + " är mindre än " + this.firstDayOfMonth);
+//                System.out.println(arrayen);
+//                System.out.println(x + " är mindre än " + this.firstDayOfMonth);
                 if (x == this.daysInMonth) {
                     break;
                 }
@@ -221,53 +197,17 @@ public class ACalendar extends javax.swing.JFrame {
                 in arrayen till att hoppa över de dagar som finns innan t.ex. Wed(Mån, Tis) så
                 så att den börjar på iteration 3 i forloopen.
                  */
-
             }
+            counter2++;
             y = y + counter;
-            System.out.println("Y är " + y);
-            //Arrays.fill(array, arrayen
+//            System.out.println("Y är " + y);
             String[] array = arrayen.split(",");
-            System.out.println(arrayen);
+//            System.out.println(arrayen);
             model.addRow(array);
-            //String[] array = {arrayen.split(" ")};
-            //Integer[] array = {Integer.parseInt(arrayen)};
-            //System.out.println(array);
-            //model.addRow(array);
-            /*int p = 1;
-            if (i == 1 || i == 8 || i == 15 || i == 22) {
-                Integer[] array2 = {this.week};
-            } else {
-                Integer[] array = {this.week + w, i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6};
-            Arrays.fill(array2, this.week, 1,2);
-            model.addRow(array);
-
-            w++;*/
-
         }
-        //Integer[] array = {this.week, 1, 2, 3, 4, 5, 6, 7};     x
-        //model.addRow(array);
-        //model.addRow(new Object[]{"Hej"});
-
-        /*for (int i = 1;
-                i < daysInMonth;                                s
-                i++) {
-            model.addRow(rowData);
-        /* }
-
-        /*
-        Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime();
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = format1.format(date);
-        Locale locale = new Locale("en", "UK");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        formatter = formatter.withLocale(locale);
-        LocalDate theDate = LocalDate.parse(date1, formatter);
-        int daysMonth = theDate.lengthOfMonth();
-         */
     }
 
-    private void fillDates() {
+    private void fillDates2() {
         Calendar cal = Calendar.getInstance();
 
         //Date date = cal.getTime();
@@ -335,27 +275,24 @@ public class ACalendar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelMonth = new javax.swing.JLabel();
-        labelDay = new javax.swing.JLabel();
+        labelCurrentDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnMonthUp = new javax.swing.JButton();
+        btnMonthDown = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        labelMonth.setText("Månad");
-
-        labelDay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        labelDay.setText("Dag");
+        labelCurrentDate.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelCurrentDate.setText("Current Date");
 
         jScrollPane1.setHorizontalScrollBar(null);
 
@@ -366,15 +303,36 @@ public class ACalendar extends javax.swing.JFrame {
                 {null, null, null, "", null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Vecka", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowHeight(30);
+        jTable1.setRowSelectionAllowed(false);
         jTable1.setShowGrid(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -387,16 +345,19 @@ public class ACalendar extends javax.swing.JFrame {
 
         jLabel3.setText("Aktiviteter för datumet:");
 
-        jLabel1.setText("Year");
-
-        jButton2.setText("Up");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnMonthUp.setText("Up");
+        btnMonthUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnMonthUpActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Down");
+        btnMonthDown.setText("Down");
+        btnMonthDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMonthDownActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -412,41 +373,31 @@ public class ACalendar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDay)
-                            .addComponent(labelMonth)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelCurrentDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnMonthDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMonthUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(labelDay)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelMonth)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnMonthUp)
+                    .addComponent(labelCurrentDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMonthDown)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -463,10 +414,47 @@ public class ACalendar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.month = this.month + 1;
-        fillDates2();// TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnMonthUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthUpActionPerformed
+        if (this.month == 1) {
+            month = 12;
+            year--;
+            setFirstDayOfMonth();
+            setDaysInMonth();
+            setWeekNumber();
+            fillDates();
+            System.out.println(month + " CURRENT MONTH");
+            System.out.println(year + " CURRENT YEAR");
+        } else {
+            this.month = this.month - 1;
+            setFirstDayOfMonth();
+            setDaysInMonth();
+            setWeekNumber();
+            fillDates();
+            System.out.println(month + " CURRENT MONTH");
+            System.out.println(year + " CURRENT YEAR");
+        }
+    }//GEN-LAST:event_btnMonthUpActionPerformed
+
+    private void btnMonthDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthDownActionPerformed
+        if (this.month == 12) {
+            month = 1;
+            year++;
+            setFirstDayOfMonth();
+            setDaysInMonth();
+            setWeekNumber();
+            fillDates();
+            System.out.println(month + " CURRENT MONTH");
+            System.out.println(year + " CURRENT YEAR");
+        } else {
+            this.month = this.month + 1;
+            setFirstDayOfMonth();
+            setDaysInMonth();
+            setWeekNumber();
+            fillDates();
+            System.out.println(month + " CURRENT MONTH");
+            System.out.println(year + " CURRENT YEAR");
+        }
+    }//GEN-LAST:event_btnMonthDownActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,17 +498,15 @@ public class ACalendar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMonthDown;
+    private javax.swing.JButton btnMonthUp;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel labelDay;
-    private javax.swing.JLabel labelMonth;
+    private javax.swing.JLabel labelCurrentDate;
     // End of variables declaration//GEN-END:variables
 }
