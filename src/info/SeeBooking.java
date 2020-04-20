@@ -103,20 +103,20 @@ public class SeeBooking extends javax.swing.JFrame {
         pnlSortSeeBooking.setBackground(new java.awt.Color(44, 95, 125));
         pnlSortSeeBooking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        rbtnSortByDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByDate.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByDate.setText("Date");
         rbtnSortByDate.setContentAreaFilled(false);
+        rbtnSortByDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByDate.setForeground(new java.awt.Color(255, 255, 255));
 
-        rbtnSortByLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByLocation.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByLocation.setText("Location");
         rbtnSortByLocation.setContentAreaFilled(false);
+        rbtnSortByLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByLocation.setForeground(new java.awt.Color(255, 255, 255));
 
-        rbtnSortByUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByUser.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByUser.setText("User");
         rbtnSortByUser.setContentAreaFilled(false);
+        rbtnSortByUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByUser.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlSortSeeBookingLayout = new javax.swing.GroupLayout(pnlSortSeeBooking);
         pnlSortSeeBooking.setLayout(pnlSortSeeBookingLayout);
