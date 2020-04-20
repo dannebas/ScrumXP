@@ -5,11 +5,16 @@
  */
 package info;
 
+import JavaMail.MailApplication;
 import dbUtils.PictureHandler;
 import dbUtils.db;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.font.TextAttribute;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -55,7 +60,11 @@ public class OtherProfile extends javax.swing.JFrame {
         try {
         String qMail = "select EMAILADDRESS from USER_PROFILE where PROFILE_ID = '" + author + "';";
         String aMail = db.getDB().fetchSingle(qMail);
-            lblUserEmail.setText(aMail);
+        Font font = lblUserEmail.getFont();
+        Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblUserEmail.setFont(font.deriveFont(attributes));
+        lblUserEmail.setText(aMail);
             
         } catch (SQLException ex) {
             Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,6 +259,11 @@ public class OtherProfile extends javax.swing.JFrame {
         lblUserEmail.setBackground(new java.awt.Color(0, 0, 0));
         lblUserEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblUserEmail.setText("UserEmail");
+        lblUserEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUserEmailMouseClicked(evt);
+            }
+        });
         pnlUserInfoBackground.add(lblUserEmail);
         lblUserEmail.setBounds(60, 30, 198, 14);
 
@@ -341,6 +355,14 @@ public class OtherProfile extends javax.swing.JFrame {
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
      
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void lblUserEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserEmailMouseClicked
+        try {
+            MailApplication.main(null, author);
+        } catch (SQLException ex) {
+            Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblUserEmailMouseClicked
 
     /**
      * @param args the command line arguments
