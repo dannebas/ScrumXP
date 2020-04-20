@@ -9,6 +9,7 @@ import dbUtils.PictureHandler;
 import dbUtils.db;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -37,11 +38,13 @@ public class OtherProfile extends javax.swing.JFrame {
     
     private void setInfo() {
         //Set the name of the profile
-        System.out.println("1 " + author);
+        System.out.println(author);
         try{
-        String qName = "select NAME from USER_PROFILE where PROFILE_ID = '" + author + "';";
+        String qName = "select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + author + "';";
             String aName = db.getDB().fetchSingle(qName);
-            lblUserNameProfile.setText(aName);
+            String qName2 = "select LASTNAME from USER_PROFILE where PROFILE_ID = '" + author + "';";
+            String aName2 = db.getDB().fetchSingle(qName2);
+            lblUserNameProfile.setText(aName + " " + aName2);
             System.out.println(aName);
         } catch (SQLException ex) {
             Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +55,7 @@ public class OtherProfile extends javax.swing.JFrame {
         try {
         String qMail = "select EMAILADDRESS from USER_PROFILE where PROFILE_ID = '" + author + "';";
         String aMail = db.getDB().fetchSingle(qMail);
-            lblEmailProfile.setText(aMail);
+            lblUserEmail.setText(aMail);
             
         } catch (SQLException ex) {
             Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,6 +78,18 @@ public class OtherProfile extends javax.swing.JFrame {
             System.out.println("Not found");
             lblProfileImage.setIcon(null);
         }
+        
+        try {
+            //Set groups
+            ArrayList<String> groups = db.getDB().fetchColumn("select GROUP_NAME FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + author + "'" + ")");
+            
+            for (String s : groups){
+                txaGroups.append(s + "\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -230,7 +245,7 @@ public class OtherProfile extends javax.swing.JFrame {
         lblEmailProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblEmailProfile.setText("E-mail:");
         pnlUserInfoBackground.add(lblEmailProfile);
-        lblEmailProfile.setBounds(8, 30, 32, 14);
+        lblEmailProfile.setBounds(8, 30, 40, 14);
 
         lblUserEmail.setBackground(new java.awt.Color(0, 0, 0));
         lblUserEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -242,7 +257,7 @@ public class OtherProfile extends javax.swing.JFrame {
         lblNameProfile.setForeground(new java.awt.Color(255, 255, 255));
         lblNameProfile.setText("Name:");
         pnlUserInfoBackground.add(lblNameProfile);
-        lblNameProfile.setBounds(8, 10, 31, 14);
+        lblNameProfile.setBounds(8, 10, 40, 14);
 
         lblPhoneTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblPhoneTitle.setText("Phone:");
@@ -271,7 +286,7 @@ public class OtherProfile extends javax.swing.JFrame {
 
         lblMyPosts.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblMyPosts.setForeground(new java.awt.Color(51, 51, 51));
-        lblMyPosts.setText("My posts");
+        lblMyPosts.setText("Posts");
         pnlBread.add(lblMyPosts);
         lblMyPosts.setBounds(500, 10, 70, 16);
 
