@@ -36,10 +36,11 @@ public class ACalendar extends javax.swing.JFrame {
         initComponents();
         getDate();
         setLabelTodaysDate();
-        fillDates();
+        fillDates(); //39
         System.out.println(dayOfWeek);
         setFirstDayOfMonth();
-        setWeekNumber();
+        //setWeekNumber(); //42
+        raknaTalet();
     }
 
     public int getWeek() {
@@ -134,15 +135,46 @@ public class ACalendar extends javax.swing.JFrame {
 
         setDaysInMonth();
         setWeekNumber();
+
     }
 
-    private void setWeekNumber() {
+    private Calendar getWeekCal() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, this.month - 1);
         cal.set(Calendar.YEAR, this.year);
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-        this.week = cal.get(Calendar.WEEK_OF_YEAR);
-        System.out.println(week + " : veckonummer");
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        System.out.println(cal.get(Calendar.WEEK_OF_YEAR) + "THISMONTHHHHH");
+        return cal;
+    }
+
+    private void setWeekNumber() {
+        System.out.println("THIS WEEK IS" + this.week);
+        /*if(((getWeekCal().get(Calendar.WEEK_OF_YEAR))- this.week)  != 0 && this.week < 52 )
+        {
+            this.week = this.week + 1;
+        }*/
+        if (this.week == 4 && getWeekCal().get(Calendar.WEEK_OF_YEAR) == 6) {
+            this.week = 5;
+        } else {
+            this.week = getWeekCal().get(Calendar.WEEK_OF_YEAR);
+        }
+        System.out.println("BUT THIS WEEK IS" + this.week);
+
+        /*if (((getWeekCal().get(Calendar.WEEK_OF_YEAR)) - this.week) != 1 && this.week != 53) {
+            this.week = this.week + 1;
+        } else {
+            System.out.println(cal.getTime() + " : xdveckonummer");
+            this.week = cal.get(Calendar.WEEK_OF_YEAR);
+            System.out.println(week + " : veckonummer");
+        }*/
+        //System.out.println(cal.getTime() + " : xdveckonummer");
+        //this.week = cal.get(Calendar.WEEK_OF_YEAR);
+        //System.out.println(week + " : veckonummer");
+    }
+
+    private void setWeek(int week) {
+
     }
 
     private void setFirstDayOfMonth() {
@@ -167,11 +199,37 @@ public class ACalendar extends javax.swing.JFrame {
         int y = 1;
         int w = 0;
         int rowCount = 5;
+        int checker = 0;
         if (this.firstDayOfMonth == 7 || (this.firstDayOfMonth == 6 && this.daysInMonth == 31)) {
             rowCount = 6;
+        } else if (this.month == 2 && this.firstDayOfMonth == 1) {
+            rowCount = 4;
         }
+
         for (int i = 0; i < rowCount; i++) {
             this.week = this.week + w;
+            System.out.println(this.week + "DENNAVECKAN");
+            if (this.week == 53) {
+                System.out.println(this.year);
+                double aYear = this.year;
+                aYear = aYear / 4;
+                System.out.println(aYear + "AWEEK");
+                if (aYear % 1 != 0) {
+                    this.week = 1;
+                }
+            }
+            if (this.week == 1 && checker < 1) {
+                double aYear = this.year - 1;
+                aYear = aYear / 4;
+                if (aYear % 1 == 0) {
+                    this.week = 53;
+                    checker++;
+                }
+            }
+            if (this.week == 54) {
+                this.week = 1;
+            }
+
             Integer weeknumber = getWeek();
             String arrayen = weeknumber.toString();
             int z = y;
@@ -204,6 +262,7 @@ public class ACalendar extends javax.swing.JFrame {
             String[] array = arrayen.split(",");
 //            System.out.println(arrayen);
             model.addRow(array);
+            System.out.println(this.week + "WTF");
         }
     }
 
@@ -263,6 +322,16 @@ public class ACalendar extends javax.swing.JFrame {
 //        LocalDate date2 = LocalDate.of(date1);
 //        int days = date2.lengthOfMonth();
 //        System.out.println(days);
+    }
+
+    private void raknaTalet() {
+        double ettTal = 2020;
+        ettTal = ettTal / 4;
+        if (ettTal % 1 != 0) {
+            System.out.println("TALET FUNKADE EJ");
+        } else {
+            System.out.println("TALET FUNKADE");
+        }
     }
 
     /**
