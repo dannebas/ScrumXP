@@ -5,13 +5,23 @@
  */
 package info;
 
+import dbUtils.db;
+import dbUtils.dbConnection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -400,6 +410,16 @@ public class ACalendar extends javax.swing.JFrame {
         }
     }
 
+    private String fillMeetings() {
+
+        int rowIndex = jTable1.getSelectedRow();
+        int columnIndex = jTable1.getSelectedColumn();
+        Object index = jTable1.getModel().getValueAt(rowIndex, columnIndex);
+        return index.toString();
+
+        //System.out.println(target.getModel().getValueAt(rowIndex, columnIndex));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -445,7 +465,7 @@ public class ACalendar extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Vecka", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+                "Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -460,6 +480,11 @@ public class ACalendar extends javax.swing.JFrame {
         jTable1.setRowSelectionAllowed(false);
         jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -480,6 +505,11 @@ public class ACalendar extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList1);
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Aktiviteter för datumet:");
 
@@ -620,6 +650,39 @@ public class ACalendar extends javax.swing.JFrame {
             System.out.println(year + " CURRENT YEAR");
         }
     }//GEN-LAST:event_btnMonthDownActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        fillMeetings();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void fillList() {
+        try {
+            String aMonth = Integer.toString(this.month);
+            if (this.month <= 9) {
+                aMonth = "0" + aMonth;
+            }
+            String aYear = Integer.toString(this.year);
+            String aDate = aYear + '-' + aMonth + "-" + fillMeetings();
+            String q = "SELECT TITLE, DESCRIPTION, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "tms'";
+            System.out.println(q);
+            //ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
+            //lista = db.getDB().fetchRows(q);
+
+            String qna = db.getDB().fetchSingle("Select title from meetings where user = 'tms' and time = '13:00'");
+            System.out.println(qna);
+            //for (String key : lista.keySet()) {
+            //    System.out.println(key);
+
+            //}
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        //jList1.add(q, this);
+    }
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        fillList();      // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
