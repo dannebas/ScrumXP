@@ -137,6 +137,8 @@ public class OtherProfile extends javax.swing.JFrame {
         btnSeePostResearch = new javax.swing.JButton();
         btnSeePostGeneral = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
+        btnMyProfile = new javax.swing.JButton();
+        btnCalendar = new javax.swing.JButton();
         lblImageHeader = new javax.swing.JLabel();
         pnlBread = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
@@ -240,6 +242,36 @@ public class OtherProfile extends javax.swing.JFrame {
         });
         pnlNavBarSeePost.add(btnLogOut);
         btnLogOut.setBounds(950, 8, 44, 14);
+
+        btnMyProfile.setBackground(new java.awt.Color(44, 95, 125));
+        btnMyProfile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMyProfile.setForeground(new java.awt.Color(255, 255, 255));
+        btnMyProfile.setText("My Profile");
+        btnMyProfile.setBorder(null);
+        btnMyProfile.setBorderPainted(false);
+        btnMyProfile.setContentAreaFilled(false);
+        btnMyProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMyProfileActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnMyProfile);
+        btnMyProfile.setBounds(880, 8, 60, 14);
+
+        btnCalendar.setBackground(new java.awt.Color(44, 95, 125));
+        btnCalendar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCalendar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCalendar.setText("Calendar");
+        btnCalendar.setBorder(null);
+        btnCalendar.setBorderPainted(false);
+        btnCalendar.setContentAreaFilled(false);
+        btnCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalendarActionPerformed(evt);
+            }
+        });
+        pnlNavBarSeePost.add(btnCalendar);
+        btnCalendar.setBounds(810, 5, 60, 20);
 
         lblImageHeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundheader.jpg"))); // NOI18N
         lblImageHeader.setAlignmentY(0.0F);
@@ -387,16 +419,12 @@ public class OtherProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
-
+        
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
 
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
-
-    private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-
-    }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
      
@@ -415,18 +443,12 @@ public class OtherProfile extends javax.swing.JFrame {
         String idString = "";
         if (evt.getClickCount() == 2) {
             int id = tblPosts.getSelectedRow();
-            System.out.println("Göring");
+            
             try {
-
-                System.out.println("Adolf");
                 
                 idString = tblPosts.getModel().getValueAt(id, 4).toString();
+                new SeePost(idString).setVisible(true);  
                 
-                System.out.println("Stalin");
-                
-                new SeePost(idString).setVisible(true);
-                
-                System.out.println("Mao");
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");
             }
@@ -434,6 +456,19 @@ public class OtherProfile extends javax.swing.JFrame {
         
     } 
     }//GEN-LAST:event_tblPostsMouseClicked
+
+    private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
+        new Profil().setVisible(true);
+    }//GEN-LAST:event_btnMyProfileActionPerformed
+
+    private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
+        new ACalendar().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCalendarActionPerformed
+
+    private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
+        
+    }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,7 +507,9 @@ public class OtherProfile extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnSeePostEducation;
     private javax.swing.JButton btnSeePostGeneral;
     private javax.swing.JButton btnSeePostHome;
