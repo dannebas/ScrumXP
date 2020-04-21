@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,16 +48,16 @@ public class OtherProfile extends javax.swing.JFrame {
             System.out.println(author);
             model = (DefaultTableModel) tblPosts.getModel();
             model.setRowCount(0);
-            String s = db.getDB().fetchSingle("SELECT TITLE, DATE, AUTHOR, DESCRIPTION FROM POSTS WHERE AUTHOR ='"+author+"';");
+            String s = db.getDB().fetchSingle("SELECT TITLE, DATE, AUTHOR, DESCRIPTION, POST_ID FROM POSTS WHERE AUTHOR ='"+author+"';");
             System.out.println(s);
             
-            ArrayList<HashMap<String, String>> meetings = db.getDB().fetchRows("SELECT TITLE, DATE, AUTHOR, DESCRIPTION FROM POSTS WHERE AUTHOR ='"+author+"';");
+            ArrayList<HashMap<String, String>> meetings = db.getDB().fetchRows("SELECT TITLE, DATE, AUTHOR, DESCRIPTION, POST_ID FROM POSTS WHERE AUTHOR ='"+author+"';");
             
             
 
             for (HashMap<String, String> aMeeting : meetings) {
 
-                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("AUTHOR"),aMeeting.get("DESCRIPTION") });
+                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("AUTHOR"),aMeeting.get("DESCRIPTION"), aMeeting.get("POST_ID") });
                            }
         } catch (SQLException ex) {
             //Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,6 +156,7 @@ public class OtherProfile extends javax.swing.JFrame {
         lblFooterImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Profile");
 
         pnlNavBarSeePost.setBackground(new java.awt.Color(44, 95, 125));
         pnlNavBarSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -327,9 +329,22 @@ public class OtherProfile extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title", "Author", "Date", "Description"
+                "Title", "Author", "Date", "Description", "ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPosts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPostsMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPosts);
 
         pnlBread.add(jScrollPane2);
@@ -394,6 +409,31 @@ public class OtherProfile extends javax.swing.JFrame {
             Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lblUserEmailMouseClicked
+
+    private void tblPostsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPostsMouseClicked
+                                                  
+        String idString = "";
+        if (evt.getClickCount() == 2) {
+            int id = tblPosts.getSelectedRow();
+            System.out.println("Göring");
+            try {
+
+                System.out.println("Adolf");
+                
+                idString = tblPosts.getModel().getValueAt(id, 4).toString();
+                
+                System.out.println("Stalin");
+                
+                new SeePost(idString).setVisible(true);
+                
+                System.out.println("Mao");
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(null, "Not a valid option");
+            }
+
+        
+    } 
+    }//GEN-LAST:event_tblPostsMouseClicked
 
     /**
      * @param args the command line arguments

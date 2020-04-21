@@ -128,6 +128,7 @@ public class SeePost extends javax.swing.JFrame {
         taNewComment = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Post");
         setMaximumSize(new java.awt.Dimension(1022, 600));
         setMinimumSize(new java.awt.Dimension(1022, 600));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
