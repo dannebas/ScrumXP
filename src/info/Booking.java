@@ -7,6 +7,7 @@ package info;
 
 import JavaMail.JavaMailUtil;
 import static JavaMail.JavaMailUtil.prepareMessage;
+import JavaMail.NotificationHandler;
 import dbUtils.db;
 import static dbUtils.db.getDB;
 import java.lang.reflect.Array;
@@ -528,7 +529,18 @@ public class Booking extends javax.swing.JFrame {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        String telefon = ";";
+        try {
+            telefon = db.getDB().fetchSingle("SELECT PHONE FROM USER_PROFILE WHERE PROFILE_ID = '" + user + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        NotificationHandler createNotification = new NotificationHandler("", "");
+        String text = "Hello you have booked a meeting at: " + date + "\nTime: " + time + "\nThe location is: " + location + "\nThe subject is " + subject + "\nHave a good day!" ;
+        //createNotification.sendSMS(text, "+46 " + telefon);
+        System.out.println(text);
+        System.out.println(telefon);
+        
         invitations.removeAllElements();
         
     }//GEN-LAST:event_btnBookActionPerformed
