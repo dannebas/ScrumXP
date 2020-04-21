@@ -1,4 +1,4 @@
-package com.sendSMS;
+package JavaMail;
 
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;

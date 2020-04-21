@@ -184,8 +184,8 @@ public class Forum extends javax.swing.JFrame {
         btnSeePostResearch = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
         btnSeePostGeneral = new javax.swing.JButton();
-        btnMyProfile1 = new javax.swing.JButton();
-        btnMyProfile2 = new javax.swing.JButton();
+        btnCalendar = new javax.swing.JButton();
+        btnMyProfile = new javax.swing.JButton();
         pnlBreadForum = new javax.swing.JPanel();
         pnlTableForum = new javax.swing.JPanel();
         spnTableForum = new javax.swing.JScrollPane();
@@ -263,7 +263,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostHome);
-        btnSeePostHome.setBounds(20, 8, 33, 15);
+        btnSeePostHome.setBounds(20, 8, 33, 14);
 
         btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -278,7 +278,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostEducation);
-        btnSeePostEducation.setBounds(100, 8, 55, 15);
+        btnSeePostEducation.setBounds(70, 8, 55, 14);
 
         btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -293,7 +293,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostResearch);
-        btnSeePostResearch.setBounds(200, 8, 53, 15);
+        btnSeePostResearch.setBounds(140, 8, 53, 14);
 
         btnLogOut.setBackground(new java.awt.Color(44, 95, 125));
         btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -308,7 +308,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnLogOut);
-        btnLogOut.setBounds(950, 8, 60, 15);
+        btnLogOut.setBounds(950, 8, 60, 14);
 
         btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -323,37 +323,37 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostGeneral);
-        btnSeePostGeneral.setBounds(300, 8, 45, 15);
+        btnSeePostGeneral.setBounds(210, 8, 44, 14);
 
-        btnMyProfile1.setBackground(new java.awt.Color(44, 95, 125));
-        btnMyProfile1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnMyProfile1.setForeground(new java.awt.Color(255, 255, 255));
-        btnMyProfile1.setText("Calendar");
-        btnMyProfile1.setBorder(null);
-        btnMyProfile1.setBorderPainted(false);
-        btnMyProfile1.setContentAreaFilled(false);
-        btnMyProfile1.addActionListener(new java.awt.event.ActionListener() {
+        btnCalendar.setBackground(new java.awt.Color(44, 95, 125));
+        btnCalendar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCalendar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCalendar.setText("Calendar");
+        btnCalendar.setBorder(null);
+        btnCalendar.setBorderPainted(false);
+        btnCalendar.setContentAreaFilled(false);
+        btnCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMyProfile1ActionPerformed(evt);
+                btnCalendarActionPerformed(evt);
             }
         });
-        pnlNavBarSeePost.add(btnMyProfile1);
-        btnMyProfile1.setBounds(810, 5, 60, 20);
+        pnlNavBarSeePost.add(btnCalendar);
+        btnCalendar.setBounds(810, 5, 60, 20);
 
-        btnMyProfile2.setBackground(new java.awt.Color(44, 95, 125));
-        btnMyProfile2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnMyProfile2.setForeground(new java.awt.Color(255, 255, 255));
-        btnMyProfile2.setText("My Profile");
-        btnMyProfile2.setBorder(null);
-        btnMyProfile2.setBorderPainted(false);
-        btnMyProfile2.setContentAreaFilled(false);
-        btnMyProfile2.addActionListener(new java.awt.event.ActionListener() {
+        btnMyProfile.setBackground(new java.awt.Color(44, 95, 125));
+        btnMyProfile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMyProfile.setForeground(new java.awt.Color(255, 255, 255));
+        btnMyProfile.setText("My Profile");
+        btnMyProfile.setBorder(null);
+        btnMyProfile.setBorderPainted(false);
+        btnMyProfile.setContentAreaFilled(false);
+        btnMyProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMyProfile2ActionPerformed(evt);
+                btnMyProfileActionPerformed(evt);
             }
         });
-        pnlNavBarSeePost.add(btnMyProfile2);
-        btnMyProfile2.setBounds(880, 8, 60, 15);
+        pnlNavBarSeePost.add(btnMyProfile);
+        btnMyProfile.setBounds(880, 8, 60, 14);
 
         pnlBackgroundForum.add(pnlNavBarSeePost);
         pnlNavBarSeePost.setBounds(0, 154, 1022, 30);
@@ -537,7 +537,7 @@ public class Forum extends javax.swing.JFrame {
         );
 
         pnlBreadForum.add(pnlSortButtonsForum);
-        pnlSortButtonsForum.setBounds(25, 25, 111, 186);
+        pnlSortButtonsForum.setBounds(25, 25, 118, 256);
 
         jButton1.setText("Edit selected post");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -546,7 +546,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlBreadForum.add(jButton1);
-        jButton1.setBounds(760, 360, 160, 23);
+        jButton1.setBounds(760, 360, 160, 32);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -653,19 +653,19 @@ public class Forum extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void btnMyProfile1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfile1ActionPerformed
+    private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
         new ACalendar().setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMyProfile1ActionPerformed
+    }//GEN-LAST:event_btnCalendarActionPerformed
 
-    private void btnMyProfile2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfile2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMyProfile2ActionPerformed
+    private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
+        new Profil().setVisible(true);
+    }//GEN-LAST:event_btnMyProfileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnLogOut;
-    private javax.swing.JButton btnMyProfile1;
-    private javax.swing.JButton btnMyProfile2;
+    private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnSeePostEducation;
     private javax.swing.JButton btnSeePostGeneral;
     private javax.swing.JButton btnSeePostHome;
