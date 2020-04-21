@@ -6,9 +6,6 @@
 package info;
 
 import dbUtils.db;
-import dbUtils.dbConnection;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,9 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,6 +33,7 @@ public class ACalendar extends javax.swing.JFrame {
     private int dayOfWeek;
     private int firstDayOfMonth;
     private int daysInMonth;
+    private int disabled_col = 2, cur_col = 0;
 
     /**
      * Creates new form Calendar
@@ -212,7 +207,6 @@ public class ACalendar extends javax.swing.JFrame {
 
         setDaysInMonth();
         setWeekNumber();
-
     }
 
     private Calendar getWeekCal() {
@@ -444,7 +438,7 @@ public class ACalendar extends javax.swing.JFrame {
         labelCurrentDate = new javax.swing.JLabel();
         labelCurrentYear = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -653,65 +647,63 @@ public class ACalendar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMonthDownActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        fillMeetings();        // TODO add your handling code here:
+        fillMeetings();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fillList() {
-        try {
-            DefaultListModel<String> model = new DefaultListModel<>();
-            jList1.setModel(model);
-            String aMonth = Integer.toString(this.month);
-            if (this.month <= 9) {
-                aMonth = "0" + aMonth;
-            }
-            String aYear = Integer.toString(this.year);
-            String aDate = aYear + '-' + aMonth + "-" + fillMeetings();
-            String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "tms'";
-            System.out.println(q);
-            ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
-            lista = db.getDB().fetchRows(q);
-
-            for (HashMap<String, String> theList : lista) {
-                String givenString = "";
-                String title = "";
-                String time = "";
-                String description = "";
-                String location = "";
-                int i = 0;
-
-                System.out.println(theList);
-                for (String key : theList.keySet()) {
-                    if (key.contains("TITLE")) {
-                        title = title + key + ": " + theList.get(key);
-                    } else if (key.contains("TIME")) {
-                        time = time + key + ": " + theList.get(key);
-                    } else if (key.contains("DESCRIPTION")) {
-                        description = description + key + ": " + theList.get(key);
-                    } else if (key.contains("LOCATION")) {
-                        location = location + key + ": " + theList.get(key);
-                    }
-                    //givenString = key + ": " + theList.get(key);
-                    //System.out.println(key);
-                    //model.addElement(givenString);
+        //Check if column is not the Week column
+        if (jTable1.getSelectedColumn() != 0) {
+            try {
+                DefaultListModel<String> model = new DefaultListModel<>();
+                jList1.setModel(model);
+                String aMonth = Integer.toString(this.month);
+                if (this.month <= 9) {
+                    aMonth = "0" + aMonth;
                 }
-                model.addElement(title);
-                model.addElement(description);
-                model.addElement(time);
-                model.addElement(location);
+                String aYear = Integer.toString(this.year);
+                String aDate = aYear + '-' + aMonth + "-" + fillMeetings();
+                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "tms'";
+                System.out.println(q);
+                ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+                lista = db.getDB().fetchRows(q);
 
+                for (HashMap<String, String> theList : lista) {
+                    String title = "";
+                    String time = "";
+                    String description = "";
+                    String location = "";
+
+                    System.out.println(theList);
+                    for (String key : theList.keySet()) {
+                        if (key.contains("TITLE")) {
+                            title = title + key + ": " + theList.get(key);
+                        } else if (key.contains("TIME")) {
+                            time = time + key + ": " + theList.get(key);
+                        } else if (key.contains("DESCRIPTION")) {
+                            description = description + key + ": " + theList.get(key);
+                        } else if (key.contains("LOCATION")) {
+                            location = location + key + ": " + theList.get(key);
+                        }
+                    }
+                    model.addElement(title);
+                    model.addElement(description);
+                    model.addElement(time);
+                    model.addElement(location);
+                    model.addElement("--------------------------------------------------------------------------------------");
+                }
+                model.addElement("");
+                //for (String key : lista.keySet()) {
+                // System.out.println(key);
+
+            } catch (SQLException ex) {
+                System.err.println(ex);
             }
-            model.addElement("");
-            //for (String key : lista.keySet()) {
-            // System.out.println(key);
-
-        } catch (SQLException ex) {
-            System.err.println(ex);
+            //jList1.add(q, this);
         }
-        //jList1.add(q, this);
     }
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        fillList();      // TODO add your handling code here:
+        fillList();
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
