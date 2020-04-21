@@ -33,7 +33,6 @@ public class ACalendar extends javax.swing.JFrame {
     private int dayOfWeek;
     private int firstDayOfMonth;
     private int daysInMonth;
-    private int disabled_col = 2, cur_col = 0;
 
     /**
      * Creates new form Calendar
@@ -244,10 +243,6 @@ public class ACalendar extends javax.swing.JFrame {
         //System.out.println(week + " : veckonummer");
     }
 
-    private void setWeek(int week) {
-
-    }
-
     private void setFirstDayOfMonth() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, this.month - 1);
@@ -430,13 +425,17 @@ public class ACalendar extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        labelActivities = new javax.swing.JLabel();
         btnMonthUp = new javax.swing.JButton();
         btnMonthDown = new javax.swing.JButton();
         labelCurrentMonth = new javax.swing.JLabel();
         labelCurrentDate = new javax.swing.JLabel();
         labelCurrentYear = new javax.swing.JLabel();
+        dpFrom = new com.github.lgooddatepicker.components.DatePicker();
+        dpTo = new com.github.lgooddatepicker.components.DatePicker();
+        btnFilter = new javax.swing.JButton();
+        labelFrom = new javax.swing.JLabel();
+        labelTo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -492,21 +491,9 @@ public class ACalendar extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList1);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Aktiviteter för datumet:");
+        labelActivities.setText("Aktiviteter för datumet:");
 
         btnMonthUp.setText("Up");
         btnMonthUp.addActionListener(new java.awt.event.ActionListener() {
@@ -529,6 +516,17 @@ public class ACalendar extends javax.swing.JFrame {
 
         labelCurrentYear.setText("Current Year");
 
+        btnFilter.setText("Filter");
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterActionPerformed(evt);
+            }
+        });
+
+        labelFrom.setText("From");
+
+        labelTo.setText("To");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -537,11 +535,7 @@ public class ACalendar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelCurrentDay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -553,13 +547,26 @@ public class ACalendar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelCurrentYear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMonthDown)))
+                        .addComponent(btnMonthDown))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelActivities)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelFrom))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelTo)
+                                    .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnFilter))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -571,12 +578,20 @@ public class ACalendar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(labelCurrentMonth)
                         .addComponent(labelCurrentYear)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(labelTo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelFrom, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFilter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(labelActivities)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -590,7 +605,9 @@ public class ACalendar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -645,10 +662,6 @@ public class ACalendar extends javax.swing.JFrame {
             System.out.println(year + " CURRENT YEAR");
         }
     }//GEN-LAST:event_btnMonthDownActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        fillMeetings();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fillList() {
         //Check if column is not the Week column
@@ -706,6 +719,56 @@ public class ACalendar extends javax.swing.JFrame {
         fillList();
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        try {
+            String fromDate = dpFrom.getDateStringOrEmptyString();
+            String toDate = dpTo.getDateStringOrEmptyString();
+
+            System.out.println(fromDate);
+            System.out.println(toDate);
+
+            String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+            System.out.println(q);
+
+            DefaultListModel<String> model = new DefaultListModel<>();
+            jList1.setModel(model);
+            ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+            lista = db.getDB().fetchRows(q);
+
+            for (HashMap<String, String> theList : lista) {
+                String description = "";
+                String title = "";
+                String date = "";
+                String location = "";
+                String time = "";
+
+                for (String key : theList.keySet()) {
+                    if (key.contains("TITLE")) {
+                        title = title + key + ": " + theList.get(key);
+                    } else if (key.contains("TIME")) {
+                        time = time + key + ": " + theList.get(key);
+                    } else if (key.contains("DESCRIPTION")) {
+                        description = description + key + ": " + theList.get(key);
+                    } else if (key.contains("LOCATION")) {
+                        location = location + key + ": " + theList.get(key);
+                    } else if (key.contains("DATE")) {
+                        location = date + key + ": " + theList.get(key);
+                    }
+                }
+                model.addElement(title);
+                model.addElement(description);
+                model.addElement(time);
+                model.addElement(location);
+                model.addElement(date);
+                model.addElement("--------------------------------------------------------------------------------------");
+            }
+            model.addElement("");
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }//GEN-LAST:event_btnFilterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -748,18 +811,22 @@ public class ACalendar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnMonthDown;
     private javax.swing.JButton btnMonthUp;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel3;
+    private com.github.lgooddatepicker.components.DatePicker dpFrom;
+    private com.github.lgooddatepicker.components.DatePicker dpTo;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelActivities;
     private javax.swing.JLabel labelCurrentDate;
     private javax.swing.JLabel labelCurrentDay;
     private javax.swing.JLabel labelCurrentMonth;
     private javax.swing.JLabel labelCurrentYear;
+    private javax.swing.JLabel labelFrom;
+    private javax.swing.JLabel labelTo;
     // End of variables declaration//GEN-END:variables
 }
