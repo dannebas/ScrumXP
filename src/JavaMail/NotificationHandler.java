@@ -14,8 +14,8 @@ import com.twilio.type.PhoneNumber;
 public class NotificationHandler 
 {
     //My accountSid, used for the api.
-    private String accountSid = "AC04c374ea758f4d4b18b53972028390a2";
-    private String authToken = "";
+    private String accountSid;
+    private String authToken;
 
     public NotificationHandler(String accountSid, String authToken)
     {
