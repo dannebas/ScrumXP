@@ -154,7 +154,7 @@ public class OtherProfile extends javax.swing.JFrame {
         tblPosts = new javax.swing.JTable();
         lblFooterImage = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlNavBarSeePost.setBackground(new java.awt.Color(44, 95, 125));
         pnlNavBarSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
