@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import info.Forum;
 
 /**
  *
@@ -31,10 +32,14 @@ public class OtherProfile extends javax.swing.JFrame {
     private static dbConnection conn;
     private String author;
     private DefaultTableModel model;
+    private EditProfile a;
+    
+    private Forum forum;
     /**
      * Creates new form OtherProfile
      */
     public OtherProfile() {
+        forum = new Forum();
         initComponents();
         author = SeePost.getAuthor();
         setInfo();
@@ -415,16 +420,17 @@ public class OtherProfile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-       
-    }//GEN-LAST:event_btnSeePostHomeActionPerformed
-
-    private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
+   
+        forum.setVisible(true);
         
-    }//GEN-LAST:event_btnSeePostEducationActionPerformed
-
-    private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-
-    }//GEN-LAST:event_btnSeePostResearchActionPerformed
+        forum.swicthCategoryButtons(false);
+        
+        forum.addAllGeneralPost();
+       
+        this.dispose();//addAllForumPost();
+        
+        
+    }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
      
@@ -459,6 +465,7 @@ public class OtherProfile extends javax.swing.JFrame {
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
         new Profil().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMyProfileActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
@@ -466,8 +473,39 @@ public class OtherProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCalendarActionPerformed
 
-    private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
+    private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
+        forum.swicthCategoryButtons(false);
         
+        forum.addEducationForumPost();
+        
+        forum.setVisible(true);
+        
+        
+        
+        
+        this.dispose();
+    }//GEN-LAST:event_btnSeePostEducationActionPerformed
+
+    private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
+        forum.addResearchForumPost();
+        
+        forum.setVisible(true);
+        
+        forum.swicthCategoryButtons(true);
+        
+        
+        this.dispose();
+    }//GEN-LAST:event_btnSeePostResearchActionPerformed
+
+    private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
+        forum.addAllGeneralPost();
+        
+        forum.setVisible(true);
+        
+        forum.swicthCategoryButtons(false);
+        
+        
+        this.dispose();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     /**
