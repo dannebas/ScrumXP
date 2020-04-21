@@ -6,8 +6,6 @@
 package info;
 
 import dbUtils.db;
-import java.awt.Color;
-import java.awt.Component;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,16 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -41,6 +32,7 @@ public class ACalendar extends javax.swing.JFrame {
     private int dayOfWeek;
     private int firstDayOfMonth;
     private int daysInMonth;
+    private static ArrayList<String> meetingsArray;
 
     /**
      * Creates new form Calendar
@@ -56,6 +48,7 @@ public class ACalendar extends javax.swing.JFrame {
         setLabelCurrentDate();
         setLabelCurrentMonth();
         setLabelCurrentYear();
+        getMeetingsPerMonth();
 
         jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
     }
@@ -128,6 +121,53 @@ public class ACalendar extends javax.swing.JFrame {
                 break;
         }
         labelCurrentDay.setText(date);
+    }
+
+    private void getMeetingsPerMonth() {
+        try {
+            ArrayList<String> lista = new ArrayList<>();
+            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'";
+            System.out.println(q);
+            lista = db.getDB().fetchColumn(q);
+
+            ArrayList<String> meetings = new ArrayList<>();
+
+            for (String list : lista) {
+                meetings.add(list.substring(8, 10));
+            }
+
+            this.meetingsArray = meetings;
+            System.out.println(this.meetingsArray);
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        //        try {
+//
+//            String q = "SELECT DATE FROM MEETINGS WHERE DATE = '2020-04-15'";
+//            ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+//            lista = db.getDB().fetchRows(q);
+//
+//            String thisYear = Integer.toString(this.year);
+////            String thisMonth = Integer.toString(this.month);
+//            int rows = jTable1.getRowCount();
+//            System.out.println(rows);
+//            int columns = jTable1.getColumnCount();
+//            System.out.println(columns);
+//            String cell = jTable1.getModel().getValueAt(rows, columns).toString();
+//
+//            for (int i = 1; i < columns; i++) {
+//                for (int j = 0; j < rows; j++) {
+//                    System.out.println(cell);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            System.err.println(ex);
+//        }
+    }
+
+    private static ArrayList<String> getMeetingsArray() {
+        return meetingsArray;
     }
 
     private void setLabelCurrentDate() {
@@ -658,6 +698,7 @@ public class ACalendar extends javax.swing.JFrame {
             fillDates();
             setLabelCurrentMonth();
             setLabelCurrentYear();
+            getMeetingsPerMonth();
             System.out.println(month + " CURRENT MONTH");
             System.out.println(year + " CURRENT YEAR");
         } else {
@@ -668,6 +709,7 @@ public class ACalendar extends javax.swing.JFrame {
             fillDates();
             setLabelCurrentMonth();
             setLabelCurrentYear();
+            getMeetingsPerMonth();
             System.out.println(month + " CURRENT MONTH");
             System.out.println(year + " CURRENT YEAR");
         }
