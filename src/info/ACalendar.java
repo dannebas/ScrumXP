@@ -6,6 +6,8 @@
 package info;
 
 import dbUtils.db;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,8 +18,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -48,6 +56,8 @@ public class ACalendar extends javax.swing.JFrame {
         setLabelCurrentDate();
         setLabelCurrentMonth();
         setLabelCurrentYear();
+
+        jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
     }
 
     public int getWeek() {
@@ -443,12 +453,11 @@ public class ACalendar extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        labelCurrentDay.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         labelCurrentDay.setText("Current Day");
+        labelCurrentDay.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         jScrollPane1.setHorizontalScrollBar(null);
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, "", null},
@@ -470,6 +479,7 @@ public class ACalendar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setRowHeight(30);
         jTable1.setRowSelectionAllowed(false);
         jTable1.setShowGrid(true);
@@ -511,8 +521,8 @@ public class ACalendar extends javax.swing.JFrame {
 
         labelCurrentMonth.setText("Current Month");
 
-        labelCurrentDate.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         labelCurrentDate.setText("Current Date");
+        labelCurrentDate.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         labelCurrentYear.setText("Current Year");
 
