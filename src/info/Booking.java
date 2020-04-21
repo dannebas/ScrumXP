@@ -529,7 +529,9 @@ public class Booking extends javax.swing.JFrame {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         String telefon = ";";
+        
         try {
             telefon = db.getDB().fetchSingle("SELECT PHONE FROM USER_PROFILE WHERE PROFILE_ID = '" + user + "'");
         } catch (SQLException ex) {
