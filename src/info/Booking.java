@@ -468,6 +468,9 @@ public class Booking extends javax.swing.JFrame {
             String q1 = "select EMAILADDRESS from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
             invitations.addElement(a);
+            System.out.println(q1);
+            System.out.println(n1);
+            System.out.println(n2);
 
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
@@ -504,13 +507,13 @@ public class Booking extends javax.swing.JFrame {
             if (autoID == null) {
                 autoID = "1";
             }
-            int i = Integer.parseInt(autoID);
-            String q1 = "INSERT into meetings values (" + i + ", '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
             
+            String q1 = "INSERT into meetings values('"+ autoID +"', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
+            System.out.println(q1);
             db.getDB().insert(q1);
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
-            
+            System.out.println(ex);
         }
 
         for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
