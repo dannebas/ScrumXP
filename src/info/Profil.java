@@ -7,14 +7,13 @@ package info;
 
 import dbUtils.PictureHandler;
 import dbUtils.db;
-import dbUtils.dbConnection;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -25,9 +24,8 @@ import javax.swing.JOptionPane;
 public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
-    
+
     private Forum forum;
-    
 
     public Profil() {
         initComponents();
@@ -37,17 +35,16 @@ public class Profil extends javax.swing.JFrame {
         lblUserNameProfile.setText(User.getName());
         lblUserEmail.setText(User.getMail());
         lblUserPhone.setText(User.getPhone());
-        
-        
+
         ArrayList<String> groups = User.getUserGroups();
 
-        
         forum = new Forum();
-        
+
         for (String s : groups) {
             txaGroups.append(s + "\n");
         }
         displayProfileImage();
+        getMyPosts();
 
     }
 
@@ -83,7 +80,7 @@ public class Profil extends javax.swing.JFrame {
         btnEditProfile = new javax.swing.JButton();
         lblProfileImage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlMyPosts = new javax.swing.JList<>();
         lblMyPosts = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         lblFooterImage = new javax.swing.JLabel();
@@ -345,8 +342,13 @@ public class Profil extends javax.swing.JFrame {
         pnlBread.add(lblProfileImage);
         lblProfileImage.setBounds(10, 10, 110, 145);
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        jlMyPosts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlMyPosts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlMyPostsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jlMyPosts);
 
         pnlBread.add(jScrollPane1);
         jScrollPane1.setBounds(500, 40, 500, 340);
@@ -381,9 +383,26 @@ public class Profil extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void getMyPosts() {
+
+        DefaultListModel listmodel = new DefaultListModel<>();
+        jlMyPosts.setModel(listmodel);
+        try {
+            ArrayList<HashMap<String, String>> myPosts = db.getDB().fetchRows("select * from POSTS where AUTHOR = '" + User.getUser()+"'");
+            
+            for (HashMap<String, String> aPost : myPosts){
+                String postItem = aPost.get("POST_ID") + " \t" + aPost.get("TITLE") + " \t " + aPost.get("DATE"); 
+                listmodel.addElement(postItem);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public void updateProfile(ImageIcon myIcon) {
 
-       displayProfileImage();
+        displayProfileImage();
     }
 
     public void updateProfileTexts(String mail) {
@@ -462,11 +481,11 @@ public class Profil extends javax.swing.JFrame {
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
         forum.setVisible(true);
-        
+
         forum.swicthCategoryButtons(false);
-        
+
         forum.addAllGeneralPost();
-       
+
         this.dispose();//addAllForumPost();
 
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
@@ -474,64 +493,65 @@ public class Profil extends javax.swing.JFrame {
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
 
         forum.swicthCategoryButtons(false);
-        
+
         forum.addEducationForumPost();
-        
+
         forum.setVisible(true);
-        
-        
-        
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-       
-        
+
         forum.addResearchForumPost();
-        
+
         forum.setVisible(true);
-        
+
         forum.swicthCategoryButtons(true);
-        
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-       
-        
+
         forum.addAllGeneralPost();
-        
+
         forum.setVisible(true);
-        
+
         forum.swicthCategoryButtons(false);
-        
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         a = new EditProfile(this);
         a.setVisible(true);
-       
+
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-         new LogInGUI().setVisible(true);
+        new LogInGUI().setVisible(true);
 
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
         new ACalendar().setVisible(true);
-       
+
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
         new Profil().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMyProfileActionPerformed
+
+    private void jlMyPostsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlMyPostsMouseClicked
+      
+        if (evt.getClickCount() == 2) {
+            String id = jlMyPosts.getSelectedValue().split(" ")[0];
+            new SeePost(id).setVisible(true);
+        }
+    }//GEN-LAST:event_jlMyPostsMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalendar;
@@ -545,9 +565,9 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMeetingProfile;
     private javax.swing.JComboBox<String> cbNewPostProfile;
     private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> jlMyPosts;
     private javax.swing.JLabel lblEmailProfile;
     private javax.swing.JLabel lblFooterImage;
     private javax.swing.JLabel lblImageHeader;

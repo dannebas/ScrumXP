@@ -2,11 +2,9 @@ package info;
 
 import dbUtils.PictureHandler;
 import dbUtils.db;
-import dbUtils.dbConnection;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

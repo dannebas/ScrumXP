@@ -8,13 +8,11 @@ package info;
 import dbUtils.db;
 
 import java.awt.Cursor;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -147,22 +145,19 @@ public class SeePost extends javax.swing.JFrame {
         pnlBread.add(lblProfileImageSeePost);
         lblProfileImageSeePost.setBounds(20, 20, 110, 145);
 
-
         lblAuthorNameSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAuthorNameSeePost.setText("Author:");
         pnlBread.add(lblAuthorNameSeePost);
         lblAuthorNameSeePost.setBounds(20, 200, 51, 19);
 
-        txtAreaPostSeePost.setColumns(20);
-        txtAreaPostSeePost.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtAreaPostSeePost.setRows(5);
-        txtAreaPostSeePost.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(126, 197, 239), 1, true));
-        jscrPost.setViewportView(txtAreaPostSeePost);
-
-
         lblAuthorSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAuthorSeePost.setForeground(new java.awt.Color(102, 255, 153));
         lblAuthorSeePost.setText("User");
+        lblAuthorSeePost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAuthorSeePostMouseClicked(evt);
+            }
+        });
         pnlBread.add(lblAuthorSeePost);
         lblAuthorSeePost.setBounds(80, 200, 33, 19);
 
@@ -173,21 +168,18 @@ public class SeePost extends javax.swing.JFrame {
         pnlPostHeaderSeePost.setLayout(null);
 
         lblTiltleSeePost.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-
         lblTiltleSeePost.setForeground(new java.awt.Color(255, 255, 255));
-
-
         lblTiltleSeePost.setText("Title");
         pnlPostHeaderSeePost.add(lblTiltleSeePost);
         lblTiltleSeePost.setBounds(18, 2, 436, 34);
 
         lblUploadedPostSeePost.setText("Uploaded");
         pnlPostHeaderSeePost.add(lblUploadedPostSeePost);
-        lblUploadedPostSeePost.setBounds(20, 40, 45, 14);
+        lblUploadedPostSeePost.setBounds(20, 40, 53, 16);
 
         lblUploadDateSeePost.setText("Date");
         pnlPostHeaderSeePost.add(lblUploadDateSeePost);
-        lblUploadDateSeePost.setBounds(90, 40, 23, 14);
+        lblUploadDateSeePost.setBounds(90, 40, 26, 16);
 
         pnlBread.add(pnlPostHeaderSeePost);
         pnlPostHeaderSeePost.setBounds(150, 20, 850, 60);
@@ -200,7 +192,6 @@ public class SeePost extends javax.swing.JFrame {
         txtAreaPostSeePost.setRows(5);
         txtAreaPostSeePost.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(126, 197, 239), 1, true));
         jscrPost.setViewportView(txtAreaPostSeePost);
-
 
         pnlBread.add(jscrPost);
         jscrPost.setBounds(150, 90, 850, 300);
@@ -225,18 +216,6 @@ public class SeePost extends javax.swing.JFrame {
         btnPrintPostSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         pnlBread.add(btnPrintPostSeePost);
         btnPrintPostSeePost.setBounds(290, 510, 150, 37);
-
-        lblAuthorSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblAuthorSeePost.setForeground(new java.awt.Color(102, 255, 153));
-        lblAuthorSeePost.setText("User");
-        lblAuthorSeePost.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAuthorSeePostMouseClicked(evt);
-            }
-        });
-        pnlBread.add(lblAuthorSeePost);
-        lblAuthorSeePost.setBounds(80, 200, 33, 19);
-
 
         btnClosePost.setBackground(new java.awt.Color(44, 95, 125));
         btnClosePost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
