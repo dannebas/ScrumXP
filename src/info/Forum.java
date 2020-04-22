@@ -6,7 +6,6 @@
 package info;
 
 import dbUtils.db;
-import dbUtils.dbConnection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import javax.swing.table.TableColumnModel;
  */
 public class Forum extends javax.swing.JFrame {
 
-    private static dbConnection conn;
     private DefaultTableModel model;
 
     /**
@@ -30,12 +28,9 @@ public class Forum extends javax.swing.JFrame {
      */
     public Forum() {
         initComponents();
-
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
-
         columnmodel.removeColumn(columnmodel.getColumn(4));
-
-        conn = db.getDB();
+        columnmodel.removeColumn(columnmodel.getColumn(3));
 
         pnlSortButtonsForum.setVisible(false);
 
@@ -52,7 +47,7 @@ public class Forum extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -70,7 +65,7 @@ public class Forum extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN INFORMAL_POST ON POSTS.POST_ID=INFORMAL_POST.POST_ID\n"
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN INFORMAL_POST ON POSTS.POST_ID=INFORMAL_POST.POST_ID\n"
                     + "UNION\n"
                     + "SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'\n"
                     + "UNION\n"
@@ -95,7 +90,7 @@ public class Forum extends javax.swing.JFrame {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
                     + " INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'");
             System.out.println(User.getUser());
             System.out.println(posts);
@@ -117,7 +112,7 @@ public class Forum extends javax.swing.JFrame {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -138,7 +133,7 @@ public class Forum extends javax.swing.JFrame {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> posts = conn.fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -204,7 +199,6 @@ public class Forum extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setSize(new java.awt.Dimension(1024, 768));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
@@ -366,11 +360,9 @@ public class Forum extends javax.swing.JFrame {
         pnlBreadForum.setPreferredSize(new java.awt.Dimension(1022, 405));
         pnlBreadForum.setLayout(null);
 
-        pnlTableForum.setBackground(new java.awt.Color(44, 95, 125));
-        pnlTableForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlTableForum.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTableForum.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Posts", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlTableForum.setPreferredSize(new java.awt.Dimension(910, 400));
-
-        spnTableForum.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Posts", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
         tblForumPost.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tblForumPost.setModel(new javax.swing.table.DefaultTableModel(
@@ -407,20 +399,29 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         spnTableForum.setViewportView(tblForumPost);
+        if (tblForumPost.getColumnModel().getColumnCount() > 0) {
+            tblForumPost.getColumnModel().getColumn(0).setResizable(false);
+            tblForumPost.getColumnModel().getColumn(0).setPreferredWidth(600);
+            tblForumPost.getColumnModel().getColumn(1).setResizable(false);
+            tblForumPost.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tblForumPost.getColumnModel().getColumn(2).setResizable(false);
+            tblForumPost.getColumnModel().getColumn(3).setResizable(false);
+            tblForumPost.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout pnlTableForumLayout = new javax.swing.GroupLayout(pnlTableForum);
         pnlTableForum.setLayout(pnlTableForumLayout);
         pnlTableForumLayout.setHorizontalGroup(
             pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+            .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
         pnlTableForumLayout.setVerticalGroup(
             pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+            .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
         );
 
         pnlBreadForum.add(pnlTableForum);
-        pnlTableForum.setBounds(158, 22, 765, 330);
+        pnlTableForum.setBounds(158, 2, 860, 400);
 
         pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
         pnlSortButtonsForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -548,7 +549,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlBreadForum.add(jButton1);
-        jButton1.setBounds(760, 360, 160, 32);
+        jButton1.setBounds(10, 350, 140, 32);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);

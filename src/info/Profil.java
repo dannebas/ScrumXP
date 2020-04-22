@@ -7,6 +7,7 @@ package info;
 
 import dbUtils.PictureHandler;
 import dbUtils.db;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,11 +45,12 @@ public class Profil extends javax.swing.JFrame {
         }
 
         displayProfileImage();
-        tblMyPosts.setTableHeader(null);
+        
         TableColumnModel columnmodel = tblMyPosts.getColumnModel();
         columnmodel.removeColumn(columnmodel.getColumn(2));
-
+        tblMyPosts.setTableHeader(null);
         tblMyPosts.setShowGrid(false);
+        scrMyPostsTable.getViewport().setBackground(Color.white);
         getMyPosts();
 
     }
@@ -264,51 +266,51 @@ public class Profil extends javax.swing.JFrame {
         txaGroups.getAccessibleContext().setAccessibleDescription("");
 
         pnlBread.add(scrGroups);
-        scrGroups.setBounds(10, 240, 500, 140);
+        scrGroups.setBounds(10, 240, 500, 150);
 
-        pnlUserInfoBackground.setBackground(new java.awt.Color(44, 95, 125));
-        pnlUserInfoBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlUserInfoBackground.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUserInfoBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlUserInfoBackground.setLayout(null);
 
         lblUserNameProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblUserNameProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserNameProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblUserNameProfile.setText("UserName");
         pnlUserInfoBackground.add(lblUserNameProfile);
-        lblUserNameProfile.setBounds(60, 10, 190, 16);
+        lblUserNameProfile.setBounds(60, 20, 190, 16);
 
         lblEmailProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblEmailProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmailProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblEmailProfile.setText("E-mail:");
         pnlUserInfoBackground.add(lblEmailProfile);
-        lblEmailProfile.setBounds(8, 30, 38, 16);
+        lblEmailProfile.setBounds(10, 40, 38, 16);
 
         lblUserEmail.setBackground(new java.awt.Color(0, 0, 0));
-        lblUserEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblUserEmail.setText("UserEmail");
         pnlUserInfoBackground.add(lblUserEmail);
-        lblUserEmail.setBounds(60, 30, 198, 16);
+        lblUserEmail.setBounds(60, 40, 198, 16);
 
         lblNameProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblNameProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblNameProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblNameProfile.setText("Name:");
         pnlUserInfoBackground.add(lblNameProfile);
-        lblNameProfile.setBounds(8, 10, 36, 16);
+        lblNameProfile.setBounds(10, 20, 36, 16);
 
-        lblPhoneTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblPhoneTitle.setForeground(new java.awt.Color(0, 0, 0));
         lblPhoneTitle.setText("Phone:");
         pnlUserInfoBackground.add(lblPhoneTitle);
-        lblPhoneTitle.setBounds(8, 50, 41, 16);
+        lblPhoneTitle.setBounds(10, 60, 41, 16);
 
-        lblUserPhone.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserPhone.setForeground(new java.awt.Color(0, 0, 0));
         lblUserPhone.setText("UserPhone");
         pnlUserInfoBackground.add(lblUserPhone);
-        lblUserPhone.setBounds(60, 50, 220, 16);
+        lblUserPhone.setBounds(60, 60, 220, 16);
 
         pnlBread.add(pnlUserInfoBackground);
-        pnlUserInfoBackground.setBounds(130, 10, 380, 80);
+        pnlUserInfoBackground.setBounds(130, 10, 380, 90);
 
-        pnlUserMeetingAndPostBackground.setBackground(new java.awt.Color(44, 95, 125));
-        pnlUserMeetingAndPostBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlUserMeetingAndPostBackground.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUserMeetingAndPostBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlUserMeetingAndPostBackground.setMaximumSize(new java.awt.Dimension(32767, 200));
         pnlUserMeetingAndPostBackground.setPreferredSize(new java.awt.Dimension(179, 200));
         pnlUserMeetingAndPostBackground.setLayout(null);
@@ -320,7 +322,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbMeetingProfile);
-        cbMeetingProfile.setBounds(8, 52, 154, 26);
+        cbMeetingProfile.setBounds(190, 30, 154, 26);
 
         cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
         cbNewPostProfile.setToolTipText("");
@@ -330,10 +332,10 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbNewPostProfile);
-        cbNewPostProfile.setBounds(8, 8, 154, 26);
+        cbNewPostProfile.setBounds(10, 30, 154, 26);
 
         pnlBread.add(pnlUserMeetingAndPostBackground);
-        pnlUserMeetingAndPostBackground.setBounds(130, 100, 380, 100);
+        pnlUserMeetingAndPostBackground.setBounds(130, 110, 380, 100);
 
         btnEditProfile.setText("Edit Profile");
         btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
@@ -342,17 +344,18 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnEditProfile);
-        btnEditProfile.setBounds(10, 170, 100, 32);
+        btnEditProfile.setBounds(10, 175, 110, 32);
 
         lblProfileImage.setForeground(new java.awt.Color(255, 255, 255));
         lblProfileImage.setText("Profile picture");
         lblProfileImage.setPreferredSize(new java.awt.Dimension(75, 75));
         pnlBread.add(lblProfileImage);
-        lblProfileImage.setBounds(10, 10, 110, 145);
+        lblProfileImage.setBounds(10, 20, 110, 145);
 
         scrMyPostsTable.setBackground(new java.awt.Color(255, 255, 255));
         scrMyPostsTable.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "My Posts", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
+        tblMyPosts.setBackground(new java.awt.Color(255, 255, 255));
         tblMyPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -379,6 +382,7 @@ public class Profil extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblMyPosts.getTableHeader().setResizingAllowed(false);
         tblMyPosts.getTableHeader().setReorderingAllowed(false);
         tblMyPosts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
