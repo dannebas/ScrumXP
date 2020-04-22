@@ -125,14 +125,19 @@ public class ACalendar extends javax.swing.JFrame {
 
     private void getMeetingsPerMonth() {
         try {
-            ArrayList<String> lista = new ArrayList<>();
             String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'";
             System.out.println(q);
+            ArrayList<String> lista = new ArrayList<>();
             lista = db.getDB().fetchColumn(q);
 
             ArrayList<String> meetings = new ArrayList<>();
             for (String list : lista) {
-                meetings.add(list.substring(8, 10));
+                list = list.substring(8, 10);
+                if (list.startsWith("0")) {
+                    list = list.substring(1);
+                    System.out.println(list);
+                }
+                meetings.add(list);
             }
             this.meetingsArray = meetings;
             System.out.println(this.meetingsArray);
@@ -222,9 +227,7 @@ public class ACalendar extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
         String date11 = cal.getTime().toString().substring(0, 4);
-        System.out.println("DATE11 ÄR " + date11);
         this.firstDayOfMonth = getNumberDay(date11);
-        System.out.println("FIRSTDAYOFMONTH ÄR " + this.firstDayOfMonth);
 
         setDaysInMonth();
         setWeekNumber();
@@ -236,12 +239,10 @@ public class ACalendar extends javax.swing.JFrame {
         cal.set(Calendar.YEAR, this.year);
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
         cal.setFirstDayOfWeek(Calendar.MONDAY);
-        System.out.println(cal.get(Calendar.WEEK_OF_YEAR) + "THISMONTHHHHH");
         return cal;
     }
 
     private void setWeekNumber() {
-        System.out.println("THIS WEEK IS" + this.week);
 
         if (this.week == 4 && getWeekCal().get(Calendar.WEEK_OF_YEAR) == 6) {
             this.week = 5;
@@ -282,7 +283,6 @@ public class ACalendar extends javax.swing.JFrame {
         for (int i = 0; i < rowCount; i++) {
             this.week = this.week + w;
             if (this.week == 53) {
-                System.out.println(this.year);
                 double aYear = this.year;
                 aYear = aYear / 4;
                 if (aYear % 1 != 0) {
@@ -327,9 +327,7 @@ public class ACalendar extends javax.swing.JFrame {
             }
             counter2++;
             y = y + counter;
-//            System.out.println("Y är " + y);
             String[] array = arrayen.split(",");
-//            System.out.println(arrayen);
             model.addRow(array);
         }
     }
@@ -339,16 +337,12 @@ public class ACalendar extends javax.swing.JFrame {
 
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH)); //first day of the month
         int week = cal.get(Calendar.WEEK_OF_YEAR);
-        System.out.println(week);
         SimpleDateFormat format2 = new SimpleDateFormat("E"); // first day of month simplified
-        System.out.println(format2.format(cal.getTime()));
-        System.out.println(cal.getTime());
         Date date = cal.getTime();
 
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String date1 = format1.format(date); // Dagens datum
 
-        System.out.println("Dages Datum: " + date1);
 //
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        LocalDate dt = dtf.parseLocalDate(date1);
@@ -377,13 +371,9 @@ public class ACalendar extends javax.swing.JFrame {
 
         System.out.println(date1);
         LocalDate theDate = LocalDate.parse(date1, formatter);
-        System.out.println("KASDKAKSD " + theDate.getMonthValue() + " " + theDate.getYear());
-        System.out.println(theDate);
         int daysMonth = theDate.lengthOfMonth(); // Dagar per månad
         int daysYear = theDate.lengthOfYear();// Dagar per år
 
-        //System.out.println(daysYear);
-        //System.out.println(daysMonth);
 //
 //        LocalDate date2 = LocalDate.of(date1);
 //        int days = date2.lengthOfMonth();
@@ -394,9 +384,9 @@ public class ACalendar extends javax.swing.JFrame {
         double ettTal = 2020;
         ettTal = ettTal / 4;
         if (ettTal % 1 != 0) {
-            System.out.println("TALET FUNKADE EJ");
+//            System.out.println("TALET FUNKADE EJ");
         } else {
-            System.out.println("TALET FUNKADE");
+//            System.out.println("TALET FUNKADE");
         }
     }
 
@@ -708,7 +698,11 @@ public class ACalendar extends javax.swing.JFrame {
                 System.err.println(ex);
 
             } catch (NullPointerException ex) {
+//                System.err.println(ex);
+                System.out.println("No meeting this day.");
+            } catch (NumberFormatException ex) {
                 System.err.println(ex);
+                System.out.println("Unvalid cell.");
             }
         }
     }
@@ -721,9 +715,6 @@ public class ACalendar extends javax.swing.JFrame {
         try {
             String fromDate = dpFrom.getDateStringOrEmptyString();
             String toDate = dpTo.getDateStringOrEmptyString();
-
-            System.out.println(fromDate);
-            System.out.println(toDate);
 
             String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
             System.out.println(q);
