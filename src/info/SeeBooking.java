@@ -103,20 +103,20 @@ public class SeeBooking extends javax.swing.JFrame {
         pnlSortSeeBooking.setBackground(new java.awt.Color(44, 95, 125));
         pnlSortSeeBooking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        rbtnSortByDate.setText("Date");
-        rbtnSortByDate.setContentAreaFilled(false);
         rbtnSortByDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rbtnSortByDate.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnSortByDate.setText("Date");
+        rbtnSortByDate.setContentAreaFilled(false);
 
-        rbtnSortByLocation.setText("Location");
-        rbtnSortByLocation.setContentAreaFilled(false);
         rbtnSortByLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rbtnSortByLocation.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnSortByLocation.setText("Location");
+        rbtnSortByLocation.setContentAreaFilled(false);
 
-        rbtnSortByUser.setText("User");
-        rbtnSortByUser.setContentAreaFilled(false);
         rbtnSortByUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rbtnSortByUser.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnSortByUser.setText("User");
+        rbtnSortByUser.setContentAreaFilled(false);
 
         javax.swing.GroupLayout pnlSortSeeBookingLayout = new javax.swing.GroupLayout(pnlSortSeeBooking);
         pnlSortSeeBooking.setLayout(pnlSortSeeBookingLayout);
@@ -147,13 +147,10 @@ public class SeeBooking extends javax.swing.JFrame {
 
         spnMyMeeting.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        tblMyMeeting.setBackground(new java.awt.Color(153, 204, 255));
         tblMyMeeting.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title", "Date", "Location", "Time"
@@ -162,12 +159,18 @@ public class SeeBooking extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tblMyMeeting.setBackground(new java.awt.Color(153, 204, 255));
         tblMyMeeting.setGridColor(new java.awt.Color(255, 255, 255));
         spnMyMeeting.setViewportView(tblMyMeeting);
 

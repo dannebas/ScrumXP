@@ -26,6 +26,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 /**
  *
@@ -229,7 +230,7 @@ public class Booking extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(547, 547, 547)
+                        .addGap(544, 544, 544)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scrlSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -473,6 +474,8 @@ public class Booking extends javax.swing.JFrame {
     }
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
+            
+            
             String q2 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '";
             lstInvitations.setModel(invitations);
             String member = cmbMember.getSelectedItem().toString();
@@ -481,7 +484,38 @@ public class Booking extends javax.swing.JFrame {
             String n2 = names[1];
             String q1 = "select EMAILADDRESS from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
-            invitations.addElement(a);
+            
+            ListModel model = lstInvitations.getModel();
+            boolean found = false;
+            lstInvitations.setModel(invitations);
+            
+            for(int i =0; i < invitations.getSize(); i++)
+            {
+            
+            System.out.println(model.getElementAt(i));
+            if(model.getElementAt(i).equals(a))
+            {
+                found = true;
+                System.out.println(found);
+            }
+            
+            
+          
+        }
+        if (found==false)
+        {
+        invitations.addElement(a);
+        txtEmail.setText("");
+        
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Participant already added..");
+        }
+            
+            
+            
+            
             System.out.println(q1);
             System.out.println(n1);
             System.out.println(n2);
@@ -493,10 +527,36 @@ public class Booking extends javax.swing.JFrame {
 
     DefaultListModel<String> invitations = new DefaultListModel<String>();
     private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
+        
+        ListModel model = lstInvitations.getModel();
+        boolean found = false;
         lstInvitations.setModel(invitations);
         String mailAdress = txtEmail.getText();
+        for(int i =0; i < invitations.getSize(); i++)
+        {
+            
+            System.out.println(model.getElementAt(i));
+            if(model.getElementAt(i).equals(mailAdress))
+            {
+                found = true;
+                System.out.println(found);
+                
+            }
+            
+            
+          
+        }
+        if (found==false)
+        {
         invitations.addElement(mailAdress);
         txtEmail.setText("");
+        
+        
+        }
+        
+        else {
+            JOptionPane.showMessageDialog(null, "Participant already added..");
+        }
     }//GEN-LAST:event_btnEmailActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
