@@ -42,14 +42,17 @@ public class ACalendar extends javax.swing.JFrame {
         initComponents();
         getDate();
         fillDates();
-        setFirstDayOfMonth();
         calcNumber();
+        setFirstDayOfMonth();
         setLabelCurrentDay();
         setLabelCurrentDate();
         setLabelCurrentMonth();
         setLabelCurrentYear();
         getMeetingsPerMonth();
+        fillCalenderColors();
+    }
 
+    private void fillCalenderColors() {
         jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
     }
 
@@ -614,6 +617,7 @@ public class ACalendar extends javax.swing.JFrame {
             setLabelCurrentMonth();
             setLabelCurrentYear();
             getMeetingsPerMonth();
+            fillCalenderColors();
         } else {
             this.month = this.month - 1;
             setFirstDayOfMonth();
@@ -623,6 +627,7 @@ public class ACalendar extends javax.swing.JFrame {
             setLabelCurrentMonth();
             setLabelCurrentYear();
             getMeetingsPerMonth();
+            fillCalenderColors();
         }
     }//GEN-LAST:event_btnMonthUpActionPerformed
 
@@ -637,6 +642,7 @@ public class ACalendar extends javax.swing.JFrame {
             setLabelCurrentMonth();
             setLabelCurrentYear();
             getMeetingsPerMonth();
+            fillCalenderColors();
         } else {
             this.month = this.month + 1;
             setFirstDayOfMonth();
@@ -646,6 +652,7 @@ public class ACalendar extends javax.swing.JFrame {
             setLabelCurrentMonth();
             setLabelCurrentYear();
             getMeetingsPerMonth();
+            fillCalenderColors();
         }
     }//GEN-LAST:event_btnMonthDownActionPerformed
 
