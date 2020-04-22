@@ -273,7 +273,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="labelActivities">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Aktiviteter f&#xf6;r datumet:"/>
+            <Property name="text" type="java.lang.String" value="Activities for the selected date:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnMonthUp">

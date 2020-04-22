@@ -143,6 +143,8 @@ public class ACalendar extends javax.swing.JFrame {
             System.out.println(this.meetingsArray);
         } catch (SQLException ex) {
             System.err.println(ex);
+        } catch (NullPointerException ex) {
+            System.out.println("No meetings for this month.");
         }
     }
 
@@ -480,7 +482,7 @@ public class ACalendar extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jList1);
 
-        labelActivities.setText("Aktiviteter för datumet:");
+        labelActivities.setText("Activities for the selected date:");
 
         btnMonthUp.setText("Up");
         btnMonthUp.addActionListener(new java.awt.event.ActionListener() {
