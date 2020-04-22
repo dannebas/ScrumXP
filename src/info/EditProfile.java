@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,22 +20,20 @@ public class EditProfile extends javax.swing.JFrame {
     private Profil profile;
     private File file;
     private ImageIcon profilePicture;
-   
-    
+
     public EditProfile(Profil profile) {
         initComponents();
         this.profile = profile;
-        
+
         try {
             profilePicture = new ImageIcon(db.getDB().fetchImageBytes("select IMAGE from USER_PROFILE where PROFILE_ID = '" + User.getUser() + "'"));
         } catch (SQLException ex) {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             lblEditUserImage.setIcon(null);
         }
         lblEditUserImage.setIcon(profilePicture);
-        
+
         txfMail.setText(User.getMail());
         txtPhone.setText(User.getPhone());
         lblUserName.setText(User.getName());
@@ -54,8 +53,13 @@ public class EditProfile extends javax.swing.JFrame {
         txtPhone = new javax.swing.JTextField();
         lblPhone = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
-        lblPassword = new javax.swing.JLabel();
-        pwdPassword = new javax.swing.JPasswordField();
+        lblNewPassword = new javax.swing.JLabel();
+        pwdOldPassword = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        pwdNewPassword = new javax.swing.JPasswordField();
+        lblOldPassword = new javax.swing.JLabel();
+        btnUpdateContact = new javax.swing.JButton();
+        btnUpdatePassword = new javax.swing.JButton();
         btnEditPicture = new javax.swing.JButton();
         btnSaveProfileChanges = new javax.swing.JButton();
         btnCancelEdit = new javax.swing.JButton();
@@ -63,16 +67,16 @@ public class EditProfile extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 400));
-        setMinimumSize(new java.awt.Dimension(500, 400));
+        setMaximumSize(new java.awt.Dimension(600, 500));
+        setMinimumSize(new java.awt.Dimension(600, 500));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 400));
+        setPreferredSize(new java.awt.Dimension(600, 500));
         setResizable(false);
         getContentPane().setLayout(null);
 
         pnlBackgroundEditProfile.setBackground(new java.awt.Color(44, 95, 125));
         pnlBackgroundEditProfile.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(500, 400));
+        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(600, 500));
         pnlBackgroundEditProfile.setLayout(null);
 
         pnlUserInfoEditProfile.setBackground(new java.awt.Color(44, 95, 125));
@@ -98,16 +102,42 @@ public class EditProfile extends javax.swing.JFrame {
         pnlUserInfoEditProfile.add(lblUserName);
         lblUserName.setBounds(80, 20, 230, 20);
 
-        lblPassword.setText("New password");
-        pnlUserInfoEditProfile.add(lblPassword);
-        lblPassword.setBounds(30, 120, 100, 16);
+        lblNewPassword.setText("New password");
+        pnlUserInfoEditProfile.add(lblNewPassword);
+        lblNewPassword.setBounds(30, 230, 100, 16);
+        pnlUserInfoEditProfile.add(pwdOldPassword);
+        pwdOldPassword.setBounds(140, 200, 170, 22);
 
-        pwdPassword.setText("jPasswordField1");
-        pnlUserInfoEditProfile.add(pwdPassword);
-        pwdPassword.setBounds(30, 140, 90, 22);
+        jSeparator1.setPreferredSize(new java.awt.Dimension(100, 10));
+        pnlUserInfoEditProfile.add(jSeparator1);
+        jSeparator1.setBounds(30, 170, 280, 10);
+        pnlUserInfoEditProfile.add(pwdNewPassword);
+        pwdNewPassword.setBounds(140, 230, 170, 22);
+
+        lblOldPassword.setText("Old password");
+        pnlUserInfoEditProfile.add(lblOldPassword);
+        lblOldPassword.setBounds(30, 200, 100, 16);
+
+        btnUpdateContact.setText("Update contact information");
+        btnUpdateContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateContactActionPerformed(evt);
+            }
+        });
+        pnlUserInfoEditProfile.add(btnUpdateContact);
+        btnUpdateContact.setBounds(121, 120, 190, 32);
+
+        btnUpdatePassword.setText("Update password");
+        btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdatePasswordActionPerformed(evt);
+            }
+        });
+        pnlUserInfoEditProfile.add(btnUpdatePassword);
+        btnUpdatePassword.setBounds(121, 270, 190, 32);
 
         pnlBackgroundEditProfile.add(pnlUserInfoEditProfile);
-        pnlUserInfoEditProfile.setBounds(140, 60, 340, 230);
+        pnlUserInfoEditProfile.setBounds(140, 60, 340, 360);
 
         btnEditPicture.setText("Edit Picture");
         btnEditPicture.addActionListener(new java.awt.event.ActionListener() {
@@ -118,14 +148,14 @@ public class EditProfile extends javax.swing.JFrame {
         pnlBackgroundEditProfile.add(btnEditPicture);
         btnEditPicture.setBounds(10, 220, 100, 32);
 
-        btnSaveProfileChanges.setText("Save");
+        btnSaveProfileChanges.setText("OK");
         btnSaveProfileChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveProfileChangesActionPerformed(evt);
             }
         });
         pnlBackgroundEditProfile.add(btnSaveProfileChanges);
-        btnSaveProfileChanges.setBounds(260, 320, 111, 32);
+        btnSaveProfileChanges.setBounds(260, 440, 111, 32);
 
         btnCancelEdit.setText("Cancel");
         btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +164,7 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
         pnlBackgroundEditProfile.add(btnCancelEdit);
-        btnCancelEdit.setBounds(380, 320, 100, 32);
+        btnCancelEdit.setBounds(390, 440, 100, 32);
 
         lblEditUserImage.setText("Image");
         lblEditUserImage.setMaximumSize(new java.awt.Dimension(110, 145));
@@ -150,28 +180,21 @@ public class EditProfile extends javax.swing.JFrame {
         lblTitle.setBounds(20, 10, 220, 40);
 
         getContentPane().add(pnlBackgroundEditProfile);
-        pnlBackgroundEditProfile.setBounds(0, 0, 500, 400);
+        pnlBackgroundEditProfile.setBounds(0, 0, 600, 500);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveProfileChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveProfileChangesActionPerformed
-        String mail = txfMail.getText();
-        String phone = txtPhone.getText();
-        updateText(mail);
-        
-        try {
-            db.getDB().update("UPDATE USER_PROFILE SET EMAILADDRESS = '" + mail + "', PHONE = '" + phone + "' WHERE PROFILE_ID = '" + User.getUser() + "'");
-            db.getDB().saveFileToDB(file);
-            profile.displayProfileImage();
-        } catch (SQLException ex) {
-
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        if (file != null) {
+            try {
+                db.getDB().saveFileToDB(file);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        profile.displayProfileImage();
         this.dispose();
     }//GEN-LAST:event_btnSaveProfileChangesActionPerformed
 
@@ -181,37 +204,75 @@ public class EditProfile extends javax.swing.JFrame {
 
         Image picture = handler.convertToImageFromFile(file);
         lblEditUserImage.setIcon(new ImageIcon(picture));
-       
+
     }//GEN-LAST:event_btnEditPictureActionPerformed
 
     private void btnCancelEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelEditActionPerformed
 
-    private void updateImage(ImageIcon image) {
+    private void btnUpdateContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateContactActionPerformed
+        updateContactInfo();
+    }//GEN-LAST:event_btnUpdateContactActionPerformed
 
-        profile.updateProfile(image);
+    private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
+        changePassword();
+    }//GEN-LAST:event_btnUpdatePasswordActionPerformed
+
+    private void updateContactInfo() {
+        String mail = txfMail.getText();
+        String phone = txtPhone.getText();
+        profile.updateProfileTexts(mail, phone);
+        try {
+            db.getDB().update("UPDATE USER_PROFILE SET EMAILADDRESS = '" + mail + "', PHONE = '" + phone + "' WHERE PROFILE_ID = '" + User.getUser() + "'");
+            JOptionPane.showMessageDialog(null, "Contact information updated.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "An error occurred.");
+        }
     }
 
-    private void updateText(String mail) {
-        profile.updateProfileTexts(mail);
-    }
+    private void changePassword() {
+        char[] oPass = pwdOldPassword.getPassword();
+        char[] nPass = pwdNewPassword.getPassword();
+        StringBuilder sb = new StringBuilder("");
+        String oldPass = sb.append(oPass).toString();
+        String newPass = sb.append(nPass).toString();
+        if (Validation.checkPassword(pwdOldPassword)
+                && Validation.checkPassword(pwdNewPassword)) {
+            try {
+                oldPass = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + User.getUser() + "'");
+                if (pwdOldPassword.getPassword().equals(oldPass)) {
+                    db.getDB().update("update USER set PASSWORD = '" + newPass + "' where USER_ID = '" + User.getUser() + "'");
+                } else {
+                    JOptionPane.showMessageDialog(null, "wrong password.");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "An error occurred.");
+            }
 
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelEdit;
     private javax.swing.JButton btnEditPicture;
     private javax.swing.JButton btnSaveProfileChanges;
+    private javax.swing.JButton btnUpdateContact;
+    private javax.swing.JButton btnUpdatePassword;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblEditUserEmailEditProfile;
     private javax.swing.JLabel lblEditUserImage;
-    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JLabel lblOldPassword;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlBackgroundEditProfile;
     private javax.swing.JPanel pnlUserInfoEditProfile;
-    private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JPasswordField pwdNewPassword;
+    private javax.swing.JPasswordField pwdOldPassword;
     private javax.swing.JTextField txfMail;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables

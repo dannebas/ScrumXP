@@ -405,9 +405,10 @@ public class Profil extends javax.swing.JFrame {
         displayProfileImage();
     }
 
-    public void updateProfileTexts(String mail) {
+    public void updateProfileTexts(String mail, String phone) {
 
         lblUserEmail.setText(mail);
+        lblUserPhone.setText(phone);
     }
 
     public void displayProfileImage() {
