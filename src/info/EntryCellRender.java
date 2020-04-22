@@ -22,7 +22,6 @@ public class EntryCellRender extends DefaultTableCellRenderer {
         Component cr = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         this.antal = this.antal + 1;
         ACalendar.getMeetingsArray();
-        System.out.println("hej");
 
         if (value != null && column == 0) {
 
@@ -30,15 +29,9 @@ public class EntryCellRender extends DefaultTableCellRenderer {
 
         } else if (value != null && column != 0) {
             for (String aString : ACalendar.getMeetingsArray()) {
-                /*if (aString.startsWith("0")) {
-                    System.out.println(aString + " DENHÄR STRÄNGEN BLIR:");
-                    aString = aString.substring(1, 2);
-                    System.out.println(aString + " FÖRKORTAD STRING");
-                }*/
-                if (value != null && value.toString().contains(aString)) {
+                if (value != null && value.toString().equalsIgnoreCase(aString)) {
                     setBackground(Color.YELLOW);
-                    continue;
-                } else if (value != null && !value.toString().contains(aString)) {
+                } else if (value != null && !value.toString().equalsIgnoreCase(aString)) {
                     setBackground(Color.GREEN);
                 }
             }
@@ -52,12 +45,7 @@ public class EntryCellRender extends DefaultTableCellRenderer {
             setBackground(Color.WHITE);
         } else if (value != null && column != 0) {
             for (String aString : ACalendar.getMeetingsArray()) {
-                /*if (aString.startsWith("0")) {
-                    System.out.println(aString + " DENHÄR STRÄNGEN BLIR:");
-                    aString = aString.substring(1, 2);
-                    System.out.println(aString + " FÖRKORTAD STRING");
-                }*/
-                if (value != null && value.toString().contains(aString)) {
+                if (value != null && value.toString().equalsIgnoreCase(aString)) {
                     setBackground(Color.YELLOW);
                 }
             }
