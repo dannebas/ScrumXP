@@ -415,23 +415,23 @@ public class Booking extends javax.swing.JFrame {
     private void cmbGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGroupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGroupActionPerformed
-    
+
     public static String sendUser() {
         return user;
     }
-    
+
     public void getUser() {
         this.user = User.getUser();
     }
-    
+
     public static String sendSum() {
         return sum;
     }
-    
+
     public void getSum() {
         this.sum = txtSummary.getText();
     }
-    
+
     public static String sendText() {
         return innehall;
     }
@@ -474,8 +474,7 @@ public class Booking extends javax.swing.JFrame {
     }
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
-            
-            
+
             String q2 = "select EMAILADDRESS from USER_PROFILE where LASTNAME = '";
             lstInvitations.setModel(invitations);
             String member = cmbMember.getSelectedItem().toString();
@@ -484,38 +483,28 @@ public class Booking extends javax.swing.JFrame {
             String n2 = names[1];
             String q1 = "select EMAILADDRESS from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
-            
+
             ListModel model = lstInvitations.getModel();
             boolean found = false;
             lstInvitations.setModel(invitations);
-            
-            for(int i =0; i < invitations.getSize(); i++)
-            {
-            
-            System.out.println(model.getElementAt(i));
-            if(model.getElementAt(i).equals(a))
-            {
-                found = true;
-                System.out.println(found);
+
+            for (int i = 0; i < invitations.getSize(); i++) {
+
+                System.out.println(model.getElementAt(i));
+                if (model.getElementAt(i).equals(a)) {
+                    found = true;
+                    System.out.println(found);
+                }
+
             }
-            
-            
-          
-        }
-        if (found==false)
-        {
-        invitations.addElement(a);
-        txtEmail.setText("");
-        
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Participant already added..");
-        }
-            
-            
-            
-            
+            if (found == false) {
+                invitations.addElement(a);
+                txtEmail.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Participant already added..");
+            }
+
             System.out.println(q1);
             System.out.println(n1);
             System.out.println(n2);
@@ -527,44 +516,43 @@ public class Booking extends javax.swing.JFrame {
 
     DefaultListModel<String> invitations = new DefaultListModel<String>();
     private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
-        
-        ListModel model = lstInvitations.getModel();
-        boolean found = false;
+
         lstInvitations.setModel(invitations);
         String mailAdress = txtEmail.getText();
-        for(int i =0; i < invitations.getSize(); i++)
+        noDuplicate(mailAdress);
+
+    }//GEN-LAST:event_btnEmailActionPerformed
+
+    private void noDuplicate(String aString) {
+        boolean found = false;
+        ListModel model = lstInvitations.getModel();
+
+        for (int i = 0; i < invitations.getSize(); i++) // Check if element already exists in jList.
         {
-            
+
             System.out.println(model.getElementAt(i));
-            if(model.getElementAt(i).equals(mailAdress))
-            {
+            if (model.getElementAt(i).equals(aString)) {
                 found = true;
                 System.out.println(found);
-                
             }
-            
-            
-          
+
         }
-        if (found==false)
-        {
-        invitations.addElement(mailAdress);
-        txtEmail.setText("");
-        
-        
-        }
-        
-        else {
+        if (found == false) {
+            invitations.addElement(aString);
+            txtEmail.setText("");
+
+        } else {
             JOptionPane.showMessageDialog(null, "Participant already added..");
         }
-    }//GEN-LAST:event_btnEmailActionPerformed
+    }
+
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        
+
         getText();
         getSubject();
         getSum();
@@ -581,8 +569,8 @@ public class Booking extends javax.swing.JFrame {
             if (autoID == null) {
                 autoID = "1";
             }
-            
-            String q1 = "INSERT into meetings values('"+ autoID +"', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user +"');";
+
+            String q1 = "INSERT into meetings values('" + autoID + "', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user + "');";
             System.out.println(q1);
             db.getDB().insert(q1);
         } catch (SQLException ex) {
@@ -602,22 +590,22 @@ public class Booking extends javax.swing.JFrame {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         String telefon = ";";
-        
+
         try {
             telefon = db.getDB().fetchSingle("SELECT PHONE FROM USER_PROFILE WHERE PROFILE_ID = '" + user + "'");
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
         NotificationHandler createNotification = new NotificationHandler("", "");
-        String text = "Hello you have booked a meeting at: " + date + "\nTime: " + time + "\nThe location is: " + location + "\nThe subject is " + subject + "\nHave a good day!" ;
+        String text = "Hello you have booked a meeting at: " + date + "\nTime: " + time + "\nThe location is: " + location + "\nThe subject is " + subject + "\nHave a good day!";
         //createNotification.sendSMS(text, "+46 " + telefon);
         System.out.println(text);
         System.out.println(telefon);
-        
+
         invitations.removeAllElements();
-        
+
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
@@ -653,38 +641,33 @@ public class Booking extends javax.swing.JFrame {
         String date = dp.getDateStringOrEmptyString();
         txtSummary.setText("Date: " + date + "\r\n" + summary);
         System.out.println(date);
-        
+
     }//GEN-LAST:event_btnDateActionPerformed
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         String summary = txtSummary.getText();
         String time = tp.getText();
         txtSummary.setText("Time: " + time + "\r\n" + summary);
-        
+
     }//GEN-LAST:event_btnTimeActionPerformed
 
     private void btnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocationActionPerformed
         String summary = txtSummary.getText();
         String loc = txtLocation.getText();
         txtSummary.setText("Location: " + loc + "\r\n" + summary);
-        
+
     }//GEN-LAST:event_btnLocationActionPerformed
 
-    
 
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+
         DefaultListModel model = (DefaultListModel) lstInvitations.getModel();
         int selectedIndex = lstInvitations.getSelectedIndex();
         if (selectedIndex != -1) {
-        model.remove(selectedIndex);
+            model.remove(selectedIndex);
         }
-         
 
-        
-    
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
