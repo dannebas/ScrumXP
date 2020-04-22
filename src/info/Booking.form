@@ -42,69 +42,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="scrlMessage" pref="222" max="32767" attributes="0"/>
-                                          <Component id="txtTitle" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMessage" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblLocation" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMember" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblGroup" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="cmbGroup" max="32767" attributes="0"/>
-                                              <Component id="txtLocation" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="cmbMember" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="tp" min="-2" pref="149" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="btnTime" min="-2" pref="75" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtEmail" alignment="0" min="-2" pref="259" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="btnGroup" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
-                                                      <Component id="btnMember" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="lblDate" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="dp" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="btnDate" min="-2" pref="74" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="btnLocation" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                                      <Component id="btnEmail" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jScrollPane1" min="-2" pref="611" max="-2" attributes="0"/>
-                              <Component id="lblInvitations" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="750" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton1" min="-2" pref="219" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="547" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="scrlSummary" min="-2" pref="210" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -115,6 +57,61 @@
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="scrlMessage" pref="222" max="32767" attributes="0"/>
+                                  <Component id="txtTitle" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMessage" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblLocation" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMember" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblGroup" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="cmbGroup" max="32767" attributes="0"/>
+                                      <Component id="txtLocation" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="cmbMember" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="tp" min="-2" pref="149" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnTime" min="-2" pref="75" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtEmail" alignment="0" min="-2" pref="259" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="btnGroup" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Component id="btnMember" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblDate" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="dp" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="btnDate" min="-2" pref="74" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="btnLocation" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Component id="btnEmail" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jScrollPane1" min="-2" pref="611" max="-2" attributes="0"/>
+                      <Component id="lblInvitations" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -196,10 +193,18 @@
                       <Component id="scrlSummary" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" pref="193" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnBook" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnCancel" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnBook" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="btnCancel" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -489,6 +494,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLocationActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Remove selected participant"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
