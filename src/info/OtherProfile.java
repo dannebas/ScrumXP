@@ -1,4 +1,4 @@
-<<<<<<< OURS
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import info.Forum;
 
 /**
  *

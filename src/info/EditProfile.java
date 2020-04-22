@@ -235,16 +235,21 @@ public class EditProfile extends javax.swing.JFrame {
         char[] oPass = pwdOldPassword.getPassword();
         char[] nPass = pwdNewPassword.getPassword();
         StringBuilder sb = new StringBuilder("");
+        StringBuilder sb2 = new StringBuilder("");
         String oldPass = sb.append(oPass).toString();
-        String newPass = sb.append(nPass).toString();
+        String newPass = sb2.append(nPass).toString();
         if (Validation.checkPassword(pwdOldPassword)
                 && Validation.checkPassword(pwdNewPassword)) {
             try {
-                oldPass = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + User.getUser() + "'");
-                if (pwdOldPassword.getPassword().equals(oldPass)) {
+                String existingPass = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + User.getUser() + "'");
+                if (oldPass.equals(existingPass)) {
                     db.getDB().update("update USER set PASSWORD = '" + newPass + "' where USER_ID = '" + User.getUser() + "'");
+                     JOptionPane.showMessageDialog(null, "Password successfully updated.");
+                     pwdOldPassword.setText("");
+                     pwdNewPassword.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "wrong password.");
+                    JOptionPane.showMessageDialog(null, "Wrong password.");
+                    pwdOldPassword.requestFocus();
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "An error occurred.");
