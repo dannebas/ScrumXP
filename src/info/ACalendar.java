@@ -813,6 +813,7 @@ public class ACalendar extends javax.swing.JFrame {
 
     private void btnMonthUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthUpActionPerformed
         if (this.month == 1) {
+            meetingsArray.clear();
             month = 12;
             year--;
             setFirstDayOfMonth();
@@ -824,6 +825,7 @@ public class ACalendar extends javax.swing.JFrame {
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
+            meetingsArray.clear();
             this.month = this.month - 1;
             setFirstDayOfMonth();
             setDaysInMonth();
@@ -838,6 +840,7 @@ public class ACalendar extends javax.swing.JFrame {
 
     private void btnMonthDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthDownActionPerformed
         if (this.month == 12) {
+            meetingsArray.clear();
             month = 1;
             year++;
             setFirstDayOfMonth();
@@ -849,6 +852,7 @@ public class ACalendar extends javax.swing.JFrame {
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
+            meetingsArray.clear();
             this.month = this.month + 1;
             setFirstDayOfMonth();
             setDaysInMonth();

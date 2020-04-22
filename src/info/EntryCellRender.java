@@ -28,11 +28,15 @@ public class EntryCellRender extends DefaultTableCellRenderer {
             setBackground(weekStatus);
 
         } else if (value != null && column != 0) {
-            for (String aString : ACalendar.getMeetingsArray()) {
-                if (value != null && value.toString().equalsIgnoreCase(aString)) {
-                    setBackground(Color.YELLOW);
-                } else if (value != null && !value.toString().equalsIgnoreCase(aString)) {
-                    setBackground(Color.GREEN);
+            if (ACalendar.getMeetingsArray().size() < 1) {
+                setBackground(Color.GREEN);
+            } else {
+                for (String aString : ACalendar.getMeetingsArray()) {
+                    if (value != null && value.toString().equalsIgnoreCase(aString)) {
+                        setBackground(Color.YELLOW);
+                    } else if (value != null && !value.toString().equalsIgnoreCase(aString)) {
+                        setBackground(Color.GREEN);
+                    }
                 }
             }
 
