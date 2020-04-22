@@ -10,6 +10,7 @@ import JavaMail.MailApplication;
 import dbUtils.PictureHandler;
 import dbUtils.db;
 import dbUtils.dbConnection;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.font.TextAttribute;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -44,35 +46,32 @@ public class OtherProfile extends javax.swing.JFrame {
         author = SeePost.getAuthor();
         setInfo();
         addPosts();
+        TableColumnModel columnmodel = tblPosts.getColumnModel();
+        columnmodel.removeColumn(columnmodel.getColumn(2));
+        tblPosts.setTableHeader(null);
+        tblPosts.setShowGrid(false);
+        scrUserPosts.getViewport().setBackground(Color.white);
+        
     }
 
+    public void addPosts() {
 
-    public void addPosts() 
-    {
-        
         try {
-            System.out.println(author);
             model = (DefaultTableModel) tblPosts.getModel();
             model.setRowCount(0);
-            String s = db.getDB().fetchSingle("SELECT TITLE, DATE, AUTHOR, DESCRIPTION, POST_ID FROM POSTS WHERE AUTHOR ='"+author+"';");
-            System.out.println(s);
-            
-            ArrayList<HashMap<String, String>> meetings = db.getDB().fetchRows("SELECT TITLE, DATE, AUTHOR, DESCRIPTION, POST_ID FROM POSTS WHERE AUTHOR ='"+author+"';");
-            
-            
-
-            for (HashMap<String, String> aMeeting : meetings) {
-
-                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("AUTHOR"),aMeeting.get("DESCRIPTION"), aMeeting.get("POST_ID") });
-                           }
+            ArrayList<HashMap<String, String>> myPosts = db.getDB().fetchRows("SELECT TITLE, DATE, POST_ID FROM POSTS WHERE AUTHOR ='" + author + "'");
+            for (HashMap<String, String> aPost : myPosts) {
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("DATE"), aPost.get("POST_ID")});
+            }
         } catch (SQLException ex) {
-            //Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occurred");
         } catch (NullPointerException e) {
-            model.addRow(new Object[]{"No Meetings"});
+            model.addRow(new Object[]{"This user has no posts"});
             System.out.println(e.getMessage());
         }
+        
     }
-    
+
     private void setInfo() {
         //Set the name of the profile
         System.out.println(author);
@@ -158,8 +157,7 @@ public class OtherProfile extends javax.swing.JFrame {
         btnCalendar = new javax.swing.JButton();
         lblImageHeader = new javax.swing.JLabel();
         pnlBread = new javax.swing.JPanel();
-        jLayeredPane2 = new javax.swing.JLayeredPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        scrUserGroups = new javax.swing.JScrollPane();
         txaGroups = new javax.swing.JTextArea();
         pnlUserInfoBackground = new javax.swing.JPanel();
         lblUserNameProfile = new javax.swing.JLabel();
@@ -169,8 +167,7 @@ public class OtherProfile extends javax.swing.JFrame {
         lblPhoneTitle = new javax.swing.JLabel();
         lblUserPhone = new javax.swing.JLabel();
         lblProfileImage = new javax.swing.JLabel();
-        lblMyPosts = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrUserPosts = new javax.swing.JScrollPane();
         tblPosts = new javax.swing.JTable();
         lblFooterImage = new javax.swing.JLabel();
 
@@ -213,7 +210,7 @@ public class OtherProfile extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostEducation);
-        btnSeePostEducation.setBounds(100, 8, 55, 14);
+        btnSeePostEducation.setBounds(70, 8, 55, 14);
 
         btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -228,7 +225,7 @@ public class OtherProfile extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostResearch);
-        btnSeePostResearch.setBounds(200, 8, 53, 14);
+        btnSeePostResearch.setBounds(140, 8, 53, 14);
 
         btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -243,7 +240,7 @@ public class OtherProfile extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostGeneral);
-        btnSeePostGeneral.setBounds(300, 8, 60, 14);
+        btnSeePostGeneral.setBounds(200, 8, 60, 14);
 
         btnLogOut.setBackground(new java.awt.Color(44, 95, 125));
         btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -304,36 +301,37 @@ public class OtherProfile extends javax.swing.JFrame {
         pnlBread.setPreferredSize(new java.awt.Dimension(1022, 405));
         pnlBread.setLayout(null);
 
-        jLayeredPane2.setLayout(new java.awt.CardLayout());
-        pnlBread.add(jLayeredPane2);
-        jLayeredPane2.setBounds(727, 214, 0, 0);
+        scrUserGroups.setBackground(new java.awt.Color(255, 255, 255));
+        scrUserGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Research Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
+        txaGroups.setBackground(new java.awt.Color(255, 255, 255));
         txaGroups.setColumns(20);
         txaGroups.setRows(5);
-        txaGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        jScrollPane3.setViewportView(txaGroups);
+        txaGroups.setBorder(null);
+        scrUserGroups.setViewportView(txaGroups);
 
-        pnlBread.add(jScrollPane3);
-        jScrollPane3.setBounds(200, 250, 270, 130);
+        pnlBread.add(scrUserGroups);
+        scrUserGroups.setBounds(10, 240, 500, 150);
+        scrUserGroups.getAccessibleContext().setAccessibleName("");
 
-        pnlUserInfoBackground.setBackground(new java.awt.Color(44, 95, 125));
-        pnlUserInfoBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlUserInfoBackground.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUserInfoBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contact Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlUserInfoBackground.setLayout(null);
 
         lblUserNameProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblUserNameProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserNameProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblUserNameProfile.setText("UserName");
         pnlUserInfoBackground.add(lblUserNameProfile);
-        lblUserNameProfile.setBounds(60, 10, 190, 16);
+        lblUserNameProfile.setBounds(60, 20, 190, 16);
 
         lblEmailProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblEmailProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmailProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblEmailProfile.setText("E-mail:");
         pnlUserInfoBackground.add(lblEmailProfile);
-        lblEmailProfile.setBounds(8, 30, 40, 16);
+        lblEmailProfile.setBounds(10, 40, 40, 16);
 
         lblUserEmail.setBackground(new java.awt.Color(0, 0, 0));
-        lblUserEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblUserEmail.setText("UserEmail");
         lblUserEmail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -341,26 +339,26 @@ public class OtherProfile extends javax.swing.JFrame {
             }
         });
         pnlUserInfoBackground.add(lblUserEmail);
-        lblUserEmail.setBounds(60, 30, 198, 16);
+        lblUserEmail.setBounds(60, 40, 198, 16);
 
         lblNameProfile.setBackground(new java.awt.Color(0, 0, 0));
-        lblNameProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblNameProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblNameProfile.setText("Name:");
         pnlUserInfoBackground.add(lblNameProfile);
-        lblNameProfile.setBounds(8, 10, 40, 16);
+        lblNameProfile.setBounds(10, 20, 40, 16);
 
-        lblPhoneTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblPhoneTitle.setForeground(new java.awt.Color(0, 0, 0));
         lblPhoneTitle.setText("Phone:");
         pnlUserInfoBackground.add(lblPhoneTitle);
-        lblPhoneTitle.setBounds(8, 50, 41, 16);
+        lblPhoneTitle.setBounds(10, 60, 41, 16);
 
-        lblUserPhone.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserPhone.setForeground(new java.awt.Color(0, 0, 0));
         lblUserPhone.setText("UserPhone");
         pnlUserInfoBackground.add(lblUserPhone);
-        lblUserPhone.setBounds(60, 50, 220, 16);
+        lblUserPhone.setBounds(60, 60, 220, 16);
 
         pnlBread.add(pnlUserInfoBackground);
-        pnlUserInfoBackground.setBounds(130, 10, 340, 190);
+        pnlUserInfoBackground.setBounds(130, 10, 380, 90);
 
         lblProfileImage.setForeground(new java.awt.Color(255, 255, 255));
         lblProfileImage.setText("Profile picture");
@@ -368,36 +366,50 @@ public class OtherProfile extends javax.swing.JFrame {
         pnlBread.add(lblProfileImage);
         lblProfileImage.setBounds(10, 10, 110, 145);
 
-        lblMyPosts.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblMyPosts.setText("Posts");
-        pnlBread.add(lblMyPosts);
-        lblMyPosts.setBounds(500, 10, 70, 16);
+        scrUserPosts.setBackground(new java.awt.Color(255, 255, 255));
+        scrUserPosts.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Posts", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
         tblPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title", "Author", "Date", "Description", "ID"
+                "Title", "Date", "ID"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblPosts.setShowGrid(false);
+        tblPosts.getTableHeader().setReorderingAllowed(false);
         tblPosts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPostsMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblPosts);
+        scrUserPosts.setViewportView(tblPosts);
+        if (tblPosts.getColumnModel().getColumnCount() > 0) {
+            tblPosts.getColumnModel().getColumn(0).setResizable(false);
+            tblPosts.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tblPosts.getColumnModel().getColumn(1).setResizable(false);
+            tblPosts.getColumnModel().getColumn(2).setResizable(false);
+            tblPosts.getColumnModel().getColumn(2).setPreferredWidth(0);
+        }
 
-        pnlBread.add(jScrollPane2);
-        jScrollPane2.setBounds(520, 30, 453, 350);
+        pnlBread.add(scrUserPosts);
+        scrUserPosts.setBounds(530, 10, 480, 380);
 
         lblFooterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/images/Backgroundfooter.jpg"))); // NOI18N
         lblFooterImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -432,21 +444,16 @@ public class OtherProfile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
-
         forum.setVisible(true);
-        
         forum.swicthCategoryButtons(false);
-        
         forum.addAllGeneralPost();
-       
         this.dispose();//addAllForumPost();
-        
-        
+
+
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         new LogInGUI().setVisible(true);
-
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
@@ -459,22 +466,16 @@ public class OtherProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUserEmailMouseClicked
 
     private void tblPostsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPostsMouseClicked
-                                                  
         String idString = "";
         if (evt.getClickCount() == 2) {
             int id = tblPosts.getSelectedRow();
-            
             try {
-                
                 idString = tblPosts.getModel().getValueAt(id, 4).toString();
-                new SeePost(idString).setVisible(true);  
-                
+                new SeePost(idString).setVisible(true);
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");
             }
-
-        
-    } 
+        }
     }//GEN-LAST:event_tblPostsMouseClicked
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
@@ -484,79 +485,29 @@ public class OtherProfile extends javax.swing.JFrame {
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
         new ACalendar().setVisible(true);
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
         forum.swicthCategoryButtons(false);
-        
         forum.addEducationForumPost();
-        
         forum.setVisible(true);
-        
-        
-        
-        
         this.dispose();
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
         forum.addResearchForumPost();
-        
         forum.setVisible(true);
-        
         forum.swicthCategoryButtons(true);
-        
-        
         this.dispose();
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
         forum.addAllGeneralPost();
-        
         forum.setVisible(true);
-        
         forum.swicthCategoryButtons(false);
-        
-        
         this.dispose();
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OtherProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OtherProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OtherProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OtherProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        //Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OtherProfile().setVisible(true);
-            }
-        });
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalendar;
@@ -566,13 +517,9 @@ public class OtherProfile extends javax.swing.JFrame {
     private javax.swing.JButton btnSeePostGeneral;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
-    private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblEmailProfile;
     private javax.swing.JLabel lblFooterImage;
     private javax.swing.JLabel lblImageHeader;
-    private javax.swing.JLabel lblMyPosts;
     private javax.swing.JLabel lblNameProfile;
     private javax.swing.JLabel lblPhoneTitle;
     private javax.swing.JLabel lblProfileImage;
@@ -582,8 +529,9 @@ public class OtherProfile extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlNavBarSeePost;
     private javax.swing.JPanel pnlUserInfoBackground;
+    private javax.swing.JScrollPane scrUserGroups;
+    private javax.swing.JScrollPane scrUserPosts;
     private javax.swing.JTable tblPosts;
     private javax.swing.JTextArea txaGroups;
     // End of variables declaration//GEN-END:variables
 }
-

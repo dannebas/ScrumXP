@@ -71,7 +71,6 @@ public class Profil extends javax.swing.JFrame {
         btnCalendar = new javax.swing.JButton();
         btnMyProfile = new javax.swing.JButton();
         pnlBread = new javax.swing.JPanel();
-        jLayeredPane2 = new javax.swing.JLayeredPane();
         scrGroups = new javax.swing.JScrollPane();
         txaGroups = new javax.swing.JTextArea();
         pnlUserInfoBackground = new javax.swing.JPanel();
@@ -250,10 +249,6 @@ public class Profil extends javax.swing.JFrame {
         pnlBread.setAlignmentY(0.0F);
         pnlBread.setPreferredSize(new java.awt.Dimension(1022, 405));
         pnlBread.setLayout(null);
-
-        jLayeredPane2.setLayout(new java.awt.CardLayout());
-        pnlBread.add(jLayeredPane2);
-        jLayeredPane2.setBounds(727, 214, 0, 0);
 
         scrGroups.setBackground(new java.awt.Color(255, 255, 255));
         scrGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "My Research Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
@@ -614,7 +609,6 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JButton btnSeePostResearch;
     private javax.swing.JComboBox<String> cbMeetingProfile;
     private javax.swing.JComboBox<String> cbNewPostProfile;
-    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLabel lblEmailProfile;
     private javax.swing.JLabel lblFooterImage;
     private javax.swing.JLabel lblImageHeader;
