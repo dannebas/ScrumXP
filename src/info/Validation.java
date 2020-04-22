@@ -5,6 +5,7 @@
  */
 package info;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,35 +31,27 @@ public class Validation {
         boolean answer = true;
 
         if (tf.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(null, "Please enter a password");
+            JOptionPane.showMessageDialog(null, "Please enter a password.");
             tf.requestFocusInWindow();
             answer = false;
         }
         return answer;
     }
 
-   /* public static boolean kollaLosenordLangd(JTextField tf) {
-        boolean svar = true;
-        if (tf.getText().length() > 6) {
-            JOptionPane.showMessageDialog(null, "Lösenordet får max vara 6 tecken långt.");
-            tf.requestFocusInWindow();
-            svar = false;
+    public static boolean checkDatePickerEmpty(DatePicker... args) {
+        boolean answer = true;
+
+        for (DatePicker arg : args) {
+            if (arg.getDateStringOrEmptyString().equals("")) {
+                arg.requestFocusInWindow();
+                answer = false;
+            }
         }
-        return svar;
+        if (!answer) {
+            JOptionPane.showMessageDialog(null, "Please fill out a date.");
+        }
+        return answer;
     }
-
-    public static boolean kollaHeltal(JTextField tf) {
-        boolean svar = true;
-
-        try {
-            Integer.parseInt(tf.getText());
-            tf.requestFocusInWindow();
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Vänligen ange ett heltal");
-            svar = false;
-        }
-        return svar;
-    }*/
 
     public static boolean checkLogOut() {
         boolean answer = false;

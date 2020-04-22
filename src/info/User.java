@@ -42,9 +42,7 @@ public class User {
     }
 
     public static String getLastName() {
-
         return lastName;
-
     }
 
     public static String getName() {

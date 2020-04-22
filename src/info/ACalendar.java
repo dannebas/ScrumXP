@@ -50,10 +50,12 @@ public class ACalendar extends javax.swing.JFrame {
         setLabelCurrentYear();
         getMeetingsPerMonth();
         fillCalenderColors();
+        setLabelCurrentUser();
     }
 
     private void fillCalenderColors() {
         jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
+        jTable1.repaint();
     }
 
     public int getWeek() {
@@ -206,6 +208,10 @@ public class ACalendar extends javax.swing.JFrame {
 
     private void setLabelCurrentYear() {
         labelCurrentYear.setText(Integer.toString(this.year));
+    }
+
+    private void setLabelCurrentUser() {
+        labelUser.setText(User.getName());
     }
 
     private void getDate() {
@@ -411,7 +417,7 @@ public class ACalendar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelUser = new javax.swing.JPanel();
         labelCurrentDay = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -428,12 +434,31 @@ public class ACalendar extends javax.swing.JFrame {
         btnFilter = new javax.swing.JButton();
         labelFrom = new javax.swing.JLabel();
         labelTo = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
+        panelPublic = new javax.swing.JPanel();
+        labelCurrentDay1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        labelActivities1 = new javax.swing.JLabel();
+        btnMonthUp1 = new javax.swing.JButton();
+        btnMonthDown1 = new javax.swing.JButton();
+        labelCurrentMonth1 = new javax.swing.JLabel();
+        labelCurrentDate1 = new javax.swing.JLabel();
+        labelCurrentYear1 = new javax.swing.JLabel();
+        dpFrom1 = new com.github.lgooddatepicker.components.DatePicker();
+        dpTo1 = new com.github.lgooddatepicker.components.DatePicker();
+        btnFilter1 = new javax.swing.JButton();
+        labelFrom1 = new javax.swing.JLabel();
+        labelTo1 = new javax.swing.JLabel();
+        labelUser1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelUser.setBackground(new java.awt.Color(255, 255, 255));
+        panelUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelCurrentDay.setText("Current Day");
         labelCurrentDay.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -519,87 +544,267 @@ public class ACalendar extends javax.swing.JFrame {
 
         labelTo.setText("To");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        labelUser.setText("User");
+
+        javax.swing.GroupLayout panelUserLayout = new javax.swing.GroupLayout(panelUser);
+        panelUser.setLayout(panelUserLayout);
+        panelUserLayout.setHorizontalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelCurrentDay)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelCurrentDate))
-                            .addComponent(labelActivities)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelFrom))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelTo)
-                                    .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnFilter)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelCurrentMonth)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelCurrentYear)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMonthDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
-                .addContainerGap())
+                    .addComponent(labelActivities, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelUserLayout.createSequentialGroup()
+                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFrom))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTo)
+                            .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFilter, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panelUserLayout.createSequentialGroup()
+                            .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelUserLayout.createSequentialGroup()
+                                    .addComponent(labelCurrentDay)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelCurrentDate))
+                                .addGroup(panelUserLayout.createSequentialGroup()
+                                    .addComponent(labelCurrentMonth)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelCurrentYear))
+                                .addComponent(labelUser))
+                            .addGap(196, 196, 196)
+                            .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMonthDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelCurrentDay)
-                        .addComponent(labelCurrentDate)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMonthDown)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelCurrentMonth)
-                        .addComponent(labelCurrentYear)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        panelUserLayout.setVerticalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelUserLayout.createSequentialGroup()
+                        .addComponent(labelUser)
+                        .addGap(2, 2, 2)
+                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCurrentDay)
+                            .addComponent(labelCurrentDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCurrentMonth)
+                            .addComponent(labelCurrentYear))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUserLayout.createSequentialGroup()
+                        .addComponent(btnMonthUp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMonthDown)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelFrom, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFilter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelActivities)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panelPublic.setBackground(new java.awt.Color(255, 255, 255));
+        panelPublic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelPublic.setPreferredSize(new java.awt.Dimension(568, 619));
+
+        labelCurrentDay1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        labelCurrentDay1.setText("Current Day");
+
+        jScrollPane3.setHorizontalScrollBar(null);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, "", null},
+                {null, null, null, "", null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTable2.setRowHeight(30);
+        jTable2.setRowSelectionAllowed(false);
+        jTable2.setShowGrid(true);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTable2.getColumnModel().getColumn(5).setResizable(false);
+            jTable2.getColumnModel().getColumn(6).setResizable(false);
+            jTable2.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        jScrollPane4.setViewportView(jList2);
+
+        labelActivities1.setText("Activities for the selected date:");
+
+        btnMonthUp1.setText("Up");
+        btnMonthUp1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMonthUp1ActionPerformed(evt);
+            }
+        });
+
+        btnMonthDown1.setText("Down");
+        btnMonthDown1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMonthDown1ActionPerformed(evt);
+            }
+        });
+
+        labelCurrentMonth1.setText("Current Month");
+
+        labelCurrentDate1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        labelCurrentDate1.setText("Current Date");
+
+        labelCurrentYear1.setText("Current Year");
+
+        btnFilter1.setText("Filter");
+        btnFilter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilter1ActionPerformed(evt);
+            }
+        });
+
+        labelFrom1.setText("From");
+
+        labelTo1.setText("To");
+
+        labelUser1.setText("Public Calender");
+
+        javax.swing.GroupLayout panelPublicLayout = new javax.swing.GroupLayout(panelPublic);
+        panelPublic.setLayout(panelPublicLayout);
+        panelPublicLayout.setHorizontalGroup(
+            panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPublicLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane4)
+                    .addComponent(labelActivities1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPublicLayout.createSequentialGroup()
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dpFrom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFrom1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTo1)
+                            .addComponent(dpTo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFilter1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPublicLayout.createSequentialGroup()
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPublicLayout.createSequentialGroup()
+                                .addComponent(labelCurrentDay1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelCurrentDate1))
+                            .addGroup(panelPublicLayout.createSequentialGroup()
+                                .addComponent(labelCurrentMonth1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelCurrentYear1))
+                            .addComponent(labelUser1))
+                        .addGap(196, 196, 196)
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnMonthUp1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMonthDown1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+        panelPublicLayout.setVerticalGroup(
+            panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPublicLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPublicLayout.createSequentialGroup()
+                        .addComponent(labelUser1)
+                        .addGap(2, 2, 2)
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCurrentDay1)
+                            .addComponent(labelCurrentDate1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCurrentMonth1)
+                            .addComponent(labelCurrentYear1))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPublicLayout.createSequentialGroup()
+                        .addComponent(btnMonthUp1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMonthDown1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTo1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelFrom1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPublicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dpFrom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dpTo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFilter1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelActivities1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPublic, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelPublic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -721,51 +926,69 @@ public class ACalendar extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        try {
-            String fromDate = dpFrom.getDateStringOrEmptyString();
-            String toDate = dpTo.getDateStringOrEmptyString();
+        if (Validation.checkDatePickerEmpty(dpFrom, dpTo)) {
+            try {
+                String fromDate = dpFrom.getDateStringOrEmptyString();
+                String toDate = dpTo.getDateStringOrEmptyString();
 
-            String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
-            System.out.println(q);
+                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+                System.out.println(q);
 
-            DefaultListModel<String> model = new DefaultListModel<>();
-            jList1.setModel(model);
-            ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-            lista = db.getDB().fetchRows(q);
+                DefaultListModel<String> model = new DefaultListModel<>();
+                jList1.setModel(model);
+                ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+                lista = db.getDB().fetchRows(q);
 
-            for (HashMap<String, String> theList : lista) {
-                String description = "";
-                String title = "";
-                String date = "";
-                String location = "";
-                String time = "";
+                for (HashMap<String, String> theList : lista) {
+                    String description = "";
+                    String title = "";
+                    String date = "";
+                    String location = "";
+                    String time = "";
 
-                for (String key : theList.keySet()) {
-                    if (key.contains("TITLE")) {
-                        title = title + key + ": " + theList.get(key);
-                    } else if (key.contains("TIME")) {
-                        time = time + key + ": " + theList.get(key);
-                    } else if (key.contains("DESCRIPTION")) {
-                        description = description + key + ": " + theList.get(key);
-                    } else if (key.contains("LOCATION")) {
-                        location = location + key + ": " + theList.get(key);
-                    } else if (key.contains("DATE")) {
-                        location = date + key + ": " + theList.get(key);
+                    for (String key : theList.keySet()) {
+                        if (key.contains("TITLE")) {
+                            title = title + key + ": " + theList.get(key);
+                        } else if (key.contains("TIME")) {
+                            time = time + key + ": " + theList.get(key);
+                        } else if (key.contains("DESCRIPTION")) {
+                            description = description + key + ": " + theList.get(key);
+                        } else if (key.contains("LOCATION")) {
+                            location = location + key + ": " + theList.get(key);
+                        } else if (key.contains("DATE")) {
+                            location = date + key + ": " + theList.get(key);
+                        }
                     }
+                    model.addElement(title);
+                    model.addElement(description);
+                    model.addElement(time);
+                    model.addElement(location);
+                    model.addElement(date);
+                    model.addElement("--------------------------------------------------------------------------------------");
                 }
-                model.addElement(title);
-                model.addElement(description);
-                model.addElement(time);
-                model.addElement(location);
-                model.addElement(date);
-                model.addElement("--------------------------------------------------------------------------------------");
-            }
-            model.addElement("");
+                model.addElement("");
 
-        } catch (SQLException ex) {
-            System.err.println(ex);
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
         }
     }//GEN-LAST:event_btnFilterActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void btnMonthUp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthUp1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMonthUp1ActionPerformed
+
+    private void btnMonthDown1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthDown1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMonthDown1ActionPerformed
+
+    private void btnFilter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFilter1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -810,21 +1033,40 @@ public class ACalendar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFilter;
+    private javax.swing.JButton btnFilter1;
     private javax.swing.JButton btnMonthDown;
+    private javax.swing.JButton btnMonthDown1;
     private javax.swing.JButton btnMonthUp;
+    private javax.swing.JButton btnMonthUp1;
     private com.github.lgooddatepicker.components.DatePicker dpFrom;
+    private com.github.lgooddatepicker.components.DatePicker dpFrom1;
     private com.github.lgooddatepicker.components.DatePicker dpTo;
+    private com.github.lgooddatepicker.components.DatePicker dpTo1;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel labelActivities;
+    private javax.swing.JLabel labelActivities1;
     private javax.swing.JLabel labelCurrentDate;
+    private javax.swing.JLabel labelCurrentDate1;
     private javax.swing.JLabel labelCurrentDay;
+    private javax.swing.JLabel labelCurrentDay1;
     private javax.swing.JLabel labelCurrentMonth;
+    private javax.swing.JLabel labelCurrentMonth1;
     private javax.swing.JLabel labelCurrentYear;
+    private javax.swing.JLabel labelCurrentYear1;
     private javax.swing.JLabel labelFrom;
+    private javax.swing.JLabel labelFrom1;
     private javax.swing.JLabel labelTo;
+    private javax.swing.JLabel labelTo1;
+    private javax.swing.JLabel labelUser;
+    private javax.swing.JLabel labelUser1;
+    private javax.swing.JPanel panelPublic;
+    private javax.swing.JPanel panelUser;
     // End of variables declaration//GEN-END:variables
 }
