@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -27,15 +28,33 @@ public class SeeBooking extends javax.swing.JFrame {
     private static String user;
     
     
+    
     public SeeBooking() {
         initComponents();
         
         conn = db.getDB();
         this.user = User.getUser();
         addMeetings();
+        TableColumnModel columnmodel = tblMyMeeting.getColumnModel();
         
         
         
+        
+    }
+    
+    private void tblPostsMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        System.out.println("HITLER");
+        String idString = "";
+        if (evt.getClickCount() == 2) {
+            int id = tblMyMeeting.getSelectedRow();
+            try {
+                idString = tblMyMeeting.getModel().getValueAt(id, 4).toString();
+                System.out.println("HITLER");
+                new SeePost(idString).setVisible(true);
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(null, "Not a valid option");
+            }
+        }
     }
     
     public void addMeetings() 
@@ -54,7 +73,7 @@ public class SeeBooking extends javax.swing.JFrame {
 
             for (HashMap<String, String> aMeeting : meetings) {
 
-                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("LOCATION"),aMeeting.get("TIME") });
+                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("LOCATION"),aMeeting.get("TIME"), aMeeting.get("USER") });
                            }
         } catch (SQLException ex) {
             //Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,14 +172,14 @@ public class SeeBooking extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title", "Date", "Location", "Time"
+                "Title", "Date", "Location", "Time", "User"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -172,6 +191,11 @@ public class SeeBooking extends javax.swing.JFrame {
             }
         });
         tblMyMeeting.setGridColor(new java.awt.Color(255, 255, 255));
+        tblMyMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMyMeetingMouseClicked(evt);
+            }
+        });
         spnMyMeeting.setViewportView(tblMyMeeting);
 
         javax.swing.GroupLayout pnlMyMeetingsLayout = new javax.swing.GroupLayout(pnlMyMeetings);
@@ -195,7 +219,7 @@ public class SeeBooking extends javax.swing.JFrame {
         pnlBackgroundSeeBooking.setLayout(pnlBackgroundSeeBookingLayout);
         pnlBackgroundSeeBookingLayout.setHorizontalGroup(
             pnlBackgroundSeeBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBackgroundSeeBookingLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundSeeBookingLayout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(pnlBackgroundSeeBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlBookingCalender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,6 +245,10 @@ public class SeeBooking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblMyMeetingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMyMeetingMouseClicked
+     // TODO add your handling code here:
+    }//GEN-LAST:event_tblMyMeetingMouseClicked
 
    
 
