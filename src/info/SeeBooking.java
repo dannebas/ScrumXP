@@ -5,19 +5,63 @@
  */
 package info;
 
+import dbUtils.db;
+import dbUtils.dbConnection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author fabia
  */
 public class SeeBooking extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SeeBooking
-     */
+   
+    private static dbConnection conn;
+    private DefaultTableModel model;
+    private static String user;
+    
+    
     public SeeBooking() {
         initComponents();
         
+        conn = db.getDB();
+        this.user = User.getUser();
+        addMeetings();
         
+        
+        
+    }
+    
+    public void addMeetings() 
+    {
+        
+        try {
+            System.out.println(user);
+            model = (DefaultTableModel) tblMyMeeting.getModel();
+            model.setRowCount(0);
+            String s = db.getDB().fetchSingle("SELECT user from MEETINGS where user='"+user+"';");
+            System.out.println(s);
+            
+            ArrayList<HashMap<String, String>> meetings = db.getDB().fetchRows("SELECT * FROM MEETINGS WHERE USER ='"+user+"'");
+            
+            
+
+            for (HashMap<String, String> aMeeting : meetings) {
+
+                model.addRow(new Object[]{aMeeting.get("TITLE"),aMeeting.get("DATE"),aMeeting.get("LOCATION"),aMeeting.get("TIME") });
+                           }
+        } catch (SQLException ex) {
+            //Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No Meetings"});
+            System.out.println(e.getMessage());
+        }
     }
     
     /**
@@ -59,20 +103,20 @@ public class SeeBooking extends javax.swing.JFrame {
         pnlSortSeeBooking.setBackground(new java.awt.Color(44, 95, 125));
         pnlSortSeeBooking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        rbtnSortByDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByDate.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByDate.setText("Date");
         rbtnSortByDate.setContentAreaFilled(false);
+        rbtnSortByDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByDate.setForeground(new java.awt.Color(255, 255, 255));
 
-        rbtnSortByLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByLocation.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByLocation.setText("Location");
         rbtnSortByLocation.setContentAreaFilled(false);
+        rbtnSortByLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByLocation.setForeground(new java.awt.Color(255, 255, 255));
 
-        rbtnSortByUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSortByUser.setForeground(new java.awt.Color(255, 255, 255));
         rbtnSortByUser.setText("User");
         rbtnSortByUser.setContentAreaFilled(false);
+        rbtnSortByUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbtnSortByUser.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlSortSeeBookingLayout = new javax.swing.GroupLayout(pnlSortSeeBooking);
         pnlSortSeeBooking.setLayout(pnlSortSeeBookingLayout);
@@ -103,28 +147,27 @@ public class SeeBooking extends javax.swing.JFrame {
 
         spnMyMeeting.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        tblMyMeeting.setBackground(new java.awt.Color(153, 204, 255));
-        tblMyMeeting.setForeground(new java.awt.Color(51, 51, 51));
         tblMyMeeting.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title", "Date", "Location", "Time", "Action"
+                "Title", "Date", "Location", "Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        tblMyMeeting.setBackground(new java.awt.Color(153, 204, 255));
         tblMyMeeting.setGridColor(new java.awt.Color(255, 255, 255));
         spnMyMeeting.setViewportView(tblMyMeeting);
 

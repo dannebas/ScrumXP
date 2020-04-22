@@ -126,6 +126,7 @@ public class SeePost extends javax.swing.JFrame {
         taNewComment = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Post");
         setMaximumSize(new java.awt.Dimension(1022, 600));
         setMinimumSize(new java.awt.Dimension(1022, 600));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
@@ -186,7 +187,6 @@ public class SeePost extends javax.swing.JFrame {
 
         jscrPost.setBackground(new java.awt.Color(126, 197, 239));
 
-        txtAreaPostSeePost.setBackground(new java.awt.Color(255, 255, 255));
         txtAreaPostSeePost.setColumns(20);
         txtAreaPostSeePost.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtAreaPostSeePost.setRows(5);
@@ -231,7 +231,6 @@ public class SeePost extends javax.swing.JFrame {
         btnClosePost.setBounds(450, 510, 107, 37);
 
         lblComments.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblComments.setForeground(new java.awt.Color(51, 51, 51));
         lblComments.setText("New comment:");
         pnlBread.add(lblComments);
         lblComments.setBounds(150, 400, 120, 24);
@@ -317,8 +316,14 @@ public class SeePost extends javax.swing.JFrame {
     }
 
     private void lblAuthorSeePostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAuthorSeePostMouseClicked
+        System.out.println("1");
         OtherProfile op = new OtherProfile();
+        
         op.setVisible(true);
+        System.out.println("2");
+        op.setLocationRelativeTo(null);
+        System.out.println("3");
+        this.dispose();
     }//GEN-LAST:event_lblAuthorSeePostMouseClicked
 
 

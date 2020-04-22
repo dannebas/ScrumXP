@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,11 +25,18 @@ import javax.swing.JOptionPane;
 public class Profil extends javax.swing.JFrame {
 
     private EditProfile a;
+    private Forum forum;    
+    private String author;  
+    private static dbConnection conn;
+    private DefaultTableModel model;
+    
 
-    private Forum forum;
 
     public Profil() {
         initComponents();
+        forum = new Forum();
+        author = User.getUser();
+        addPosts();
 
         setExtendedState(MAXIMIZED_BOTH);
 
@@ -79,9 +87,13 @@ public class Profil extends javax.swing.JFrame {
         cbNewPostProfile = new javax.swing.JComboBox<>();
         btnEditProfile = new javax.swing.JButton();
         lblProfileImage = new javax.swing.JLabel();
+
         jScrollPane1 = new javax.swing.JScrollPane();
         jlMyPosts = new javax.swing.JList<>();
+
         lblMyPosts = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPosts = new javax.swing.JTable();
         pnlFooter = new javax.swing.JPanel();
         lblFooterImage = new javax.swing.JLabel();
 
@@ -312,7 +324,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbMeetingProfile);
-        cbMeetingProfile.setBounds(8, 52, 154, 26);
+        cbMeetingProfile.setBounds(8, 52, 154, 25);
 
         cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
         cbNewPostProfile.setToolTipText("");
@@ -322,7 +334,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbNewPostProfile);
-        cbNewPostProfile.setBounds(8, 8, 154, 26);
+        cbNewPostProfile.setBounds(8, 8, 154, 25);
 
         pnlBread.add(pnlUserMeetingAndPostBackground);
         pnlUserMeetingAndPostBackground.setBounds(10, 250, 170, 127);
@@ -334,13 +346,14 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnEditProfile);
-        btnEditProfile.setBounds(10, 170, 100, 32);
+        btnEditProfile.setBounds(10, 170, 100, 26);
 
         lblProfileImage.setForeground(new java.awt.Color(255, 255, 255));
         lblProfileImage.setText("Profile picture");
         lblProfileImage.setPreferredSize(new java.awt.Dimension(75, 75));
         pnlBread.add(lblProfileImage);
         lblProfileImage.setBounds(10, 10, 110, 145);
+
 
         jlMyPosts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jlMyPosts.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -354,10 +367,35 @@ public class Profil extends javax.swing.JFrame {
         jScrollPane1.setBounds(500, 40, 500, 340);
 
         lblMyPosts.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblMyPosts.setForeground(new java.awt.Color(51, 51, 51));
         lblMyPosts.setText("My posts");
         pnlBread.add(lblMyPosts);
         lblMyPosts.setBounds(500, 10, 70, 16);
+
+        tblPosts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title ", "Author", "Date", "Description", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPosts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPostsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblPosts);
+
+        pnlBread.add(jScrollPane2);
+        jScrollPane2.setBounds(530, 30, 453, 350);
 
         pnlProfile.add(pnlBread);
         pnlBread.setBounds(0, 190, 1022, 405);
@@ -382,6 +420,7 @@ public class Profil extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void getMyPosts() {
 
@@ -546,6 +585,7 @@ public class Profil extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnMyProfileActionPerformed
 
+
     private void jlMyPostsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlMyPostsMouseClicked
       
         if (evt.getClickCount() == 2) {
@@ -553,6 +593,7 @@ public class Profil extends javax.swing.JFrame {
             new SeePost(id).setVisible(true);
         }
     }//GEN-LAST:event_jlMyPostsMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalendar;
@@ -566,7 +607,11 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMeetingProfile;
     private javax.swing.JComboBox<String> cbNewPostProfile;
     private javax.swing.JLayeredPane jLayeredPane2;
+
     private javax.swing.JScrollPane jScrollPane1;
+
+    private javax.swing.JScrollPane jScrollPane2;
+
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> jlMyPosts;
     private javax.swing.JLabel lblEmailProfile;
@@ -586,6 +631,7 @@ public class Profil extends javax.swing.JFrame {
     private javax.swing.JPanel pnlProfile;
     private javax.swing.JPanel pnlUserInfoBackground;
     private javax.swing.JPanel pnlUserMeetingAndPostBackground;
+    private javax.swing.JTable tblPosts;
     private javax.swing.JTextArea txaGroups;
     // End of variables declaration//GEN-END:variables
 }

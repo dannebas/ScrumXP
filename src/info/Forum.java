@@ -263,7 +263,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostHome);
-        btnSeePostHome.setBounds(20, 8, 33, 14);
+        btnSeePostHome.setBounds(20, 8, 33, 15);
 
         btnSeePostEducation.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostEducation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -278,7 +278,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostEducation);
-        btnSeePostEducation.setBounds(70, 8, 55, 14);
+        btnSeePostEducation.setBounds(70, 8, 55, 15);
 
         btnSeePostResearch.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostResearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -293,7 +293,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostResearch);
-        btnSeePostResearch.setBounds(140, 8, 53, 14);
+        btnSeePostResearch.setBounds(140, 8, 53, 15);
 
         btnLogOut.setBackground(new java.awt.Color(44, 95, 125));
         btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -308,7 +308,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnLogOut);
-        btnLogOut.setBounds(950, 8, 60, 14);
+        btnLogOut.setBounds(950, 8, 60, 15);
 
         btnSeePostGeneral.setBackground(new java.awt.Color(44, 95, 125));
         btnSeePostGeneral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -323,7 +323,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnSeePostGeneral);
-        btnSeePostGeneral.setBounds(210, 8, 44, 14);
+        btnSeePostGeneral.setBounds(210, 8, 45, 15);
 
         btnCalendar.setBackground(new java.awt.Color(44, 95, 125));
         btnCalendar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -353,7 +353,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlNavBarSeePost.add(btnMyProfile);
-        btnMyProfile.setBounds(880, 8, 60, 14);
+        btnMyProfile.setBounds(880, 8, 60, 15);
 
         pnlBackgroundForum.add(pnlNavBarSeePost);
         pnlNavBarSeePost.setBounds(0, 154, 1022, 30);
@@ -397,7 +397,8 @@ public class Forum extends javax.swing.JFrame {
         tblForumPost.setGridColor(new java.awt.Color(255, 255, 255));
         tblForumPost.setPreferredSize(new java.awt.Dimension(300, 450));
         tblForumPost.setRowHeight(26);
-        tblForumPost.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        tblForumPost.setSelectionBackground(new java.awt.Color(44, 95, 125));
+        tblForumPost.setSelectionForeground(new java.awt.Color(254, 254, 254));
         tblForumPost.getTableHeader().setReorderingAllowed(false);
         tblForumPost.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -537,7 +538,7 @@ public class Forum extends javax.swing.JFrame {
         );
 
         pnlBreadForum.add(pnlSortButtonsForum);
-        pnlSortButtonsForum.setBounds(25, 25, 118, 256);
+        pnlSortButtonsForum.setBounds(25, 25, 111, 186);
 
         jButton1.setText("Edit selected post");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -546,7 +547,7 @@ public class Forum extends javax.swing.JFrame {
             }
         });
         pnlBreadForum.add(jButton1);
-        jButton1.setBounds(760, 360, 160, 32);
+        jButton1.setBounds(760, 360, 160, 23);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
