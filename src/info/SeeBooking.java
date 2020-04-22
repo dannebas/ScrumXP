@@ -83,7 +83,7 @@ public class SeeBooking extends javax.swing.JFrame {
         spnMyMeeting = new javax.swing.JScrollPane();
         tblMyMeeting = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         pnlBackgroundSeeBooking.setBackground(new java.awt.Color(126, 197, 239));
