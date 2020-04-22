@@ -445,7 +445,9 @@ public class OtherProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-     
+        new LogInGUI().setVisible(true);
+
+        this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void lblUserEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserEmailMouseClicked
