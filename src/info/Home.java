@@ -65,6 +65,8 @@ public class Home extends javax.swing.JFrame {
         scrBlog = new javax.swing.JScrollPane();
         jlBlog = new javax.swing.JList<>();
         pnlActions = new javax.swing.JPanel();
+        pnlActions1 = new javax.swing.JPanel();
+        lblNewMeeting = new javax.swing.JLabel();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
 
@@ -255,7 +257,24 @@ public class Home extends javax.swing.JFrame {
         pnlActions.setForeground(new java.awt.Color(0, 0, 0));
         pnlActions.setLayout(null);
         pnlBreadForum.add(pnlActions);
-        pnlActions.setBounds(770, 30, 210, 250);
+        pnlActions.setBounds(520, 30, 430, 160);
+
+        pnlActions1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlActions1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlActions1.setForeground(new java.awt.Color(0, 0, 0));
+        pnlActions1.setLayout(null);
+
+        lblNewMeeting.setText("New meeting");
+        lblNewMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNewMeetingMouseClicked(evt);
+            }
+        });
+        pnlActions1.add(lblNewMeeting);
+        lblNewMeeting.setBounds(40, 50, 80, 70);
+
+        pnlBreadForum.add(pnlActions1);
+        pnlActions1.setBounds(520, 210, 430, 160);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -352,6 +371,10 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSeePostHomeActionPerformed
 
+    private void lblNewMeetingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewMeetingMouseClicked
+        new Booking().setVisible(true);
+    }//GEN-LAST:event_lblNewMeetingMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
@@ -364,7 +387,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JList<String> jlLatest;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;
+    private javax.swing.JLabel lblNewMeeting;
     private javax.swing.JPanel pnlActions;
+    private javax.swing.JPanel pnlActions1;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBlog;
     private javax.swing.JPanel pnlBreadForum;
