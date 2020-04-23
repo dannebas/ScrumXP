@@ -30,7 +30,7 @@ public class CalendarPublic extends javax.swing.JFrame {
     private int dayOfWeek;
     private int firstDayOfMonth;
     private int daysInMonth;
-    private static ArrayList<String> meetingsArray1;
+    private static ArrayList<String> meetingsArray;
 
     /**
      * Creates new form Calendar
@@ -39,10 +39,7 @@ public class CalendarPublic extends javax.swing.JFrame {
         initComponents();
         getDate();
         fillDates();
-        calcNumber();
-        setFirstDayOfMonth();
-        setLabelCurrentMonth();
-        setLabelCurrentYear();
+        runAllSetters();
         getMeetingsPerMonth();
         fillCalenderColors();
     }
@@ -108,8 +105,8 @@ public class CalendarPublic extends javax.swing.JFrame {
                 }
                 meetings.add(list);
             }
-            this.meetingsArray1 = meetings;
-            System.out.println(this.meetingsArray1);
+            this.meetingsArray = meetings;
+            System.out.println(this.meetingsArray);
         } catch (SQLException ex) {
             System.err.println(ex);
         } catch (NullPointerException ex) {
@@ -118,7 +115,79 @@ public class CalendarPublic extends javax.swing.JFrame {
     }
 
     static ArrayList<String> getMeetingsArray() {
-        return meetingsArray1;
+        return meetingsArray;
+    }
+
+    private void getDate() {
+        Date dNow = new Date();
+
+        //Date
+        SimpleDateFormat date = new SimpleDateFormat("d");
+        this.date = Integer.parseInt(date.format(dNow));
+
+        //Day
+        SimpleDateFormat day = new SimpleDateFormat("E");
+        this.day = (day.format(dNow));
+        this.dayOfWeek = getNumberDay(this.day);
+
+        //Month
+        SimpleDateFormat month = new SimpleDateFormat("M");
+        this.month = Integer.parseInt(month.format(dNow));
+
+        //Year
+        SimpleDateFormat year = new SimpleDateFormat("y");
+        this.year = Integer.parseInt(year.format(dNow));
+
+        //Get first day of month
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        String date11 = cal.getTime().toString().substring(0, 4);
+        this.firstDayOfMonth = getNumberDay(date11);
+
+        setDaysInMonth();
+        setWeekNumber();
+    }
+
+    private Calendar getWeekCal() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, this.month - 1);
+        cal.set(Calendar.YEAR, this.year);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        return cal;
+    }
+
+    //All Setters
+    private void runAllSetters() {
+        setFirstDayOfMonth();
+        setDaysInMonth();
+        setLabelCurrentMonth();
+        setLabelCurrentYear();
+        setWeekNumber();
+    }
+
+    private void setWeekNumber() {
+
+        if (this.week == 4 && getWeekCal().get(Calendar.WEEK_OF_YEAR) == 6) {
+            this.week = 5;
+        } else {
+            this.week = getWeekCal().get(Calendar.WEEK_OF_YEAR);
+        }
+    }
+
+    private void setDaysInMonth() {
+        //Days in month
+        YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
+        this.daysInMonth = yearMonthObject.lengthOfMonth();
+    }
+
+    private void setFirstDayOfMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, this.month - 1);
+        cal.set(Calendar.YEAR, this.year);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        String firstDay = cal.getTime().toString().substring(0, 4);
+        this.firstDayOfMonth = getNumberDay(firstDay);
     }
 
     private void setLabelCurrentMonth() {
@@ -167,69 +236,6 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void setLabelCurrentYear() {
         labelCurrentYear.setText(Integer.toString(this.year));
-    }
-
-    private void getDate() {
-        Date dNow = new Date();
-
-        //Date
-        SimpleDateFormat date = new SimpleDateFormat("d");
-        this.date = Integer.parseInt(date.format(dNow));
-
-        //Day
-        SimpleDateFormat day = new SimpleDateFormat("E");
-        this.day = (day.format(dNow));
-        this.dayOfWeek = getNumberDay(this.day);
-
-        //Month
-        SimpleDateFormat month = new SimpleDateFormat("M");
-        this.month = Integer.parseInt(month.format(dNow));
-
-        //Year
-        SimpleDateFormat year = new SimpleDateFormat("y");
-        this.year = Integer.parseInt(year.format(dNow));
-
-        //Get first day of month
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-        String date11 = cal.getTime().toString().substring(0, 4);
-        this.firstDayOfMonth = getNumberDay(date11);
-
-        setDaysInMonth();
-        setWeekNumber();
-    }
-
-    private Calendar getWeekCal() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, this.month - 1);
-        cal.set(Calendar.YEAR, this.year);
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-        return cal;
-    }
-
-    private void setWeekNumber() {
-
-        if (this.week == 4 && getWeekCal().get(Calendar.WEEK_OF_YEAR) == 6) {
-            this.week = 5;
-        } else {
-            this.week = getWeekCal().get(Calendar.WEEK_OF_YEAR);
-        }
-    }
-
-    private void setFirstDayOfMonth() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, this.month - 1);
-        cal.set(Calendar.YEAR, this.year);
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-        String firstDay = cal.getTime().toString().substring(0, 4);
-        this.firstDayOfMonth = getNumberDay(firstDay);
-    }
-
-    private void setDaysInMonth() {
-        //Days in month
-        YearMonth yearMonthObject = YearMonth.of(this.year, this.month);
-        this.daysInMonth = yearMonthObject.lengthOfMonth();
     }
 
     private void fillDates() {
@@ -298,13 +304,63 @@ public class CalendarPublic extends javax.swing.JFrame {
         }
     }
 
-    private void calcNumber() {
-        double ettTal = 2020;
-        ettTal = ettTal / 4;
-        if (ettTal % 1 != 0) {
-//            System.out.println("TALET FUNKADE EJ");
-        } else {
-//            System.out.println("TALET FUNKADE");
+    private void fillList() {
+        //Check if column is not the Week column
+        if (jTable1.getSelectedColumn() != 0) {
+            try {
+                DefaultListModel<String> model = new DefaultListModel<>();
+                jList1.setModel(model);
+                String aMonth = Integer.toString(this.month);
+                if (this.month < 10) {
+                    aMonth = "0" + aMonth;
+                }
+                String aDay = fillMeetings();
+                if (Integer.parseInt(aDay) < 10) {
+                    aDay = "0" + aDay;
+                }
+                String aYear = Integer.toString(this.year);
+                String aDate = aYear + '-' + aMonth + "-" + aDay;
+                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "public" + "'";
+                System.out.println(q);
+                ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+                lista = db.getDB().fetchRows(q);
+
+                for (HashMap<String, String> theList : lista) {
+                    String description = "";
+                    String title = "";
+                    String location = "";
+                    String time = "";
+
+                    System.out.println(theList);
+                    for (String key : theList.keySet()) {
+                        if (key.contains("TITLE")) {
+                            title = title + key + ": " + theList.get(key);
+                        } else if (key.contains("TIME")) {
+                            time = time + key + ": " + theList.get(key);
+                        } else if (key.contains("DESCRIPTION")) {
+                            description = description + key + ": " + theList.get(key);
+                        } else if (key.contains("LOCATION")) {
+                            location = location + key + ": " + theList.get(key);
+                        }
+                    }
+                    model.addElement(title);
+                    model.addElement(description);
+                    model.addElement(time);
+                    model.addElement(location);
+                    model.addElement("--------------------------------------------------------------------------------------");
+                }
+                model.addElement("");
+
+            } catch (SQLException ex) {
+                System.err.println(ex);
+
+            } catch (NullPointerException ex) {
+//                System.err.println(ex);
+                System.out.println("No meeting this day.");
+            } catch (NumberFormatException ex) {
+                System.err.println(ex);
+                System.out.println("Unvalid cell.");
+            }
         }
     }
 
@@ -464,11 +520,11 @@ public class CalendarPublic extends javax.swing.JFrame {
                             .addComponent(labelCurrentYear))
                         .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUserLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(24, 24, 24)
                         .addComponent(btnMonthUp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMonthDown)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,8 +548,9 @@ public class CalendarPublic extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(panelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,28 +563,28 @@ public class CalendarPublic extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void emptyArrayListIfNotEmpty() {
+        if (meetingsArray == null || meetingsArray.isEmpty()) {
+            //
+        } else {
+            meetingsArray.removeAll(meetingsArray);
+        }
+    }
+
     private void btnMonthUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthUpActionPerformed
         if (this.month == 1) {
-            meetingsArray1.clear();
+            emptyArrayListIfNotEmpty();
             month = 12;
             year--;
-            setFirstDayOfMonth();
-            setDaysInMonth();
-            setWeekNumber();
+            runAllSetters();
             fillDates();
-            setLabelCurrentMonth();
-            setLabelCurrentYear();
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
-            meetingsArray1.clear();
-            this.month = this.month - 1;
-            setFirstDayOfMonth();
-            setDaysInMonth();
-            setWeekNumber();
+            emptyArrayListIfNotEmpty();
+            month--;
+            runAllSetters();
             fillDates();
-            setLabelCurrentMonth();
-            setLabelCurrentYear();
             getMeetingsPerMonth();
             fillCalenderColors();
         }
@@ -535,90 +592,22 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void btnMonthDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthDownActionPerformed
         if (this.month == 12) {
-            meetingsArray1.clear();
+            emptyArrayListIfNotEmpty();
             month = 1;
             year++;
-            setFirstDayOfMonth();
-            setDaysInMonth();
-            setWeekNumber();
+            runAllSetters();
             fillDates();
-            setLabelCurrentMonth();
-            setLabelCurrentYear();
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
-            meetingsArray1.clear();
-            this.month = this.month + 1;
-            setFirstDayOfMonth();
-            setDaysInMonth();
-            setWeekNumber();
+            emptyArrayListIfNotEmpty();
+            month++;
+            runAllSetters();
             fillDates();
-            setLabelCurrentMonth();
-            setLabelCurrentYear();
             getMeetingsPerMonth();
             fillCalenderColors();
         }
     }//GEN-LAST:event_btnMonthDownActionPerformed
-
-    private void fillList() {
-        //Check if column is not the Week column
-        if (jTable1.getSelectedColumn() != 0) {
-            try {
-                DefaultListModel<String> model = new DefaultListModel<>();
-                jList1.setModel(model);
-                String aMonth = Integer.toString(this.month);
-                if (this.month < 10) {
-                    aMonth = "0" + aMonth;
-                }
-                String aDay = fillMeetings();
-                if (Integer.parseInt(aDay) < 10) {
-                    aDay = "0" + aDay;
-                }
-                String aYear = Integer.toString(this.year);
-                String aDate = aYear + '-' + aMonth + "-" + aDay;
-                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "public" + "'";
-                System.out.println(q);
-                ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-                lista = db.getDB().fetchRows(q);
-
-                for (HashMap<String, String> theList : lista) {
-                    String description = "";
-                    String title = "";
-                    String location = "";
-                    String time = "";
-
-                    System.out.println(theList);
-                    for (String key : theList.keySet()) {
-                        if (key.contains("TITLE")) {
-                            title = title + key + ": " + theList.get(key);
-                        } else if (key.contains("TIME")) {
-                            time = time + key + ": " + theList.get(key);
-                        } else if (key.contains("DESCRIPTION")) {
-                            description = description + key + ": " + theList.get(key);
-                        } else if (key.contains("LOCATION")) {
-                            location = location + key + ": " + theList.get(key);
-                        }
-                    }
-                    model.addElement(title);
-                    model.addElement(description);
-                    model.addElement(time);
-                    model.addElement(location);
-                    model.addElement("--------------------------------------------------------------------------------------");
-                }
-                model.addElement("");
-
-            } catch (SQLException ex) {
-                System.err.println(ex);
-
-            } catch (NullPointerException ex) {
-//                System.err.println(ex);
-                System.out.println("No meeting this day.");
-            } catch (NumberFormatException ex) {
-                System.err.println(ex);
-                System.out.println("Unvalid cell.");
-            }
-        }
-    }
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         fillList();

@@ -43,6 +43,7 @@ public class CalendarView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jInternalFrame1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jInternalFrame1.setPreferredSize(new java.awt.Dimension(568, 619));
         jInternalFrame1.setVisible(true);
 
@@ -68,7 +69,7 @@ public class CalendarView extends javax.swing.JFrame {
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,8 +88,8 @@ public class CalendarView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
-                    .addComponent(jInternalFrame2, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
+                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
