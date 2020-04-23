@@ -103,14 +103,18 @@ public class EditProfile extends javax.swing.JFrame {
         pnlContactInfo.add(lblUserName);
         lblUserName.setBounds(80, 20, 230, 20);
 
+        btnUpdateContact.setBackground(new java.awt.Color(44, 95, 125));
+        btnUpdateContact.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnUpdateContact.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdateContact.setText("Update contact information");
+        btnUpdateContact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnUpdateContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateContactActionPerformed(evt);
             }
         });
         pnlContactInfo.add(btnUpdateContact);
-        btnUpdateContact.setBounds(120, 120, 190, 32);
+        btnUpdateContact.setBounds(120, 120, 190, 37);
 
         pnlBackgroundEditProfile.add(pnlContactInfo);
         pnlContactInfo.setBounds(180, 40, 340, 180);
@@ -133,44 +137,60 @@ public class EditProfile extends javax.swing.JFrame {
         pnlUserInfoEditProfile.add(lblOldPassword);
         lblOldPassword.setBounds(20, 40, 100, 16);
 
+        btnUpdatePassword.setBackground(new java.awt.Color(44, 95, 125));
+        btnUpdatePassword.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnUpdatePassword.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdatePassword.setText("Update password");
+        btnUpdatePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdatePasswordActionPerformed(evt);
             }
         });
         pnlUserInfoEditProfile.add(btnUpdatePassword);
-        btnUpdatePassword.setBounds(130, 110, 190, 32);
+        btnUpdatePassword.setBounds(130, 110, 170, 37);
 
         pnlBackgroundEditProfile.add(pnlUserInfoEditProfile);
         pnlUserInfoEditProfile.setBounds(180, 240, 340, 160);
 
+        btnEditPicture.setBackground(new java.awt.Color(44, 95, 125));
+        btnEditPicture.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnEditPicture.setForeground(new java.awt.Color(255, 255, 255));
         btnEditPicture.setText("Edit Picture");
+        btnEditPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnEditPicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditPictureActionPerformed(evt);
             }
         });
         pnlBackgroundEditProfile.add(btnEditPicture);
-        btnEditPicture.setBounds(30, 210, 100, 32);
+        btnEditPicture.setBounds(30, 210, 100, 37);
 
+        btnSaveProfileChanges.setBackground(new java.awt.Color(44, 95, 125));
+        btnSaveProfileChanges.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSaveProfileChanges.setForeground(new java.awt.Color(255, 255, 255));
         btnSaveProfileChanges.setText("OK");
+        btnSaveProfileChanges.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnSaveProfileChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveProfileChangesActionPerformed(evt);
             }
         });
         pnlBackgroundEditProfile.add(btnSaveProfileChanges);
-        btnSaveProfileChanges.setBounds(260, 420, 111, 32);
+        btnSaveProfileChanges.setBounds(260, 420, 100, 37);
 
+        btnCancelEdit.setBackground(new java.awt.Color(44, 95, 125));
+        btnCancelEdit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCancelEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelEdit.setText("Cancel");
+        btnCancelEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelEditActionPerformed(evt);
             }
         });
         pnlBackgroundEditProfile.add(btnCancelEdit);
-        btnCancelEdit.setBounds(390, 420, 100, 32);
+        btnCancelEdit.setBounds(390, 420, 100, 37);
 
         lblEditUserImage.setText("Image");
         lblEditUserImage.setMaximumSize(new java.awt.Dimension(110, 145));

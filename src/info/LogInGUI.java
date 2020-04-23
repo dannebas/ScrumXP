@@ -45,7 +45,6 @@ class LogInGUI extends javax.swing.JFrame {
         pnlBread = new javax.swing.JPanel();
         layerdPaneLogIn = new javax.swing.JLayeredPane();
         pnlLogIn = new javax.swing.JPanel();
-        lblWelcomeTxt = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         lblUserPassword = new javax.swing.JLabel();
@@ -109,19 +108,24 @@ class LogInGUI extends javax.swing.JFrame {
         layerdPaneLogIn.setLayout(new java.awt.CardLayout());
 
         pnlLogIn.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLogIn.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlLogIn.setPreferredSize(new java.awt.Dimension(400, 300));
-
-        lblWelcomeTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblWelcomeTxt.setText("Use your ORU-account to log in");
+        pnlLogIn.setLayout(null);
 
         lblUserName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblUserName.setText("Username");
+        lblUserName.setText("Username (ORU-account):");
+        pnlLogIn.add(lblUserName);
+        lblUserName.setBounds(15, 65, 150, 15);
 
         txtUserName.setColumns(10);
         txtUserName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlLogIn.add(txtUserName);
+        txtUserName.setBounds(170, 60, 114, 25);
 
         lblUserPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblUserPassword.setText("Password");
+        pnlLogIn.add(lblUserPassword);
+        lblUserPassword.setBounds(15, 114, 51, 15);
 
         btnforgottPassword.setForeground(new java.awt.Color(0, 102, 204));
         btnforgottPassword.setText("Forgotten your password?");
@@ -132,6 +136,8 @@ class LogInGUI extends javax.swing.JFrame {
                 btnforgottPasswordActionPerformed(evt);
             }
         });
+        pnlLogIn.add(btnforgottPassword);
+        btnforgottPassword.setBounds(48, 214, 179, 32);
 
         pwdUserPassword.setColumns(10);
         pwdUserPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -145,64 +151,21 @@ class LogInGUI extends javax.swing.JFrame {
                 pwdUserPasswordKeyPressed(evt);
             }
         });
+        pnlLogIn.add(pwdUserPassword);
+        pwdUserPassword.setBounds(170, 110, 114, 25);
 
-        btnLogIn.setBackground(new java.awt.Color(126, 197, 239));
-        btnLogIn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnLogIn.setBackground(new java.awt.Color(44, 95, 125));
+        btnLogIn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLogIn.setForeground(new java.awt.Color(255, 255, 255));
         btnLogIn.setText("Log in");
+        btnLogIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogInActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout pnlLogInLayout = new javax.swing.GroupLayout(pnlLogIn);
-        pnlLogIn.setLayout(pnlLogInLayout);
-        pnlLogInLayout.setHorizontalGroup(
-            pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogInLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLogIn)
-                .addGap(189, 189, 189))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogInLayout.createSequentialGroup()
-                .addGap(0, 17, Short.MAX_VALUE)
-                .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblWelcomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlLogInLayout.createSequentialGroup()
-                            .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pnlLogInLayout.createSequentialGroup()
-                                    .addComponent(lblUserPassword)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                                    .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(167, 167, 167))
-                        .addGroup(pnlLogInLayout.createSequentialGroup()
-                            .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblUserName)
-                                .addGroup(pnlLogInLayout.createSequentialGroup()
-                                    .addGap(33, 33, 33)
-                                    .addComponent(btnforgottPassword)))
-                            .addContainerGap()))))
-        );
-        pnlLogInLayout.setVerticalGroup(
-            pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLogInLayout.createSequentialGroup()
-                .addComponent(lblWelcomeTxt)
-                .addGap(43, 43, 43)
-                .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUserName)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUserPassword))
-                .addGap(25, 25, 25)
-                .addComponent(btnLogIn)
-                .addGap(18, 18, 18)
-                .addComponent(btnforgottPassword)
-                .addContainerGap(87, Short.MAX_VALUE))
-        );
+        pnlLogIn.add(btnLogIn);
+        btnLogIn.setBounds(170, 160, 120, 37);
 
         layerdPaneLogIn.add(pnlLogIn, "card9");
 
@@ -326,13 +289,13 @@ class LogInGUI extends javax.swing.JFrame {
                 ArrayList<String> allusers = db.getDB().fetchColumn("select USER_ID from USER");
                 if (allusers.contains(userID)) {
                     String storedPassword = db.getDB().fetchSingle("select PASSWORD from USER where USER_ID = '" + userID + "'");
-                   // String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
-                  //  ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
+                    // String name = db.getDB().fetchSingle("select NAME from USER_PROFILE where PROFILE_ID = '" + userID + "'");
+                    //  ArrayList<String> userGroup = db.getDB().fetchColumn("select RESEARCH_GROUP from GROUP_MEMBERS where MEMBER = '" + userID + "'");
 
                     if (storedPassword.equals(convertedPassword)) {
                         new User(userID);
                         JOptionPane.showMessageDialog(null, "Welcome " + User.getName() + ". You have successfully logged in.");
-                        new Forum().setVisible(true);
+                        new Home().setVisible(true);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong password, please try again.");
@@ -356,8 +319,6 @@ class LogInGUI extends javax.swing.JFrame {
     private void btnBackToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToLogInActionPerformed
         txtUserName.setText("");
         pwdUserPassword.setText("");
-        lblWelcomeTxt.setText("Use your ORU-account to log in");
-        lblWelcomeTxt.setForeground(Color.black);
         layerdPaneLogIn.removeAll();
         layerdPaneLogIn.add(pnlLogIn);
         layerdPaneLogIn.repaint();
@@ -411,7 +372,6 @@ class LogInGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblUserPassword;
     private javax.swing.JLabel lblWelcomeForgotPassword;
-    private javax.swing.JLabel lblWelcomeTxt;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlForgotPassword;

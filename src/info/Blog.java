@@ -19,14 +19,14 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Lukas
  */
-public class Forum extends javax.swing.JFrame {
+public class Blog extends javax.swing.JFrame {
 
     private DefaultTableModel model;
 
     /**
      * Creates new form Forum
      */
-    public Forum() {
+    public Blog() {
         initComponents();
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
         columnmodel.removeColumn(columnmodel.getColumn(4));
