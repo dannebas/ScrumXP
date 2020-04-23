@@ -5,12 +5,16 @@
  */
 package info;
 
+import dbUtils.PictureHandler;
+import dbUtils.QueryClass;
 import dbUtils.db;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,20 +24,47 @@ public class NewPost extends javax.swing.JFrame {
 
     private String postId;
 
+    private DefaultListModel model;
+    
+    private int incrID;
+    
+    private File[] aListOfFiles;
+    
+    private ArrayList<File> aListForDisplayingFiles;
+    
+    private QueryClass query;
+    
     /**
      * Creates new form NewPost
      */
     public NewPost() {
+        
         initComponents();
+        
         fillCb();
+        
+        this.model = new DefaultListModel();
+        
         cbScienceGroups.setVisible(false);
+        
         cbEduSci.setVisible(false);
+        
         cbCategory.setVisible(false);
-        buttonSave.setVisible(false);
+        
+        buttonSave.setVisible(true);
+        
+        query = new QueryClass(db.getDB());
+        
+        incrID = query.autoIncrementField("POSTS", "POST_ID");
+        
+        aListForDisplayingFiles = new ArrayList<>();
+        
     }
 
     public NewPost(String postId) {
+        
         initComponents();
+        this.model = new DefaultListModel();
         this.postId = postId;
         fillTitleandMainText();
         findPostLocation(postId);
@@ -131,6 +162,9 @@ public class NewPost extends javax.swing.JFrame {
         cbEduSci = new javax.swing.JComboBox<>();
         cbScienceGroups = new javax.swing.JComboBox<>();
         cbCategory = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstDisplayingAttachedFiles = new javax.swing.JList<>();
+        btnRemoveFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
@@ -183,6 +217,11 @@ public class NewPost extends javax.swing.JFrame {
         buttonAttach.setForeground(new java.awt.Color(255, 255, 255));
         buttonAttach.setText("Attach file");
         buttonAttach.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        buttonAttach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAttachActionPerformed(evt);
+            }
+        });
 
         panelRibbon.setBackground(new java.awt.Color(153, 153, 153));
         panelRibbon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -228,12 +267,33 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
 
+        lstDisplayingAttachedFiles.setBackground(new java.awt.Color(102, 102, 102));
+        lstDisplayingAttachedFiles.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        lstDisplayingAttachedFiles.setForeground(new java.awt.Color(0, 51, 255));
+        jScrollPane2.setViewportView(lstDisplayingAttachedFiles);
+
+        btnRemoveFile.setBackground(new java.awt.Color(126, 197, 239));
+        btnRemoveFile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnRemoveFile.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoveFile.setText("Remove file");
+        btnRemoveFile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnRemoveFile.setPreferredSize(new java.awt.Dimension(96, 32));
+        btnRemoveFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemoveFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(buttonAttach, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,15 +330,18 @@ public class NewPost extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonPost, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonAttach, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonAttach, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRemoveFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -336,7 +399,7 @@ public class NewPost extends javax.swing.JFrame {
             try {
                 String autoID;
                 autoID = db.getDB().getAutoIncrement("POSTS", "POST_ID");
-                System.out.println(autoID);
+                
                 if (autoID == null) {
                     autoID = "1";
                 }
@@ -348,15 +411,22 @@ public class NewPost extends javax.swing.JFrame {
 
                 String title = textTitle.getText();
                 String mainText = textMain.getText();
-
+JOptionPane.showMessageDialog(null, "Post added! 1");
                 db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
+                JOptionPane.showMessageDialog(null, "Post added! 2");
                 // Added insert values depending on the selected options in the ColumnBox
-                if (cbSubject.getSelectedItem().toString().equals("Informal")) {
+                if (cbSubject.getSelectedItem().toString().equals("Informal"))
+                
+                {
+                    JOptionPane.showMessageDialog(null, "Post added! 3");
                     db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID + "')");
+                    JOptionPane.showMessageDialog(null, "Post added! 4");
                 } else if (cbSubject.getSelectedItem().toString().equals("Formal")) {
                     String categoryNumber = db.getDB().fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = '" + cbCategory.getSelectedItem().toString() + "'");
                     db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber + "')");
                     if (cbEduSci.getSelectedItem().toString().equals("Science")) {
+                        
+                        JOptionPane.showMessageDialog(null, "Post added! 5");
                         String groupNumber = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
                         db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber + "')");
                     } else if (cbEduSci.getSelectedItem().toString().equals("Education")) {
@@ -368,7 +438,24 @@ public class NewPost extends javax.swing.JFrame {
             } catch (SQLException e) {
                 System.err.println(e);
             }
+            
+            
+             if(model.getSize() > 0){
+             for(File oneFile: aListForDisplayingFiles)
+        {
 
+            String path = oneFile.getAbsolutePath();
+
+
+            int fileID = query.autoIncrementField("FILES", "FILE_ID");
+
+            query.executeUploadQueryFiles(oneFile,"INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
+               
+        }
+            }
+            
+            
+            
         }
     }//GEN-LAST:event_buttonPostActionPerformed
 
@@ -410,8 +497,80 @@ public class NewPost extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        
+        if(model.getSize() > 0){
+         for(File oneFile: aListForDisplayingFiles)
+        {
 
+
+            String path = oneFile.getAbsolutePath().toString();
+
+            //String insertName = path.substring(path.lastIndexOf("."),path.length());
+
+            int fileID = query.autoIncrementField("FILES", "FILE_ID");
+
+
+            query.executeUploadQueryFiles(oneFile,"INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
+               
+        
+        
+        
+        }
+        }
+        
     }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void buttonAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAttachActionPerformed
+       PictureHandler fileHandler = new PictureHandler(1, 1);
+       
+       aListOfFiles = fileHandler.openFiles();
+       
+       
+       
+       
+       lstDisplayingAttachedFiles.setModel(model);
+      
+       
+      
+       
+       
+       if(aListOfFiles !=null){
+       
+           
+           for(int i = 0; i < aListOfFiles.length; i++)
+           {
+               aListForDisplayingFiles.add(aListOfFiles[i]);
+               
+               String path = aListOfFiles[i].getAbsolutePath();
+               
+               //String filTyp = paths.substring(paths.lastIndexOf("."),paths.length());
+               
+               String pathInsert = path.substring(path.lastIndexOf("\\")+1,path.length());
+            
+                model.addElement(pathInsert);
+                
+                 System.out.println(aListForDisplayingFiles.size());
+               
+           }    
+           
+           
+       
+       }
+       
+       
+    }//GEN-LAST:event_buttonAttachActionPerformed
+
+    private void btnRemoveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileActionPerformed
+         if(!lstDisplayingAttachedFiles.isSelectionEmpty())
+       {  
+       int i = lstDisplayingAttachedFiles.getSelectedIndex();
+     
+       model.removeElementAt(i);
+       
+       aListForDisplayingFiles.remove(i);
+       
+       }
+    }//GEN-LAST:event_btnRemoveFileActionPerformed
 
     private void showCbEduSci() {
         String choice = cbEduSci.getSelectedItem().toString();
@@ -423,6 +582,7 @@ public class NewPost extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRemoveFile;
     private javax.swing.JButton buttonAttach;
     private javax.swing.JButton buttonClear;
     private javax.swing.JButton buttonPost;
@@ -434,6 +594,8 @@ public class NewPost extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lstDisplayingAttachedFiles;
     private javax.swing.JPanel panelRibbon;
     private javax.swing.JEditorPane textMain;
     private javax.swing.JTextField textTitle;

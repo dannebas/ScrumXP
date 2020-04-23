@@ -1,6 +1,8 @@
 package dbUtils;
 
 import info.Forum;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.sql.SQLException;
@@ -195,11 +197,18 @@ public class QueryClass
      */
     public int autoIncrementField(String tabel, String column)
     {
+        
+        
         int genereradID = 0;
        
         try 
         {
             String id = conn.getAutoIncrement(tabel, column);
+            if(id == null){
+            id = "1";
+            }    
+                
+            
             genereradID = Integer.parseInt(id);
         } catch (SQLException ex) 
         {
@@ -226,5 +235,23 @@ public class QueryClass
     {
         model.removeRow(0);
     }
+    
+     public void executeUploadQueryFiles(File file, String query)
+    {
+        
+        
+        try 
+        {
+            conn.saveFileToDB(file, query);
+           JOptionPane.showMessageDialog(null, "File uploaded");
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(QueryClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }
+    
+    
+    
+    
     
 }
