@@ -8,14 +8,11 @@ package info;
 import dbUtils.db;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -343,54 +340,6 @@ public class CalendarPrivate extends javax.swing.JFrame {
         }
     }
 
-    private void fillDates2() {
-        Calendar cal = Calendar.getInstance();
-
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH)); //first day of the month
-        int week = cal.get(Calendar.WEEK_OF_YEAR);
-        SimpleDateFormat format2 = new SimpleDateFormat("E"); // first day of month simplified
-        Date date = cal.getTime();
-
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = format1.format(date); // Dagens datum
-
-//
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate dt = dtf.parseLocalDate(date1);
-        Locale locale = new Locale("en", "UK");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        formatter = formatter.withLocale(locale);
-        //formatter = formatter.with// Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
-        /*for (int i = 1; i <= 12; i++) {
-            String ettDatum = "";
-            if (i < 10) {
-                ettDatum = "2020-0" + i + "-01";
-            } else {
-                ettDatum = "2020-" + i + "-01";
-            }
-            LocalDate theDate = LocalDate.parse(ettDatum, formatter);
-            System.out.println(theDate);
-            //theDate.
-            int daysMonth = theDate.lengthOfMonth();
-            int daysYear = theDate.lengthOfYear();
-            System.out.println(daysYear);
-            System.out.println(daysMonth);
-        }*/
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(5);
-        model.addColumn(locale);
-
-        System.out.println(date1);
-        LocalDate theDate = LocalDate.parse(date1, formatter);
-        int daysMonth = theDate.lengthOfMonth(); // Dagar per månad
-        int daysYear = theDate.lengthOfYear();// Dagar per år
-
-//
-//        LocalDate date2 = LocalDate.of(date1);
-//        int days = date2.lengthOfMonth();
-//        System.out.println(days);
-    }
-
     private void calcNumber() {
         double ettTal = 2020;
         ettTal = ettTal / 4;
@@ -419,9 +368,9 @@ public class CalendarPrivate extends javax.swing.JFrame {
 
         panelUser = new javax.swing.JPanel();
         labelCurrentDay = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPaneTable = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrollPaneText = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         labelActivities = new javax.swing.JLabel();
         btnMonthUp = new javax.swing.JButton();
@@ -445,7 +394,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
         labelCurrentDay.setText("Current Day");
         labelCurrentDay.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
-        jScrollPane1.setHorizontalScrollBar(null);
+        scrollPaneTable.setHorizontalScrollBar(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -478,7 +427,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
                 jTable1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        scrollPaneTable.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
@@ -490,7 +439,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        jScrollPane2.setViewportView(jList1);
+        scrollPaneText.setViewportView(jList1);
 
         labelActivities.setText("Activities for the selected date:");
 
@@ -535,7 +484,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
             .addGroup(panelUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
+                    .addComponent(scrollPaneText)
                     .addComponent(labelActivities, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelUserLayout.createSequentialGroup()
                         .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,7 +510,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
                         .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnMonthDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1))
+                    .addComponent(scrollPaneTable))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelUserLayout.setVerticalGroup(
@@ -585,7 +534,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMonthDown)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTo, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -599,7 +548,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelActivities)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneText, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -840,8 +789,6 @@ public class CalendarPrivate extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dpFrom;
     private com.github.lgooddatepicker.components.DatePicker dpTo;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelActivities;
     private javax.swing.JLabel labelCurrentDate;
@@ -852,5 +799,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
     private javax.swing.JLabel labelTo;
     private javax.swing.JLabel labelUser;
     private javax.swing.JPanel panelUser;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JScrollPane scrollPaneText;
     // End of variables declaration//GEN-END:variables
 }

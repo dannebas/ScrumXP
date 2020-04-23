@@ -571,7 +571,7 @@ public class Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
-        new CalendarPrivate().setVisible(true);
+        new CalendarView().setVisible(true);
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
