@@ -331,7 +331,7 @@ public class SeePost extends javax.swing.JFrame {
     private void loadPostContent() {
 
         try {
-            //txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
+            txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
        
             
         
