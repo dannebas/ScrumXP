@@ -314,6 +314,7 @@ public class SeePost extends javax.swing.JFrame {
     private void loadPostContent() {
         try {
             txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
+
             txtPaneSeePost.setText(aPost.getDescription().indent(4) + "\n");
 
             int numberOfFiles = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from FILES where POST =" + id));
@@ -338,8 +339,6 @@ public class SeePost extends javax.swing.JFrame {
         } catch (SQLException e) {
         } catch (BadLocationException er) {
         }
-
-    }
 
     public void loadComments() {
 

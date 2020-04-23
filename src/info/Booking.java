@@ -49,7 +49,7 @@ public class Booking extends javax.swing.JFrame {
         populateGroupCMBX();
         getUser();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -471,7 +471,7 @@ public class Booking extends javax.swing.JFrame {
     }
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
-            
+
             lstInvitations.setModel(invitations);
             String member = cmbMember.getSelectedItem().toString();
             String[] names = member.split("\\s+");
@@ -518,7 +518,7 @@ public class Booking extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Participant already added..");
         }
     }
-    
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
@@ -544,6 +544,8 @@ public class Booking extends javax.swing.JFrame {
 
             String q1 = "INSERT into meetings values('" + autoID + "', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user + "');";
             db.getDB().insert(q1);
+            String q2 = "INSERT into meetingparticipants values('" + autoID + "', '" + user + "', false)";
+            db.getDB().insert(q2);
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -553,8 +555,7 @@ public class Booking extends javax.swing.JFrame {
 
             try {
 
-                JavaMail.JavaMailUtil.sendMail(mailAdress);
-
+                //JavaMail.JavaMailUtil.sendMail(mailAdress);
             } catch (Exception ex) {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -620,7 +621,6 @@ public class Booking extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLocationActionPerformed
 
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         DefaultListModel model = (DefaultListModel) lstInvitations.getModel();
@@ -628,7 +628,6 @@ public class Booking extends javax.swing.JFrame {
         if (selectedIndex != -1) {
             model.remove(selectedIndex);
         }
-
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
