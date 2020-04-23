@@ -51,10 +51,11 @@ public class CalendarPrivate extends javax.swing.JFrame {
         getMeetingsPerMonth();
         fillCalenderColors();
         setLabelCurrentUser();
+
     }
 
     private void fillCalenderColors() {
-        jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
+        jTable1.setDefaultRenderer(Object.class, new EntryCellRenderPrivate());
     }
 
     public int getWeek() {
@@ -129,7 +130,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
 
     private void getMeetingsPerMonth() {
         try {
-            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'";
+            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%' AND USER = '" + User.getUser() + "'";
             System.out.println(q);
             ArrayList<String> lista = new ArrayList<>();
             lista = db.getDB().fetchColumn(q);
@@ -746,7 +747,7 @@ public class CalendarPrivate extends javax.swing.JFrame {
                 String fromDate = dpFrom.getDateStringOrEmptyString();
                 String toDate = dpTo.getDateStringOrEmptyString();
 
-                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE USER = '" + User.getUser() + "' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
                 System.out.println(q);
 
                 DefaultListModel<String> model = new DefaultListModel<>();
