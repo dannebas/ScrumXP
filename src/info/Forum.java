@@ -32,7 +32,6 @@ public class Forum extends javax.swing.JFrame {
         columnmodel.removeColumn(columnmodel.getColumn(4));
         columnmodel.removeColumn(columnmodel.getColumn(3));
 
-        pnlSortButtonsForum.setVisible(false);
         btnEditPost.setVisible(false);
         btnNewPost.setVisible(false);
         addAllFormalPost();
@@ -41,14 +40,38 @@ public class Forum extends javax.swing.JFrame {
             btnEditPost.setVisible(true);
             btnNewPost.setVisible(true);
         }
+
+        fillUserCombo();
+
         setExtendedState(MAXIMIZED_BOTH);
 
         setLocationRelativeTo(null);
 
     }
 
+    private void setGroups() {
 
-    public void addAllFormalPost() // add all the Post to the table
+    }
+
+    private void fillUserCombo() {
+
+        try {
+            ArrayList<String> allUsers = db.getDB().fetchColumn("select USER_ID from USER");
+
+            for (String aUser : allUsers) {
+
+                String userFName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
+                String userLName = db.getDB().fetchSingle("select LASTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
+                String user = userFName + " " + userLName;
+                jcbUsers.addItem(user);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addAllFormalPost() // add all the Post to the table
     {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
@@ -133,17 +156,6 @@ public class Forum extends javax.swing.JFrame {
 
     }
 
-    public void swicthCategoryButtons(boolean state) {
-        boolean switchState = state;
-
-        if (switchState) {
-            pnlSortButtonsForum.setVisible(true);
-        } else {
-            pnlSortButtonsForum.setVisible(false);
-        }
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,19 +172,12 @@ public class Forum extends javax.swing.JFrame {
         pnlBreadForum = new javax.swing.JPanel();
         spnTableForum = new javax.swing.JScrollPane();
         tblForumPost = new javax.swing.JTable();
-        pnlSortButtonsForum = new javax.swing.JPanel();
-        rbtnAllGroupForum = new javax.swing.JRadioButton();
-        rbtnEHealthForum = new javax.swing.JRadioButton();
-        rbtnEGovForum = new javax.swing.JRadioButton();
-        rbtnICTdevForum = new javax.swing.JRadioButton();
-        rbtnITSecForum = new javax.swing.JRadioButton();
-        rbtnITEdForum = new javax.swing.JRadioButton();
-        rbtnSysDevMethForum = new javax.swing.JRadioButton();
         btnEditPost = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnlFilter = new javax.swing.JPanel();
+        btnFilter = new javax.swing.JButton();
         jcbUsers = new javax.swing.JComboBox<>();
         jcbGroups = new javax.swing.JComboBox<>();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jxDDate = new org.jdesktop.swingx.JXDatePicker();
         btnNewPost = new javax.swing.JButton();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
@@ -280,126 +285,7 @@ public class Forum extends javax.swing.JFrame {
         }
 
         pnlBreadForum.add(spnTableForum);
-        spnTableForum.setBounds(160, 90, 840, 240);
-
-        pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
-        pnlSortButtonsForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
-        rbtnAllGroupForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnAllGroupForum);
-        rbtnAllGroupForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnAllGroupForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnAllGroupForum.setText("All groups");
-        rbtnAllGroupForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAllGroupForumActionPerformed(evt);
-            }
-        });
-
-        rbtnEHealthForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnEHealthForum);
-        rbtnEHealthForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnEHealthForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnEHealthForum.setText("eHealth");
-        rbtnEHealthForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnEHealthForumActionPerformed(evt);
-            }
-        });
-
-        rbtnEGovForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnEGovForum);
-        rbtnEGovForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnEGovForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnEGovForum.setText("eGov");
-        rbtnEGovForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnEGovForumActionPerformed(evt);
-            }
-        });
-
-        rbtnICTdevForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnICTdevForum);
-        rbtnICTdevForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnICTdevForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnICTdevForum.setText("ICTdev");
-        rbtnICTdevForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnICTdevForumActionPerformed(evt);
-            }
-        });
-
-        rbtnITSecForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnITSecForum);
-        rbtnITSecForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnITSecForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnITSecForum.setText("ITsec");
-        rbtnITSecForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnITSecForumActionPerformed(evt);
-            }
-        });
-
-        rbtnITEdForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnITEdForum);
-        rbtnITEdForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnITEdForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnITEdForum.setText("ITed");
-        rbtnITEdForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnITEdForumActionPerformed(evt);
-            }
-        });
-
-        rbtnSysDevMethForum.setBackground(new java.awt.Color(44, 95, 125));
-        buttonGroupForum.add(rbtnSysDevMethForum);
-        rbtnSysDevMethForum.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbtnSysDevMethForum.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnSysDevMethForum.setText("SysdevMeth");
-        rbtnSysDevMethForum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSysDevMethForumActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlSortButtonsForumLayout = new javax.swing.GroupLayout(pnlSortButtonsForum);
-        pnlSortButtonsForum.setLayout(pnlSortButtonsForumLayout);
-        pnlSortButtonsForumLayout.setHorizontalGroup(
-            pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSortButtonsForumLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtnAllGroupForum)
-                    .addComponent(rbtnEHealthForum)
-                    .addComponent(rbtnEGovForum)
-                    .addComponent(rbtnICTdevForum)
-                    .addComponent(rbtnITSecForum)
-                    .addComponent(rbtnITEdForum)
-                    .addComponent(rbtnSysDevMethForum))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlSortButtonsForumLayout.setVerticalGroup(
-            pnlSortButtonsForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSortButtonsForumLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rbtnAllGroupForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEHealthForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEGovForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnICTdevForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnITSecForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnITEdForum)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnSysDevMethForum)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        pnlBreadForum.add(pnlSortButtonsForum);
-        pnlSortButtonsForum.setBounds(20, 120, 118, 256);
+        spnTableForum.setBounds(20, 90, 980, 240);
 
         btnEditPost.setBackground(new java.awt.Color(44, 95, 125));
         btnEditPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -414,23 +300,36 @@ public class Forum extends javax.swing.JFrame {
         pnlBreadForum.add(btnEditPost);
         btnEditPost.setBounds(680, 350, 140, 37);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FIlter selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.setLayout(null);
+        pnlFilter.setBackground(new java.awt.Color(255, 255, 255));
+        pnlFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FIlter selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlFilter.setForeground(new java.awt.Color(0, 0, 0));
+        pnlFilter.setLayout(null);
+
+        btnFilter.setBackground(new java.awt.Color(44, 95, 125));
+        btnFilter.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnFilter.setForeground(new java.awt.Color(255, 255, 255));
+        btnFilter.setText("Apply filter");
+        btnFilter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterActionPerformed(evt);
+            }
+        });
+        pnlFilter.add(btnFilter);
+        btnFilter.setBounds(860, 20, 90, 37);
 
         jcbUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Users" }));
-        jPanel1.add(jcbUsers);
+        pnlFilter.add(jcbUsers);
         jcbUsers.setBounds(190, 30, 160, 26);
 
         jcbGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Research Groups" }));
-        jPanel1.add(jcbGroups);
+        pnlFilter.add(jcbGroups);
         jcbGroups.setBounds(20, 30, 160, 26);
-        jPanel1.add(jXDatePicker1);
-        jXDatePicker1.setBounds(370, 30, 160, 24);
+        pnlFilter.add(jxDDate);
+        jxDDate.setBounds(650, 30, 160, 24);
 
-        pnlBreadForum.add(jPanel1);
-        jPanel1.setBounds(20, 10, 980, 70);
+        pnlBreadForum.add(pnlFilter);
+        pnlFilter.setBounds(20, 10, 980, 70);
 
         btnNewPost.setBackground(new java.awt.Color(44, 95, 125));
         btnNewPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -580,35 +479,6 @@ public class Forum extends javax.swing.JFrame {
         newPost.setVisible(true);
     }//GEN-LAST:event_btnEditPostActionPerformed
 
-    private void rbtnSysDevMethForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSysDevMethForumActionPerformed
-        addGroupResearchForumPost(6);
-    }//GEN-LAST:event_rbtnSysDevMethForumActionPerformed
-
-    private void rbtnITEdForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnITEdForumActionPerformed
-        addGroupResearchForumPost(5);
-    }//GEN-LAST:event_rbtnITEdForumActionPerformed
-
-    private void rbtnITSecForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnITSecForumActionPerformed
-        addGroupResearchForumPost(4);
-    }//GEN-LAST:event_rbtnITSecForumActionPerformed
-
-    private void rbtnICTdevForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnICTdevForumActionPerformed
-        addGroupResearchForumPost(3);
-    }//GEN-LAST:event_rbtnICTdevForumActionPerformed
-
-    private void rbtnEGovForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEGovForumActionPerformed
-        addGroupResearchForumPost(2);
-    }//GEN-LAST:event_rbtnEGovForumActionPerformed
-
-    private void rbtnEHealthForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEHealthForumActionPerformed
-
-        addGroupResearchForumPost(1);
-    }//GEN-LAST:event_rbtnEHealthForumActionPerformed
-
-    private void rbtnAllGroupForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAllGroupForumActionPerformed
-        addResearchForumPost();
-    }//GEN-LAST:event_rbtnAllGroupForumActionPerformed
-
     private void tblForumPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblForumPostMouseClicked
         String idString = "";
         if (evt.getClickCount() == 2) {
@@ -656,35 +526,32 @@ public class Forum extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBlogActionPerformed
 
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFilterActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnEditPost;
+    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnNewPost;
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
-    private javax.swing.JPanel jPanel1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JComboBox<String> jcbGroups;
     private javax.swing.JComboBox<String> jcbUsers;
+    private org.jdesktop.swingx.JXDatePicker jxDDate;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBreadForum;
+    private javax.swing.JPanel pnlFilter;
     private javax.swing.JPanel pnlFooterForum;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlNavBarSeePost;
-    private javax.swing.JPanel pnlSortButtonsForum;
-    private javax.swing.JRadioButton rbtnAllGroupForum;
-    private javax.swing.JRadioButton rbtnEGovForum;
-    private javax.swing.JRadioButton rbtnEHealthForum;
-    private javax.swing.JRadioButton rbtnICTdevForum;
-    private javax.swing.JRadioButton rbtnITEdForum;
-    private javax.swing.JRadioButton rbtnITSecForum;
-    private javax.swing.JRadioButton rbtnSysDevMethForum;
     private javax.swing.JScrollPane spnTableForum;
     private javax.swing.JTable tblForumPost;
     // End of variables declaration//GEN-END:variables
