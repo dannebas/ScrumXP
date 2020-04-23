@@ -14,7 +14,6 @@ public class EntryCellRenderPrivate extends DefaultTableCellRenderer {
     private final Color alt2 = Color.WHITE;
     private final Color alt1 = Color.WHITE;
     private int antal;
-    //private final Color alt1 = new Color(135, 187, 162);
     private final Color weekStatus = new Color(231, 247, 254);
 
     @Override
