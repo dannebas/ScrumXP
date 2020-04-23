@@ -6,47 +6,86 @@
 package info;
 
 import dbUtils.db;
-
+import dbUtils.PictureHandler;
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import javax.swing.DefaultListModel;
 import java.awt.Cursor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
+import javax.swing.BorderFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-
+import javax.swing.border.Border;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
 /**
  *
  * @author fabia
  */
 public class SeePost extends javax.swing.JFrame {
 
+
     boolean isInformal = false;
+    
     int numberOfComments = 0;
+    
     Post aPost;
+    
     String id;
+    
     private static String author;
 
+    private DefaultTableModel model1;
+    
+    private DefaultListModel model;
+    
+    private String[] newList;
+    
+    
+    
+    
+    
     /**
      * Creates new form SeePost
      *
      * @param id post id.
      */
     public SeePost(String id) {
+        
         initComponents();
+        
         ImageIcon profilePicture = null;
+        
+        this.model = new DefaultListModel ();
+        
+        TableColumnModel model1 = tblAttachedFiles.getColumnModel();
+        
+        model1.removeColumn(model1.getColumn(1));
+        
         this.id = id;
+        
         aPost = new Post(id);
-        System.out.println(id);
+                
         try {
             profilePicture = new ImageIcon(db.getDB().fetchImageBytes("select IMAGE from USER_PROFILE where PROFILE_ID = (select AUTHOR from POSTS where POST_ID = " + id + ")"));
 
@@ -74,20 +113,24 @@ public class SeePost extends javax.swing.JFrame {
         Post aPost = new Post(id);
         setLocationRelativeTo(null);
 
+
         lblTiltleSeePost.setText(aPost.getTitle());
 
         Font font = lblAuthorSeePost.getFont();
+        
         Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+        
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        
         lblAuthorSeePost.setFont(font.deriveFont(attributes));
 
         lblAuthorSeePost.setText(aPost.getAuthor());
+        
         author = lblAuthorSeePost.getText();
+        
         lblUploadDateSeePost.setText(aPost.getDate());
 
-        txtAreaPostSeePost.setLineWrap(true);
-        txtAreaPostSeePost.setWrapStyleWord(true);
-        txtAreaPostSeePost.setEditable(false);
+        txtPaneSeePost.setEditable(false);
 
         loadPostContent();
 
@@ -115,12 +158,18 @@ public class SeePost extends javax.swing.JFrame {
         lblTiltleSeePost = new javax.swing.JLabel();
         lblUploadedPostSeePost = new javax.swing.JLabel();
         lblUploadDateSeePost = new javax.swing.JLabel();
-        jscrPost = new javax.swing.JScrollPane();
-        txtAreaPostSeePost = new javax.swing.JTextArea();
         btnNewComment = new javax.swing.JButton();
         btnPrintPostSeePost = new javax.swing.JButton();
         btnClosePost = new javax.swing.JButton();
         lblComments = new javax.swing.JLabel();
+
+        taNewComment = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAttachedFiles = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtPaneSeePost = new javax.swing.JTextPane();
+        jButton1 = new javax.swing.JButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Post");
@@ -186,6 +235,7 @@ public class SeePost extends javax.swing.JFrame {
         pnlBread.add(pnlPostHeaderSeePost);
         pnlPostHeaderSeePost.setBounds(150, 20, 850, 80);
 
+
         jscrPost.setBackground(new java.awt.Color(255, 255, 255));
         jscrPost.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
@@ -197,6 +247,7 @@ public class SeePost extends javax.swing.JFrame {
 
         pnlBread.add(jscrPost);
         jscrPost.setBounds(150, 120, 850, 350);
+
 
         btnNewComment.setBackground(new java.awt.Color(44, 95, 125));
         btnNewComment.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -238,6 +289,42 @@ public class SeePost extends javax.swing.JFrame {
         pnlBread.add(lblComments);
         lblComments.setBounds(160, 470, 120, 24);
 
+        jScrollPane2.setBackground(new java.awt.Color(102, 102, 102));
+        jScrollPane2.setForeground(new java.awt.Color(0, 51, 255));
+
+        tblAttachedFiles.setBackground(new java.awt.Color(102, 102, 102));
+        tblAttachedFiles.setForeground(new java.awt.Color(0, 0, 255));
+        tblAttachedFiles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title", "fileId"
+            }
+        ));
+        tblAttachedFiles.setShowGrid(false);
+        jScrollPane2.setViewportView(tblAttachedFiles);
+
+        pnlBread.add(jScrollPane2);
+        jScrollPane2.setBounds(680, 430, 320, 70);
+
+        jScrollPane1.setViewportView(txtPaneSeePost);
+
+        pnlBread.add(jScrollPane1);
+        jScrollPane1.setBounds(150, 90, 850, 300);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnlBread.add(jButton1);
+        jButton1.setBounds(680, 510, 77, 32);
+
         getContentPane().add(pnlBread);
 
         pack();
@@ -249,41 +336,97 @@ public class SeePost extends javax.swing.JFrame {
 
 
     private void btnNewCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCommentActionPerformed
-        NewComment c = new NewComment(id);
-        c.setVisible(true);
-        c.setLocationRelativeTo(null);
-        //saveNewCommentToDB();
-        //loadPostContent();
-    }//GEN-LAST:event_btnNewCommentActionPerformed
 
-    public void loadPostContent() {
+        saveNewCommentToDB();
+        
+        loadPostContent();
+    }//GEN-LAST:event_btnNewCommentActionPerformed
+    
+     public void appendStringTotxtPane(String str) throws BadLocationException
+{
+   
+    StyledDocument doc = (StyledDocument) txtPaneSeePost.getDocument();
+     doc.insertString(doc.getLength(), str, null);
+    
+    
+    
+ }
+    
+    private void loadPostContent() {
 
         try {
-            txtAreaPostSeePost.setText(aPost.getDescription().indent(4));
-            numberOfComments = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from COMMENTS where POST_ID =" + id));
-            if (numberOfComments != 0) {
-                txtAreaPostSeePost.append("----------------------------Comments-------------------------------\n");
-                loadComments();
-                txtAreaPostSeePost.setCaretPosition(0);
-            }
-        } catch (SQLException ex) {
+            txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
+        } catch (BadLocationException ex) {
             Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+            txtPaneSeePost.setText(aPost.getDescription().indent(4) +"\n");
+           
+            
+            
+            try{
+        if(!(db.getDB().fetchRows("SELECT * FROM FILES WHERE POST = '" + id + "'") == null))
+        {
+        ArrayList<HashMap<String, String>> li = new ArrayList<>();    
+        li = db.getDB().fetchRows("SELECT * FROM FILES WHERE POST = '" + id + "'");    
+        addAttachedFilesToTable();
+        }
+       }catch(SQLException e)
+        {
+           JOptionPane.showMessageDialog(null, "Wrong"); 
+        }
+      
+            
+       for(int i= 0; i < tblAttachedFiles.getRowCount(); i++){
+       
+           newList = new String[tblAttachedFiles.getRowCount()];
+           newList[i]= tblAttachedFiles.getModel().getValueAt(i, 1).toString();
+           try{
+           EmbeddImagesInTextPane(newList[i]);
+           }
+           catch(BadLocationException er)
+           {
+               
+           }  
+           
+           }  
+       
+        try{
+            numberOfComments = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from COMMENTS where POST_ID =" + id));
+           }
+           catch(SQLException eer)
+           {}    
+            if (numberOfComments != 0) {
+              
+                try {
+                    appendStringTotxtPane("\n -------------------------------------------Comments---------------------------------------------------\n" );
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                loadComments();
+                 
+            }   
+        
     }
 
     public void loadComments() {
 
-        ArrayList<HashMap<String, String>> allComments;
+       ArrayList<HashMap<String, String>> allComments;
         try {
             allComments = db.getDB().fetchRows("select * from COMMENTS where POST_ID =" + id);
 
             for (HashMap<String, String> aComment : allComments) {
-
-                txtAreaPostSeePost.append("Date: " + aComment.get("DATE") + "\n");
-                txtAreaPostSeePost.append("User: " + aComment.get("USER") + "\n");
-                txtAreaPostSeePost.append("Text: \n" + aComment.get("TEXT") + "\n");
-                txtAreaPostSeePost.append("---------------------------------------------------------------------\n");
-
+                try{
+                appendStringTotxtPane("Date: " + aComment.get("DATE") + "\n");
+                appendStringTotxtPane("User: " + aComment.get("USER") + "\n");
+                appendStringTotxtPane("Text: \n" + aComment.get("TEXT") + "\n");
+                appendStringTotxtPane("---------------------------------------------------------------------\n");
+                }
+                catch(BadLocationException e)
+                {
+                    JOptionPane.showMessageDialog(null, "Couldn't add string");
+                }    
             }
 
         } catch (SQLException ex) {
@@ -323,12 +466,206 @@ public class SeePost extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblAuthorSeePostMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         try{
+        saveFileOnComp();
+        }
+        
+        catch(FileNotFoundException er)
+        {}    
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void addAttachedFilesToTable()
+    {
+        try{
+        model1 = (DefaultTableModel)
+    tblAttachedFiles.getModel();
+                model1.setRowCount(0);
+                
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM FILES WHERE POST = '" + aPost.getId() + "'");
+                
+                    for(HashMap<String, String> aPost : posts) {
+                    
+                        String fileNameInput = aPost.get("FILENAME");
+                        
+                        String fileNameSubStringInput = fileNameInput.substring(fileNameInput.lastIndexOf("\\")+1,fileNameInput.length());
+                        
+                        model1.addRow(new Object[]{fileNameSubStringInput, aPost.get("FILE_ID")});
+                    }
+            } catch(SQLException ex){
+            
+              Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(NullPointerException e){
+                model1.addRow(new Object[]{"No Posts"});
+            }    
+            
+            }
+            
+            public void EmbeddImagesInTextPane(String fId) throws BadLocationException
+            {
+            
+            String pictureName = "";
+            
+            
+           
+            
+            try{
+            
+            byte[] data = db.getDB().fetchImageBytes("SELECT PATH FROM FILES WHERE FILE_ID = '" + fId + "'");
+            
+            pictureName = db.getDB().fetchSingle("SELECT FILENAME FROM FILES WHERE FILE_ID = '" + fId + "'");
+            
+            if(pictureName.contains("png") || pictureName.contains("gif") || pictureName.contains("jpg") || pictureName.contains("jpeg")){
+            String pictureNameInput = pictureName.substring(pictureName.lastIndexOf("\\")+1,pictureName.length());
+            
+            ImageIcon pictureIcon = new ImageIcon(data);
+          
+            int picHeight = pictureIcon.getIconHeight();
+            
+            int picWidth = pictureIcon.getIconWidth();
+            
+            int wi = -1;
+             
+            int he = -1;
+            
+            if(picWidth > 400 || picHeight > 150){
+             
+                wi = picWidth/2;
+                
+                he = picHeight/2;
+            }
+            
+            else if(picWidth >1000 || picHeight > 750)
+            {
+                wi = 700;
+                
+                he = 225;
+                
+            }
+            
+            PictureHandler handler = new PictureHandler(wi, he);
+            
+            JLabel lbl12 = new JLabel("bild");
+           
+            txtPaneSeePost.insertComponent(lbl12);
+            
+            Border border = BorderFactory.createEmptyBorder(5,5,5,5);
+            lbl12.setBorder(border);
+            
+            
+            
+            
+            Image pictureImage = pictureIcon.getImage();
+            
+            
+            pictureImage = handler.resize(pictureImage);
+            
+            pictureIcon = new ImageIcon(pictureImage);
+            
+            
+            
+            lbl12.setVerticalTextPosition(JLabel.BOTTOM);
+            lbl12.setHorizontalTextPosition(JLabel.CENTER);
+            lbl12.setText(pictureNameInput);
+            lbl12.setForeground(Color.blue);
+            lbl12.setFont(new Font("Tahoma", Font.BOLD, 11));
+            lbl12.setIcon(pictureIcon);
+            appendStringTotxtPane("\n");
+            
+            }
+            
+            else
+            {
+                System.out.println("ingen imagefil");
+            }    
+            }
+            catch(SQLException er)
+                    {}   
+            
+            
+            
+            
+            }
+             
+            
+            
+                    
+
+            public void saveFileOnComp() throws FileNotFoundException
+            {
+            String idString ="";
+            
+            String fileName = "";
+            
+            if(!(tblAttachedFiles.getSelectedRow() == -1)){
+            int id = tblAttachedFiles.getSelectedRow();
+            
+            try{
+              idString = tblAttachedFiles.getModel().getValueAt(id, 1).toString();
+            }
+                catch(NullPointerException exx)
+                        {
+                            JOptionPane.showMessageDialog(null, "Not a Valid option");
+                        }    
+                        
+                        JFileChooser chooser = new JFileChooser(new File("C:\\"));
+                        
+                        chooser.setDialogTitle("Save file");
+                        
+                        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg", "gif", "bmp"));
+                        
+                        chooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF-files", "pdf"));
+                        
+                         chooser.addChoosableFileFilter(new FileNameExtensionFilter("Office-files", "docx", "xlsx","pptx"));
+                        
+                        try{
+                            
+                        fileName = db.getDB().fetchSingle("SELECT FILENAME FROM FILES WHERE FILE_ID like '" + idString + "'");
+                        }
+                        
+                        catch(SQLException er)
+                        {
+                            JOptionPane.showMessageDialog(null, "Db error");
+                        }    
+                        
+                        String fileNameNew = fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+                        
+                        chooser.setSelectedFile(new File(fileNameNew));
+                        
+                        int result = chooser.showSaveDialog(null);
+                        
+                        if(result == JFileChooser.APPROVE_OPTION)
+                        {
+                            try{
+                               File file = new File(chooser.getSelectedFile().toString());
+                               FileOutputStream fos = new FileOutputStream(file);
+                               byte b[];
+                               b= db.getDB().fetchImageBytes("SELECT PATH FROM FILES WHERE FILE_ID = '" + idString + "'");
+                        
+                               fos.write(b);
+                               fos.close();
+                        }
+                        
+                        catch(SQLException e)
+                        {}
+                        catch(IOException ex)
+                        {}                        
+                        }
+                        
+                        }
+                
+            }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClosePost;
     private javax.swing.JButton btnNewComment;
     private javax.swing.JButton btnPrintPostSeePost;
-    private javax.swing.JScrollPane jscrPost;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAuthorNameSeePost;
     private javax.swing.JLabel lblAuthorSeePost;
     private javax.swing.JLabel lblComments;
@@ -338,6 +675,12 @@ public class SeePost extends javax.swing.JFrame {
     private javax.swing.JLabel lblUploadedPostSeePost;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlPostHeaderSeePost;
+
     private javax.swing.JTextArea txtAreaPostSeePost;
+
+    private javax.swing.JTextArea taNewComment;
+    private javax.swing.JTable tblAttachedFiles;
+    private javax.swing.JTextPane txtPaneSeePost;
+
     // End of variables declaration//GEN-END:variables
 }

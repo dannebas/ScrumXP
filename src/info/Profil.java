@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +44,7 @@ public class Profil extends javax.swing.JFrame {
         }
 
         displayProfileImage();
-        
+
         TableColumnModel columnmodel = tblMyPosts.getColumnModel();
         columnmodel.removeColumn(columnmodel.getColumn(2));
         tblMyPosts.setTableHeader(null);
@@ -467,7 +466,6 @@ public class Profil extends javax.swing.JFrame {
 
     }
 
-
     private void cbNewPostProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNewPostProfileActionPerformed
         int index = cbNewPostProfile.getSelectedIndex();
         String chosenIndexText = cbNewPostProfile.getItemAt(index);
@@ -573,8 +571,7 @@ public class Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
-        new ACalendar().setVisible(true);
-
+        new CalendarPrivate().setVisible(true);
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
@@ -593,10 +590,8 @@ public class Profil extends javax.swing.JFrame {
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");
             }
-
         }
     }//GEN-LAST:event_tblMyPostsMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalendar;

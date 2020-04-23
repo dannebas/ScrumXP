@@ -30,6 +30,7 @@ public class PictureHandler {
         this.height = height;
     }
 
+   
     public Image openFile() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -72,6 +73,41 @@ public class PictureHandler {
         return picture;
     }
 
+    public File[] openFiles() {
+        
+        JFileChooser chooser = new JFileChooser();
+        
+        chooser.setMultiSelectionEnabled(true);
+        
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg", "gif", "bmp"));
+                  
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF files", "pdf"));
+                   
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Office files", "docx", "xlsx", "jpeg", "pptx"));
+        
+        int returnOption = chooser.showOpenDialog(chooser);
+
+        File[] files = null;
+
+        if (returnOption == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                    + chooser.getSelectedFile().getName());
+            
+            
+            files = chooser.getSelectedFiles();
+     
+     
+        }
+
+        return files;
+    }
+    
+    
+    
+    
+    
+    
+    
     public Image resize(Image imageFile) {
         //Scale the image to the given width and height.
         Image newImage = imageFile.getScaledInstance(width, height, Image.SCALE_DEFAULT);

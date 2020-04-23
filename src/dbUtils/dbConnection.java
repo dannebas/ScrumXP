@@ -36,7 +36,7 @@ public class dbConnection {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Database driver not found.");
+            JOptionPane.showMessageDialog(null, "Database driver not found. ");
         }
     }
 
@@ -85,7 +85,7 @@ public class dbConnection {
             }
         } catch (SQLException e) {
             if (result != null) {
-                JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+                JOptionPane.showMessageDialog(null, "Query failed, check statement. 1");
             }
         } finally {
             closeConnection();
@@ -106,7 +106,7 @@ public class dbConnection {
                 result.add(rs.getString(1));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            JOptionPane.showMessageDialog(null, "Query failed, check statement. 2");
         } finally {
             closeConnection();
         }
@@ -132,7 +132,7 @@ public class dbConnection {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            JOptionPane.showMessageDialog(null, "Query failed, check statement. 3");
         } finally {
             closeConnection();
         }
@@ -160,7 +160,7 @@ public class dbConnection {
                 result.add(tempHM);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            JOptionPane.showMessageDialog(null, "Query failed, check statement. 4");
         } finally {
             closeConnection();
         }
@@ -181,7 +181,7 @@ public class dbConnection {
             }
         } catch (SQLException e) {
             if (result != null) {
-                JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+                JOptionPane.showMessageDialog(null, "Query failed, check statement. 5");
             }
         } finally {
             closeConnection();
@@ -226,7 +226,8 @@ public class dbConnection {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            
+            JOptionPane.showMessageDialog(null, "Query failed, check statement. 6");
         } finally {
             closeConnection();
         }
@@ -239,7 +240,7 @@ public class dbConnection {
             Statement sm = conn.createStatement();
             sm.executeUpdate(query);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Query failed, check statement.");
+            JOptionPane.showMessageDialog(null, "Query failed, check statement. 7");
         } finally {
             closeConnection();
         }
@@ -249,7 +250,7 @@ public class dbConnection {
         if (query.toLowerCase().startsWith("insert into")) {
             mod(query);
         } else {
-            throw new SQLException("Not valid INSERT query - check your query");
+            throw new SQLException("Not valid INSERT query - check your query 8");
         }
     }
 
@@ -257,7 +258,7 @@ public class dbConnection {
         if (query.toLowerCase().startsWith("delete from")) {
             mod(query);
         } else {
-            throw new SQLException("Not valid DELETE query - check your query");
+            throw new SQLException("Not valid DELETE query - check your query 9");
         }
     }
 
@@ -265,10 +266,47 @@ public class dbConnection {
         if (query.toLowerCase().startsWith("update") && query.toLowerCase().contains("set")) {
             mod(query);
         } else {
-            throw new SQLException("Not valid UPDATE query - check your query");
+            throw new SQLException("Not valid UPDATE query - check your query 10");
         }
     }
 
+    public void saveFileToDB(File myFile, String query) throws FileNotFoundException {
+
+        FileInputStream fis = new FileInputStream(myFile);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        try {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                //Writes to this byte array output stream
+                bos.write(buf, 0, readNum);
+                System.out.println("read " + readNum + " bytes,");
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        byte[] bytes = bos.toByteArray();
+
+        String user = User.getUser();
+        try {
+            checkConnection();
+            System.out.println(user);
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setBytes(1, bytes);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     public void saveFileToDB(File myFile) throws FileNotFoundException {
 
         FileInputStream fis = new FileInputStream(myFile);

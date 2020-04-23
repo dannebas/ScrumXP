@@ -10,6 +10,8 @@ import static JavaMail.JavaMailUtil.prepareMessage;
 import JavaMail.NotificationHandler;
 import dbUtils.db;
 import static dbUtils.db.getDB;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.ListModel;
 
 /**
@@ -515,8 +518,7 @@ public class Booking extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Participant already added..");
         }
     }
-
-
+    
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
@@ -600,21 +602,21 @@ public class Booking extends javax.swing.JFrame {
     private void btnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateActionPerformed
         String summary = txtSummary.getText();
         String date = dp.getDateStringOrEmptyString();
-        txtSummary.setText("Date: " + date + "\r\n" + summary);
+        txtSummary.setText("Date: " + date + "\n" + summary);
 
     }//GEN-LAST:event_btnDateActionPerformed
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         String summary = txtSummary.getText();
         String time = tp.getText();
-        txtSummary.setText("Time: " + time + "\r\n" + summary);
+        txtSummary.setText("Time: " + time + "\n" + summary);
 
     }//GEN-LAST:event_btnTimeActionPerformed
 
     private void btnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocationActionPerformed
         String summary = txtSummary.getText();
         String loc = txtLocation.getText();
-        txtSummary.setText("Location: " + loc + "\r\n" + summary);
+        txtSummary.setText("Location: " + loc + "\n" + summary);
 
     }//GEN-LAST:event_btnLocationActionPerformed
 
