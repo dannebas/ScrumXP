@@ -6,14 +6,8 @@
 package info;
 
 import dbUtils.db;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.sql.SQLException;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -23,6 +17,7 @@ public class NewComment extends javax.swing.JFrame {
 
     private DefaultTableModel model;
     private int postId;
+    
 
     /**
      * Creates new form Comments
@@ -31,7 +26,7 @@ public class NewComment extends javax.swing.JFrame {
         initComponents();
         postId = Integer.parseInt(id);
         setLocationRelativeTo(null);
-        //columnmodel.removeColumn(columnmodel.getColumn(2));
+        
     }
 
     /**
@@ -47,19 +42,21 @@ public class NewComment extends javax.swing.JFrame {
         taNewComment = new javax.swing.JTextArea();
         btnPostComment = new javax.swing.JButton();
         btnCloseComments = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1022, 600));
+        setPreferredSize(new java.awt.Dimension(400, 200));
+        setResizable(false);
 
-        pnlBread.setBackground(new java.awt.Color(45, 95, 125));
-        pnlBread.setPreferredSize(new java.awt.Dimension(1022, 600));
+        pnlBread.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBread.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add new comment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlBread.setMinimumSize(new java.awt.Dimension(400, 200));
+        pnlBread.setPreferredSize(new java.awt.Dimension(400, 200));
         pnlBread.setLayout(null);
 
         taNewComment.setColumns(20);
         taNewComment.setRows(5);
         pnlBread.add(taNewComment);
-        taNewComment.setBounds(50, 60, 320, 150);
+        taNewComment.setBounds(20, 30, 360, 110);
 
         btnPostComment.setText("Post comment");
         btnPostComment.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +65,7 @@ public class NewComment extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnPostComment);
-        btnPostComment.setBounds(250, 230, 120, 32);
+        btnPostComment.setBounds(250, 150, 120, 32);
 
         btnCloseComments.setText("Close");
         btnCloseComments.addActionListener(new java.awt.event.ActionListener() {
@@ -77,26 +74,17 @@ public class NewComment extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnCloseComments);
-        btnCloseComments.setBounds(50, 230, 120, 32);
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Comments for post ###");
-        pnlBread.add(jLabel1);
-        jLabel1.setBounds(100, 20, 220, 24);
+        btnCloseComments.setBounds(20, 150, 120, 32);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -110,18 +98,18 @@ public class NewComment extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCloseCommentsActionPerformed
 
-
     private void saveNewCommentToDB() {
         String commentText = taNewComment.getText();
         try {
             int commentId = Integer.parseInt(db.getDB().getAutoIncrement("COMMENTS", "COMMENT_ID"));
-           
-           System.out.println(commentText);
+
+            System.out.println(commentText);
             //System.out.println(commentId + ", '" + User.getUser() + "', '" + commentText + "', " + postId );
-           db.getDB().insert("insert into COMMENTS values (" + commentId + ", '" + User.getUser() + "', '" + commentText + "', " + postId + ")");
+            db.getDB().insert("insert into COMMENTS values (" + commentId + ", '" + User.getUser() + "', '" + commentText + "', " + postId + ")");
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(NewComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
 
     }
 
@@ -129,8 +117,6 @@ public class NewComment extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCloseComments;
     private javax.swing.JButton btnPostComment;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jscrPost;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JTextArea taNewComment;
     // End of variables declaration//GEN-END:variables

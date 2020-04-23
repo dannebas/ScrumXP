@@ -66,17 +66,12 @@ public class EditProfile extends javax.swing.JFrame {
         lblEditUserImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 500));
-        setMinimumSize(new java.awt.Dimension(600, 500));
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 500));
         setResizable(false);
-        getContentPane().setLayout(null);
 
         pnlBackgroundEditProfile.setBackground(new java.awt.Color(255, 255, 255));
         pnlBackgroundEditProfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Profile", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlBackgroundEditProfile.setForeground(new java.awt.Color(0, 0, 0));
-        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(600, 500));
+        pnlBackgroundEditProfile.setPreferredSize(new java.awt.Dimension(540, 480));
         pnlBackgroundEditProfile.setLayout(null);
 
         pnlContactInfo.setBackground(new java.awt.Color(255, 255, 255));
@@ -184,8 +179,16 @@ public class EditProfile extends javax.swing.JFrame {
         pnlBackgroundEditProfile.add(lblEditUserImage);
         lblEditUserImage.setBounds(30, 50, 110, 145);
 
-        getContentPane().add(pnlBackgroundEditProfile);
-        pnlBackgroundEditProfile.setBounds(0, 0, 540, 480);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlBackgroundEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlBackgroundEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);

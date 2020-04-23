@@ -30,7 +30,6 @@ import javax.swing.ImageIcon;
  */
 public class SeePost extends javax.swing.JFrame {
 
-
     boolean isInformal = false;
     int numberOfComments = 0;
     Post aPost;
@@ -59,30 +58,29 @@ public class SeePost extends javax.swing.JFrame {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         if (isInformal) {
 
             lblComments.setVisible(true);
             lblComments.setText("Comments(" + numberOfComments + ")");
-            lblComments.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            
+            
         } else {
             lblComments.setVisible(false);
+            btnNewComment.setVisible(false);
         }
 
         lblProfileImageSeePost.setIcon(profilePicture);
 
-
         Post aPost = new Post(id);
         setLocationRelativeTo(null);
-        
 
         lblTiltleSeePost.setText(aPost.getTitle());
-        
+
         Font font = lblAuthorSeePost.getFont();
         Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         lblAuthorSeePost.setFont(font.deriveFont(attributes));
-        
+
         lblAuthorSeePost.setText(aPost.getAuthor());
         author = lblAuthorSeePost.getText();
         lblUploadDateSeePost.setText(aPost.getDate());
@@ -95,11 +93,11 @@ public class SeePost extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
     }
-    
+
     public static String getAuthor() {
         return author;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,7 +121,6 @@ public class SeePost extends javax.swing.JFrame {
         btnPrintPostSeePost = new javax.swing.JButton();
         btnClosePost = new javax.swing.JButton();
         lblComments = new javax.swing.JLabel();
-        taNewComment = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Post");
@@ -131,8 +128,9 @@ public class SeePost extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1022, 600));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        pnlBread.setBackground(new java.awt.Color(45, 95, 125));
-        pnlBread.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlBread.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBread.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Post", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlBread.setForeground(new java.awt.Color(0, 0, 0));
         pnlBread.setAlignmentX(0.0F);
         pnlBread.setAlignmentY(0.0F);
         pnlBread.setMaximumSize(new java.awt.Dimension(1022, 600));
@@ -144,15 +142,16 @@ public class SeePost extends javax.swing.JFrame {
         lblProfileImageSeePost.setMinimumSize(new java.awt.Dimension(110, 145));
         lblProfileImageSeePost.setPreferredSize(new java.awt.Dimension(110, 145));
         pnlBread.add(lblProfileImageSeePost);
-        lblProfileImageSeePost.setBounds(20, 20, 110, 145);
+        lblProfileImageSeePost.setBounds(20, 30, 110, 145);
 
         lblAuthorNameSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAuthorNameSeePost.setForeground(new java.awt.Color(0, 0, 0));
         lblAuthorNameSeePost.setText("Author:");
         pnlBread.add(lblAuthorNameSeePost);
         lblAuthorNameSeePost.setBounds(20, 200, 51, 19);
 
         lblAuthorSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblAuthorSeePost.setForeground(new java.awt.Color(102, 255, 153));
+        lblAuthorSeePost.setForeground(new java.awt.Color(44, 95, 125));
         lblAuthorSeePost.setText("User");
         lblAuthorSeePost.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -162,30 +161,33 @@ public class SeePost extends javax.swing.JFrame {
         pnlBread.add(lblAuthorSeePost);
         lblAuthorSeePost.setBounds(80, 200, 33, 19);
 
-        pnlPostHeaderSeePost.setBackground(new java.awt.Color(22, 52, 81));
-        pnlPostHeaderSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlPostHeaderSeePost.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPostHeaderSeePost.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Title", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlPostHeaderSeePost.setForeground(new java.awt.Color(255, 255, 255));
         pnlPostHeaderSeePost.setPreferredSize(new java.awt.Dimension(1024, 72));
         pnlPostHeaderSeePost.setLayout(null);
 
         lblTiltleSeePost.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblTiltleSeePost.setForeground(new java.awt.Color(255, 255, 255));
+        lblTiltleSeePost.setForeground(new java.awt.Color(0, 0, 0));
         lblTiltleSeePost.setText("Title");
         pnlPostHeaderSeePost.add(lblTiltleSeePost);
-        lblTiltleSeePost.setBounds(18, 2, 436, 34);
+        lblTiltleSeePost.setBounds(20, 20, 436, 34);
 
+        lblUploadedPostSeePost.setForeground(new java.awt.Color(153, 153, 153));
         lblUploadedPostSeePost.setText("Uploaded");
         pnlPostHeaderSeePost.add(lblUploadedPostSeePost);
-        lblUploadedPostSeePost.setBounds(20, 40, 53, 16);
+        lblUploadedPostSeePost.setBounds(20, 50, 53, 16);
 
+        lblUploadDateSeePost.setForeground(new java.awt.Color(153, 153, 153));
         lblUploadDateSeePost.setText("Date");
         pnlPostHeaderSeePost.add(lblUploadDateSeePost);
-        lblUploadDateSeePost.setBounds(90, 40, 26, 16);
+        lblUploadDateSeePost.setBounds(80, 50, 26, 16);
 
         pnlBread.add(pnlPostHeaderSeePost);
-        pnlPostHeaderSeePost.setBounds(150, 20, 850, 60);
+        pnlPostHeaderSeePost.setBounds(150, 20, 850, 80);
 
-        jscrPost.setBackground(new java.awt.Color(126, 197, 239));
+        jscrPost.setBackground(new java.awt.Color(255, 255, 255));
+        jscrPost.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
         txtAreaPostSeePost.setColumns(20);
         txtAreaPostSeePost.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -194,7 +196,7 @@ public class SeePost extends javax.swing.JFrame {
         jscrPost.setViewportView(txtAreaPostSeePost);
 
         pnlBread.add(jscrPost);
-        jscrPost.setBounds(150, 90, 850, 300);
+        jscrPost.setBounds(150, 120, 850, 350);
 
         btnNewComment.setBackground(new java.awt.Color(44, 95, 125));
         btnNewComment.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -207,7 +209,7 @@ public class SeePost extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnNewComment);
-        btnNewComment.setBounds(150, 510, 130, 37);
+        btnNewComment.setBounds(440, 510, 130, 37);
 
         btnPrintPostSeePost.setBackground(new java.awt.Color(44, 95, 125));
         btnPrintPostSeePost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -215,7 +217,7 @@ public class SeePost extends javax.swing.JFrame {
         btnPrintPostSeePost.setText("Print post");
         btnPrintPostSeePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         pnlBread.add(btnPrintPostSeePost);
-        btnPrintPostSeePost.setBounds(290, 510, 150, 37);
+        btnPrintPostSeePost.setBounds(280, 510, 150, 37);
 
         btnClosePost.setBackground(new java.awt.Color(44, 95, 125));
         btnClosePost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -228,17 +230,13 @@ public class SeePost extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnClosePost);
-        btnClosePost.setBounds(450, 510, 107, 37);
+        btnClosePost.setBounds(160, 510, 107, 37);
 
         lblComments.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblComments.setForeground(new java.awt.Color(0, 0, 0));
         lblComments.setText("New comment:");
         pnlBread.add(lblComments);
-        lblComments.setBounds(150, 400, 120, 24);
-
-        taNewComment.setColumns(20);
-        taNewComment.setRows(5);
-        pnlBread.add(taNewComment);
-        taNewComment.setBounds(150, 430, 410, 70);
+        lblComments.setBounds(160, 470, 120, 24);
 
         getContentPane().add(pnlBread);
 
@@ -251,11 +249,14 @@ public class SeePost extends javax.swing.JFrame {
 
 
     private void btnNewCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCommentActionPerformed
-        saveNewCommentToDB();
-        loadPostContent();
+        NewComment c = new NewComment(id);
+        c.setVisible(true);
+        c.setLocationRelativeTo(null);
+        //saveNewCommentToDB();
+        //loadPostContent();
     }//GEN-LAST:event_btnNewCommentActionPerformed
 
-    private void loadPostContent() {
+    public void loadPostContent() {
 
         try {
             txtAreaPostSeePost.setText(aPost.getDescription().indent(4));
@@ -293,7 +294,7 @@ public class SeePost extends javax.swing.JFrame {
     }
 
     private void saveNewCommentToDB() {
-        String commentText = taNewComment.getText();
+        //String commentText = taNewComment.getText();
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String strDate = dateFormat.format(date);
@@ -308,7 +309,7 @@ public class SeePost extends javax.swing.JFrame {
             int commentId = Integer.parseInt(nextId);
             // System.out.println(commentText);
             // System.out.println(commentId + ", '" + User.getUser() + "', '" + commentText + "', '" + strDate + "', " + id );
-            db.getDB().insert("insert into COMMENTS values (" + commentId + ", '" + User.getUser() + "', '" + commentText + "', '" + strDate + "', " + id + ")");
+          //  db.getDB().insert("insert into COMMENTS values (" + commentId + ", '" + User.getUser() + "', '" + commentText + "', '" + strDate + "', " + id + ")");
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(NewComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -316,13 +317,9 @@ public class SeePost extends javax.swing.JFrame {
     }
 
     private void lblAuthorSeePostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAuthorSeePostMouseClicked
-        System.out.println("1");
-        OtherProfile op = new OtherProfile();
-        
+        UserProfile op = new UserProfile();
         op.setVisible(true);
-        System.out.println("2");
         op.setLocationRelativeTo(null);
-        System.out.println("3");
         this.dispose();
     }//GEN-LAST:event_lblAuthorSeePostMouseClicked
 
@@ -341,7 +338,6 @@ public class SeePost extends javax.swing.JFrame {
     private javax.swing.JLabel lblUploadedPostSeePost;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlPostHeaderSeePost;
-    private javax.swing.JTextArea taNewComment;
     private javax.swing.JTextArea txtAreaPostSeePost;
     // End of variables declaration//GEN-END:variables
 }
