@@ -327,33 +327,23 @@ public class UserProfile extends javax.swing.JFrame {
 
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
-        new Profil().setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_btnMyProfileActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
-        new CalendarPrivate().setVisible(true);
+        
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed
-        forum.swicthCategoryButtons(false);
-        forum.addEducationForumPost();
-        forum.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnSeePostEducationActionPerformed
 
     private void btnSeePostResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostResearchActionPerformed
-        forum.addResearchForumPost();
-        forum.setVisible(true);
-        forum.swicthCategoryButtons(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnSeePostResearchActionPerformed
 
     private void btnSeePostGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneralActionPerformed
-        forum.addAllGeneralPost();
-        forum.setVisible(true);
-        forum.swicthCategoryButtons(false);
-        this.dispose();
+      
     }//GEN-LAST:event_btnSeePostGeneralActionPerformed
 
 

@@ -58,14 +58,13 @@ public class Home extends javax.swing.JFrame {
         btnResarchAndEducation = new javax.swing.JButton();
         btnBlog = new javax.swing.JButton();
         pnlBreadForum = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         pnlLatest = new javax.swing.JPanel();
         scrLatest = new javax.swing.JScrollPane();
         jlLatest = new javax.swing.JList<>();
         pnlBlog = new javax.swing.JPanel();
         scrBlog = new javax.swing.JScrollPane();
         jlBlog = new javax.swing.JList<>();
-        jPanel3 = new javax.swing.JPanel();
+        pnlActions = new javax.swing.JPanel();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
 
@@ -217,10 +216,6 @@ public class Home extends javax.swing.JFrame {
         pnlBreadForum.setPreferredSize(new java.awt.Dimension(1022, 405));
         pnlBreadForum.setLayout(null);
 
-        jLabel1.setText("Welcome");
-        pnlBreadForum.add(jLabel1);
-        jLabel1.setBounds(490, 320, 230, 60);
-
         pnlLatest.setBackground(new java.awt.Color(255, 255, 255));
         pnlLatest.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Latest News", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlLatest.setForeground(new java.awt.Color(0, 0, 0));
@@ -255,23 +250,12 @@ public class Home extends javax.swing.JFrame {
         pnlBreadForum.add(pnlBlog);
         pnlBlog.setBounds(30, 210, 410, 160);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
-        );
-
-        pnlBreadForum.add(jPanel3);
-        jPanel3.setBounds(790, 80, 210, 250);
+        pnlActions.setBackground(new java.awt.Color(255, 255, 255));
+        pnlActions.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlActions.setForeground(new java.awt.Color(0, 0, 0));
+        pnlActions.setLayout(null);
+        pnlBreadForum.add(pnlActions);
+        pnlActions.setBounds(770, 30, 210, 250);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -376,12 +360,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JList<String> jlBlog;
     private javax.swing.JList<String> jlLatest;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;
+    private javax.swing.JPanel pnlActions;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBlog;
     private javax.swing.JPanel pnlBreadForum;

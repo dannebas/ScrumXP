@@ -33,43 +33,27 @@ public class Forum extends javax.swing.JFrame {
         columnmodel.removeColumn(columnmodel.getColumn(3));
 
         pnlSortButtonsForum.setVisible(false);
+        btnEditPost.setVisible(false);
+        btnNewPost.setVisible(false);
+        addAllFormalPost();
 
-        addAllForumPost();
-
+        if (User.getResAdmin() == true || User.getEduAdmin() == true) {
+            btnEditPost.setVisible(true);
+            btnNewPost.setVisible(true);
+        }
         setExtendedState(MAXIMIZED_BOTH);
 
         setLocationRelativeTo(null);
 
     }
 
-    public void addAllGeneralPost() // add all the Post which are Informal to the table
+
+    public void addAllFormalPost() // add all the Post to the table
     {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
-
-            for (HashMap<String, String> aPost : posts) {
-
-                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException e) {
-            model.addRow(new Object[]{"No Posts"});
-        }
-    }
-
-    public void addAllForumPost() // add all the Post to the table
-    {
-        try {
-            model = (DefaultTableModel) tblForumPost.getModel();
-            model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN INFORMAL_POST ON POSTS.POST_ID=INFORMAL_POST.POST_ID\n"
-                    + "UNION\n"
-                    + "SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'\n"
-                    + "UNION\n"
-                    + "SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST)");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -184,12 +168,12 @@ public class Forum extends javax.swing.JFrame {
         rbtnITSecForum = new javax.swing.JRadioButton();
         rbtnITEdForum = new javax.swing.JRadioButton();
         rbtnSysDevMethForum = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnEditPost = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jcbUsers = new javax.swing.JComboBox<>();
         jcbGroups = new javax.swing.JComboBox<>();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jButton2 = new javax.swing.JButton();
+        btnNewPost = new javax.swing.JButton();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -296,7 +280,7 @@ public class Forum extends javax.swing.JFrame {
         }
 
         pnlBreadForum.add(spnTableForum);
-        spnTableForum.setBounds(290, 90, 710, 240);
+        spnTableForum.setBounds(160, 90, 840, 240);
 
         pnlSortButtonsForum.setBackground(new java.awt.Color(44, 95, 125));
         pnlSortButtonsForum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -417,18 +401,18 @@ public class Forum extends javax.swing.JFrame {
         pnlBreadForum.add(pnlSortButtonsForum);
         pnlSortButtonsForum.setBounds(20, 120, 118, 256);
 
-        jButton1.setBackground(new java.awt.Color(44, 95, 125));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Edit selected post");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEditPost.setBackground(new java.awt.Color(44, 95, 125));
+        btnEditPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnEditPost.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditPost.setText("Edit selected post");
+        btnEditPost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnEditPost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEditPostActionPerformed(evt);
             }
         });
-        pnlBreadForum.add(jButton1);
-        jButton1.setBounds(680, 350, 140, 37);
+        pnlBreadForum.add(btnEditPost);
+        btnEditPost.setBounds(680, 350, 140, 37);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FIlter selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
@@ -448,18 +432,18 @@ public class Forum extends javax.swing.JFrame {
         pnlBreadForum.add(jPanel1);
         jPanel1.setBounds(20, 10, 980, 70);
 
-        jButton2.setBackground(new java.awt.Color(44, 95, 125));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Create new post");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNewPost.setBackground(new java.awt.Color(44, 95, 125));
+        btnNewPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNewPost.setForeground(new java.awt.Color(255, 255, 255));
+        btnNewPost.setText("Create new post");
+        btnNewPost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnNewPost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNewPostActionPerformed(evt);
             }
         });
-        pnlBreadForum.add(jButton2);
-        jButton2.setBounds(840, 350, 140, 37);
+        pnlBreadForum.add(btnNewPost);
+        btnNewPost.setBounds(840, 350, 140, 37);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -589,12 +573,12 @@ public class Forum extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEditPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPostActionPerformed
         int id = tblForumPost.getSelectedRow();
         String idString = tblForumPost.getModel().getValueAt(id, 4).toString();
         NewPost newPost = new NewPost(idString);
         newPost.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEditPostActionPerformed
 
     private void rbtnSysDevMethForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSysDevMethForumActionPerformed
         addGroupResearchForumPost(6);
@@ -639,9 +623,9 @@ public class Forum extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblForumPostMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnNewPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPostActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnNewPostActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
         new Home().setVisible(true);
@@ -675,13 +659,13 @@ public class Forum extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
+    private javax.swing.JButton btnEditPost;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMyProfile;
+    private javax.swing.JButton btnNewPost;
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JComboBox<String> jcbGroups;
