@@ -21,17 +21,17 @@ public class EntryCellRender extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component cr = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         this.antal = this.antal + 1;
-        ACalendar.getMeetingsArray();
+        CalendarPrivate.getMeetingsArray();
 
         if (value != null && column == 0) {
 
             setBackground(weekStatus);
 
         } else if (value != null && column != 0) {
-            if (ACalendar.getMeetingsArray().size() < 1) {
+            if (CalendarPrivate.getMeetingsArray().size() < 1) {
                 setBackground(Color.GREEN);
             } else {
-                for (String aString : ACalendar.getMeetingsArray()) {
+                for (String aString : CalendarPrivate.getMeetingsArray()) {
                     if (value != null && value.toString().equalsIgnoreCase(aString)) {
                         setBackground(Color.YELLOW);
                     } else if (value != null && !value.toString().equalsIgnoreCase(aString)) {
@@ -48,7 +48,7 @@ public class EntryCellRender extends DefaultTableCellRenderer {
         if (value != null && (value.equals(" ") || value.equals(""))) {
             setBackground(Color.WHITE);
         } else if (value != null && column != 0) {
-            for (String aString : ACalendar.getMeetingsArray()) {
+            for (String aString : CalendarPrivate.getMeetingsArray()) {
                 if (value != null && value.toString().equalsIgnoreCase(aString)) {
                     setBackground(Color.YELLOW);
                 }

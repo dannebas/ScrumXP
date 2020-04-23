@@ -484,7 +484,7 @@ public class OtherProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMyProfileActionPerformed
 
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
-        new ACalendar().setVisible(true);
+        new CalendarPrivate().setVisible(true);
     }//GEN-LAST:event_btnCalendarActionPerformed
 
     private void btnSeePostEducationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostEducationActionPerformed

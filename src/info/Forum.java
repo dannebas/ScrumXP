@@ -185,6 +185,7 @@ public class Forum extends javax.swing.JFrame {
         pnlTableForum = new javax.swing.JPanel();
         spnTableForum = new javax.swing.JScrollPane();
         tblForumPost = new javax.swing.JTable();
+        btnSeePostGeneral2 = new javax.swing.JButton();
         pnlSortButtonsForum = new javax.swing.JPanel();
         rbtnAllGroupForum = new javax.swing.JRadioButton();
         rbtnEHealthForum = new javax.swing.JRadioButton();
@@ -409,15 +410,38 @@ public class Forum extends javax.swing.JFrame {
             tblForumPost.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        btnSeePostGeneral2.setBackground(new java.awt.Color(44, 95, 125));
+        btnSeePostGeneral2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSeePostGeneral2.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeePostGeneral2.setText("General");
+        btnSeePostGeneral2.setBorder(null);
+        btnSeePostGeneral2.setBorderPainted(false);
+        btnSeePostGeneral2.setContentAreaFilled(false);
+        btnSeePostGeneral2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeePostGeneral2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTableForumLayout = new javax.swing.GroupLayout(pnlTableForum);
         pnlTableForum.setLayout(pnlTableForumLayout);
         pnlTableForumLayout.setHorizontalGroup(
             pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addGroup(pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlTableForumLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnSeePostGeneral2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         pnlTableForumLayout.setVerticalGroup(
             pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(spnTableForum, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+            .addGroup(pnlTableForumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlTableForumLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnSeePostGeneral2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pnlBreadForum.add(pnlTableForum);
@@ -653,15 +677,18 @@ public class Forum extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
-        new ACalendar().setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCalendarActionPerformed
-
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
         new Profil().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMyProfileActionPerformed
+
+    private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarActionPerformed
+        new CalendarView().setVisible(true);
+    }//GEN-LAST:event_btnCalendarActionPerformed
+
+    private void btnSeePostGeneral2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostGeneral2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeePostGeneral2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalendar;
@@ -669,6 +696,7 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnSeePostEducation;
     private javax.swing.JButton btnSeePostGeneral;
+    private javax.swing.JButton btnSeePostGeneral2;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.JButton btnSeePostResearch;
     private javax.swing.ButtonGroup buttonGroupForum;
