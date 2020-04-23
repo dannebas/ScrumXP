@@ -331,58 +331,53 @@ public class SeePost extends javax.swing.JFrame {
     private void loadPostContent() {
 
         try {
-            txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
-        } catch (BadLocationException ex) {
-            Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            //txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
+       
+            
+        
             
             txtPaneSeePost.setText(aPost.getDescription().indent(4) +"\n");
            
             
             
-            try{
-        if(!(db.getDB().fetchRows("SELECT * FROM FILES WHERE POST = '" + id + "'") == null))
+        int numberOfFiles = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from FILES where POST =" + id));
+        System.out.println(numberOfFiles);
+        if(numberOfFiles > 0)
         {
+            System.out.println("Kommer vi in här?");
         ArrayList<HashMap<String, String>> li = new ArrayList<>();    
         li = db.getDB().fetchRows("SELECT * FROM FILES WHERE POST = '" + id + "'");    
         addAttachedFilesToTable();
-        }
-       }catch(SQLException e)
-        {
-           JOptionPane.showMessageDialog(null, "Wrong"); 
-        }
+        
+       
       
             
        for(int i= 0; i < tblAttachedFiles.getRowCount(); i++){
        
            newList = new String[tblAttachedFiles.getRowCount()];
            newList[i]= tblAttachedFiles.getModel().getValueAt(i, 1).toString();
-           try{
+           
            EmbeddImagesInTextPane(newList[i]);
            }
-           catch(BadLocationException er)
-           {
-               
-           }  
-           
+         
            }  
        
-        try{
             numberOfComments = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from COMMENTS where POST_ID =" + id));
-           }
-           catch(SQLException eer)
-           {}    
+           
             if (numberOfComments != 0) {
               
-                try {
-                    appendStringTotxtPane("\n -------------------------------------------Comments---------------------------------------------------\n" );
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                loadComments();
+            appendStringTotxtPane("\n -------------------------------------------Comments---------------------------------------------------\n" );
+            
+            loadComments();
                  
-            }   
+            } }catch(SQLException e)
+                    {}
+            catch(BadLocationException er)
+                    {}  
+               
+          
+                 
+               
         
     }
 
