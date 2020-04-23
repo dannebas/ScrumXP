@@ -70,20 +70,13 @@ public class SeePost extends javax.swing.JFrame {
      *
      * @param id post id.
      */
-    public SeePost(String id) {
-        
+    public SeePost(String id) { 
         initComponents();
-        
         ImageIcon profilePicture = null;
-        
         this.model = new DefaultListModel ();
-        
         TableColumnModel model1 = tblAttachedFiles.getColumnModel();
-        
         model1.removeColumn(model1.getColumn(1));
-        
-        this.id = id;
-        
+        this.id = id;  
         aPost = new Post(id);
                 
         try {
@@ -162,14 +155,11 @@ public class SeePost extends javax.swing.JFrame {
         btnPrintPostSeePost = new javax.swing.JButton();
         btnClosePost = new javax.swing.JButton();
         lblComments = new javax.swing.JLabel();
-
-        taNewComment = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAttachedFiles = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtPaneSeePost = new javax.swing.JTextPane();
         jButton1 = new javax.swing.JButton();
-
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Post");
@@ -234,20 +224,6 @@ public class SeePost extends javax.swing.JFrame {
 
         pnlBread.add(pnlPostHeaderSeePost);
         pnlPostHeaderSeePost.setBounds(150, 20, 850, 80);
-
-
-        jscrPost.setBackground(new java.awt.Color(255, 255, 255));
-        jscrPost.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-
-        txtAreaPostSeePost.setColumns(20);
-        txtAreaPostSeePost.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtAreaPostSeePost.setRows(5);
-        txtAreaPostSeePost.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(126, 197, 239), 1, true));
-        jscrPost.setViewportView(txtAreaPostSeePost);
-
-        pnlBread.add(jscrPost);
-        jscrPost.setBounds(150, 120, 850, 350);
-
 
         btnNewComment.setBackground(new java.awt.Color(44, 95, 125));
         btnNewComment.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -675,12 +651,7 @@ public class SeePost extends javax.swing.JFrame {
     private javax.swing.JLabel lblUploadedPostSeePost;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlPostHeaderSeePost;
-
-    private javax.swing.JTextArea txtAreaPostSeePost;
-
-    private javax.swing.JTextArea taNewComment;
     private javax.swing.JTable tblAttachedFiles;
     private javax.swing.JTextPane txtPaneSeePost;
-
     // End of variables declaration//GEN-END:variables
 }

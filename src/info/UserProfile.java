@@ -32,6 +32,7 @@ public class UserProfile extends javax.swing.JFrame {
 
     private String author;
     private DefaultTableModel model;
+    private Forum forum = new Forum();
 
     /**
      * Creates new form UserProfile
