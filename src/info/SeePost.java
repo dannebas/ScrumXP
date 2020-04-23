@@ -339,7 +339,7 @@ public class SeePost extends javax.swing.JFrame {
         } catch (SQLException e) {
         } catch (BadLocationException er) {
         }
-
+    }
     public void loadComments() {
 
         ArrayList<HashMap<String, String>> allComments;
