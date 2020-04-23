@@ -44,8 +44,8 @@ import javax.swing.text.StyledDocument;
  * @author fabia
  */
 public class SeePost extends javax.swing.JFrame {
-
-    boolean isInformal = false;
+    
+    
     int numberOfComments = 0;
     Post aPost;
     String id;
@@ -53,6 +53,11 @@ public class SeePost extends javax.swing.JFrame {
     private DefaultTableModel model1;
     private DefaultListModel model;
     private String[] newList;
+    boolean isFormal = false;
+    boolean isEducational = false;
+    boolean isInformal = false;
+    
+    
 
     /**
      * Creates new form SeePost
@@ -60,6 +65,12 @@ public class SeePost extends javax.swing.JFrame {
      * @param id post id.
      */
     public SeePost(String id) {
+        
+        //checkAdminType();
+        isInformal(id);
+        isFormal(id);
+        isEducational(id);
+        
         initComponents();
         ImageIcon profilePicture = null;
         this.model = new DefaultListModel();
@@ -72,9 +83,9 @@ public class SeePost extends javax.swing.JFrame {
 
         try {
             profilePicture = new ImageIcon(db.getDB().fetchImageBytes("select IMAGE from USER_PROFILE where PROFILE_ID = (select AUTHOR from POSTS where POST_ID = " + id + ")"));
-            if (db.getDB().fetchColumn("select POST_ID from INFORMAL_POST where POST_ID =" + id) != null) {
-                isInformal = true;
-            }
+             
+               
+            
         } catch (SQLException ex) {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,6 +111,62 @@ public class SeePost extends javax.swing.JFrame {
         loadPostContent();
         txtPaneSeePost.setCaretPosition(0);
         setLocationRelativeTo(null);
+    }
+    
+    private void isEducational(String id) {
+    try { //Decides if the post is educational
+            if (db.getDB().fetchColumn("select POST_ID from EDUCATION_POSTS where POST_ID ='" + id+"'") != null) {
+                isEducational = true;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
+
+    private void isFormal(String id) {
+        try { //Decides if the post is formal
+            if (db.getDB().fetchColumn("select POST_ID from FORMAL_POST where POST_ID ='" + id+"'") != null) {
+                isFormal = true;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void isInformal(String id) {
+        try {
+            if (db.getDB().fetchColumn("select POST_ID from INFORMAL_POST where POST_ID ='" + id+"'") != null) {
+                isInformal = true;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void checkAdminType() {
+        if (User.getAdmin() && isInformal == true)
+        {
+            btnDeletePost.setVisible(true);
+        }
+        else if (User.getEduAdmin() && isEducational == true)
+        {
+            btnDeletePost.setVisible(true);
+        }
+        else if (User.getResAdmin() && isFormal == true)
+        {
+            btnDeletePost.setVisible(true);
+        }
+        else if (User.getUser().contains(author) && isInformal == true)
+        {
+            btnDeletePost.setVisible(true);
+        }
+        else
+        {
+            btnDeletePost.setVisible(false);
+        }
     }
 
     public static String getAuthor() {
@@ -133,6 +200,7 @@ public class SeePost extends javax.swing.JFrame {
         btnSaveFile = new javax.swing.JButton();
         scrNewComment = new javax.swing.JScrollPane();
         taNewComment = new javax.swing.JTextArea();
+        btnDeletePost = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Post");
@@ -230,13 +298,12 @@ public class SeePost extends javax.swing.JFrame {
             }
         });
         pnlBread.add(btnClosePost);
-        btnClosePost.setBounds(150, 710, 107, 37);
+        btnClosePost.setBounds(160, 710, 107, 37);
 
         scrAttachedFiles.setBackground(new java.awt.Color(255, 255, 255));
         scrAttachedFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Attached Files", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         scrAttachedFiles.setForeground(new java.awt.Color(0, 0, 0));
 
-        tblAttachedFiles.setBackground(new java.awt.Color(255, 255, 255));
         tblAttachedFiles.setForeground(new java.awt.Color(0, 0, 0));
         tblAttachedFiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -286,6 +353,19 @@ public class SeePost extends javax.swing.JFrame {
 
         pnlBread.add(scrNewComment);
         scrNewComment.setBounds(150, 580, 420, 120);
+
+        btnDeletePost.setBackground(new java.awt.Color(44, 95, 125));
+        btnDeletePost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnDeletePost.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeletePost.setText("Delete post");
+        btnDeletePost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnDeletePost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePostActionPerformed(evt);
+            }
+        });
+        pnlBread.add(btnDeletePost);
+        btnDeletePost.setBounds(30, 520, 107, 37);
 
         getContentPane().add(pnlBread);
 
@@ -400,6 +480,18 @@ public class SeePost extends javax.swing.JFrame {
         } catch (FileNotFoundException er) {
         }
     }//GEN-LAST:event_btnSaveFileActionPerformed
+
+    private void btnDeletePostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePostActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Do you want to delete this post?", "Attention", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+        {
+            try {
+                db.getDB().delete("delete from POSTS where POST_ID = " + id);
+            } catch (SQLException ex) {
+                Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnDeletePostActionPerformed
 
     public void addAttachedFilesToTable() {
         try {
@@ -549,6 +641,7 @@ public class SeePost extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClosePost;
+    private javax.swing.JButton btnDeletePost;
     private javax.swing.JButton btnNewComment;
     private javax.swing.JButton btnPrintPostSeePost;
     private javax.swing.JButton btnSaveFile;
