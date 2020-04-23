@@ -18,6 +18,7 @@ public class CalendarView extends javax.swing.JFrame {
         initComponents();
         setInternalFrames();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void setInternalFrames() {

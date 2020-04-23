@@ -33,7 +33,7 @@ public class CalendarPublic extends javax.swing.JFrame {
     private int dayOfWeek;
     private int firstDayOfMonth;
     private int daysInMonth;
-    private static ArrayList<String> meetingsArray;
+    private static ArrayList<String> meetingsArray1;
 
     /**
      * Creates new form Calendar
@@ -49,10 +49,11 @@ public class CalendarPublic extends javax.swing.JFrame {
         getMeetingsPerMonth();
         fillCalenderColors();
         setLabelCurrentUser();
+
     }
 
     private void fillCalenderColors() {
-        jTable1.setDefaultRenderer(Object.class, new EntryCellRender());
+        jTable1.setDefaultRenderer(Object.class, new EntryCellRenderPublic());
     }
 
     public int getWeek() {
@@ -98,7 +99,7 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void getMeetingsPerMonth() {
         try {
-            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'";
+            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'AND USER = '" + "public" + "'";
             System.out.println(q);
             ArrayList<String> lista = new ArrayList<>();
             lista = db.getDB().fetchColumn(q);
@@ -112,8 +113,8 @@ public class CalendarPublic extends javax.swing.JFrame {
                 }
                 meetings.add(list);
             }
-            this.meetingsArray = meetings;
-            System.out.println(this.meetingsArray);
+            this.meetingsArray1 = meetings;
+            System.out.println(this.meetingsArray1);
         } catch (SQLException ex) {
             System.err.println(ex);
         } catch (NullPointerException ex) {
@@ -122,7 +123,7 @@ public class CalendarPublic extends javax.swing.JFrame {
     }
 
     static ArrayList<String> getMeetingsArray() {
-        return meetingsArray;
+        return meetingsArray1;
     }
 
     private void setLabelCurrentMonth() {
@@ -571,7 +572,7 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void btnMonthUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthUpActionPerformed
         if (this.month == 1) {
-            meetingsArray.clear();
+            meetingsArray1.clear();
             month = 12;
             year--;
             setFirstDayOfMonth();
@@ -583,7 +584,7 @@ public class CalendarPublic extends javax.swing.JFrame {
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
-            meetingsArray.clear();
+            meetingsArray1.clear();
             this.month = this.month - 1;
             setFirstDayOfMonth();
             setDaysInMonth();
@@ -598,7 +599,7 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void btnMonthDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthDownActionPerformed
         if (this.month == 12) {
-            meetingsArray.clear();
+            meetingsArray1.clear();
             month = 1;
             year++;
             setFirstDayOfMonth();
@@ -610,7 +611,7 @@ public class CalendarPublic extends javax.swing.JFrame {
             getMeetingsPerMonth();
             fillCalenderColors();
         } else {
-            meetingsArray.clear();
+            meetingsArray1.clear();
             this.month = this.month + 1;
             setFirstDayOfMonth();
             setDaysInMonth();
@@ -639,7 +640,7 @@ public class CalendarPublic extends javax.swing.JFrame {
                 }
                 String aYear = Integer.toString(this.year);
                 String aDate = aYear + '-' + aMonth + "-" + aDay;
-                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + User.getUser() + "'";
+                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "public" + "'";
                 System.out.println(q);
                 ArrayList<HashMap<String, String>> lista = new ArrayList<>();
                 lista = db.getDB().fetchRows(q);
@@ -693,7 +694,7 @@ public class CalendarPublic extends javax.swing.JFrame {
                 String fromDate = dpFrom.getDateStringOrEmptyString();
                 String toDate = dpTo.getDateStringOrEmptyString();
 
-                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE USER = 'public' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
                 System.out.println(q);
 
                 DefaultListModel<String> model = new DefaultListModel<>();
