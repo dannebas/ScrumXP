@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -41,7 +42,8 @@ public class Forum extends javax.swing.JFrame {
             btnNewPost.setVisible(true);
         }
 
-        fillUserCombo();
+        fillComboCategories();
+        fillComboGroups();
 
         setExtendedState(MAXIMIZED_BOTH);
 
@@ -49,21 +51,32 @@ public class Forum extends javax.swing.JFrame {
 
     }
 
-    private void setGroups() {
+    private void fillComboCategories() {
+        try {
+            ArrayList<HashMap<String, String>> all = db.getDB().fetchRows("select * from CATEGORY");
+            for (HashMap aRow : all) {
 
+                String id = aRow.get("CATEGORY_ID").toString();
+                String name = aRow.get("CATEGORY_NAME").toString();
+                String item = id + " " + name;
+                jcbCategories.addItem(item);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void fillUserCombo() {
+    private void fillComboGroups() {
 
         try {
-            ArrayList<String> allUsers = db.getDB().fetchColumn("select USER_ID from USER");
+            ArrayList<HashMap<String, String>> all = db.getDB().fetchRows("select * from RESEARCH_GROUP");
+            for (HashMap aRow : all) {
 
-            for (String aUser : allUsers) {
-
-                String userFName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
-                String userLName = db.getDB().fetchSingle("select LASTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
-                String user = userFName + " " + userLName;
-                jcbUsers.addItem(user);
+                String id = aRow.get("GROUP_ID").toString();
+                String name = aRow.get("GROUP_NAME").toString();
+                String item = id + " " + name;
+                jcbGroups.addItem(item);
 
             }
         } catch (SQLException ex) {
@@ -77,65 +90,53 @@ public class Forum extends javax.swing.JFrame {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
             ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST)");
-
             for (HashMap<String, String> aPost : posts) {
-
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
-                //model.addRow(new Object[]{"Hej"});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             model.addRow(new Object[]{"No Posts"});
         }
     }
 
-    public void addResearchForumPost() // add all the Post in a certain category  to the table
-    {
-
+    public void addResearchForumPost() {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-
             ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
                     + " INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'");
             System.out.println(User.getUser());
             System.out.println(posts);
-
             for (HashMap<String, String> aPost : posts) {
-
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             model.addRow(new Object[]{"No Posts"});
         }
     }
 
-    public void addEducationForumPost() // add all the Post in a certain category  to the table
-    {
+    public void addEducationForumPost() {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-
             ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
-
             for (HashMap<String, String> aPost : posts) {
-
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             model.addRow(new Object[]{"No Posts"});
         }
-
     }
 
-    public void addGroupResearchForumPost(int groupID) // add all the Post in a certain category  to the table
-    {
-
+    public void addGroupResearchForumPost(int groupID) {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
@@ -149,11 +150,47 @@ public class Forum extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             model.addRow(new Object[]{"No Posts"});
         }
 
+    }
+
+    private void filterByCategory(String category) {
+        try {
+            model = (DefaultTableModel) tblForumPost.getModel();
+            model.setRowCount(0);
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST where CATEGORY = " + category + ")");
+            for (HashMap<String, String> aPost : posts) {
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No Posts in this category"});
+        }
+    }
+
+    private void filterByGroup(String group) {
+        try {
+            if (!group.equals("Research")) {
+                model = (DefaultTableModel) tblForumPost.getModel();
+                model.setRowCount(0);
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from RESEARCH_POSTS where RESEARCH_GROUP = " + group + ")");
+                for (HashMap<String, String> aPost : posts) {
+                    model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No Posts in this group"});
+        }
     }
 
     /**
@@ -175,9 +212,10 @@ public class Forum extends javax.swing.JFrame {
         btnEditPost = new javax.swing.JButton();
         pnlFilter = new javax.swing.JPanel();
         btnFilter = new javax.swing.JButton();
-        jcbUsers = new javax.swing.JComboBox<>();
         jcbGroups = new javax.swing.JComboBox<>();
         jxDDate = new org.jdesktop.swingx.JXDatePicker();
+        jcbResEduSelection = new javax.swing.JComboBox<>();
+        jcbCategories = new javax.swing.JComboBox<>();
         btnNewPost = new javax.swing.JButton();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
@@ -318,15 +356,34 @@ public class Forum extends javax.swing.JFrame {
         pnlFilter.add(btnFilter);
         btnFilter.setBounds(860, 20, 90, 37);
 
-        jcbUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Users" }));
-        pnlFilter.add(jcbUsers);
-        jcbUsers.setBounds(190, 30, 160, 26);
-
         jcbGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Research Groups" }));
+        jcbGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbGroupsActionPerformed(evt);
+            }
+        });
         pnlFilter.add(jcbGroups);
-        jcbGroups.setBounds(20, 30, 160, 26);
+        jcbGroups.setBounds(380, 30, 160, 26);
         pnlFilter.add(jxDDate);
         jxDDate.setBounds(650, 30, 160, 24);
+
+        jcbResEduSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Research", "Education" }));
+        jcbResEduSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbResEduSelectionActionPerformed(evt);
+            }
+        });
+        pnlFilter.add(jcbResEduSelection);
+        jcbResEduSelection.setBounds(20, 30, 160, 26);
+
+        jcbCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categories" }));
+        jcbCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCategoriesActionPerformed(evt);
+            }
+        });
+        pnlFilter.add(jcbCategories);
+        jcbCategories.setBounds(200, 30, 160, 26);
 
         pnlBreadForum.add(pnlFilter);
         pnlFilter.setBounds(20, 10, 980, 70);
@@ -530,6 +587,37 @@ public class Forum extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFilterActionPerformed
 
+    private void jcbResEduSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbResEduSelectionActionPerformed
+        int selection = jcbResEduSelection.getSelectedIndex();
+        switch (selection) {
+            case 0:
+                addAllFormalPost();
+                break;
+            case 1:
+                addResearchForumPost();
+                break;
+            case 2:
+                addEducationForumPost();
+                break;
+            default:
+                addAllFormalPost();
+
+        }
+    }//GEN-LAST:event_jcbResEduSelectionActionPerformed
+
+    private void jcbCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCategoriesActionPerformed
+        String selection = jcbCategories.getSelectedItem().toString().split("")[0];
+        System.out.println(selection);
+        if (!selection.equals("C")) {
+            filterByCategory(selection);
+        }
+    }//GEN-LAST:event_jcbCategoriesActionPerformed
+
+    private void jcbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGroupsActionPerformed
+        String selection = jcbGroups.getSelectedItem().toString().split(" ")[0];
+        filterByGroup(selection);
+    }//GEN-LAST:event_jcbGroupsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
@@ -541,8 +629,9 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
+    private javax.swing.JComboBox<String> jcbCategories;
     private javax.swing.JComboBox<String> jcbGroups;
-    private javax.swing.JComboBox<String> jcbUsers;
+    private javax.swing.JComboBox<String> jcbResEduSelection;
     private org.jdesktop.swingx.JXDatePicker jxDDate;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;

@@ -22,7 +22,7 @@ import javax.swing.table.TableColumnModel;
  * @author Lukas
  */
 public class Home extends javax.swing.JFrame {
-
+    
     private DefaultTableModel model;
 
     /**
@@ -44,7 +44,6 @@ public class Home extends javax.swing.JFrame {
         scrNotifications.getViewport().setBackground(Color.white);
         loadNotifications();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -352,6 +351,7 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void loadNotifications() {
         ArrayList<HashMap<String, String>> notifications = null;
         model = (DefaultTableModel) tableNotifications.getModel();
@@ -439,7 +439,6 @@ public class Home extends javax.swing.JFrame {
             }
 
         }
-
     }
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed

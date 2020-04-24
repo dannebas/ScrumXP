@@ -210,7 +210,6 @@ public class SeePost extends javax.swing.JFrame {
 
         pnlBread.setBackground(new java.awt.Color(255, 255, 255));
         pnlBread.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Post", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        pnlBread.setForeground(new java.awt.Color(0, 0, 0));
         pnlBread.setAlignmentX(0.0F);
         pnlBread.setAlignmentY(0.0F);
         pnlBread.setMaximumSize(new java.awt.Dimension(1022, 600));
@@ -225,7 +224,6 @@ public class SeePost extends javax.swing.JFrame {
         lblProfileImageSeePost.setBounds(20, 30, 110, 145);
 
         lblAuthorNameSeePost.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblAuthorNameSeePost.setForeground(new java.awt.Color(0, 0, 0));
         lblAuthorNameSeePost.setText("Author:");
         pnlBread.add(lblAuthorNameSeePost);
         lblAuthorNameSeePost.setBounds(20, 200, 51, 19);
@@ -248,7 +246,6 @@ public class SeePost extends javax.swing.JFrame {
         pnlPostHeaderSeePost.setLayout(null);
 
         lblTiltleSeePost.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblTiltleSeePost.setForeground(new java.awt.Color(0, 0, 0));
         lblTiltleSeePost.setText("Title");
         pnlPostHeaderSeePost.add(lblTiltleSeePost);
         lblTiltleSeePost.setBounds(20, 20, 436, 34);
@@ -256,12 +253,12 @@ public class SeePost extends javax.swing.JFrame {
         lblUploadedPostSeePost.setForeground(new java.awt.Color(153, 153, 153));
         lblUploadedPostSeePost.setText("Uploaded");
         pnlPostHeaderSeePost.add(lblUploadedPostSeePost);
-        lblUploadedPostSeePost.setBounds(20, 50, 70, 16);
+        lblUploadedPostSeePost.setBounds(20, 50, 70, 14);
 
         lblUploadDateSeePost.setForeground(new java.awt.Color(153, 153, 153));
         lblUploadDateSeePost.setText("Date");
         pnlPostHeaderSeePost.add(lblUploadDateSeePost);
-        lblUploadDateSeePost.setBounds(110, 50, 100, 16);
+        lblUploadDateSeePost.setBounds(110, 50, 100, 14);
 
         pnlBread.add(pnlPostHeaderSeePost);
         pnlPostHeaderSeePost.setBounds(150, 20, 850, 80);
@@ -302,9 +299,7 @@ public class SeePost extends javax.swing.JFrame {
 
         scrAttachedFiles.setBackground(new java.awt.Color(255, 255, 255));
         scrAttachedFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Attached Files", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        scrAttachedFiles.setForeground(new java.awt.Color(0, 0, 0));
 
-        tblAttachedFiles.setForeground(new java.awt.Color(0, 0, 0));
         tblAttachedFiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -529,15 +524,13 @@ public class SeePost extends javax.swing.JFrame {
                     db.getDB().delete("DELETE FROM COMMENTS WHERE POST_ID = '" + id + "'");
                        
                 }
-                 
+                JOptionPane.showMessageDialog(null, "The post has been deleted");
                 
             } catch (SQLException ex) {
                 Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
         }
-        
-        JOptionPane.showMessageDialog(null, "The post has been deleted");
         
     }//GEN-LAST:event_btnDeletePostActionPerformed
 

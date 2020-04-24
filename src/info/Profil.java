@@ -496,7 +496,16 @@ public class Profil extends javax.swing.JFrame {
                 break;
             case "Edit meeting":
                 JOptionPane.showMessageDialog(null, "Edit meeting");
-                new EditMeeting().setVisible(true);
+                
+                EditMeeting obj = new EditMeeting();
+                obj.setLocationRelativeTo(null);
+                obj.setVisible(true);
+                
+                
+                
+                
+                
+                
                 
                 break;
             

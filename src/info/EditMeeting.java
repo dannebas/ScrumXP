@@ -63,6 +63,7 @@ public class EditMeeting extends javax.swing.JFrame {
         lblMeetingIDUpdate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblMyMeeting.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,7 +179,7 @@ public class EditMeeting extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,10 +242,13 @@ public class EditMeeting extends javax.swing.JFrame {
             
             else if(i==3)
             {
+                
                 txtFieldLocation.setText(tblMyMeeting.getValueAt(selectedRow, i).toString());
             }
             else if(i==4)
+                
             {
+                
                 lblMeetingIDUpdate.setText(tblMyMeeting.getValueAt(selectedRow, i).toString());
             }
             
@@ -253,7 +257,8 @@ public class EditMeeting extends javax.swing.JFrame {
     }//GEN-LAST:event_tblMyMeetingMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        if(Validation.isCorrectDateFormat(txtFieldDate))
+        {
         String m = lblMeetingIDUpdate.getText().toString();
         String q1 = "UPDATE MEETINGS SET TITLE='"+txtFieldTitle.getText()+"', DATE ='"+txtFieldDate.getText()+"', TIME='"+txtFieldTime.getText()+"', LOCATION='"+txtFieldLocation.getText()+"' where MEETING_ID="+m;
         try {
@@ -264,6 +269,7 @@ public class EditMeeting extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EditMeeting.class.getName()).log(Level.SEVERE, null, ex);
             System.out.print(ex);
+        }
         }
         
         
