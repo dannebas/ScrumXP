@@ -24,7 +24,7 @@ public class EntryCellRenderPublic extends DefaultTableCellRenderer {
             setBackground(weekStatus);
 
         } else if (value != null && column != 0) {
-            if (CalendarPublic.getMeetingsArray() == null || CalendarPrivate.getMeetingsArray().isEmpty()) {
+            if (CalendarPublic.getMeetingsArray() == null || CalendarPublic.getMeetingsArray().isEmpty()) {
                 setBackground(Color.GREEN);
             } else {
                 for (String aString : CalendarPublic.getMeetingsArray()) {

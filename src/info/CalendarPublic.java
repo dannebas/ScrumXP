@@ -36,6 +36,7 @@ public class CalendarPublic extends javax.swing.JFrame {
      * Creates new form Calendar
      */
     public CalendarPublic() {
+        emptyArrayListIfNotEmpty();
         initComponents();
         getDate();
         fillDates();
