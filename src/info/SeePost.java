@@ -398,7 +398,6 @@ public class SeePost extends javax.swing.JFrame {
             txtPaneSeePost.setText(aPost.getDescription().indent(4) + "\n");
 
             int numberOfFiles = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from FILES where POST =" + id));
-            System.out.println(numberOfFiles);
             if (numberOfFiles > 0) {
 
                 ArrayList<HashMap<String, String>> li = new ArrayList<>();
@@ -485,12 +484,61 @@ public class SeePost extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(null, "Do you want to delete this post?", "Attention", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             try {
-                db.getDB().delete("delete from POSTS where POST_ID = " + id);
+                db.getDB().delete("delete from POSTS where POST_ID = '" + id + "'");
+                
+                if(("SELECT * FROM FILES WHERE POST = '" + id + "'")!= null)
+                {
+                      
+                    db.getDB().delete("DELETE FROM FILES WHERE POST= '" + id + "'");
+                     
+                }
+                
+             
+                if(("SELECT * FROM INFORMAL_POST WHERE POST_ID= '" + id + "'")!= null)
+                {
+                    
+                    db.getDB().delete("DELETE FROM INFORMAL_POST WHERE POST_ID = '" + id + "'");
+                       
+                }
+                
+              
+                if(("SELECT * FROM FORMAL_POST WHERE POST_ID = '" + id + "'")!= null)
+                {
+                    
+                    db.getDB().delete("DELETE FROM FORMAL_POST WHERE POST_ID = '" + id + "'");
+                       
+                }
+                
+                if(("SELECT * FROM EDUCATION_POSTS WHERE POST_ID = '" + id + "'")!= null)
+                {
+                    
+                    db.getDB().delete("DELETE FROM EDUCATION_POSTS WHERE POST_ID = '" + id + "'");
+                       
+                }
+                
+                  if(("SELECT * FROM RESEARCH_POSTS WHERE POST_ID = '" + id + "'")!= null)
+                {
+                    
+                    db.getDB().delete("DELETE FROM RESEARCH_POSTS WHERE POST_ID = '" + id + "'");
+                       
+                }
+                
+                  if(("SELECT * FROM COMMENTS WHERE POST_ID = '" + id + "'")!= null)
+                {
+                    
+                    db.getDB().delete("DELETE FROM COMMENTS WHERE POST_ID = '" + id + "'");
+                       
+                }
+                 
+                
             } catch (SQLException ex) {
                 Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
         }
+        
+        JOptionPane.showMessageDialog(null, "The post has been deleted");
+        
     }//GEN-LAST:event_btnDeletePostActionPerformed
 
     public void addAttachedFilesToTable() {

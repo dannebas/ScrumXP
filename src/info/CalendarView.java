@@ -23,10 +23,10 @@ public class CalendarView extends javax.swing.JFrame {
 
     private void setInternalFrames() {
         CalendarPrivate calPrivate = new CalendarPrivate();
-        jInternalFrame1.setContentPane(calPrivate.getContentPane());
+        internalFramePrivateCal.setContentPane(calPrivate.getContentPane());
 
         CalendarPublic calPublic = new CalendarPublic();
-        jInternalFrame2.setContentPane(calPublic.getContentPane());
+        internalFramePublicCal.setContentPane(calPublic.getContentPane());
     }
 
     /**
@@ -38,37 +38,38 @@ public class CalendarView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jInternalFrame2 = new javax.swing.JInternalFrame();
+        internalFramePrivateCal = new javax.swing.JInternalFrame();
+        internalFramePublicCal = new javax.swing.JInternalFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jInternalFrame1.setPreferredSize(new java.awt.Dimension(568, 619));
-        jInternalFrame1.setVisible(true);
+        internalFramePrivateCal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        internalFramePrivateCal.setPreferredSize(new java.awt.Dimension(568, 619));
+        internalFramePrivateCal.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout internalFramePrivateCalLayout = new javax.swing.GroupLayout(internalFramePrivateCal.getContentPane());
+        internalFramePrivateCal.getContentPane().setLayout(internalFramePrivateCalLayout);
+        internalFramePrivateCalLayout.setHorizontalGroup(
+            internalFramePrivateCalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 566, Short.MAX_VALUE)
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        internalFramePrivateCalLayout.setVerticalGroup(
+            internalFramePrivateCalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 667, Short.MAX_VALUE)
         );
 
-        jInternalFrame2.setPreferredSize(new java.awt.Dimension(568, 619));
-        jInternalFrame2.setVisible(true);
+        internalFramePublicCal.setPreferredSize(new java.awt.Dimension(568, 619));
+        internalFramePublicCal.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout internalFramePublicCalLayout = new javax.swing.GroupLayout(internalFramePublicCal.getContentPane());
+        internalFramePublicCal.getContentPane().setLayout(internalFramePublicCalLayout);
+        internalFramePublicCalLayout.setHorizontalGroup(
+            internalFramePublicCalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 566, Short.MAX_VALUE)
         );
-        jInternalFrame2Layout.setVerticalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        internalFramePublicCalLayout.setVerticalGroup(
+            internalFramePublicCalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,9 +78,9 @@ public class CalendarView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(internalFramePrivateCal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(internalFramePublicCal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -87,8 +88,8 @@ public class CalendarView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
-                    .addComponent(jInternalFrame2, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
+                    .addComponent(internalFramePrivateCal, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(internalFramePublicCal, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -131,7 +132,7 @@ public class CalendarView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JInternalFrame jInternalFrame2;
+    private javax.swing.JInternalFrame internalFramePrivateCal;
+    private javax.swing.JInternalFrame internalFramePublicCal;
     // End of variables declaration//GEN-END:variables
 }
