@@ -361,7 +361,7 @@ public class Home extends javax.swing.JFrame {
         try {
             //SELECT * FROM MEETINGPARTICIPANTS WHERE USER_ID = 'tms' AND SEEN = FALSE
             //"SELECT * FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "' AND SEEN = FALSE"
-            notifications = db.getDB().fetchRows("SELECT * FROM MEETINGPARTICIPANTS WHERE USER_ID = 'tms' AND SEEN = FALSE");
+            notifications = db.getDB().fetchRows("SELECT * FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "' AND SEEN = FALSE");
             System.out.println("SIZE: " + notifications.size());
 
             for (HashMap<String, String> aNotifications : notifications) {
@@ -382,6 +382,11 @@ public class Home extends javax.swing.JFrame {
 
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(NullPointerException ex)
+        {
+            tableNotifications.setVisible(false);
+            scrNotifications.setVisible(false);
         }
     }
 
