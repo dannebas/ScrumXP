@@ -568,7 +568,11 @@ public class Booking extends javax.swing.JFrame {
         String location = txtLocation.getText();
         String date = dp.getDateStringOrEmptyString();
         String time = tp.getText().toString();
-        arrayListAddedUsers.add(User.getUser());
+
+        if (!lstInvitations.getModel().getElementAt(0).equals("public")) {
+            arrayListAddedUsers.add(User.getUser());
+            System.out.println("DET FUNKADE");
+        }
 
         try {
             String autoID;
