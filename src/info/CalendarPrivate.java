@@ -92,7 +92,11 @@ public class CalendarPrivate extends javax.swing.JFrame {
 
     private void getMeetingsPerMonth() {
         try {
-            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%' AND USER = '" + User.getUser() + "'";
+            String n = "";
+            if (this.month < 10) {
+                n = n + '0';
+            }
+            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + n + this.month + "-%' AND MEETINGS.MEETING_ID = (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "')";
             System.out.println(q);
             ArrayList<String> lista = new ArrayList<>();
             lista = db.getDB().fetchColumn(q);
@@ -679,6 +683,12 @@ public class CalendarPrivate extends javax.swing.JFrame {
             try {
                 String fromDate = dpFrom.getDateStringOrEmptyString();
                 String toDate = dpTo.getDateStringOrEmptyString();
+
+                String n = "";
+                if (this.month < 10) {
+                    n = n + '0';
+                }
+                String q2 = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + n + this.month + "-%' AND MEETINGS.MEETING_ID = (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "')";
 
                 String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE USER = '" + User.getUser() + "' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
                 System.out.println(q);

@@ -635,7 +635,7 @@ public class Booking extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }//GEN-LAST:event_btnGroupActionPerformed
 
