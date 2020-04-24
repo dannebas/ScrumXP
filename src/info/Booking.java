@@ -612,6 +612,8 @@ public class Booking extends javax.swing.JFrame {
         System.out.println(telefon);
 
         invitations.removeAllElements();
+        JOptionPane.showMessageDialog(null, "Meeting booked.");
+        this.dispose();
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
