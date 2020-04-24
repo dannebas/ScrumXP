@@ -43,13 +43,13 @@ public class SeeBooking extends javax.swing.JFrame {
     }
     
     private void tblPostsMouseClicked(java.awt.event.MouseEvent evt) {                                      
-        System.out.println("HITLER");
+        
         String idString = "";
         if (evt.getClickCount() == 2) {
             int id = tblMyMeeting.getSelectedRow();
             try {
                 idString = tblMyMeeting.getModel().getValueAt(id, 4).toString();
-                System.out.println("HITLER");
+                
                 new SeePost(idString).setVisible(true);
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");

@@ -86,5 +86,20 @@ public class Validation {
         }
         return answer;
     }
+    
+    public static boolean isCorrectDateFormat(JTextField textfield)
+    {
+        boolean checkFormat;
+        if (textfield.getText().matches("([0-9]{4})-([0-9]{2})-([0-9]{2})"))
+        {
+            checkFormat=true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Enter date according to this format: YYYY-MM-DD");
+            checkFormat=false;
+        }
+        return checkFormat;
+    }
 
 }
