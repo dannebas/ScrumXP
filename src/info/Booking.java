@@ -525,7 +525,7 @@ public class Booking extends javax.swing.JFrame {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
 
-        getText();
+ getText();
         getSubject();
         getSum();
 
@@ -535,8 +535,8 @@ public class Booking extends javax.swing.JFrame {
         String date = dp.getDateStringOrEmptyString();
         String time = tp.getText().toString();
 
+        String autoID = null;
         try {
-            String autoID;
             autoID = db.getDB().getAutoIncrement("MEETINGS", "MEETING_ID");
             if (autoID == null) {
                 autoID = "1";
@@ -544,19 +544,27 @@ public class Booking extends javax.swing.JFrame {
 
             String q1 = "INSERT into meetings values('" + autoID + "', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user + "');";
             db.getDB().insert(q1);
-            String q2 = "INSERT into meetingparticipants values('" + autoID + "', '" + user + "', false)";
-            db.getDB().insert(q2);
+
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
-            String mailAdress = lstInvitations.getModel().getElementAt(i);
-
             try {
-
-                //JavaMail.JavaMailUtil.sendMail(mailAdress);
-            } catch (Exception ex) {
+                String mailAdress = lstInvitations.getModel().getElementAt(i);
+                //SELECT PROFILE_ID FROM USER_PROFILE WHERE EMAILADDRESS = 'tanja.maki-runsas@oru.se'
+                String id = db.getDB().fetchSingle("SELECT PROFILE_ID FROM USER_PROFILE WHERE EMAILADDRESS = '" + mailAdress + "'");
+                System.out.println();
+                String q2 = "INSERT into meetingparticipants values('" + autoID + "', '" + id + "', false)";
+                System.out.println("DAWHDWAHHDAW" + q2);
+                db.getDB().insert(q2);
+                try {
+                    
+                    //JavaMail.JavaMailUtil.sendMail(mailAdress);
+                } catch (Exception ex) {
+                    Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -575,6 +583,7 @@ public class Booking extends javax.swing.JFrame {
         System.out.println(telefon);
 
         invitations.removeAllElements();
+
 
     }//GEN-LAST:event_btnBookActionPerformed
 
