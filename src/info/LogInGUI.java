@@ -355,7 +355,6 @@ class LogInGUI extends javax.swing.JFrame {
 
     private void pwdUserPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("test");
             logIn();
         }
     }//GEN-LAST:event_pwdUserPasswordKeyPressed
