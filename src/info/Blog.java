@@ -36,6 +36,7 @@ public class Blog extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         fillUserCombo();
+        fillComboYear();
         if (User.getAdmin() == false) {
             btnEditPost.setVisible(false);
         }
@@ -93,6 +94,71 @@ public class Blog extends javax.swing.JFrame {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     private void fillComboYear() {
+        try {
+            ArrayList<String> allYears;
+            String addedYear = "";
+            String strYear = "";
+            allYears = db.getDB().fetchColumn("select DATE from POSTS order by DATE desc");
+
+            for (String aYear : allYears) {
+                strYear = aYear.substring(0, 4);
+                if (!strYear.equals(addedYear)) {
+                    jcbYear.addItem(strYear);
+                    addedYear = strYear;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+
+        }
+    }
+    
+     private void filterByYear(String year) {
+        try {
+            model = (DefaultTableModel) tblGeneralPost.getModel();
+            model.setRowCount(0);
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + year + "%' AND POST_ID in (select POST_ID from INFORMAL_POST)");
+            for (HashMap<String, String> aPost : posts) {
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No Posts that year"});
+        }
+
+    }
+
+    private void filterByMonth(String month) {
+        String year = jcbYear.getSelectedItem().toString();
+        System.out.println(year);
+        String yearAndMonth = year + "-" + month;
+        System.out.println(yearAndMonth);
+
+        if (!year.equals("Year")) {
+            try {
+                model = (DefaultTableModel) tblGeneralPost.getModel();
+                model.setRowCount(0);
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in (select POST_ID from INFORMAL_POST)");
+                for (HashMap<String, String> aPost : posts) {
+                    model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Forum.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            } catch (NullPointerException e) {
+                model.addRow(new Object[]{"No Posts that month"});
+            }
+        } else {
+            model.addRow(new Object[]{"Please select a year."});
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,9 +179,10 @@ public class Blog extends javax.swing.JFrame {
         btnEditPost = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         pnlFilter = new javax.swing.JPanel();
-        btnFilter = new javax.swing.JButton();
-        jxDDate = new org.jdesktop.swingx.JXDatePicker();
         jcbUsers = new javax.swing.JComboBox<>();
+        pnlDateSelection = new javax.swing.JPanel();
+        jcbYear = new javax.swing.JComboBox<>();
+        jcbMonth = new javax.swing.JComboBox<>();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -255,21 +322,6 @@ public class Blog extends javax.swing.JFrame {
         pnlFilter.setForeground(new java.awt.Color(0, 0, 0));
         pnlFilter.setLayout(null);
 
-        btnFilter.setBackground(new java.awt.Color(44, 95, 125));
-        btnFilter.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnFilter.setForeground(new java.awt.Color(255, 255, 255));
-        btnFilter.setText("Apply filter");
-        btnFilter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilterActionPerformed(evt);
-            }
-        });
-        pnlFilter.add(btnFilter);
-        btnFilter.setBounds(410, 20, 90, 37);
-        pnlFilter.add(jxDDate);
-        jxDDate.setBounds(220, 30, 160, 24);
-
         jcbUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Users" }));
         jcbUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,7 +332,33 @@ public class Blog extends javax.swing.JFrame {
         jcbUsers.setBounds(20, 30, 160, 26);
 
         pnlBreadForum.add(pnlFilter);
-        pnlFilter.setBounds(30, 10, 950, 70);
+        pnlFilter.setBounds(30, 10, 250, 70);
+
+        pnlDateSelection.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDateSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date Selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlDateSelection.setForeground(new java.awt.Color(0, 0, 0));
+        pnlDateSelection.setLayout(null);
+
+        jcbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year" }));
+        jcbYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbYearActionPerformed(evt);
+            }
+        });
+        pnlDateSelection.add(jcbYear);
+        jcbYear.setBounds(20, 30, 80, 26);
+
+        jcbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December" }));
+        jcbMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMonthActionPerformed(evt);
+            }
+        });
+        pnlDateSelection.add(jcbMonth);
+        jcbMonth.setBounds(120, 30, 110, 26);
+
+        pnlBreadForum.add(pnlDateSelection);
+        pnlDateSelection.setBounds(580, 10, 420, 70);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -464,10 +542,6 @@ public class Blog extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBlogActionPerformed
 
-    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFilterActionPerformed
-
     private void jcbUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsersActionPerformed
         String user = jcbUsers.getSelectedItem().toString().split(" ")[0];
         System.out.println(user);
@@ -475,23 +549,77 @@ public class Blog extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jcbUsersActionPerformed
 
+    private void jcbYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbYearActionPerformed
+        String year = jcbYear.getSelectedItem().toString();
+        jcbMonth.setSelectedIndex(0);
+        filterByYear(year);
+    }//GEN-LAST:event_jcbYearActionPerformed
+
+    private void jcbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMonthActionPerformed
+        int index = jcbMonth.getSelectedIndex();
+        String month = "";
+        switch (index) {
+            case 1:
+            month = "01";
+            break;
+            case 2:
+            month = "02";
+            break;
+            case 3:
+            month = "03";
+            break;
+            case 4:
+            month = "04";
+            break;
+            case 5:
+            month = "05";
+            break;
+            case 6:
+            month = "06";
+            break;
+            case 7:
+            month = "07";
+            break;
+            case 8:
+            month = "08";
+            break;
+            case 9:
+            month = "09";
+            break;
+            case 10:
+            month = "10";
+            break;
+            case 11:
+            month = "11";
+            break;
+            case 12:
+            month = "12";
+            break;
+            default:
+            month = "01";
+
+        }
+        filterByMonth(month);
+    }//GEN-LAST:event_jcbMonthActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnEditPost;
-    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jcbMonth;
     private javax.swing.JComboBox<String> jcbUsers;
-    private org.jdesktop.swingx.JXDatePicker jxDDate;
+    private javax.swing.JComboBox<String> jcbYear;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBreadForum;
+    private javax.swing.JPanel pnlDateSelection;
     private javax.swing.JPanel pnlFilter;
     private javax.swing.JPanel pnlFooterForum;
     private javax.swing.JPanel pnlHeader;

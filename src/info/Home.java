@@ -305,7 +305,7 @@ public class Home extends javax.swing.JFrame {
         scrNotifications.setBounds(10, 30, 410, 110);
 
         pnlBreadForum.add(pnlNotifications);
-        pnlNotifications.setBounds(530, 30, 430, 160);
+        pnlNotifications.setBounds(520, 30, 440, 160);
 
         pnlActions1.setBackground(new java.awt.Color(255, 255, 255));
         pnlActions1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
@@ -313,6 +313,7 @@ public class Home extends javax.swing.JFrame {
         pnlActions1.setLayout(null);
 
         lblNewMeeting.setText("New meeting");
+        lblNewMeeting.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         lblNewMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblNewMeetingMouseClicked(evt);
@@ -322,7 +323,7 @@ public class Home extends javax.swing.JFrame {
         lblNewMeeting.setBounds(40, 50, 80, 70);
 
         pnlBreadForum.add(pnlActions1);
-        pnlActions1.setBounds(520, 210, 430, 160);
+        pnlActions1.setBounds(520, 210, 440, 160);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
