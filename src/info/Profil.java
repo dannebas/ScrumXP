@@ -28,8 +28,10 @@ public class Profil extends javax.swing.JFrame {
     private EditProfile a;
     private Forum forum;
     private DefaultTableModel model;
+    private String user;
 
     public Profil() {
+        user = User.getUser();
         initComponents();
         forum = new Forum();
         setExtendedState(MAXIMIZED_BOTH);
@@ -198,7 +200,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbMeetingProfile);
-        cbMeetingProfile.setBounds(190, 30, 154, 26);
+        cbMeetingProfile.setBounds(190, 30, 154, 25);
 
         cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
         cbNewPostProfile.setToolTipText("");
@@ -208,7 +210,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbNewPostProfile);
-        cbNewPostProfile.setBounds(10, 30, 154, 26);
+        cbNewPostProfile.setBounds(10, 30, 154, 25);
 
         pnlBread.add(pnlUserMeetingAndPostBackground);
         pnlUserMeetingAndPostBackground.setBounds(130, 110, 380, 100);
@@ -235,7 +237,6 @@ public class Profil extends javax.swing.JFrame {
         scrMyPostsTable.setBackground(new java.awt.Color(255, 255, 255));
         scrMyPostsTable.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "My Posts", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
 
-        tblMyPosts.setBackground(new java.awt.Color(255, 255, 255));
         tblMyPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -495,8 +496,10 @@ public class Profil extends javax.swing.JFrame {
                 break;
             case "Edit meeting":
                 JOptionPane.showMessageDialog(null, "Edit meeting");
-                //Metod
+                new EditMeeting().setVisible(true);
+                
                 break;
+            
             default:
         }
     }//GEN-LAST:event_cbMeetingProfileActionPerformed
