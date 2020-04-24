@@ -27,6 +27,7 @@ public class Booking extends javax.swing.JFrame {
     private static String subject;
     private static String sum;
     private static String user;
+    private ArrayList<String> arrayListAddedUsers;
 
     public Booking() {
         initComponents();
@@ -34,6 +35,7 @@ public class Booking extends javax.swing.JFrame {
         populateGroupCMBX();
         getUser();
         setLocationRelativeTo(null);
+        this.arrayListAddedUsers = new ArrayList();
     }
 
     @SuppressWarnings("unchecked")
@@ -58,6 +60,7 @@ public class Booking extends javax.swing.JFrame {
         scrInvitations = new javax.swing.JScrollPane();
         lstInvitations = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         pnlDetails = new javax.swing.JPanel();
         lblLocation = new javax.swing.JLabel();
         txtLocation = new javax.swing.JTextField();
@@ -88,29 +91,22 @@ public class Booking extends javax.swing.JFrame {
 
         scrlMessage.setBackground(new java.awt.Color(255, 255, 255));
         scrlMessage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Message", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        scrlMessage.setForeground(new java.awt.Color(0, 0, 0));
         scrlMessage.setPreferredSize(new java.awt.Dimension(200, 100));
 
         txtMessage.setColumns(20);
         txtMessage.setRows(5);
-        txtMessage.setBackground(new java.awt.Color(255, 255, 255));
         txtMessage.setBorder(null);
-        txtMessage.setCaretColor(new java.awt.Color(0, 0, 0));
-        txtMessage.setForeground(new java.awt.Color(0, 0, 0));
         scrlMessage.setViewportView(txtMessage);
 
         pnlBread.add(scrlMessage);
         scrlMessage.setBounds(30, 120, 240, 140);
 
-        txtTitle.setBackground(new java.awt.Color(255, 255, 255));
         txtTitle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Title", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        txtTitle.setForeground(new java.awt.Color(0, 0, 0));
         pnlBread.add(txtTitle);
         txtTitle.setBounds(30, 50, 240, 50);
 
         pnlPeople.setBackground(new java.awt.Color(255, 255, 255));
         pnlPeople.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select Participants", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        pnlPeople.setForeground(new java.awt.Color(0, 0, 0));
         pnlPeople.setLayout(null);
 
         cmbGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Group", "eHälsa", "osv", "osv" }));
@@ -196,10 +192,7 @@ public class Booking extends javax.swing.JFrame {
         lblEmail.setBounds(10, 130, 100, 30);
 
         scrInvitations.setBackground(new java.awt.Color(255, 255, 255));
-        scrInvitations.setForeground(new java.awt.Color(0, 0, 0));
 
-        lstInvitations.setBackground(new java.awt.Color(255, 255, 255));
-        lstInvitations.setForeground(new java.awt.Color(0, 0, 0));
         lstInvitations.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " " };
             public int getSize() { return strings.length; }
@@ -223,12 +216,22 @@ public class Booking extends javax.swing.JFrame {
         pnlPeople.add(jButton1);
         jButton1.setBounds(340, 320, 90, 32);
 
+        jCheckBox1.setText("Make public");
+        jCheckBox1.setContentAreaFilled(false);
+        jCheckBox1.setMargin(new java.awt.Insets(-2, -2, -2, -2));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        pnlPeople.add(jCheckBox1);
+        jCheckBox1.setBounds(10, 20, 100, 23);
+
         pnlBread.add(pnlPeople);
         pnlPeople.setBounds(30, 270, 440, 370);
 
         pnlDetails.setBackground(new java.awt.Color(255, 255, 255));
         pnlDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        pnlDetails.setForeground(new java.awt.Color(0, 0, 0));
         pnlDetails.setLayout(null);
 
         lblLocation.setText("Meeting location");
@@ -313,14 +316,11 @@ public class Booking extends javax.swing.JFrame {
 
         pnlSummary.setBackground(new java.awt.Color(255, 255, 255));
         pnlSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Summary", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
-        pnlSummary.setForeground(new java.awt.Color(0, 0, 0));
         pnlSummary.setLayout(null);
 
         scrlSummary.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtSummary.setBackground(new java.awt.Color(255, 255, 255));
         txtSummary.setColumns(20);
-        txtSummary.setForeground(new java.awt.Color(0, 0, 0));
         txtSummary.setRows(5);
         txtSummary.setBorder(null);
         scrlSummary.setViewportView(txtSummary);
@@ -482,10 +482,12 @@ public class Booking extends javax.swing.JFrame {
             String n1 = names[0];
             String n2 = names[1];
             String q1 = "select EMAILADDRESS from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
+            String q2 = "select PROFILE_ID from USER_PROFILE where FIRSTNAME = '" + n1 + "' and LASTNAME = '" + n2 + "';";
             String a = db.getDB().fetchSingle(q1);
+            String b = db.getDB().fetchSingle(q2);
 
             lstInvitations.setModel(invitations);
-            noDuplicate(a);
+            noDuplicateTwoValues(a, b);
 
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
@@ -501,7 +503,7 @@ public class Booking extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEmailActionPerformed
 
-    private void noDuplicate(String aString) {
+    private void noDuplicateTwoValues(String aString1, String aString2) {
         boolean found = false;
         ListModel model = lstInvitations.getModel();
 
@@ -509,18 +511,43 @@ public class Booking extends javax.swing.JFrame {
         {
 
             System.out.println(model.getElementAt(i));
-            if (model.getElementAt(i).equals(aString)) {
+            if (model.getElementAt(i).equals(aString1)) {
                 found = true;
             }
 
         }
         if (found == false) {
-            invitations.addElement(aString);
+            invitations.addElement(aString1);
+            txtEmail.setText("");
+            arrayListAddedUsers.add(aString2);
+            System.out.println(arrayListAddedUsers);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Participant already added..");
+        }
+    }
+
+    private void noDuplicate(String aString1) {
+        boolean found = false;
+        ListModel model = lstInvitations.getModel();
+
+        for (int i = 0; i < invitations.getSize(); i++) // Check if element already exists in jList.
+        {
+
+            System.out.println(model.getElementAt(i));
+            if (model.getElementAt(i).equals(aString1)) {
+                found = true;
+            }
+
+        }
+        if (found == false) {
+            invitations.addElement(aString1);
             txtEmail.setText("");
 
         } else {
             JOptionPane.showMessageDialog(null, "Participant already added..");
         }
+
     }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -529,6 +556,9 @@ public class Booking extends javax.swing.JFrame {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
 
+        if (jCheckBox1.isSelected()) {
+
+        }
         getText();
         getSubject();
         getSum();
@@ -539,8 +569,13 @@ public class Booking extends javax.swing.JFrame {
         String date = dp.getDateStringOrEmptyString();
         String time = tp.getText().toString();
 
-        String autoID = null;
+        if (!lstInvitations.getModel().getElementAt(0).equals("public")) {
+            arrayListAddedUsers.add(User.getUser());
+            System.out.println("DET FUNKADE");
+        }
+
         try {
+            String autoID;
             autoID = db.getDB().getAutoIncrement("MEETINGS", "MEETING_ID");
             if (autoID == null) {
                 autoID = "1";
@@ -548,27 +583,21 @@ public class Booking extends javax.swing.JFrame {
 
             String q1 = "INSERT into meetings values('" + autoID + "', '" + subject + "', '" + message + "', '" + location + "', '" + date + "', '" + time + "', '" + user + "');";
             db.getDB().insert(q1);
-
+            for (int i = 0; i < arrayListAddedUsers.size(); i++) {
+                String q2 = "INSERT into meetingparticipants values('" + autoID + "', '" + arrayListAddedUsers.get(i) + "', false)";
+                db.getDB().insert(q2);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         for (int i = 0; i < lstInvitations.getModel().getSize(); i++) {
-            try {
-                String mailAdress = lstInvitations.getModel().getElementAt(i);
-                //SELECT PROFILE_ID FROM USER_PROFILE WHERE EMAILADDRESS = 'tanja.maki-runsas@oru.se'
-                String id = db.getDB().fetchSingle("SELECT PROFILE_ID FROM USER_PROFILE WHERE EMAILADDRESS = '" + mailAdress + "'");
-                System.out.println();
-                String q2 = "INSERT into meetingparticipants values('" + autoID + "', '" + id + "', false)";
-                System.out.println("DAWHDWAHHDAW" + q2);
-                db.getDB().insert(q2);
-                try {
+            String mailAdress = lstInvitations.getModel().getElementAt(i);
 
-                    //JavaMail.JavaMailUtil.sendMail(mailAdress);
-                } catch (Exception ex) {
-                    Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (SQLException ex) {
+            try {
+
+                //JavaMail.JavaMailUtil.sendMail(mailAdress);
+            } catch (Exception ex) {
                 Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -589,30 +618,31 @@ public class Booking extends javax.swing.JFrame {
         invitations.removeAllElements();
         JOptionPane.showMessageDialog(null, "Meeting booked.");
         this.dispose();
-
-
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroupActionPerformed
 
         String cmbx = cmbGroup.getSelectedItem().toString();
+
+        String q2 = "SELECT PROFILE_ID FROM USER_PROFILE where PROFILE_ID = (SELECT MEMBER FROM group_members WHERE research_group = (SELECT group_id from research_group where group_name='" + cmbx + "'));";
+
         String q1 = "SELECT EMAILADDRESS FROM USER_PROFILE where PROFILE_ID = (SELECT MEMBER FROM group_members WHERE research_group = (SELECT group_id from research_group where group_name='" + cmbx + "'));";
 
         try {
 
             lstInvitations.setModel(invitations);
+            ArrayList<String> a2 = db.getDB().fetchColumn(q2);
+            ArrayList<String> a1 = db.getDB().fetchColumn(q1);
 
-            ArrayList<String> al = db.getDB().fetchColumn(q1);
-
-            for (int i = 0; i < al.size(); i++) {
-                String a = al.get(i).toString();
-                noDuplicate(a);
+            for (int i = 0; i < a1.size(); i++) {
+                String a = a1.get(i).toString();
+                String b = a2.get(i).toString();
+                noDuplicateTwoValues(a, b);
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
-
     }//GEN-LAST:event_btnGroupActionPerformed
 
     private void btnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateActionPerformed
@@ -641,10 +671,52 @@ public class Booking extends javax.swing.JFrame {
         DefaultListModel model = (DefaultListModel) lstInvitations.getModel();
         int selectedIndex = lstInvitations.getSelectedIndex();
         if (selectedIndex != -1) {
-            model.remove(selectedIndex);
-        }
+            String q1 = "SELECT PROFILE_ID FROM USER_PROFILE WHERE EMAILADDRESS = '" + lstInvitations.getSelectedValue() + "'";
+            try {
+                String a1 = db.getDB().fetchSingle(q1);
+                for (int i = 0; i < arrayListAddedUsers.size(); i++) {
+                    if (arrayListAddedUsers.get(i).equals(a1)) {
+                        arrayListAddedUsers.remove(a1);
+                    }
 
+                }
+                model.remove(selectedIndex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        lstInvitations.setModel(invitations);
+        if (jCheckBox1.isSelected()) {
+            cmbGroup.setEnabled(false);
+            cmbMember.setEnabled(false);
+            btnGroup.setEnabled(false);
+            btnMember.setEnabled(false);
+            txtEmail.setEditable(false);
+            btnEmail.setEnabled(false);
+            invitations.removeAllElements();
+            arrayListAddedUsers.removeAll(arrayListAddedUsers);
+            invitations.addElement("public");
+            arrayListAddedUsers.add("public");
+            System.out.println(arrayListAddedUsers);
+            System.out.println("fel");
+        } else {
+            cmbGroup.setEnabled(true);
+            cmbMember.setEnabled(true);
+            btnGroup.setEnabled(true);
+            btnMember.setEnabled(true);
+            txtEmail.setEditable(true);
+            btnEmail.setEnabled(true);
+            invitations.removeAllElements();
+            arrayListAddedUsers.removeAll(arrayListAddedUsers);
+            System.out.println(arrayListAddedUsers);
+            System.out.println("fel");
+
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBook;
@@ -660,6 +732,7 @@ public class Booking extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dp;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblGroup;
