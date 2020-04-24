@@ -5,30 +5,16 @@
  */
 package info;
 
-import JavaMail.JavaMailUtil;
-import static JavaMail.JavaMailUtil.prepareMessage;
 import JavaMail.NotificationHandler;
 import dbUtils.db;
-import static dbUtils.db.getDB;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.ListModel;
 
 /**
@@ -44,10 +30,10 @@ public class Booking extends javax.swing.JFrame {
 
     public Booking() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
         populateMemberCMBX();
         populateGroupCMBX();
         getUser();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,305 +41,323 @@ public class Booking extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        pnlBread = new javax.swing.JPanel();
         scrlMessage = new javax.swing.JScrollPane();
         txtMessage = new javax.swing.JTextArea();
+        txtTitle = new javax.swing.JTextField();
+        pnlPeople = new javax.swing.JPanel();
         cmbGroup = new javax.swing.JComboBox<>();
+        btnGroup = new javax.swing.JButton();
+        cmbMember = new javax.swing.JComboBox<>();
+        btnMember = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
+        btnEmail = new javax.swing.JButton();
+        lblGroup = new javax.swing.JLabel();
+        lblMember = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        scrInvitations = new javax.swing.JScrollPane();
+        lstInvitations = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        pnlDetails = new javax.swing.JPanel();
+        lblLocation = new javax.swing.JLabel();
         txtLocation = new javax.swing.JTextField();
+        btnLocation = new javax.swing.JButton();
+        lblTime = new javax.swing.JLabel();
+        tp = new com.github.lgooddatepicker.components.TimePicker();
+        dp = new com.github.lgooddatepicker.components.DatePicker();
+        lblDate = new javax.swing.JLabel();
+        btnTime = new javax.swing.JButton();
+        btnDate = new javax.swing.JButton();
+        pnlSummary = new javax.swing.JPanel();
         scrlSummary = new javax.swing.JScrollPane();
         txtSummary = new javax.swing.JTextArea();
-        btnGroup = new javax.swing.JButton();
-        btnMember = new javax.swing.JButton();
-        btnEmail = new javax.swing.JButton();
-        lblLocation = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        lblMember = new javax.swing.JLabel();
-        lblGroup = new javax.swing.JLabel();
-        txtTitle = new javax.swing.JTextField();
-        lblTitle = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
-        lblTime = new javax.swing.JLabel();
-        lblInvitations = new javax.swing.JLabel();
-        btnBook = new javax.swing.JButton();
-        lblMessage = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstInvitations = new javax.swing.JList<>();
-        dp = new com.github.lgooddatepicker.components.DatePicker();
-        tp = new com.github.lgooddatepicker.components.TimePicker();
-        cmbMember = new javax.swing.JComboBox<>();
-        btnDate = new javax.swing.JButton();
-        btnTime = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        btnLocation = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBook = new javax.swing.JButton();
 
         jButton4.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(1000, 1000));
-        getContentPane().setLayout(new java.awt.FlowLayout());
+        getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        pnlBread.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBread.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "New Meeting", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlBread.setPreferredSize(new java.awt.Dimension(880, 650));
+        pnlBread.setLayout(null);
+
+        scrlMessage.setBackground(new java.awt.Color(255, 255, 255));
+        scrlMessage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Message", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        scrlMessage.setForeground(new java.awt.Color(0, 0, 0));
+        scrlMessage.setPreferredSize(new java.awt.Dimension(200, 100));
 
         txtMessage.setColumns(20);
         txtMessage.setRows(5);
-        txtMessage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtMessage.setBackground(new java.awt.Color(255, 255, 255));
+        txtMessage.setBorder(null);
+        txtMessage.setCaretColor(new java.awt.Color(0, 0, 0));
+        txtMessage.setForeground(new java.awt.Color(0, 0, 0));
         scrlMessage.setViewportView(txtMessage);
 
+        pnlBread.add(scrlMessage);
+        scrlMessage.setBounds(30, 120, 240, 140);
+
+        txtTitle.setBackground(new java.awt.Color(255, 255, 255));
+        txtTitle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Title", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        txtTitle.setForeground(new java.awt.Color(0, 0, 0));
+        pnlBread.add(txtTitle);
+        txtTitle.setBounds(30, 50, 240, 50);
+
+        pnlPeople.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPeople.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select Participants", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlPeople.setForeground(new java.awt.Color(0, 0, 0));
+        pnlPeople.setLayout(null);
+
         cmbGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Group", "eHälsa", "osv", "osv" }));
-        cmbGroup.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cmbGroup.setMinimumSize(new java.awt.Dimension(250, 30));
+        cmbGroup.setPreferredSize(new java.awt.Dimension(250, 30));
         cmbGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGroupActionPerformed(evt);
             }
         });
+        pnlPeople.add(cmbGroup);
+        cmbGroup.setBounds(110, 50, 250, 30);
 
-        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        txtLocation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        scrlSummary.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        txtSummary.setColumns(20);
-        txtSummary.setRows(5);
-        txtSummary.setBorder(null);
-        scrlSummary.setViewportView(txtSummary);
-
+        btnGroup.setBackground(new java.awt.Color(44, 95, 125));
+        btnGroup.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnGroup.setForeground(new java.awt.Color(255, 255, 255));
         btnGroup.setText("Add");
-        btnGroup.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGroup.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnGroup.setPreferredSize(new java.awt.Dimension(60, 30));
         btnGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGroupActionPerformed(evt);
             }
         });
+        pnlPeople.add(btnGroup);
+        btnGroup.setBounds(370, 50, 60, 30);
 
+        cmbMember.setMinimumSize(new java.awt.Dimension(250, 30));
+        cmbMember.setPreferredSize(new java.awt.Dimension(250, 30));
+        pnlPeople.add(cmbMember);
+        cmbMember.setBounds(110, 90, 250, 30);
+
+        btnMember.setBackground(new java.awt.Color(44, 95, 125));
+        btnMember.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMember.setForeground(new java.awt.Color(255, 255, 255));
         btnMember.setText("Add");
-        btnMember.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnMember.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnMember.setPreferredSize(new java.awt.Dimension(60, 30));
         btnMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMemberActionPerformed(evt);
             }
         });
+        pnlPeople.add(btnMember);
+        btnMember.setBounds(370, 90, 60, 30);
 
+        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtEmail.setPreferredSize(new java.awt.Dimension(250, 30));
+        pnlPeople.add(txtEmail);
+        txtEmail.setBounds(110, 130, 250, 30);
+
+        btnEmail.setBackground(new java.awt.Color(44, 95, 125));
+        btnEmail.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnEmail.setForeground(new java.awt.Color(255, 255, 255));
         btnEmail.setText("Add");
-        btnEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnEmail.setPreferredSize(new java.awt.Dimension(60, 30));
         btnEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmailActionPerformed(evt);
             }
         });
+        pnlPeople.add(btnEmail);
+        btnEmail.setBounds(370, 130, 60, 30);
 
-        lblLocation.setText("Meeting location:");
+        lblGroup.setText("Research Group");
+        lblGroup.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlPeople.add(lblGroup);
+        lblGroup.setBounds(10, 50, 100, 30);
 
-        lblEmail.setText("E-mail:");
+        lblMember.setText("Member");
+        lblMember.setMaximumSize(new java.awt.Dimension(100, 30));
+        lblMember.setMinimumSize(new java.awt.Dimension(100, 30));
+        lblMember.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlPeople.add(lblMember);
+        lblMember.setBounds(10, 90, 100, 30);
 
-        lblMember.setText("Member:");
+        lblEmail.setText("E-mail");
+        lblEmail.setMaximumSize(new java.awt.Dimension(100, 30));
+        lblEmail.setMinimumSize(new java.awt.Dimension(100, 30));
+        lblEmail.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlPeople.add(lblEmail);
+        lblEmail.setBounds(10, 130, 100, 30);
 
-        lblGroup.setText("Group:");
+        scrInvitations.setBackground(new java.awt.Color(255, 255, 255));
+        scrInvitations.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblTitle.setText("Title:");
-
-        lblDate.setText("Date:");
-
-        lblTime.setText("Time:");
-
-        lblInvitations.setText("Invited:");
-
-        btnBook.setText("Book");
-        btnBook.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnBook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBookActionPerformed(evt);
-            }
-        });
-
-        lblMessage.setText("Message:");
-
-        btnCancel.setText("Cancel");
-        btnCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-
+        lstInvitations.setBackground(new java.awt.Color(255, 255, 255));
+        lstInvitations.setForeground(new java.awt.Color(0, 0, 0));
         lstInvitations.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(lstInvitations);
+        scrInvitations.setViewportView(lstInvitations);
 
-        btnDate.setText("Add");
-        btnDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDateActionPerformed(evt);
-            }
-        });
+        pnlPeople.add(scrInvitations);
+        scrInvitations.setBounds(10, 180, 420, 130);
 
-        btnTime.setText("Add");
-        btnTime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimeActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Summary:");
-
-        btnLocation.setText("Add");
-        btnLocation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLocationActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Remove selected participant");
+        jButton1.setBackground(new java.awt.Color(44, 95, 125));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Remove");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        pnlPeople.add(jButton1);
+        jButton1.setBounds(340, 320, 90, 32);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(544, 544, 544)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrlSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(scrlMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                                .addComponent(txtTitle))
-                            .addComponent(lblTitle)
-                            .addComponent(lblMessage))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLocation)
-                            .addComponent(lblEmail)
-                            .addComponent(lblMember)
-                            .addComponent(lblGroup)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cmbGroup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtLocation)
-                                    .addComponent(cmbMember, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(tp, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnTime, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnGroup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnMember, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblDate)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(dp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(btnLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(lblTime)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblInvitations))
-                .addGap(30, 30, 30))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGroup)
-                    .addComponent(lblTitle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btnGroup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(cmbGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(txtTitle))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMember)
-                    .addComponent(lblMessage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(cmbMember, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)))
-                        .addGap(40, 40, 40)
-                        .addComponent(lblEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblLocation)
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTime)
-                            .addComponent(lblDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnTime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dp, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))))
-                    .addComponent(scrlMessage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInvitations)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrlSummary)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-        );
+        pnlBread.add(pnlPeople);
+        pnlPeople.setBounds(30, 270, 440, 370);
 
-        getContentPane().add(jPanel3);
+        pnlDetails.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlDetails.setForeground(new java.awt.Color(0, 0, 0));
+        pnlDetails.setLayout(null);
+
+        lblLocation.setText("Meeting location");
+        lblLocation.setMaximumSize(new java.awt.Dimension(100, 30));
+        lblLocation.setMinimumSize(new java.awt.Dimension(100, 30));
+        lblLocation.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlDetails.add(lblLocation);
+        lblLocation.setBounds(20, 40, 100, 30);
+
+        txtLocation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtLocation.setMinimumSize(new java.awt.Dimension(250, 30));
+        txtLocation.setPreferredSize(new java.awt.Dimension(250, 30));
+        pnlDetails.add(txtLocation);
+        txtLocation.setBounds(140, 40, 250, 30);
+
+        btnLocation.setBackground(new java.awt.Color(44, 95, 125));
+        btnLocation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnLocation.setForeground(new java.awt.Color(255, 255, 255));
+        btnLocation.setText("Add");
+        btnLocation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocationActionPerformed(evt);
+            }
+        });
+        pnlDetails.add(btnLocation);
+        btnLocation.setBounds(410, 40, 75, 30);
+
+        lblTime.setText("Time");
+        lblTime.setMaximumSize(new java.awt.Dimension(100, 30));
+        lblTime.setMinimumSize(new java.awt.Dimension(100, 30));
+        lblTime.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlDetails.add(lblTime);
+        lblTime.setBounds(20, 140, 100, 30);
+
+        tp.setMinimumSize(new java.awt.Dimension(250, 30));
+        tp.setPreferredSize(new java.awt.Dimension(250, 30));
+        pnlDetails.add(tp);
+        tp.setBounds(140, 140, 250, 30);
+
+        dp.setMinimumSize(new java.awt.Dimension(250, 30));
+        dp.setName(""); // NOI18N
+        dp.setPreferredSize(new java.awt.Dimension(250, 30));
+        pnlDetails.add(dp);
+        dp.setBounds(140, 90, 250, 30);
+
+        lblDate.setText("Date");
+        lblDate.setMaximumSize(new java.awt.Dimension(100, 30));
+        lblDate.setMinimumSize(new java.awt.Dimension(100, 30));
+        lblDate.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlDetails.add(lblDate);
+        lblDate.setBounds(20, 90, 100, 30);
+
+        btnTime.setBackground(new java.awt.Color(44, 95, 125));
+        btnTime.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnTime.setForeground(new java.awt.Color(255, 255, 255));
+        btnTime.setText("Add");
+        btnTime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimeActionPerformed(evt);
+            }
+        });
+        pnlDetails.add(btnTime);
+        btnTime.setBounds(410, 140, 75, 30);
+
+        btnDate.setBackground(new java.awt.Color(44, 95, 125));
+        btnDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnDate.setForeground(new java.awt.Color(255, 255, 255));
+        btnDate.setText("Add");
+        btnDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDateActionPerformed(evt);
+            }
+        });
+        pnlDetails.add(btnDate);
+        btnDate.setBounds(410, 90, 74, 31);
+
+        pnlBread.add(pnlDetails);
+        pnlDetails.setBounds(280, 50, 540, 210);
+
+        pnlSummary.setBackground(new java.awt.Color(255, 255, 255));
+        pnlSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Summary", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlSummary.setForeground(new java.awt.Color(0, 0, 0));
+        pnlSummary.setLayout(null);
+
+        scrlSummary.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtSummary.setBackground(new java.awt.Color(255, 255, 255));
+        txtSummary.setColumns(20);
+        txtSummary.setForeground(new java.awt.Color(0, 0, 0));
+        txtSummary.setRows(5);
+        txtSummary.setBorder(null);
+        scrlSummary.setViewportView(txtSummary);
+
+        pnlSummary.add(scrlSummary);
+        scrlSummary.setBounds(10, 30, 320, 250);
+
+        btnCancel.setBackground(new java.awt.Color(44, 95, 125));
+        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancel");
+        btnCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        pnlSummary.add(btnCancel);
+        btnCancel.setBounds(40, 310, 100, 40);
+
+        btnBook.setBackground(new java.awt.Color(44, 95, 125));
+        btnBook.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnBook.setForeground(new java.awt.Color(255, 255, 255));
+        btnBook.setText("Confirm");
+        btnBook.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookActionPerformed(evt);
+            }
+        });
+        pnlSummary.add(btnBook);
+        btnBook.setBounds(180, 310, 100, 40);
+
+        pnlBread.add(pnlSummary);
+        pnlSummary.setBounds(480, 270, 340, 370);
+
+        getContentPane().add(pnlBread);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -525,7 +529,7 @@ public class Booking extends javax.swing.JFrame {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
 
- getText();
+        getText();
         getSubject();
         getSum();
 
@@ -559,7 +563,7 @@ public class Booking extends javax.swing.JFrame {
                 System.out.println("DAWHDWAHHDAW" + q2);
                 db.getDB().insert(q2);
                 try {
-                    
+
                     //JavaMail.JavaMailUtil.sendMail(mailAdress);
                 } catch (Exception ex) {
                     Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
@@ -583,6 +587,8 @@ public class Booking extends javax.swing.JFrame {
         System.out.println(telefon);
 
         invitations.removeAllElements();
+        JOptionPane.showMessageDialog(null, "Meeting booked.");
+        this.dispose();
 
 
     }//GEN-LAST:event_btnBookActionPerformed
@@ -654,19 +660,18 @@ public class Booking extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dp;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblGroup;
-    private javax.swing.JLabel lblInvitations;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblMember;
-    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblTime;
-    private javax.swing.JLabel lblTitle;
     private javax.swing.JList<String> lstInvitations;
+    private javax.swing.JPanel pnlBread;
+    private javax.swing.JPanel pnlDetails;
+    private javax.swing.JPanel pnlPeople;
+    private javax.swing.JPanel pnlSummary;
+    private javax.swing.JScrollPane scrInvitations;
     private javax.swing.JScrollPane scrlMessage;
     private javax.swing.JScrollPane scrlSummary;
     private com.github.lgooddatepicker.components.TimePicker tp;
