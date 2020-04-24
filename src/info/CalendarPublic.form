@@ -57,34 +57,37 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="scrollPaneText" max="32767" attributes="0"/>
-                      <Component id="labelActivities" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dpFrom" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelFrom" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="scrollPaneText" max="32767" attributes="0"/>
+                          <Component id="labelActivities" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dpFrom" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelFrom" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelTo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dpTo" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelTo" min="-2" max="-2" attributes="0"/>
-                              <Component id="dpTo" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFilter" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="labelCurrentMonth" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelCurrentYear" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnMonthUp" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnMonthDown" alignment="1" min="-2" pref="72" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="scrollPaneTable" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="btnFilter" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="labelCurrentMonth" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelCurrentYear" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnMonthUp" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnMonthDown" alignment="1" min="-2" pref="72" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="scrollPaneTable" max="32767" attributes="0"/>
+                      <Component id="labelUser" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -95,7 +98,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelUser" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelCurrentMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labelCurrentYear" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -307,6 +312,11 @@
         <Component class="javax.swing.JLabel" name="labelTo">
           <Properties>
             <Property name="text" type="java.lang.String" value="To"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelUser">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Public"/>
           </Properties>
         </Component>
       </SubComponents>

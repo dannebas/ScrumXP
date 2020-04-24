@@ -92,7 +92,11 @@ public class CalendarPublic extends javax.swing.JFrame {
 
     private void getMeetingsPerMonth() {
         try {
-            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + 0 + this.month + "-%'AND USER = '" + "public" + "'";
+            String n = "";
+            if (this.month < 10) {
+                n = "0" + n;
+            }
+            String q = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + n + this.month + "-%' AND MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = 'public')";
             System.out.println(q);
             ArrayList<String> lista = new ArrayList<>();
             lista = db.getDB().fetchColumn(q);
@@ -321,7 +325,8 @@ public class CalendarPublic extends javax.swing.JFrame {
                 }
                 String aYear = Integer.toString(this.year);
                 String aDate = aYear + '-' + aMonth + "-" + aDay;
-                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "public" + "'";
+                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = 'public')";
+//                String q2 = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + "public" + "'";
                 System.out.println(q);
                 ArrayList<HashMap<String, String>> lista = new ArrayList<>();
                 lista = db.getDB().fetchRows(q);
@@ -396,6 +401,7 @@ public class CalendarPublic extends javax.swing.JFrame {
         btnFilter = new javax.swing.JButton();
         labelFrom = new javax.swing.JLabel();
         labelTo = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -481,33 +487,37 @@ public class CalendarPublic extends javax.swing.JFrame {
 
         labelTo.setText("To");
 
+        labelUser.setText("Public");
+
         javax.swing.GroupLayout panelUserLayout = new javax.swing.GroupLayout(panelUser);
         panelUser.setLayout(panelUserLayout);
         panelUserLayout.setHorizontalGroup(
             panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(scrollPaneText)
-                    .addComponent(labelActivities, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelUserLayout.createSequentialGroup()
-                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFrom))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTo)
-                            .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnFilter, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelUserLayout.createSequentialGroup()
-                        .addComponent(labelCurrentMonth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentYear)
-                        .addGap(323, 323, 323)
-                        .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMonthDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(scrollPaneTable))
+                .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(scrollPaneText)
+                        .addComponent(labelActivities, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelUserLayout.createSequentialGroup()
+                            .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelFrom))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(labelTo)
+                                .addComponent(dpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFilter, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelUserLayout.createSequentialGroup()
+                            .addComponent(labelCurrentMonth)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(labelCurrentYear)
+                            .addGap(323, 323, 323)
+                            .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnMonthUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMonthDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scrollPaneTable))
+                    .addComponent(labelUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelUserLayout.setVerticalGroup(
@@ -515,7 +525,9 @@ public class CalendarPublic extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUserLayout.createSequentialGroup()
                 .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelUserLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
+                        .addContainerGap()
+                        .addComponent(labelUser)
+                        .addGap(40, 40, 40)
                         .addGroup(panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelCurrentMonth)
                             .addComponent(labelCurrentYear))
@@ -620,9 +632,8 @@ public class CalendarPublic extends javax.swing.JFrame {
                 String fromDate = dpFrom.getDateStringOrEmptyString();
                 String toDate = dpTo.getDateStringOrEmptyString();
 
-                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE USER = 'public' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = 'public' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + ") ORDER BY DATE";
                 System.out.println(q);
-
                 DefaultListModel<String> model = new DefaultListModel<>();
                 jList1.setModel(model);
                 ArrayList<HashMap<String, String>> lista = new ArrayList<>();
@@ -719,6 +730,7 @@ public class CalendarPublic extends javax.swing.JFrame {
     private javax.swing.JLabel labelCurrentYear;
     private javax.swing.JLabel labelFrom;
     private javax.swing.JLabel labelTo;
+    private javax.swing.JLabel labelUser;
     private javax.swing.JPanel panelUser;
     private javax.swing.JScrollPane scrollPaneTable;
     private javax.swing.JScrollPane scrollPaneText;

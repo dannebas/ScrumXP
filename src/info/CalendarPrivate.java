@@ -363,11 +363,11 @@ public class CalendarPrivate extends javax.swing.JFrame {
                 }
                 String aYear = Integer.toString(this.year);
                 String aDate = aYear + '-' + aMonth + "-" + aDay;
-                String q2 = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "')";
-//                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + User.getUser() + "'";
-                System.out.println(q2);
+                String q = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "')";
+//                String q2 = "SELECT DESCRIPTION, TITLE, LOCATION, TIME FROM MEETINGS WHERE DATE = '" + aDate + "' AND USER = '" + User.getUser() + "'";
+                System.out.println(q);
                 ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-                lista = db.getDB().fetchRows(q2);
+                lista = db.getDB().fetchRows(q);
 
                 for (HashMap<String, String> theList : lista) {
                     String description = "";
@@ -685,18 +685,12 @@ public class CalendarPrivate extends javax.swing.JFrame {
                 String fromDate = dpFrom.getDateStringOrEmptyString();
                 String toDate = dpTo.getDateStringOrEmptyString();
 
-                String n = "";
-                if (this.month < 10) {
-                    n = n + '0';
-                }
-                String q2 = "SELECT DATE FROM MEETINGS WHERE DATE LIKE '" + this.year + "-" + n + this.month + "-%' AND MEETINGS.MEETING_ID = (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE)";
-                System.out.println(q2);
-
-//                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE USER = '" + User.getUser() + "' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + " ORDER BY DATE";
+                String q = "SELECT DESCRIPTION, TITLE, DATE, LOCATION, TIME FROM MEETINGS WHERE MEETINGS.MEETING_ID IN (SELECT MEETING_ID FROM MEETINGPARTICIPANTS WHERE USER_ID = '" + User.getUser() + "' AND DATE BETWEEN " + "'" + fromDate + "'" + " AND " + "'" + toDate + "'" + ") ORDER BY DATE";
+                System.out.println(q);
                 DefaultListModel<String> model = new DefaultListModel<>();
                 jList1.setModel(model);
                 ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-                lista = db.getDB().fetchRows(q2);
+                lista = db.getDB().fetchRows(q);
 
                 for (HashMap<String, String> theList : lista) {
                     String description = "";
