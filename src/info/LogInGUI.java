@@ -137,7 +137,7 @@ class LogInGUI extends javax.swing.JFrame {
             }
         });
         pnlLogIn.add(btnforgottPassword);
-        btnforgottPassword.setBounds(48, 214, 179, 32);
+        btnforgottPassword.setBounds(110, 220, 179, 32);
 
         pwdUserPassword.setColumns(10);
         pwdUserPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));

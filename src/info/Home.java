@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Lukas
  */
 public class Home extends javax.swing.JFrame {
-
+    
     private DefaultTableModel model;
 
     /**
@@ -30,12 +30,10 @@ public class Home extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         
-       loadNews();
-       loadBlog();
+        loadNews();
+        loadBlog();
         
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -303,66 +301,64 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void loadNews(){
-    DefaultListModel model = new DefaultListModel();
+    private void loadNews() {
+        DefaultListModel model = new DefaultListModel();
         jlLatest.setModel(model);
-       int numberOfFiles = 0;
-        try{
-         
+        int numberOfFiles = 0;
+        try {
+            
             numberOfFiles = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from FORMAL_POST"));
-     
-            }
-        catch(SQLException e)
-         {}   
-            if (numberOfFiles > 0){        
+            
+        } catch (SQLException e) {
+        }        
+        if (numberOfFiles > 0) {            
             try {
-            ArrayList<HashMap<String, String>> news = db.getDB().fetchRows("SELECT * from POSTS where POST_ID in (select POST_ID from FORMAL_POST) order by POST_ID desc limit 5");
-            for (HashMap<String, String> aNews : news){  
-               String authorName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '"+aNews.get("AUTHOR")+"'");
+                ArrayList<HashMap<String, String>> news = db.getDB().fetchRows("SELECT * from POSTS where POST_ID in (select POST_ID from FORMAL_POST) order by POST_ID desc limit 5");
+                for (HashMap<String, String> aNews : news) {                    
+                    String authorName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + aNews.get("AUTHOR") + "'");
+                    
+                    model.addElement(authorName + " posted: " + aNews.get("TITLE") + " on: " + aNews.get("DATE"));
+                }
                 
-               model.addElement(authorName +" posted: "+ aNews.get("TITLE")+" on: "+aNews.get("DATE"));
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } else {
+            model.addElement("There are no posts");
         }
-    
-    }
     }
     
-    
-    private void loadBlog(){
-    DefaultListModel model = new DefaultListModel();
-      
-    jlBlog.setModel(model);
-
-    int numberOfFiles = 0;
+    private void loadBlog() {
+        DefaultListModel model = new DefaultListModel();
         
-        try{
-         
+        jlBlog.setModel(model);
+        
+        int numberOfFiles = 0;
+        
+        try {
+            
             numberOfFiles = Integer.parseInt(db.getDB().fetchSingle("select COUNT(*) from INFORMAL_POST"));
-     
-            }
-        catch(SQLException e)
-         {}   
-    
-    if (numberOfFiles > 0){
-    try {
-            ArrayList<HashMap<String, String>> news = db.getDB().fetchRows("SELECT * from POSTS where POST_ID in (select POST_ID from INFORMAL_POST) order by POST_ID desc limit 5");
-            for (HashMap<String, String> aNews : news){  
-               String authorName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '"+aNews.get("AUTHOR")+"'");
-                
-               model.addElement(authorName +" posted: "+ aNews.get("TITLE")+" on: "+aNews.get("DATE"));
-            }
+            
+        } catch (SQLException e) {
+        }        
         
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        if (numberOfFiles > 0) {
+            try {
+                ArrayList<HashMap<String, String>> news = db.getDB().fetchRows("SELECT * from POSTS where POST_ID in (select POST_ID from INFORMAL_POST) order by POST_ID desc limit 5");
+                for (HashMap<String, String> aNews : news) {                    
+                    String authorName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + aNews.get("AUTHOR") + "'");
+                    
+                    model.addElement(authorName + " posted: " + aNews.get("TITLE") + " on: " + aNews.get("DATE"));
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            model.addElement("There are no posts");
         }
-    
-    
-    }
-    
     }
     
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed

@@ -32,17 +32,16 @@ public class Blog extends javax.swing.JFrame {
         columnmodel.removeColumn(columnmodel.getColumn(4));
         columnmodel.removeColumn(columnmodel.getColumn(3));
         addAllGeneralPost();
-       
+
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        
-        
+        fillUserCombo();
         if (User.getAdmin() == false) {
             btnEditPost.setVisible(false);
         }
     }
 
-    public void addAllGeneralPost() // add all the Post which are Informal to the table
+    private void addAllGeneralPost() // add all the Post which are Informal to the table
     {
         try {
             model = (DefaultTableModel) tblGeneralPost.getModel();
@@ -57,6 +56,41 @@ public class Blog extends javax.swing.JFrame {
             Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             model.addRow(new Object[]{"No Posts"});
+        }
+    }
+
+    private void filterByUser(String user)    {
+        try {
+            model = (DefaultTableModel) tblGeneralPost.getModel();
+            model.setRowCount(0);
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE AUTHOR = '"+user+"' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+
+            for (HashMap<String, String> aPost : posts) {
+
+                model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No Posts by this user"});
+        }
+    }
+
+    private void fillUserCombo() {
+
+        try {
+            ArrayList<String> allUsers = db.getDB().fetchColumn("select USER_ID from USER");
+
+            for (String aUser : allUsers) {
+
+                String userFName = db.getDB().fetchSingle("select FIRSTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
+                String userLName = db.getDB().fetchSingle("select LASTNAME from USER_PROFILE where PROFILE_ID = '" + aUser + "'");
+                String user = aUser + " (" + userFName + " " + userLName + ")";
+                jcbUsers.addItem(user);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -78,6 +112,10 @@ public class Blog extends javax.swing.JFrame {
         tblGeneralPost = new javax.swing.JTable();
         btnEditPost = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        pnlFilter = new javax.swing.JPanel();
+        btnFilter = new javax.swing.JButton();
+        jxDDate = new org.jdesktop.swingx.JXDatePicker();
+        jcbUsers = new javax.swing.JComboBox<>();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -184,7 +222,7 @@ public class Blog extends javax.swing.JFrame {
         }
 
         pnlBreadForum.add(spnTableForum);
-        spnTableForum.setBounds(30, 20, 920, 310);
+        spnTableForum.setBounds(30, 90, 950, 240);
 
         btnEditPost.setBackground(new java.awt.Color(44, 95, 125));
         btnEditPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -211,6 +249,38 @@ public class Blog extends javax.swing.JFrame {
         });
         pnlBreadForum.add(jButton2);
         jButton2.setBounds(40, 350, 140, 37);
+
+        pnlFilter.setBackground(new java.awt.Color(255, 255, 255));
+        pnlFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FIlter selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
+        pnlFilter.setForeground(new java.awt.Color(0, 0, 0));
+        pnlFilter.setLayout(null);
+
+        btnFilter.setBackground(new java.awt.Color(44, 95, 125));
+        btnFilter.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnFilter.setForeground(new java.awt.Color(255, 255, 255));
+        btnFilter.setText("Apply filter");
+        btnFilter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterActionPerformed(evt);
+            }
+        });
+        pnlFilter.add(btnFilter);
+        btnFilter.setBounds(410, 20, 90, 37);
+        pnlFilter.add(jxDDate);
+        jxDDate.setBounds(220, 30, 160, 24);
+
+        jcbUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Users" }));
+        jcbUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUsersActionPerformed(evt);
+            }
+        });
+        pnlFilter.add(jcbUsers);
+        jcbUsers.setBounds(20, 30, 160, 26);
+
+        pnlBreadForum.add(pnlFilter);
+        pnlFilter.setBounds(30, 10, 950, 70);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -394,20 +464,35 @@ public class Blog extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBlogActionPerformed
 
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFilterActionPerformed
+
+    private void jcbUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsersActionPerformed
+        String user = jcbUsers.getSelectedItem().toString().split(" ")[0];
+        System.out.println(user);
+        filterByUser(user);
+
+    }//GEN-LAST:event_jcbUsersActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnEditPost;
+    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jcbUsers;
+    private org.jdesktop.swingx.JXDatePicker jxDDate;
     private javax.swing.JLabel lblFooterImageForum;
     private javax.swing.JLabel lblImageHeader;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBreadForum;
+    private javax.swing.JPanel pnlFilter;
     private javax.swing.JPanel pnlFooterForum;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlNavBarSeePost;
