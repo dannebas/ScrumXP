@@ -48,22 +48,13 @@ class LogInGUI extends javax.swing.JFrame {
         lblUserName = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         lblUserPassword = new javax.swing.JLabel();
-        btnforgottPassword = new javax.swing.JButton();
         pwdUserPassword = new javax.swing.JPasswordField();
         btnLogIn = new javax.swing.JButton();
-        pnlForgotPassword = new javax.swing.JPanel();
-        lblWelcomeForgotPassword = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        txtUserEmail = new javax.swing.JTextField();
-        btnGetNewPassword = new javax.swing.JButton();
-        btnBackToLogIn = new javax.swing.JButton();
         pnlFooter = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
         setSize(new java.awt.Dimension(1024, 768));
         getContentPane().setLayout(new java.awt.FlowLayout());
 
@@ -127,18 +118,6 @@ class LogInGUI extends javax.swing.JFrame {
         pnlLogIn.add(lblUserPassword);
         lblUserPassword.setBounds(15, 114, 51, 15);
 
-        btnforgottPassword.setForeground(new java.awt.Color(0, 102, 204));
-        btnforgottPassword.setText("Forgotten your password?");
-        btnforgottPassword.setBorderPainted(false);
-        btnforgottPassword.setContentAreaFilled(false);
-        btnforgottPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnforgottPasswordActionPerformed(evt);
-            }
-        });
-        pnlLogIn.add(btnforgottPassword);
-        btnforgottPassword.setBounds(110, 220, 179, 32);
-
         pwdUserPassword.setColumns(10);
         pwdUserPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         pwdUserPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -169,79 +148,8 @@ class LogInGUI extends javax.swing.JFrame {
 
         layerdPaneLogIn.add(pnlLogIn, "card9");
 
-        pnlForgotPassword.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblWelcomeForgotPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblWelcomeForgotPassword.setText("Enter your email ");
-
-        lblEmail.setText("Email");
-
-        txtUserEmail.setColumns(10);
-        txtUserEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
-        btnGetNewPassword.setBackground(new java.awt.Color(126, 197, 239));
-        btnGetNewPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnGetNewPassword.setForeground(new java.awt.Color(255, 255, 255));
-        btnGetNewPassword.setText("Get new password");
-        btnGetNewPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGetNewPasswordActionPerformed(evt);
-            }
-        });
-
-        btnBackToLogIn.setForeground(new java.awt.Color(0, 51, 255));
-        btnBackToLogIn.setText("back");
-        btnBackToLogIn.setBorder(null);
-        btnBackToLogIn.setBorderPainted(false);
-        btnBackToLogIn.setContentAreaFilled(false);
-        btnBackToLogIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackToLogInActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlForgotPasswordLayout = new javax.swing.GroupLayout(pnlForgotPassword);
-        pnlForgotPassword.setLayout(pnlForgotPasswordLayout);
-        pnlForgotPasswordLayout.setHorizontalGroup(
-            pnlForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForgotPasswordLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(btnGetNewPassword)
-                .addGap(150, 150, 150))
-            .addGroup(pnlForgotPasswordLayout.createSequentialGroup()
-                .addGroup(pnlForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlForgotPasswordLayout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(btnBackToLogIn))
-                    .addGroup(pnlForgotPasswordLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lblEmail)
-                        .addGap(27, 27, 27)
-                        .addGroup(pnlForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblWelcomeForgotPassword)
-                            .addComponent(txtUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlForgotPasswordLayout.setVerticalGroup(
-            pnlForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlForgotPasswordLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(lblWelcomeForgotPassword)
-                .addGap(42, 42, 42)
-                .addGroup(pnlForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail))
-                .addGap(40, 40, 40)
-                .addComponent(btnGetNewPassword)
-                .addGap(18, 18, 18)
-                .addComponent(btnBackToLogIn)
-                .addContainerGap(79, Short.MAX_VALUE))
-        );
-
-        layerdPaneLogIn.add(pnlForgotPassword, "card3");
-
         pnlBread.add(layerdPaneLogIn);
-        layerdPaneLogIn.setBounds(325, 22, 400, 326);
+        layerdPaneLogIn.setBounds(325, 22, 400, 300);
 
         pnlHome.add(pnlBread);
         pnlBread.setBounds(0, 156, 1022, 440);
@@ -316,39 +224,6 @@ class LogInGUI extends javax.swing.JFrame {
         logIn();
     }//GEN-LAST:event_btnLogInActionPerformed
 
-    private void btnBackToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToLogInActionPerformed
-        txtUserName.setText("");
-        pwdUserPassword.setText("");
-        layerdPaneLogIn.removeAll();
-        layerdPaneLogIn.add(pnlLogIn);
-        layerdPaneLogIn.repaint();
-        layerdPaneLogIn.revalidate();
-        txtUserName.requestFocus();
-    }//GEN-LAST:event_btnBackToLogInActionPerformed
-
-    private void btnGetNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetNewPasswordActionPerformed
-        String mailAccount = txtUserEmail.getText();
-        if (mailAccount.equals("existingmailaccount")) {
-            JOptionPane.showMessageDialog(null, "A new password has been sent to your email");
-            btnBackToLogInActionPerformed(evt);
-        } else {
-            lblWelcomeForgotPassword.setText("Email doesnt exist");
-            lblWelcomeForgotPassword.setForeground(Color.red);
-        }
-
-    }//GEN-LAST:event_btnGetNewPasswordActionPerformed
-
-    private void btnforgottPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnforgottPasswordActionPerformed
-        txtUserEmail.setText("");
-        lblWelcomeForgotPassword.setText("Enter your email");
-        lblWelcomeForgotPassword.setForeground(Color.black);
-        layerdPaneLogIn.removeAll();
-        layerdPaneLogIn.add(pnlForgotPassword);
-        layerdPaneLogIn.repaint();
-        layerdPaneLogIn.revalidate();
-        txtUserEmail.requestFocus();
-    }//GEN-LAST:event_btnforgottPasswordActionPerformed
-
     private void pwdUserPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdUserPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pwdUserPasswordActionPerformed
@@ -360,25 +235,18 @@ class LogInGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_pwdUserPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBackToLogIn;
-    private javax.swing.JButton btnGetNewPassword;
     private javax.swing.JButton btnLogIn;
-    private javax.swing.JButton btnforgottPassword;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane layerdPaneLogIn;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblUserPassword;
-    private javax.swing.JLabel lblWelcomeForgotPassword;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlFooter;
-    private javax.swing.JPanel pnlForgotPassword;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlLogIn;
     private javax.swing.JPasswordField pwdUserPassword;
-    private javax.swing.JTextField txtUserEmail;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 
