@@ -7,7 +7,9 @@ package info;
 
 import dbUtils.db;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +34,12 @@ public class Forum extends javax.swing.JFrame {
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
         columnmodel.removeColumn(columnmodel.getColumn(4));
         columnmodel.removeColumn(columnmodel.getColumn(3));
-
+        
+        jxdDateFrom.setVisible(false);
+        jxdDateTo.setVisible(false);
+        lblSearchByDates.setVisible(false);
+        lblFromDate.setVisible(false);
+        lblToDate.setVisible(false);
         btnEditPost.setVisible(false);
         btnNewPost.setVisible(false);
         addAllFormalPost();
@@ -218,7 +225,7 @@ public class Forum extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + year + "%' AND POST_ID in (select POST_ID from FORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + year + "%' AND POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() + "' )))))");
             for (HashMap<String, String> aPost : posts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
@@ -242,7 +249,7 @@ public class Forum extends javax.swing.JFrame {
             try {
                 model = (DefaultTableModel) tblForumPost.getModel();
                 model.setRowCount(0);
-                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in (select POST_ID from FORMAL_POST)");
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() + "' )))))");
                 for (HashMap<String, String> aPost : posts) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
@@ -268,6 +275,7 @@ public class Forum extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupForum = new javax.swing.ButtonGroup();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         pnlBackgroundForum = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         lblImageHeader = new javax.swing.JLabel();
@@ -283,6 +291,12 @@ public class Forum extends javax.swing.JFrame {
         pnlDateSelection = new javax.swing.JPanel();
         jcbYear = new javax.swing.JComboBox<>();
         jcbMonth = new javax.swing.JComboBox<>();
+        jxdDateFrom = new org.jdesktop.swingx.JXDatePicker();
+        jxdDateTo = new org.jdesktop.swingx.JXDatePicker();
+        lblViewDateSelection = new javax.swing.JLabel();
+        lblSearchByDates = new javax.swing.JLabel();
+        lblFromDate = new javax.swing.JLabel();
+        lblToDate = new javax.swing.JLabel();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -474,6 +488,44 @@ public class Forum extends javax.swing.JFrame {
         });
         pnlDateSelection.add(jcbMonth);
         jcbMonth.setBounds(120, 30, 110, 26);
+        pnlDateSelection.add(jxdDateFrom);
+        jxdDateFrom.setBounds(20, 30, 110, 24);
+        pnlDateSelection.add(jxdDateTo);
+        jxdDateTo.setBounds(135, 30, 100, 24);
+
+        lblViewDateSelection.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblViewDateSelection.setForeground(new java.awt.Color(0, 51, 255));
+        lblViewDateSelection.setText("Dates");
+        lblViewDateSelection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblViewDateSelectionMouseClicked(evt);
+            }
+        });
+        pnlDateSelection.add(lblViewDateSelection);
+        lblViewDateSelection.setBounds(335, 38, 80, 14);
+
+        lblSearchByDates.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSearchByDates.setForeground(new java.awt.Color(0, 51, 255));
+        lblSearchByDates.setText("Search dates");
+        lblSearchByDates.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchByDatesMouseClicked(evt);
+            }
+        });
+        pnlDateSelection.add(lblSearchByDates);
+        lblSearchByDates.setBounds(240, 38, 100, 14);
+
+        lblFromDate.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
+        lblFromDate.setForeground(new java.awt.Color(0, 0, 0));
+        lblFromDate.setText("From");
+        pnlDateSelection.add(lblFromDate);
+        lblFromDate.setBounds(20, 20, 21, 10);
+
+        lblToDate.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
+        lblToDate.setForeground(new java.awt.Color(0, 0, 0));
+        lblToDate.setText("to");
+        pnlDateSelection.add(lblToDate);
+        lblToDate.setBounds(135, 20, 30, 10);
 
         pnlBreadForum.add(pnlDateSelection);
         pnlDateSelection.setBounds(580, 10, 420, 70);
@@ -744,6 +796,71 @@ public class Forum extends javax.swing.JFrame {
         filterByMonth(month);
     }//GEN-LAST:event_jcbMonthActionPerformed
 
+    private void lblViewDateSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDateSelectionMouseClicked
+        String lblText = lblViewDateSelection.getText();
+        if(lblText.equals("Dates")){
+        {
+            
+        lblViewDateSelection.setText("Years/Month");    
+        jcbMonth.setVisible(false);
+        jcbYear.setVisible(false);
+        lblSearchByDates.setVisible(true);
+         lblFromDate.setVisible(true);
+              lblToDate.setVisible(true);
+        jxdDateFrom.setVisible(true);
+        jxdDateTo.setVisible(true);
+        }
+        }
+        else if(lblText.equals("Years/Month"))
+        { 
+            lblViewDateSelection.setText("Dates"); 
+           jxdDateFrom.setVisible(false);
+           jxdDateTo.setVisible(false); 
+            lblSearchByDates.setVisible(false);
+             lblFromDate.setVisible(false);
+              lblToDate.setVisible(false);
+           jcbMonth.setVisible(true);
+           jcbYear.setVisible(true);     
+        }       
+    }//GEN-LAST:event_lblViewDateSelectionMouseClicked
+
+    private void lblSearchByDatesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchByDatesMouseClicked
+        if(jxdDateFrom.getDate() !=null && jxdDateTo.getDate() !=null)
+                {
+                    filterBetweenTwoDates();
+                }
+        else{
+        JOptionPane.showMessageDialog(null, "Choose two dates to filter by");
+        }
+    }//GEN-LAST:event_lblSearchByDatesMouseClicked
+
+        private void filterBetweenTwoDates()
+        {
+           model.setRowCount(0);
+           
+           ArrayList<HashMap<String, String>> aPostList = new ArrayList<>();
+            try {
+                Date fromDate = jxdDateFrom.getDate();
+                Date toDate = jxdDateTo.getDate();
+
+                if (fromDate.before(toDate)) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String fromDate1 = sdf.format(fromDate);
+                    String toDate1 = sdf.format(toDate);
+                    aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() +"' ))))) AND DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "'");
+                    for (HashMap<String, String> aPost: aPostList) {
+                    model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+                }
+
+            }} catch (SQLException ex) {
+                Logger.getLogger(Forum.class
+                        .getName()).log(Level.SEVERE, null, ex);}
+             catch (NullPointerException e) {
+                model.addRow(new Object[]{"No between thess dates"});
+            }
+
+        
+        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
@@ -754,13 +871,20 @@ public class Forum extends javax.swing.JFrame {
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JComboBox<String> jcbCategories;
     private javax.swing.JComboBox<String> jcbGroups;
     private javax.swing.JComboBox<String> jcbMonth;
     private javax.swing.JComboBox<String> jcbResEduSelection;
     private javax.swing.JComboBox<String> jcbYear;
+    private org.jdesktop.swingx.JXDatePicker jxdDateFrom;
+    private org.jdesktop.swingx.JXDatePicker jxdDateTo;
     private javax.swing.JLabel lblFooterImageForum;
+    private javax.swing.JLabel lblFromDate;
     private javax.swing.JLabel lblImageHeader;
+    private javax.swing.JLabel lblSearchByDates;
+    private javax.swing.JLabel lblToDate;
+    private javax.swing.JLabel lblViewDateSelection;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBreadForum;
     private javax.swing.JPanel pnlDateSelection;

@@ -7,7 +7,9 @@ package info;
 
 import dbUtils.db;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +42,15 @@ public class Blog extends javax.swing.JFrame {
         if (User.getAdmin() == false) {
             btnEditPost.setVisible(false);
         }
+        
+        jxdDateFrom.setVisible(false);
+        jxdDateTo.setVisible(false);
+        lblSearchByDates.setVisible(false);
+        lblFromDate.setVisible(false);
+        lblToDate.setVisible(false);
+        
+        
+        
     }
 
     private void addAllGeneralPost() // add all the Post which are Informal to the table
@@ -183,6 +194,12 @@ public class Blog extends javax.swing.JFrame {
         pnlDateSelection = new javax.swing.JPanel();
         jcbYear = new javax.swing.JComboBox<>();
         jcbMonth = new javax.swing.JComboBox<>();
+        lblViewDateSelection = new javax.swing.JLabel();
+        lblSearchByDates = new javax.swing.JLabel();
+        jxdDateFrom = new org.jdesktop.swingx.JXDatePicker();
+        jxdDateTo = new org.jdesktop.swingx.JXDatePicker();
+        lblFromDate = new javax.swing.JLabel();
+        lblToDate = new javax.swing.JLabel();
         pnlFooterForum = new javax.swing.JPanel();
         lblFooterImageForum = new javax.swing.JLabel();
         pnlNavBarSeePost = new javax.swing.JPanel();
@@ -357,8 +374,46 @@ public class Blog extends javax.swing.JFrame {
         pnlDateSelection.add(jcbMonth);
         jcbMonth.setBounds(120, 30, 110, 26);
 
+        lblViewDateSelection.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblViewDateSelection.setForeground(new java.awt.Color(0, 51, 255));
+        lblViewDateSelection.setText("Dates");
+        lblViewDateSelection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblViewDateSelectionMouseClicked(evt);
+            }
+        });
+        pnlDateSelection.add(lblViewDateSelection);
+        lblViewDateSelection.setBounds(440, 40, 90, 14);
+
+        lblSearchByDates.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSearchByDates.setForeground(new java.awt.Color(0, 51, 255));
+        lblSearchByDates.setText("Search dates");
+        lblSearchByDates.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchByDatesMouseClicked(evt);
+            }
+        });
+        pnlDateSelection.add(lblSearchByDates);
+        lblSearchByDates.setBounds(330, 40, 100, 14);
+        pnlDateSelection.add(jxdDateFrom);
+        jxdDateFrom.setBounds(20, 30, 134, 24);
+        pnlDateSelection.add(jxdDateTo);
+        jxdDateTo.setBounds(170, 30, 134, 24);
+
+        lblFromDate.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
+        lblFromDate.setForeground(new java.awt.Color(0, 0, 0));
+        lblFromDate.setText("from");
+        pnlDateSelection.add(lblFromDate);
+        lblFromDate.setBounds(20, 18, 19, 10);
+
+        lblToDate.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
+        lblToDate.setForeground(new java.awt.Color(0, 0, 0));
+        lblToDate.setText("to");
+        pnlDateSelection.add(lblToDate);
+        lblToDate.setBounds(170, 18, 8, 10);
+
         pnlBreadForum.add(pnlDateSelection);
-        pnlDateSelection.setBounds(580, 10, 420, 70);
+        pnlDateSelection.setBounds(440, 10, 540, 70);
 
         pnlBackgroundForum.add(pnlBreadForum);
         pnlBreadForum.setBounds(0, 190, 1022, 405);
@@ -602,6 +657,76 @@ public class Blog extends javax.swing.JFrame {
         filterByMonth(month);
     }//GEN-LAST:event_jcbMonthActionPerformed
 
+    private void lblViewDateSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDateSelectionMouseClicked
+        String lblText = lblViewDateSelection.getText();
+        if(lblText.equals("Dates")){
+        {
+            
+        lblViewDateSelection.setText("Years/Month");    
+        jcbMonth.setVisible(false);
+        jcbYear.setVisible(false);
+        lblSearchByDates.setVisible(true);
+         lblFromDate.setVisible(true);
+              lblToDate.setVisible(true);
+        jxdDateFrom.setVisible(true);
+        jxdDateTo.setVisible(true);
+        }
+        }
+        else if(lblText.equals("Years/Month"))
+        { 
+            lblViewDateSelection.setText("Dates"); 
+           jxdDateFrom.setVisible(false);
+           jxdDateTo.setVisible(false); 
+            lblSearchByDates.setVisible(false);
+             lblFromDate.setVisible(false);
+              lblToDate.setVisible(false);
+           jcbMonth.setVisible(true);
+           jcbYear.setVisible(true);     
+        }       
+    }//GEN-LAST:event_lblViewDateSelectionMouseClicked
+
+    private void lblSearchByDatesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchByDatesMouseClicked
+       if(jxdDateFrom.getDate() !=null && jxdDateTo.getDate() !=null)
+                {
+                    filterBetweenTwoDates();
+                }
+        else{
+        JOptionPane.showMessageDialog(null, "Choose two dates to filter by");
+        }
+    }//GEN-LAST:event_lblSearchByDatesMouseClicked
+
+    
+     private void filterBetweenTwoDates()
+        {
+           model.setRowCount(0);
+           
+           ArrayList<HashMap<String, String>> aPostList = new ArrayList<>();
+            try {
+                Date fromDate = jxdDateFrom.getDate();
+                Date toDate = jxdDateTo.getDate();
+
+                if (fromDate.before(toDate)) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String fromDate1 = sdf.format(fromDate);
+                    String toDate1 = sdf.format(toDate);
+                    aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+                    for (HashMap<String, String> aPost: aPostList) {
+                    model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
+                }
+
+            }} catch (SQLException ex) {
+                Logger.getLogger(Forum.class
+                        .getName()).log(Level.SEVERE, null, ex);}
+             catch (NullPointerException e) {
+                model.addRow(new Object[]{"No between thess dates"});
+            }
+
+        
+        }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
@@ -615,8 +740,14 @@ public class Blog extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbMonth;
     private javax.swing.JComboBox<String> jcbUsers;
     private javax.swing.JComboBox<String> jcbYear;
+    private org.jdesktop.swingx.JXDatePicker jxdDateFrom;
+    private org.jdesktop.swingx.JXDatePicker jxdDateTo;
     private javax.swing.JLabel lblFooterImageForum;
+    private javax.swing.JLabel lblFromDate;
     private javax.swing.JLabel lblImageHeader;
+    private javax.swing.JLabel lblSearchByDates;
+    private javax.swing.JLabel lblToDate;
+    private javax.swing.JLabel lblViewDateSelection;
     private javax.swing.JPanel pnlBackgroundForum;
     private javax.swing.JPanel pnlBreadForum;
     private javax.swing.JPanel pnlDateSelection;
