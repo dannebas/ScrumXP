@@ -91,7 +91,6 @@ public class Profil extends javax.swing.JFrame {
         btnBlog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1066, 1758));
         setSize(new java.awt.Dimension(1024, 2000));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
@@ -200,9 +199,9 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbMeetingProfile);
-        cbMeetingProfile.setBounds(190, 30, 154, 25);
+        cbMeetingProfile.setBounds(190, 30, 154, 26);
 
-        cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post", "See your posts" }));
+        cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post" }));
         cbNewPostProfile.setToolTipText("");
         cbNewPostProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +209,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
         pnlUserMeetingAndPostBackground.add(cbNewPostProfile);
-        cbNewPostProfile.setBounds(10, 30, 154, 25);
+        cbNewPostProfile.setBounds(10, 30, 154, 26);
 
         pnlBread.add(pnlUserMeetingAndPostBackground);
         pnlUserMeetingAndPostBackground.setBounds(130, 110, 380, 100);
@@ -472,10 +471,7 @@ public class Profil extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Edit post");
                 //Metod
                 break;
-            case "See your posts":
-                JOptionPane.showMessageDialog(null, "See your posts");
-                new SeeYourPost().setVisible(true);
-                break;
+            
             default:
         }
     }//GEN-LAST:event_cbNewPostProfileActionPerformed
