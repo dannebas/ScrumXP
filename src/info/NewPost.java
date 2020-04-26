@@ -18,7 +18,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
- * @author fabian
+ * @author Group 1
  */
 public class NewPost extends javax.swing.JFrame {
 
@@ -60,9 +60,6 @@ public class NewPost extends javax.swing.JFrame {
         textMain.setText("");
     }
 
-    private void fillCbEdit(String e) {
-
-    }
 
     private void findPostLocation(String idString) {
         try {
@@ -73,7 +70,7 @@ public class NewPost extends javax.swing.JFrame {
                 cbSubject.addItem("Formal");
                 String q2 = db.getDB().fetchSingle("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID = (SELECT CATEGORY FROM FORMAL_POST WHERE POST_ID = " + idString + ")");
                 cbCategory.addItem(q2);
-                System.out.println(q2 + "q2");
+                
                 String q3 = db.getDB().fetchSingle("SELECT POST_ID FROM EDUCATION_POSTS WHERE POST_ID = " + idString);
                 if (q3 != null) {
                     cbEduSci.addItem("Education");
@@ -348,20 +345,15 @@ public class NewPost extends javax.swing.JFrame {
 
                 String title = textTitle.getText();
                 String mainText = textMain.getText();
-                JOptionPane.showMessageDialog(null, "Post added! 1");
                 db.getDB().insert("INSERT INTO POSTS VALUES ('" + autoID + "','" + title + "','" + mainText + "','" + date1 + "','" + User.getUser() + "')");
-                JOptionPane.showMessageDialog(null, "Post added! 2");
                 // Added insert values depending on the selected options in the ColumnBox
                 if (cbSubject.getSelectedItem().toString().equals("Informal")) {
-                    JOptionPane.showMessageDialog(null, "Post added! 3");
                     db.getDB().insert("INSERT INTO INFORMAL_POST VALUES ('" + autoID + "')");
-                    JOptionPane.showMessageDialog(null, "Post added! 4");
                 } else if (cbSubject.getSelectedItem().toString().equals("Formal")) {
                     String categoryNumber = db.getDB().fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = '" + cbCategory.getSelectedItem().toString() + "'");
                     db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber + "')");
                     if (cbEduSci.getSelectedItem().toString().equals("Science")) {
 
-                        JOptionPane.showMessageDialog(null, "Post added! 5");
                         String groupNumber = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
                         db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber + "')");
                     } else if (cbEduSci.getSelectedItem().toString().equals("Education")) {
@@ -374,16 +366,23 @@ public class NewPost extends javax.swing.JFrame {
                 System.err.println(e);
             }
 
-            if (model.getSize() > 0) {
+            addFilesToPost();
+        }
+    }//GEN-LAST:event_buttonPostActionPerformed
+
+    private void addFilesToPost(){
+    
+     if (model.getSize() > 0) {
                 for (File oneFile : aListForDisplayingFiles) {
                     String path = oneFile.getAbsolutePath();
                     int fileID = query.autoIncrementField("FILES", "FILE_ID");
                     query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
                 }
             }
-        }
-    }//GEN-LAST:event_buttonPostActionPerformed
-
+    
+    }
+    
+    
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
         clear();
     }//GEN-LAST:event_buttonClearActionPerformed
@@ -425,7 +424,7 @@ public class NewPost extends javax.swing.JFrame {
         if (model.getSize() > 0) {
             for (File oneFile : aListForDisplayingFiles) {
                 String path = oneFile.getAbsolutePath().toString();
-                //String insertName = path.substring(path.lastIndexOf("."),path.length());
+               
                 int fileID = query.autoIncrementField("FILES", "FILE_ID");
                 query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
 
@@ -434,7 +433,9 @@ public class NewPost extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonSaveActionPerformed
 
-    private void buttonAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAttachActionPerformed
+    
+    private void  fillListWithAttachedFiles()
+    {
         PictureHandler fileHandler = new PictureHandler(1, 1);
         aListOfFiles = fileHandler.openFiles();
         lstDisplayingAttachedFiles.setModel(model);
@@ -442,20 +443,31 @@ public class NewPost extends javax.swing.JFrame {
             for (int i = 0; i < aListOfFiles.length; i++) {
                 aListForDisplayingFiles.add(aListOfFiles[i]);
                 String path = aListOfFiles[i].getAbsolutePath();
-                //String filTyp = paths.substring(paths.lastIndexOf("."),paths.length());
+                
                 String pathInsert = path.substring(path.lastIndexOf("\\") + 1, path.length());
                 model.addElement(pathInsert);
-                System.out.println(aListForDisplayingFiles.size());
             }
         }
-    }//GEN-LAST:event_buttonAttachActionPerformed
-
-    private void btnRemoveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileActionPerformed
-        if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
+    }        
+    
+    private void removeListItem(){
+    if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
             int i = lstDisplayingAttachedFiles.getSelectedIndex();
             model.removeElementAt(i);
             aListForDisplayingFiles.remove(i);
         }
+    
+    }
+    
+    
+    
+    private void buttonAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAttachActionPerformed
+        
+       fillListWithAttachedFiles();
+    }//GEN-LAST:event_buttonAttachActionPerformed
+
+    private void btnRemoveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileActionPerformed
+      removeListItem();
     }//GEN-LAST:event_btnRemoveFileActionPerformed
 
     private void showCbEduSci() {
