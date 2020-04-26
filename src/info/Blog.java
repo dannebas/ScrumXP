@@ -39,7 +39,16 @@ public class Blog extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         fillUserCombo();
         fillComboYear();
-        if (User.getAdmin() == false) {
+       
+        System.out.println(User.getAdmin());
+        if (User.getAdmin()) {
+            btnEditPost.setVisible(true);
+            
+            
+        }
+        
+        else 
+        {
             btnEditPost.setVisible(false);
         }
         
@@ -188,7 +197,7 @@ public class Blog extends javax.swing.JFrame {
         spnTableForum = new javax.swing.JScrollPane();
         tblGeneralPost = new javax.swing.JTable();
         btnEditPost = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCreateNewPost = new javax.swing.JButton();
         pnlFilter = new javax.swing.JPanel();
         jcbUsers = new javax.swing.JComboBox<>();
         pnlDateSelection = new javax.swing.JPanel();
@@ -321,18 +330,18 @@ public class Blog extends javax.swing.JFrame {
         pnlBreadForum.add(btnEditPost);
         btnEditPost.setBounds(190, 350, 140, 37);
 
-        jButton2.setBackground(new java.awt.Color(44, 95, 125));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Create new post");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateNewPost.setBackground(new java.awt.Color(44, 95, 125));
+        btnCreateNewPost.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCreateNewPost.setForeground(new java.awt.Color(255, 255, 255));
+        btnCreateNewPost.setText("Create new post");
+        btnCreateNewPost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnCreateNewPost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCreateNewPostActionPerformed(evt);
             }
         });
-        pnlBreadForum.add(jButton2);
-        jButton2.setBounds(40, 350, 140, 37);
+        pnlBreadForum.add(btnCreateNewPost);
+        btnCreateNewPost.setBounds(40, 350, 140, 37);
 
         pnlFilter.setBackground(new java.awt.Color(255, 255, 255));
         pnlFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FIlter selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
@@ -396,9 +405,9 @@ public class Blog extends javax.swing.JFrame {
         pnlDateSelection.add(lblSearchByDates);
         lblSearchByDates.setBounds(330, 40, 100, 14);
         pnlDateSelection.add(jxdDateFrom);
-        jxdDateFrom.setBounds(20, 30, 134, 24);
+        jxdDateFrom.setBounds(20, 30, 141, 24);
         pnlDateSelection.add(jxdDateTo);
-        jxdDateTo.setBounds(170, 30, 134, 24);
+        jxdDateTo.setBounds(170, 30, 141, 24);
 
         lblFromDate.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
         lblFromDate.setForeground(new java.awt.Color(0, 0, 0));
@@ -564,9 +573,9 @@ public class Blog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblGeneralPostMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCreateNewPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewPostActionPerformed
         new NewPost().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCreateNewPostActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
         new Home().setVisible(true);
@@ -730,13 +739,13 @@ public class Blog extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;
+    private javax.swing.JButton btnCreateNewPost;
     private javax.swing.JButton btnEditPost;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnResarchAndEducation;
     private javax.swing.JButton btnSeePostHome;
     private javax.swing.ButtonGroup buttonGroupForum;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jcbMonth;
     private javax.swing.JComboBox<String> jcbUsers;
     private javax.swing.JComboBox<String> jcbYear;

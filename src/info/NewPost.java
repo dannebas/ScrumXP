@@ -53,6 +53,10 @@ public class NewPost extends javax.swing.JFrame {
         fillTitleandMainText();
         findPostLocation(postId);
         buttonPost.setVisible(false);
+        incrID = Integer.parseInt(postId);
+         query = new QueryClass(db.getDB());
+        aListForDisplayingFiles = new ArrayList<>();
+        setLocationRelativeTo(null);
     }
 
     private void clear() {
@@ -421,15 +425,7 @@ public class NewPost extends javax.swing.JFrame {
             System.out.println(ex);
         }
 
-        if (model.getSize() > 0) {
-            for (File oneFile : aListForDisplayingFiles) {
-                String path = oneFile.getAbsolutePath().toString();
-               
-                int fileID = query.autoIncrementField("FILES", "FILE_ID");
-                query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
-
-            }
-        }
+        addFilesToPost();
 
     }//GEN-LAST:event_buttonSaveActionPerformed
 

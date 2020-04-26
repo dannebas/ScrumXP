@@ -522,7 +522,7 @@ public class Profil extends javax.swing.JFrame {
             try {
 
                 idString = tblMyPosts.getModel().getValueAt(id, 2).toString();
-                new SeePost(idString).setVisible(true);
+                new NewPost(idString).setVisible(true);
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");
             }

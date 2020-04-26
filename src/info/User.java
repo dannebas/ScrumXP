@@ -29,8 +29,11 @@ public class User {
     public User(String userID) {
 
         this.userID = userID;
+        admin = false;
+        edu_admin = false;
+        res_admin = false;
         getInfo();
-
+       
     }
 
     public static String getUser() {
@@ -103,13 +106,12 @@ public class User {
                 System.out.println("User is research admin");
             }
             if (userID.equals(norm_admin)) {
-                this.admin = true;
+                admin = true;
                 System.out.println("User is admin");
             }
 
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-
     }
 }

@@ -43,7 +43,6 @@ public class dbConnection {
     private void initConnection() {
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:" + url);
-            System.out.println("Connection established!");
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Could not connect to database.");
@@ -279,7 +278,6 @@ public class dbConnection {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 //Writes to this byte array output stream
                 bos.write(buf, 0, readNum);
-                System.out.println("read " + readNum + " bytes,");
             }
         } catch (IOException ex) {
             System.out.println(ex);
@@ -316,7 +314,6 @@ public class dbConnection {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 //Writes to this byte array output stream
                 bos.write(buf, 0, readNum);
-                System.out.println("read " + readNum + " bytes,");
             }
         } catch (IOException ex) {
             System.out.println(ex);
