@@ -21,13 +21,13 @@ public class db {
             String os = System.getProperty("os.name").toLowerCase(); // Kollar vilket operativsystem användaren har.
             String dbPath;
             System.out.println(currentFolder);
-            if (os.contains("mac")) {
-                dbPath = currentFolder + ("/db/db.sqlite"); //Sökväg för macanvändare
+            System.out.println(os);
+            if (os.contains("mac os x")) {
+                dbPath = currentFolder + "/db/db.sqlite"; //Sökväg för Mac-användare
             } else {
-                dbPath = currentFolder + ("\\db\\db.sqlite"); //Sökväg för alla andra.
-                System.out.println(dbPath);
-                this.db = new dbConnection(dbPath);
+                dbPath = currentFolder + ("\\db\\db.sqlite"); //Sökväg för Windows-användare
             }
+            this.db = new dbConnection(dbPath);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database error");

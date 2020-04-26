@@ -225,7 +225,7 @@ public class dbConnection {
                 }
             }
         } catch (SQLException e) {
-            
+
             JOptionPane.showMessageDialog(null, "Query failed, check statement. 6");
         } finally {
             closeConnection();
@@ -297,14 +297,7 @@ public class dbConnection {
         }
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
     public void saveFileToDB(File myFile) throws FileNotFoundException {
 
         FileInputStream fis = new FileInputStream(myFile);
