@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -34,7 +33,7 @@ public class Forum extends javax.swing.JFrame {
         TableColumnModel columnmodel = tblForumPost.getColumnModel();
         columnmodel.removeColumn(columnmodel.getColumn(4));
         columnmodel.removeColumn(columnmodel.getColumn(3));
-        
+
         jxdDateFrom.setVisible(false);
         jxdDateTo.setVisible(false);
         lblSearchByDates.setVisible(false);
@@ -680,7 +679,7 @@ public class Forum extends javax.swing.JFrame {
     }//GEN-LAST:event_tblForumPostMouseClicked
 
     private void btnNewPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPostActionPerformed
-        // TODO add your handling code here:
+        new NewPost().setVisible(true);
     }//GEN-LAST:event_btnNewPostActionPerformed
 
     private void btnSeePostHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeePostHomeActionPerformed
@@ -798,69 +797,64 @@ public class Forum extends javax.swing.JFrame {
 
     private void lblViewDateSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDateSelectionMouseClicked
         String lblText = lblViewDateSelection.getText();
-        if(lblText.equals("Dates")){
-        {
-            
-        lblViewDateSelection.setText("Years/Month");    
-        jcbMonth.setVisible(false);
-        jcbYear.setVisible(false);
-        lblSearchByDates.setVisible(true);
-         lblFromDate.setVisible(true);
-              lblToDate.setVisible(true);
-        jxdDateFrom.setVisible(true);
-        jxdDateTo.setVisible(true);
-        }
-        }
-        else if(lblText.equals("Years/Month"))
-        { 
-            lblViewDateSelection.setText("Dates"); 
-           jxdDateFrom.setVisible(false);
-           jxdDateTo.setVisible(false); 
+        if (lblText.equals("Dates")) {
+            {
+
+                lblViewDateSelection.setText("Years/Month");
+                jcbMonth.setVisible(false);
+                jcbYear.setVisible(false);
+                lblSearchByDates.setVisible(true);
+                lblFromDate.setVisible(true);
+                lblToDate.setVisible(true);
+                jxdDateFrom.setVisible(true);
+                jxdDateTo.setVisible(true);
+            }
+        } else if (lblText.equals("Years/Month")) {
+            lblViewDateSelection.setText("Dates");
+            jxdDateFrom.setVisible(false);
+            jxdDateTo.setVisible(false);
             lblSearchByDates.setVisible(false);
-             lblFromDate.setVisible(false);
-              lblToDate.setVisible(false);
-           jcbMonth.setVisible(true);
-           jcbYear.setVisible(true);     
-        }       
+            lblFromDate.setVisible(false);
+            lblToDate.setVisible(false);
+            jcbMonth.setVisible(true);
+            jcbYear.setVisible(true);
+        }
     }//GEN-LAST:event_lblViewDateSelectionMouseClicked
 
     private void lblSearchByDatesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchByDatesMouseClicked
-        if(jxdDateFrom.getDate() !=null && jxdDateTo.getDate() !=null)
-                {
-                    filterBetweenTwoDates();
-                }
-        else{
-        JOptionPane.showMessageDialog(null, "Choose two dates to filter by");
+        if (jxdDateFrom.getDate() != null && jxdDateTo.getDate() != null) {
+            filterBetweenTwoDates();
+        } else {
+            JOptionPane.showMessageDialog(null, "Choose two dates to filter by");
         }
     }//GEN-LAST:event_lblSearchByDatesMouseClicked
 
-        private void filterBetweenTwoDates()
-        {
-           model.setRowCount(0);
-           
-           ArrayList<HashMap<String, String>> aPostList = new ArrayList<>();
-            try {
-                Date fromDate = jxdDateFrom.getDate();
-                Date toDate = jxdDateTo.getDate();
+    private void filterBetweenTwoDates() {
+        model.setRowCount(0);
 
-                if (fromDate.before(toDate)) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    String fromDate1 = sdf.format(fromDate);
-                    String toDate1 = sdf.format(toDate);
-                    aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() +"' ))))) AND DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "'");
-                    for (HashMap<String, String> aPost: aPostList) {
+        ArrayList<HashMap<String, String>> aPostList = new ArrayList<>();
+        try {
+            Date fromDate = jxdDateFrom.getDate();
+            Date toDate = jxdDateTo.getDate();
+
+            if (fromDate.before(toDate)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String fromDate1 = sdf.format(fromDate);
+                String toDate1 = sdf.format(toDate);
+                aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() + "' ))))) AND DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "'");
+                for (HashMap<String, String> aPost : aPostList) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
 
-            }} catch (SQLException ex) {
-                Logger.getLogger(Forum.class
-                        .getName()).log(Level.SEVERE, null, ex);}
-             catch (NullPointerException e) {
-                model.addRow(new Object[]{"No between thess dates"});
             }
-
-        
+        } catch (SQLException ex) {
+            Logger.getLogger(Forum.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            model.addRow(new Object[]{"No between thess dates"});
         }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlog;
     private javax.swing.JButton btnCalendar;

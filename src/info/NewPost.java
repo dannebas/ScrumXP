@@ -39,6 +39,7 @@ public class NewPost extends javax.swing.JFrame {
         cbScienceGroups.setVisible(false);
         cbEduSci.setVisible(false);
         cbCategory.setVisible(false);
+        checkboxAllGroups.setVisible(false);
         buttonSave.setVisible(true);
         query = new QueryClass(db.getDB());
         incrID = query.autoIncrementField("POSTS", "POST_ID");
@@ -54,7 +55,7 @@ public class NewPost extends javax.swing.JFrame {
         findPostLocation(postId);
         buttonPost.setVisible(false);
         incrID = Integer.parseInt(postId);
-         query = new QueryClass(db.getDB());
+        query = new QueryClass(db.getDB());
         aListForDisplayingFiles = new ArrayList<>();
         setLocationRelativeTo(null);
     }
@@ -63,7 +64,6 @@ public class NewPost extends javax.swing.JFrame {
         textTitle.setText("");
         textMain.setText("");
     }
-
 
     private void findPostLocation(String idString) {
         try {
@@ -74,7 +74,7 @@ public class NewPost extends javax.swing.JFrame {
                 cbSubject.addItem("Formal");
                 String q2 = db.getDB().fetchSingle("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID = (SELECT CATEGORY FROM FORMAL_POST WHERE POST_ID = " + idString + ")");
                 cbCategory.addItem(q2);
-                
+
                 String q3 = db.getDB().fetchSingle("SELECT POST_ID FROM EDUCATION_POSTS WHERE POST_ID = " + idString);
                 if (q3 != null) {
                     cbEduSci.addItem("Education");
@@ -139,6 +139,7 @@ public class NewPost extends javax.swing.JFrame {
         cbCategory = new javax.swing.JComboBox<>();
         cbEduSci = new javax.swing.JComboBox<>();
         cbScienceGroups = new javax.swing.JComboBox<>();
+        checkboxAllGroups = new javax.swing.JCheckBox();
         scrAttachedFiles = new javax.swing.JScrollPane();
         lstDisplayingAttachedFiles = new javax.swing.JList<>();
         btnRemoveFile = new javax.swing.JButton();
@@ -170,7 +171,7 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
         pnlCategory.add(cbSubject);
-        cbSubject.setBounds(20, 40, 160, 26);
+        cbSubject.setBounds(20, 50, 160, 26);
 
         cbCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +179,7 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
         pnlCategory.add(cbCategory);
-        cbCategory.setBounds(190, 40, 160, 26);
+        cbCategory.setBounds(190, 50, 160, 26);
 
         cbEduSci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +187,7 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
         pnlCategory.add(cbEduSci);
-        cbEduSci.setBounds(360, 40, 160, 26);
+        cbEduSci.setBounds(360, 50, 160, 26);
 
         cbScienceGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,10 +195,20 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
         pnlCategory.add(cbScienceGroups);
-        cbScienceGroups.setBounds(530, 40, 160, 26);
+        cbScienceGroups.setBounds(530, 50, 160, 26);
+
+        checkboxAllGroups.setBackground(new java.awt.Color(255, 255, 255));
+        checkboxAllGroups.setText("Publish to all groups");
+        checkboxAllGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxAllGroupsActionPerformed(evt);
+            }
+        });
+        pnlCategory.add(checkboxAllGroups);
+        checkboxAllGroups.setBounds(530, 20, 150, 24);
 
         pnlBread.add(pnlCategory);
-        pnlCategory.setBounds(30, 40, 710, 90);
+        pnlCategory.setBounds(30, 40, 710, 110);
 
         scrAttachedFiles.setBackground(new java.awt.Color(255, 255, 255));
         scrAttachedFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Attached Files", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
@@ -247,7 +258,7 @@ public class NewPost extends javax.swing.JFrame {
             }
         });
         pnlBread.add(textTitle);
-        textTitle.setBounds(30, 140, 710, 50);
+        textTitle.setBounds(30, 160, 710, 50);
 
         buttonClear.setBackground(new java.awt.Color(44, 95, 125));
         buttonClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -298,7 +309,7 @@ public class NewPost extends javax.swing.JFrame {
         scrDescription.setViewportView(textMain);
 
         pnlBread.add(scrDescription);
-        scrDescription.setBounds(30, 200, 710, 360);
+        scrDescription.setBounds(30, 230, 710, 310);
 
         getContentPane().add(pnlBread);
 
@@ -357,9 +368,14 @@ public class NewPost extends javax.swing.JFrame {
                     String categoryNumber = db.getDB().fetchSingle("SELECT CATEGORY_ID FROM CATEGORY WHERE CATEGORY_NAME = '" + cbCategory.getSelectedItem().toString() + "'");
                     db.getDB().insert("INSERT INTO FORMAL_POST VALUES ('" + autoID + "','" + categoryNumber + "')");
                     if (cbEduSci.getSelectedItem().toString().equals("Science")) {
-
-                        String groupNumber = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
-                        db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + groupNumber + "')");
+                        //if checkbox 'Publish to all groups is selected'.
+                        String researchGroup = db.getDB().fetchSingle("SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_NAME = '" + cbScienceGroups.getSelectedItem().toString() + "'");
+                        if (checkboxAllGroups.isSelected()) {
+                            db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + researchGroup + "'," + true + ")");
+                        }
+                        if (!checkboxAllGroups.isSelected()) {
+                            db.getDB().insert("INSERT INTO RESEARCH_POSTS VALUES ('" + autoID + "','" + researchGroup + "'," + false + ")");
+                        }
                     } else if (cbEduSci.getSelectedItem().toString().equals("Education")) {
                         db.getDB().insert("INSERT INTO EDUCATION_POSTS VALUES ('" + autoID + "')");
                     }
@@ -374,19 +390,18 @@ public class NewPost extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonPostActionPerformed
 
-    private void addFilesToPost(){
-    
-     if (model.getSize() > 0) {
-                for (File oneFile : aListForDisplayingFiles) {
-                    String path = oneFile.getAbsolutePath();
-                    int fileID = query.autoIncrementField("FILES", "FILE_ID");
-                    query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
-                }
+    private void addFilesToPost() {
+
+        if (model.getSize() > 0) {
+            for (File oneFile : aListForDisplayingFiles) {
+                String path = oneFile.getAbsolutePath();
+                int fileID = query.autoIncrementField("FILES", "FILE_ID");
+                query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
             }
-    
+        }
+
     }
-    
-    
+
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
         clear();
     }//GEN-LAST:event_buttonClearActionPerformed
@@ -429,9 +444,7 @@ public class NewPost extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonSaveActionPerformed
 
-    
-    private void  fillListWithAttachedFiles()
-    {
+    private void fillListWithAttachedFiles() {
         PictureHandler fileHandler = new PictureHandler(1, 1);
         aListOfFiles = fileHandler.openFiles();
         lstDisplayingAttachedFiles.setModel(model);
@@ -439,39 +452,43 @@ public class NewPost extends javax.swing.JFrame {
             for (int i = 0; i < aListOfFiles.length; i++) {
                 aListForDisplayingFiles.add(aListOfFiles[i]);
                 String path = aListOfFiles[i].getAbsolutePath();
-                
+
                 String pathInsert = path.substring(path.lastIndexOf("\\") + 1, path.length());
                 model.addElement(pathInsert);
             }
         }
-    }        
-    
-    private void removeListItem(){
-    if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
+    }
+
+    private void removeListItem() {
+        if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
             int i = lstDisplayingAttachedFiles.getSelectedIndex();
             model.removeElementAt(i);
             aListForDisplayingFiles.remove(i);
         }
-    
+
     }
-    
-    
-    
+
     private void buttonAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAttachActionPerformed
-        
-       fillListWithAttachedFiles();
+
+        fillListWithAttachedFiles();
     }//GEN-LAST:event_buttonAttachActionPerformed
 
     private void btnRemoveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileActionPerformed
-      removeListItem();
+        removeListItem();
     }//GEN-LAST:event_btnRemoveFileActionPerformed
+
+    private void checkboxAllGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxAllGroupsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxAllGroupsActionPerformed
 
     private void showCbEduSci() {
         String choice = cbEduSci.getSelectedItem().toString();
         if (choice.equals("Science")) {
             cbScienceGroups.setVisible(true);
+            checkboxAllGroups.setVisible(true);
         } else {
             cbScienceGroups.setVisible(false);
+            checkboxAllGroups.setVisible(false);
         }
     }
 
@@ -485,6 +502,7 @@ public class NewPost extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbEduSci;
     private javax.swing.JComboBox<String> cbScienceGroups;
     private javax.swing.JComboBox<String> cbSubject;
+    private javax.swing.JCheckBox checkboxAllGroups;
     private javax.swing.JList<String> lstDisplayingAttachedFiles;
     private javax.swing.JPanel pnlBread;
     private javax.swing.JPanel pnlCategory;

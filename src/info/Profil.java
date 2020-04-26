@@ -193,6 +193,7 @@ public class Profil extends javax.swing.JFrame {
         pnlUserMeetingAndPostBackground.setLayout(null);
 
         cbMeetingProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New meeting", "See meeting", "Edit meeting" }));
+        cbMeetingProfile.setSelectedIndex(-1);
         cbMeetingProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMeetingProfileActionPerformed(evt);
@@ -202,6 +203,7 @@ public class Profil extends javax.swing.JFrame {
         cbMeetingProfile.setBounds(190, 30, 154, 26);
 
         cbNewPostProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New post", "See post", "Edit post" }));
+        cbNewPostProfile.setSelectedIndex(-1);
         cbNewPostProfile.setToolTipText("");
         cbNewPostProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,7 +473,7 @@ public class Profil extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Edit post");
                 //Metod
                 break;
-            
+
             default:
         }
     }//GEN-LAST:event_cbNewPostProfileActionPerformed
@@ -492,19 +494,13 @@ public class Profil extends javax.swing.JFrame {
                 break;
             case "Edit meeting":
                 JOptionPane.showMessageDialog(null, "Edit meeting");
-                
+
                 EditMeeting obj = new EditMeeting();
                 obj.setLocationRelativeTo(null);
                 obj.setVisible(true);
-                
-                
-                
-                
-                
-                
-                
+
                 break;
-            
+
             default:
         }
     }//GEN-LAST:event_cbMeetingProfileActionPerformed
