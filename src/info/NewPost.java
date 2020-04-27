@@ -445,8 +445,7 @@ public class NewPost extends javax.swing.JFrame {
                 int fileID = query.autoIncrementField("FILES", "FILE_ID");
               
                 
-                
-                System.out.println(fileID);
+               
                 query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
             }
         }

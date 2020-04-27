@@ -851,7 +851,7 @@ public class Forum extends javax.swing.JFrame {
             Logger.getLogger(Forum.class
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            model.addRow(new Object[]{"No between thess dates"});
+            model.addRow(new Object[]{"No posts between these dates"});
         }
 
     }

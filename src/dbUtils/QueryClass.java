@@ -243,7 +243,7 @@ public class QueryClass
         try 
         {
             conn.saveFileToDB(file, query);
-           JOptionPane.showMessageDialog(null, "File uploaded");
+           //JOptionPane.showMessageDialog(null, "File uploaded");
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(QueryClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error");
