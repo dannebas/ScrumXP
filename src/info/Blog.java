@@ -67,7 +67,7 @@ public class Blog extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblGeneralPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM INFORMAL_POST) ORDER BY DATE DESC");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -84,7 +84,7 @@ public class Blog extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblGeneralPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE AUTHOR = '"+user+"' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE AUTHOR = '"+user+"' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST) ORDER BY DATE DESC");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -140,7 +140,7 @@ public class Blog extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblGeneralPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + year + "%' AND POST_ID in (select POST_ID from INFORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + year + "%' AND POST_ID in (select POST_ID from INFORMAL_POST) ORDER BY DATE DESC");
             for (HashMap<String, String> aPost : posts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
@@ -164,7 +164,7 @@ public class Blog extends javax.swing.JFrame {
             try {
                 model = (DefaultTableModel) tblGeneralPost.getModel();
                 model.setRowCount(0);
-                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in (select POST_ID from INFORMAL_POST)");
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in (select POST_ID from INFORMAL_POST) ORDER BY DATE DESC");
                 for (HashMap<String, String> aPost : posts) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
@@ -718,7 +718,7 @@ public class Blog extends javax.swing.JFrame {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String fromDate1 = sdf.format(fromDate);
                     String toDate1 = sdf.format(toDate);
-                    aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST)");
+                    aPostList = db.getDB().fetchRows("SELECT * FROM POSTS WHERE DATE BETWEEN " + "'" + fromDate1 + "'" + "AND" + "'" + toDate1 + "' AND POST_ID in(SELECT POST_ID FROM INFORMAL_POST) ORDER BY DATE DESC");
                     for (HashMap<String, String> aPost: aPostList) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }

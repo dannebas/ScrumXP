@@ -412,7 +412,7 @@ public class Profil extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblMyPosts.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> myPosts = db.getDB().fetchRows("SELECT TITLE, DATE, POST_ID FROM POSTS WHERE AUTHOR ='" + User.getUser() + "'");
+            ArrayList<HashMap<String, String>> myPosts = db.getDB().fetchRows("SELECT TITLE, DATE, POST_ID FROM POSTS WHERE AUTHOR ='" + User.getUser() + "' ORDER BY DATE desc");
             for (HashMap<String, String> aPost : myPosts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("DATE"), aPost.get("POST_ID")});
             }

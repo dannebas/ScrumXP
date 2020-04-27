@@ -41,7 +41,8 @@ public class Forum extends javax.swing.JFrame {
         lblToDate.setVisible(false);
         btnEditPost.setVisible(false);
         btnNewPost.setVisible(false);
-        addAllFormalPost();
+        // addAllFormalPost();
+        addResearchForumPost();
 
         if (User.getResAdmin() == true || User.getEduAdmin() == true) {
             btnEditPost.setVisible(true);
@@ -111,12 +112,12 @@ public class Forum extends javax.swing.JFrame {
         }
     }
 
-    private void addAllFormalPost() // add all the Post to the table
+   /* private void addAllFormalPost() // add all the Post to the table
     {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST) ORDER BY DATE DESC");
             for (HashMap<String, String> aPost : posts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
@@ -127,13 +128,13 @@ public class Forum extends javax.swing.JFrame {
             model.addRow(new Object[]{"No Posts"});
         }
     }
-
+*/
     public void addResearchForumPost() {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
             ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT POSTS.POST_ID, TITLE, DESCRIPTION, DATE, AUTHOR FROM POSTS INNER JOIN RESEARCH_POSTS ON RESEARCH_POSTS.POST_ID=POSTS.POST_ID"
-                    + " INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "'");
+                    + " INNER JOIN GROUP_MEMBERS ON RESEARCH_POSTS.RESEARCH_GROUP=GROUP_MEMBERS.RESEARCH_GROUP WHERE MEMBER = '" + User.getUser() + "' ORDER BY DATE DESC");
             System.out.println(User.getUser());
             System.out.println(posts);
             for (HashMap<String, String> aPost : posts) {
@@ -151,7 +152,7 @@ public class Forum extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS)");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM EDUCATION_POSTS) ORDER BY DATE DESC");
             for (HashMap<String, String> aPost : posts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
@@ -168,7 +169,7 @@ public class Forum extends javax.swing.JFrame {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ")");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("SELECT * FROM POSTS WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP =" + groupID + ") ORDER BY DATE DESC");
 
             for (HashMap<String, String> aPost : posts) {
 
@@ -189,7 +190,7 @@ public class Forum extends javax.swing.JFrame {
         try {
             model = (DefaultTableModel) tblForumPost.getModel();
             model.setRowCount(0);
-            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST where CATEGORY = " + category + ")");
+            ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from FORMAL_POST where CATEGORY = " + category + ") ORDER BY DATE DESC");
             for (HashMap<String, String> aPost : posts) {
                 model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
             }
@@ -207,7 +208,7 @@ public class Forum extends javax.swing.JFrame {
             if (!group.equals("Research")) {
                 model = (DefaultTableModel) tblForumPost.getModel();
                 model.setRowCount(0);
-                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from RESEARCH_POSTS where RESEARCH_GROUP = " + group + ")");
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where POST_ID in (select POST_ID from RESEARCH_POSTS where RESEARCH_GROUP = " + group + ") ORDER BY DATE DESC");
                 for (HashMap<String, String> aPost : posts) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
@@ -248,7 +249,7 @@ public class Forum extends javax.swing.JFrame {
             try {
                 model = (DefaultTableModel) tblForumPost.getModel();
                 model.setRowCount(0);
-                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() + "' )))))");
+                ArrayList<HashMap<String, String>> posts = db.getDB().fetchRows("select * from POSTS where DATE like '%" + yearAndMonth + "%' AND POST_ID in(SELECT POST_ID FROM FORMAL_POST WHERE POST_ID in(SELECT POST_ID FROM RESEARCH_POSTS WHERE RESEARCH_GROUP in(SELECT GROUP_ID FROM RESEARCH_GROUP WHERE GROUP_ID in(SELECT RESEARCH_GROUP FROM GROUP_MEMBERS WHERE MEMBER in(SELECT USER_ID FROM USER WHERE USER_ID = '" + User.getUser() + "' ))))) ORDER BY DATE DESC");
                 for (HashMap<String, String> aPost : posts) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
@@ -431,7 +432,7 @@ public class Forum extends javax.swing.JFrame {
         pnlFilter.add(jcbGroups);
         jcbGroups.setBounds(380, 30, 160, 26);
 
-        jcbResEduSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Research", "Education" }));
+        jcbResEduSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Research", "Education" }));
         jcbResEduSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbResEduSelectionActionPerformed(evt);
@@ -674,7 +675,6 @@ public class Forum extends javax.swing.JFrame {
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Not a valid option");
             }
-
         }
     }//GEN-LAST:event_tblForumPostMouseClicked
 
@@ -715,16 +715,13 @@ public class Forum extends javax.swing.JFrame {
         int selection = jcbResEduSelection.getSelectedIndex();
         switch (selection) {
             case 0:
-                addAllFormalPost();
+               addResearchForumPost();
                 break;
             case 1:
-                addResearchForumPost();
-                break;
-            case 2:
                 addEducationForumPost();
                 break;
             default:
-                addAllFormalPost();
+                addResearchForumPost();
 
         }
     }//GEN-LAST:event_jcbResEduSelectionActionPerformed
@@ -799,7 +796,6 @@ public class Forum extends javax.swing.JFrame {
         String lblText = lblViewDateSelection.getText();
         if (lblText.equals("Dates")) {
             {
-
                 lblViewDateSelection.setText("Years/Month");
                 jcbMonth.setVisible(false);
                 jcbYear.setVisible(false);
@@ -845,7 +841,6 @@ public class Forum extends javax.swing.JFrame {
                 for (HashMap<String, String> aPost : aPostList) {
                     model.addRow(new Object[]{aPost.get("TITLE"), aPost.get("AUTHOR"), aPost.get("DATE"), aPost.get("DESCRIPTION"), aPost.get("POST_ID")});
                 }
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(Forum.class

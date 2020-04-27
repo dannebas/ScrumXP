@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
-import java.awt.Cursor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,8 +43,7 @@ import javax.swing.text.StyledDocument;
  * @author Group 1
  */
 public class SeePost extends javax.swing.JFrame {
-    
-    
+
     int numberOfComments = 0;
     Post aPost;
     String id;
@@ -56,8 +54,6 @@ public class SeePost extends javax.swing.JFrame {
     boolean isFormal = false;
     boolean isEducational = false;
     boolean isInformal = false;
-    
-    
 
     /**
      * Creates new form SeePost
@@ -65,12 +61,9 @@ public class SeePost extends javax.swing.JFrame {
      * @param id post id.
      */
     public SeePost(String id) {
-        
-        //checkAdminType();
-        isInformal(id);
-        isFormal(id);
-        isEducational(id);
-        
+
+        this.id = id;
+        aPost = new Post(id);
         initComponents();
         ImageIcon profilePicture = null;
         this.model = new DefaultListModel();
@@ -78,14 +71,10 @@ public class SeePost extends javax.swing.JFrame {
         model1.removeColumn(model1.getColumn(1));
         tblAttachedFiles.getTableHeader().setUI(null);
         scrAttachedFiles.getViewport().setBackground(Color.white);
-        this.id = id;
-        aPost = new Post(id);
 
         try {
             profilePicture = new ImageIcon(db.getDB().fetchImageBytes("select IMAGE from USER_PROFILE where PROFILE_ID = (select AUTHOR from POSTS where POST_ID = " + id + ")"));
-             
-               
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,23 +99,27 @@ public class SeePost extends javax.swing.JFrame {
 
         loadPostContent();
         txtPaneSeePost.setCaretPosition(0);
+        isInformal(id);
+        isFormal(id);
+        isEducational(id);
+        checkAdminType();
         setLocationRelativeTo(null);
     }
-    
+
     private void isEducational(String id) {
-    try { //Decides if the post is educational
-            if (db.getDB().fetchColumn("select POST_ID from EDUCATION_POSTS where POST_ID ='" + id+"'") != null) {
+        try { //Decides if the post is educational
+            if (db.getDB().fetchColumn("select POST_ID from EDUCATION_POSTS where POST_ID ='" + id + "'") != null) {
                 isEducational = true;
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
+    }
 
     private void isFormal(String id) {
         try { //Decides if the post is formal
-            if (db.getDB().fetchColumn("select POST_ID from FORMAL_POST where POST_ID ='" + id+"'") != null) {
+            if (db.getDB().fetchColumn("select POST_ID from FORMAL_POST where POST_ID ='" + id + "'") != null) {
                 isFormal = true;
 
             }
@@ -137,7 +130,7 @@ public class SeePost extends javax.swing.JFrame {
 
     private void isInformal(String id) {
         try {
-            if (db.getDB().fetchColumn("select POST_ID from INFORMAL_POST where POST_ID ='" + id+"'") != null) {
+            if (db.getDB().fetchColumn("select POST_ID from INFORMAL_POST where POST_ID ='" + id + "'") != null) {
                 isInformal = true;
 
             }
@@ -147,24 +140,15 @@ public class SeePost extends javax.swing.JFrame {
     }
 
     private void checkAdminType() {
-        if (User.getAdmin() && isInformal == true)
-        {
+        if (User.getAdmin() && isInformal == true) {
             btnDeletePost.setVisible(true);
-        }
-        else if (User.getEduAdmin() && isEducational == true)
-        {
+        } else if (User.getEduAdmin() && isEducational == true) {
             btnDeletePost.setVisible(true);
-        }
-        else if (User.getResAdmin() && isFormal == true)
-        {
+        } else if (User.getResAdmin() && isFormal == true) {
             btnDeletePost.setVisible(true);
-        }
-        else if (User.getUser().contains(author) && isInformal == true)
-        {
+        } else if (User.getUser().equals(author) && isInformal == true) {
             btnDeletePost.setVisible(true);
-        }
-        else
-        {
+        } else {
             btnDeletePost.setVisible(false);
         }
     }
@@ -414,6 +398,7 @@ public class SeePost extends javax.swing.JFrame {
         } catch (BadLocationException er) {
         }
     }
+
     public void loadComments() {
 
         ArrayList<HashMap<String, String>> allComments;
@@ -436,7 +421,7 @@ public class SeePost extends javax.swing.JFrame {
 
         }
 
-    }
+    } 
 
     private void saveNewCommentToDB() {
         String commentText = taNewComment.getText();
@@ -452,8 +437,7 @@ public class SeePost extends javax.swing.JFrame {
 
             }
             int commentId = Integer.parseInt(nextId);
-            // System.out.println(commentText);
-            // System.out.println(commentId + ", '" + User.getUser() + "', '" + commentText + "', '" + strDate + "', " + id );
+
             db.getDB().insert("insert into COMMENTS values (" + commentId + ", '" + User.getUser() + "', '" + commentText + "', '" + strDate + "', " + id + ")");
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(NewComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -476,62 +460,53 @@ public class SeePost extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveFileActionPerformed
 
     private void btnDeletePostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePostActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Do you want to delete this post?", "Attention", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        {                                                                                           /// Method for deleting a post
+        if (JOptionPane.showConfirmDialog(null, "Do you want to delete this post?", "Attention", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {                                                                                           /// Method for deleting a post
             try {
                 db.getDB().delete("delete from POSTS where POST_ID = '" + id + "'");
-                
-                if(("SELECT * FROM FILES WHERE POST = '" + id + "'")!= null)
-                {
-                      
+
+                if (("SELECT * FROM FILES WHERE POST = '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM FILES WHERE POST= '" + id + "'");
-                     
+
                 }
-                
-             
-                if(("SELECT * FROM INFORMAL_POST WHERE POST_ID= '" + id + "'")!= null)
-                {
-                    
+
+                if (("SELECT * FROM INFORMAL_POST WHERE POST_ID= '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM INFORMAL_POST WHERE POST_ID = '" + id + "'");
-                       
+
                 }
-                
-              
-                if(("SELECT * FROM FORMAL_POST WHERE POST_ID = '" + id + "'")!= null)
-                {
-                    
+
+                if (("SELECT * FROM FORMAL_POST WHERE POST_ID = '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM FORMAL_POST WHERE POST_ID = '" + id + "'");
-                       
+
                 }
-                
-                if(("SELECT * FROM EDUCATION_POSTS WHERE POST_ID = '" + id + "'")!= null)
-                {
-                    
+
+                if (("SELECT * FROM EDUCATION_POSTS WHERE POST_ID = '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM EDUCATION_POSTS WHERE POST_ID = '" + id + "'");
-                       
+
                 }
-                
-                  if(("SELECT * FROM RESEARCH_POSTS WHERE POST_ID = '" + id + "'")!= null)
-                {
-                    
+
+                if (("SELECT * FROM RESEARCH_POSTS WHERE POST_ID = '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM RESEARCH_POSTS WHERE POST_ID = '" + id + "'");
-                       
+
                 }
-                
-                  if(("SELECT * FROM COMMENTS WHERE POST_ID = '" + id + "'")!= null)
-                {
-                    
+
+                if (("SELECT * FROM COMMENTS WHERE POST_ID = '" + id + "'") != null) {
+
                     db.getDB().delete("DELETE FROM COMMENTS WHERE POST_ID = '" + id + "'");
-                       
+
                 }
                 JOptionPane.showMessageDialog(null, "The post has been deleted");
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(SeePost.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
         }
-        
+
     }//GEN-LAST:event_btnDeletePostActionPerformed
 
     public void addAttachedFilesToTable() {  // shows which files are attached to the post by showing them on a jTable

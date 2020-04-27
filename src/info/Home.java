@@ -320,7 +320,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
         pnlActions1.add(lblNewMeeting);
-        lblNewMeeting.setBounds(40, 50, 80, 70);
+        lblNewMeeting.setBounds(40, 40, 80, 70);
 
         pnlBreadForum.add(pnlActions1);
         pnlActions1.setBounds(520, 210, 440, 160);
