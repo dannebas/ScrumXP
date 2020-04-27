@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Group 1
  */
-public class NewPost extends javax.swing.JFrame {
+public class NewPost extends javax.swing.JFrame {   
 
     private String postId;
     private DefaultListModel model;
@@ -35,7 +35,7 @@ public class NewPost extends javax.swing.JFrame {
     /**
      * Creates new form NewPost
      */
-    public NewPost() {
+    public NewPost() {  //contructor used when creating a whole new post
         initComponents();
         fillCb();
         this.model = new DefaultListModel();
@@ -52,7 +52,7 @@ public class NewPost extends javax.swing.JFrame {
         btnRemoveFile.setVisible(true);
     }
 
-    public NewPost(String postId) {
+    public NewPost(String postId) {   //contructor used when editing a post
         initComponents();
         this.model = new DefaultListModel();
         this.postId = postId;
@@ -390,7 +390,7 @@ public class NewPost extends javax.swing.JFrame {
     }//GEN-LAST:event_textTitleActionPerformed
 
     private void buttonPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPostActionPerformed
-        if (Validation.checkTextFieldEmpty(textTitle)) {
+        if (Validation.checkTextFieldEmpty(textTitle)) {            // the method of creating a post
             try {
                 String autoID;
                 autoID = db.getDB().getAutoIncrement("POSTS", "POST_ID");
@@ -436,7 +436,7 @@ public class NewPost extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonPostActionPerformed
 
-    private void addFilesToPost() {
+    private void addFilesToPost() {  // Method for adding files to a post
 
         if (model.getSize() > 0) {
             for (File oneFile : aListForDisplayingFiles) {
@@ -473,7 +473,7 @@ public class NewPost extends javax.swing.JFrame {
     }
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
-        try {
+        try {                                        //Method for saving editing updates for a post
             String title = textTitle.getText();
             String mainText = textMain.getText();
 
@@ -511,6 +511,7 @@ public class NewPost extends javax.swing.JFrame {
     }
 
     private void removeListItem() {
+                                        // This method is used when creating a new post and you regrett adding a file to the post, here you will remove the file from the list that is used to add files to the database when you create a post.
         if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
             int i = lstDisplayingAttachedFiles.getSelectedIndex();
             model.removeElementAt(i);
@@ -534,10 +535,10 @@ public class NewPost extends javax.swing.JFrame {
 
     private void btnRemoveFileEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileEditActionPerformed
        
-        if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
+        if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {      // this method is used when editing a post and you want to delete files attached to it
             int i = lstDisplayingAttachedFiles.getSelectedIndex();
             
-            int result = JOptionPane.showConfirmDialog(null, "Delete the file from the post?");
+            int result = JOptionPane.showConfirmDialog(null, "Delete the file from the post?"); // worth nothing that if you press yes on the confirm dialog the files are deleted from the database
             
             if(result == 0)
             {    
@@ -555,15 +556,7 @@ public class NewPost extends javax.swing.JFrame {
         
         }
         
-       /* String mystring = lstDisplayingAttachedFiles.getSelectedValue().toString();
-        String arr[] = mystring.split(" ", 2);
-        int removeFileindex = Integer.parseInt(arr[0]);
-        System.out.println("det här är ID för filen" +removeFileindex);
-        try{
-        db.getDB().delete("Delete FROM FILES WHERE  FILE_ID = " + removeFileindex);
-        }
-        catch(SQLException e)
-        {}*/
+       
     }//GEN-LAST:event_btnRemoveFileEditActionPerformed
 
     private void showCbEduSci() {

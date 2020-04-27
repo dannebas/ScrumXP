@@ -41,7 +41,7 @@ import javax.swing.text.StyledDocument;
 
 /**
  *
- * @author fabia
+ * @author Group 1
  */
 public class SeePost extends javax.swing.JFrame {
     
@@ -386,7 +386,7 @@ public class SeePost extends javax.swing.JFrame {
 
     }
 
-    private void loadPostContent() {
+    private void loadPostContent() { /// method that load all content in a post, the title, maintext, comments and files (embedds images to the txtPane)
         try {
             txtPaneSeePost.getStyledDocument().remove(0, txtPaneSeePost.getStyledDocument().getLength());
 
@@ -477,7 +477,7 @@ public class SeePost extends javax.swing.JFrame {
 
     private void btnDeletePostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePostActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Do you want to delete this post?", "Attention", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        {
+        {                                                                                           /// Method for deleting a post
             try {
                 db.getDB().delete("delete from POSTS where POST_ID = '" + id + "'");
                 
@@ -534,7 +534,7 @@ public class SeePost extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnDeletePostActionPerformed
 
-    public void addAttachedFilesToTable() {
+    public void addAttachedFilesToTable() {  // shows which files are attached to the post by showing them on a jTable
         try {
             model1 = (DefaultTableModel) tblAttachedFiles.getModel();
             model1.setRowCount(0);
@@ -558,7 +558,7 @@ public class SeePost extends javax.swing.JFrame {
 
     }
 
-    public void EmbeddImagesInTextPane(String fId) throws BadLocationException {
+    public void EmbeddImagesInTextPane(String fId) throws BadLocationException {  /// shows Images that are attached to the post directly on the txtpane
 
         String pictureName = "";
 
@@ -568,7 +568,7 @@ public class SeePost extends javax.swing.JFrame {
 
             pictureName = db.getDB().fetchSingle("SELECT FILENAME FROM FILES WHERE FILE_ID = '" + fId + "'");
 
-            if (pictureName.contains("png") || pictureName.contains("gif") || pictureName.contains("jpg") || pictureName.contains("jpeg")) {
+            if (pictureName.contains("png") || pictureName.contains("gif") || pictureName.contains("jpg") || pictureName.contains("jpeg")) { /// This is done so that only image files are shown directly in the post
                 String pictureNameInput = pictureName.substring(pictureName.lastIndexOf("\\") + 1, pictureName.length());
 
                 ImageIcon pictureIcon = new ImageIcon(data);
@@ -581,7 +581,7 @@ public class SeePost extends javax.swing.JFrame {
 
                 int he = -1;
 
-                if (picWidth > 400 || picHeight > 150) {
+                if (picWidth > 400 || picHeight > 150) {    /// Here we control that a large picture wouldn´t cover the whole post. 
 
                     wi = picWidth / 2;
 
@@ -624,7 +624,7 @@ public class SeePost extends javax.swing.JFrame {
 
     }
 
-    public void saveFileOnComp() throws FileNotFoundException {
+    public void saveFileOnComp() throws FileNotFoundException {  /// The method used to save a attached file down to the users desktop
         String idString = "";
 
         String fileName = "";
