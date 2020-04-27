@@ -538,7 +538,7 @@ public class NewPost extends javax.swing.JFrame {
         if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {      // this method is used when editing a post and you want to delete files attached to it
             int i = lstDisplayingAttachedFiles.getSelectedIndex();
             
-            int result = JOptionPane.showConfirmDialog(null, "Delete the file from the post?"); // worth nothing that if you press yes on the confirm dialog the files are deleted from the database
+            int result = JOptionPane.showConfirmDialog(null, "Delete the file from the post?"); // worth noting that if you press yes on the confirm dialog the files are deleted from the database
             
             if(result == 0)
             {    
