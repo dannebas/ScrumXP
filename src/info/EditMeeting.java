@@ -47,28 +47,86 @@ public class EditMeeting extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlBread = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMyMeeting = new javax.swing.JTable();
+        lblTitle = new javax.swing.JLabel();
         txtFieldTitle = new javax.swing.JTextField();
+        lblDate = new javax.swing.JLabel();
         txtFieldDate = new javax.swing.JTextField();
+        lblLocation = new javax.swing.JLabel();
         txtFieldTime = new javax.swing.JTextField();
+        lblTime = new javax.swing.JLabel();
         txtFieldLocation = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         lblMeetingID = new javax.swing.JLabel();
         lblMeetingIDUpdate = new javax.swing.JLabel();
+        btnUpdateMeeting = new javax.swing.JButton();
+        scrMyMeetings = new javax.swing.JScrollPane();
+        tblMyMeeting = new javax.swing.JTable();
+        lblSelectMeeting = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         pnlBread.setBackground(new java.awt.Color(255, 255, 255));
         pnlBread.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Meetings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(44, 95, 125))); // NOI18N
         pnlBread.setForeground(new java.awt.Color(0, 0, 0));
+        pnlBread.setPreferredSize(new java.awt.Dimension(840, 400));
         pnlBread.setLayout(null);
+
+        lblTitle.setForeground(new java.awt.Color(0, 0, 0));
+        lblTitle.setText("Title:");
+        lblTitle.setPreferredSize(null);
+        pnlBread.add(lblTitle);
+        lblTitle.setBounds(50, 100, 27, 24);
+        pnlBread.add(txtFieldTitle);
+        txtFieldTitle.setBounds(110, 100, 210, 24);
+
+        lblDate.setForeground(new java.awt.Color(0, 0, 0));
+        lblDate.setText("Date:");
+        lblDate.setPreferredSize(null);
+        pnlBread.add(lblDate);
+        lblDate.setBounds(50, 140, 29, 24);
+
+        txtFieldDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldDateActionPerformed(evt);
+            }
+        });
+        pnlBread.add(txtFieldDate);
+        txtFieldDate.setBounds(110, 140, 210, 24);
+
+        lblLocation.setForeground(new java.awt.Color(0, 0, 0));
+        lblLocation.setText("Location:");
+        lblLocation.setPreferredSize(null);
+        pnlBread.add(lblLocation);
+        lblLocation.setBounds(50, 180, 52, 24);
+        pnlBread.add(txtFieldTime);
+        txtFieldTime.setBounds(110, 180, 210, 24);
+
+        lblTime.setForeground(new java.awt.Color(0, 0, 0));
+        lblTime.setText("Time:");
+        lblTime.setPreferredSize(null);
+        pnlBread.add(lblTime);
+        lblTime.setBounds(50, 220, 31, 24);
+        pnlBread.add(txtFieldLocation);
+        txtFieldLocation.setBounds(110, 220, 210, 24);
+
+        lblMeetingID.setForeground(new java.awt.Color(0, 0, 0));
+        lblMeetingID.setText("Meeting- ID:");
+        pnlBread.add(lblMeetingID);
+        lblMeetingID.setBounds(20, 50, 66, 24);
+
+        lblMeetingIDUpdate.setForeground(new java.awt.Color(0, 0, 0));
+        pnlBread.add(lblMeetingIDUpdate);
+        lblMeetingIDUpdate.setBounds(110, 50, 50, 24);
+
+        btnUpdateMeeting.setText("Update meeting");
+        btnUpdateMeeting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateMeetingActionPerformed(evt);
+            }
+        });
+        pnlBread.add(btnUpdateMeeting);
+        btnUpdateMeeting.setBounds(200, 260, 119, 32);
 
         tblMyMeeting.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,110 +149,17 @@ public class EditMeeting extends javax.swing.JFrame {
                 tblMyMeetingMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblMyMeeting);
+        scrMyMeetings.setViewportView(tblMyMeeting);
 
-        txtFieldDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldDateActionPerformed(evt);
-            }
-        });
+        pnlBread.add(scrMyMeetings);
+        scrMyMeetings.setBounds(350, 40, 453, 254);
 
-        jLabel1.setText("Title:");
+        lblSelectMeeting.setForeground(new java.awt.Color(0, 0, 0));
+        lblSelectMeeting.setText("Select the meeting you wish to edit");
+        pnlBread.add(lblSelectMeeting);
+        lblSelectMeeting.setBounds(460, 20, 197, 16);
 
-        jLabel2.setText("Date:");
-
-        jLabel3.setText("Time:");
-
-        jLabel4.setText("Location:");
-
-        jButton1.setText("Update meeting");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Select the meeting you wish to edit");
-
-        lblMeetingID.setText("Meeting- ID:");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(lblMeetingID)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, Short.MAX_VALUE)
-                                        .addComponent(lblMeetingIDUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtFieldDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
-                                            .addComponent(txtFieldTitle)
-                                            .addComponent(txtFieldTime, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtFieldLocation))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(jButton1)))
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(107, 107, 107))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblMeetingID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblMeetingIDUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
-                        .addComponent(pnlBread, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+        getContentPane().add(pnlBread);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -254,7 +219,7 @@ public class EditMeeting extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblMyMeetingMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnUpdateMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateMeetingActionPerformed
         if (Validation.isCorrectDateFormat(txtFieldDate)) {
             String m = lblMeetingIDUpdate.getText().toString();
             String q1 = "UPDATE MEETINGS SET TITLE='" + txtFieldTitle.getText() + "', DATE ='" + txtFieldDate.getText() + "', TIME='" + txtFieldTime.getText() + "', LOCATION='" + txtFieldLocation.getText() + "' where MEETING_ID=" + m;
@@ -268,19 +233,19 @@ public class EditMeeting extends javax.swing.JFrame {
                 System.out.print(ex);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnUpdateMeetingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton btnUpdateMeeting;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblMeetingID;
     private javax.swing.JLabel lblMeetingIDUpdate;
+    private javax.swing.JLabel lblSelectMeeting;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBread;
+    private javax.swing.JScrollPane scrMyMeetings;
     private javax.swing.JTable tblMyMeeting;
     private javax.swing.JTextField txtFieldDate;
     private javax.swing.JTextField txtFieldLocation;

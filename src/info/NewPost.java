@@ -42,7 +42,7 @@ public class NewPost extends javax.swing.JFrame {
         cbScienceGroups.setVisible(false);
         cbEduSci.setVisible(false);
         cbCategory.setVisible(false);
-        checkboxAllGroups.setVisible(false);
+       // checkboxAllGroups.setVisible(false);
         buttonSave.setVisible(true);
         query = new QueryClass(db.getDB());
         incrID = query.autoIncrementField("POSTS", "POST_ID");
@@ -142,6 +142,7 @@ public class NewPost extends javax.swing.JFrame {
             if (User.getResAdmin()) {
                 cbEduSci.addItem("Science");
                 cbEduSci.setSelectedItem("Science");
+                checkboxAllGroups.setVisible(true);
                 try {
                     String category = "SELECT GROUP_NAME FROM RESEARCH_GROUP";
                     ArrayList<String> subjects = new ArrayList<String>();
