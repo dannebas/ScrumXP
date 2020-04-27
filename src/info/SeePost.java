@@ -79,13 +79,7 @@ public class SeePost extends javax.swing.JFrame {
             Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (isInformal) {
-            btnNewComment.setVisible(true);
-            scrNewComment.setVisible(true);
-        } else {
-            scrNewComment.setVisible(false);
-            btnNewComment.setVisible(false);
-        }
+       
         lblProfileImageSeePost.setIcon(profilePicture);
         lblTiltleSeePost.setText(aPost.getTitle());
         Font font = lblAuthorSeePost.getFont();
@@ -102,6 +96,13 @@ public class SeePost extends javax.swing.JFrame {
         isInformal(id);
         isFormal(id);
         isEducational(id);
+         if (isInformal) {
+            btnNewComment.setVisible(true);
+            scrNewComment.setVisible(true);
+        } else {
+            scrNewComment.setVisible(false);
+            btnNewComment.setVisible(false);
+        }
         checkAdminType();
         setLocationRelativeTo(null);
     }
