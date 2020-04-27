@@ -14,8 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
 
 /**
  * @author Group 1
@@ -28,6 +30,7 @@ public class NewPost extends javax.swing.JFrame {
     private File[] aListOfFiles;
     private ArrayList<File> aListForDisplayingFiles;
     private QueryClass query;
+    private ArrayList<String> savedId;
 
     /**
      * Creates new form NewPost
@@ -45,6 +48,8 @@ public class NewPost extends javax.swing.JFrame {
         incrID = query.autoIncrementField("POSTS", "POST_ID");
         aListForDisplayingFiles = new ArrayList<>();
         setLocationRelativeTo(null);
+        btnRemoveFileEdit.setVisible(false);
+        btnRemoveFile.setVisible(true);
     }
 
     public NewPost(String postId) {
@@ -58,6 +63,33 @@ public class NewPost extends javax.swing.JFrame {
         query = new QueryClass(db.getDB());
         aListForDisplayingFiles = new ArrayList<>();
         setLocationRelativeTo(null);
+        
+        ArrayList<HashMap<String,String>> list = new ArrayList<>();
+        
+        
+        try{
+        String betterFileName = "";
+        String fileName = "";
+        list = db.getDB().fetchRows("SELECT * FROM FILES WHERE POST =" + postId);
+       System.out.println(list.size());
+            lstDisplayingAttachedFiles.setModel(model);
+        savedId = new ArrayList<>();
+       
+        for(HashMap<String, String> oneAttachedFile: list)
+        {
+            savedId.add(oneAttachedFile.get("FILE_ID"));
+            fileName = oneAttachedFile.get("FILENAME");
+             betterFileName = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length());
+             model.addElement(betterFileName);
+             
+        }
+        }catch(SQLException s)
+                {}
+        catch(NullPointerException ee)
+        {}
+        
+        btnRemoveFile.setVisible(false);
+        btnRemoveFileEdit.setVisible(true);
     }
 
     private void clear() {
@@ -150,6 +182,7 @@ public class NewPost extends javax.swing.JFrame {
         buttonPost = new javax.swing.JButton();
         scrDescription = new javax.swing.JScrollPane();
         textMain = new javax.swing.JEditorPane();
+        btnRemoveFileEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -311,6 +344,19 @@ public class NewPost extends javax.swing.JFrame {
         pnlBread.add(scrDescription);
         scrDescription.setBounds(30, 230, 710, 310);
 
+        btnRemoveFileEdit.setBackground(new java.awt.Color(44, 95, 125));
+        btnRemoveFileEdit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnRemoveFileEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoveFileEdit.setText("Remove file");
+        btnRemoveFileEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnRemoveFileEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFileEditActionPerformed(evt);
+            }
+        });
+        pnlBread.add(btnRemoveFileEdit);
+        btnRemoveFileEdit.setBounds(30, 700, 90, 40);
+
         getContentPane().add(pnlBread);
 
         pack();
@@ -395,7 +441,12 @@ public class NewPost extends javax.swing.JFrame {
         if (model.getSize() > 0) {
             for (File oneFile : aListForDisplayingFiles) {
                 String path = oneFile.getAbsolutePath();
+                
                 int fileID = query.autoIncrementField("FILES", "FILE_ID");
+              
+                
+                
+                System.out.println(fileID);
                 query.executeUploadQueryFiles(oneFile, "INSERT INTO FILES VALUES(" + fileID + ",'" + path + "', ? ," + incrID + ")");
             }
         }
@@ -481,6 +532,40 @@ public class NewPost extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkboxAllGroupsActionPerformed
 
+    private void btnRemoveFileEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFileEditActionPerformed
+       
+        if (!lstDisplayingAttachedFiles.isSelectionEmpty()) {
+            int i = lstDisplayingAttachedFiles.getSelectedIndex();
+            
+            int result = JOptionPane.showConfirmDialog(null, "Delete the file from the post?");
+            
+            if(result == 0)
+            {    
+            model.removeElementAt(i);
+           try{
+             
+            db.getDB().delete("DELETE FROM FILES WHERE FILE_ID =" + savedId.get(i));
+            savedId.remove(i);
+            }
+            catch(SQLException e)
+            {}   
+        }
+       
+    
+        
+        }
+        
+       /* String mystring = lstDisplayingAttachedFiles.getSelectedValue().toString();
+        String arr[] = mystring.split(" ", 2);
+        int removeFileindex = Integer.parseInt(arr[0]);
+        System.out.println("det här är ID för filen" +removeFileindex);
+        try{
+        db.getDB().delete("Delete FROM FILES WHERE  FILE_ID = " + removeFileindex);
+        }
+        catch(SQLException e)
+        {}*/
+    }//GEN-LAST:event_btnRemoveFileEditActionPerformed
+
     private void showCbEduSci() {
         String choice = cbEduSci.getSelectedItem().toString();
         if (choice.equals("Science")) {
@@ -494,6 +579,7 @@ public class NewPost extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRemoveFile;
+    private javax.swing.JButton btnRemoveFileEdit;
     private javax.swing.JButton buttonAttach;
     private javax.swing.JButton buttonClear;
     private javax.swing.JButton buttonPost;
